@@ -10,6 +10,7 @@ gem 'twitter-bootstrap-rails'
 gem 'simple_form'
 gem 'devise'
 gem 'rails_admin'
+gem 'cancan'
 
 
 # Gems used only for assets and not required
@@ -37,6 +38,10 @@ group :test do
   gem 'factory_girl_rails'
   gem 'valid_attribute'
   gem 'shoulda-matchers'
+end
+
+group :development do
+  gem 'sextant'
 end
 
 
