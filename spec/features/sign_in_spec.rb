@@ -1,24 +1,40 @@
 require 'spec_helper'
-valid_user = build(:user)
+valid_user = FactoryGirl.build(:user)
 
-feature "User Sign Up" do
+describe "User Sign Up" do
 
-  scenario "Guest visits site for the first time and needs to register" do
+  context "Guest visits site for the first time and needs to register" do
 
     it "Allows Guest to register with the site" do
+      prev_user = User.count
       visit root_path
       click_on "Register"
-      expect(current_root).to eq(new_user_path)
+      expect(current_path).to eq(new_user_registration_path)
+      fill_in "Username", :with => valid_user.username
+      fill_in "Email", :with => valid_user.email
+      fill_in "user_password", :with => valid_user.password
+      fill_in "user_password_confirmation", :with => valid_user.password_confirmation
+      click_on "Create New Account"
+      expect(User.count).to eq(prev_user + 1)
+      expect(User.last.email).to eq(valid_user.email)
     end
 
     it "Does not allow Guest to register with invalid details" do
+      prev_user = User.count
+      visit root_path
+      click_on "Register"
+      expect(current_path).to eq(new_user_registration_path)
+      click_button "Create New Account"
+      expect(User.count).to eq(prev_user)
     end
 
   end
 
-feature "User Sign In" do
+end
 
-  scenario "Guest with account wants to sign in" do
+describe "User Sign In" do
+
+  context "Guest with account wants to sign in" do
 
     it "Allows Guest to sign in using username and password" do
     end
@@ -30,9 +46,9 @@ feature "User Sign In" do
 
 end
 
-feature "User Profile" do
+describe "User Profile" do
 
-  scenario "A signed in user wants to view their information" do
+  context "A signed in user wants to view their information" do
 
     it "Allows User to visit their profile page" do
     end
