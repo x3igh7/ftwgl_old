@@ -1,9 +1,19 @@
-<div class="hero-unit">
-  <div class="container text-center">
-    <h1>Welcome to FTWGL</h1>
-    <h3><%= link_to "Register", new_user_registration_path %></h3>
-    <p></p>
-    <h3>Sign In</h3>
+<div class="row">
+  <div class="hero-unit">
+    <div class="container text-center">
+      <h1>Welcome to FTWGL</h1>
+      <h2><%= link_to "Register", new_user_registration_path %></h2>
+      <p></p>
+      <h3><%= link_to "Sign In", new_user_session_path %></h3>
+      <p></p>
+      <h4><%= link_to 'Sign Out', destroy_user_session_path, 
+        :method => 'delete' %></h4>
+      <% if user_signed_in? %>
+        <h5>
+          <%= link_to "User Profile", user_path(current_user) %>
+        </h5>
+      <% end %>
+    </div>
   </div>
-</div>
+</div> 
 

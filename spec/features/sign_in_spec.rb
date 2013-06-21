@@ -1,11 +1,14 @@
 require 'spec_helper'
-valid_user = FactoryGirl.build(:user)
 
-describe "User Sign Up" do
 
-  context "Guest visits site for the first time and needs to register" do
 
-    it "Allows Guest to register with the site" do
+describe "A User" do
+  
+  valid_user = FactoryGirl.build(:user)
+
+  context "without an account" do
+
+    it "can register with the site" do
       prev_user = User.count
       visit root_path
       click_on "Register"
@@ -19,7 +22,7 @@ describe "User Sign Up" do
       expect(User.last.email).to eq(valid_user.email)
     end
 
-    it "Does not allow Guest to register with invalid details" do
+    it "cannot register using invalid details" do
       prev_user = User.count
       visit root_path
       click_on "Register"
@@ -32,28 +35,52 @@ describe "User Sign Up" do
 
 end
 
-describe "User Sign In" do
+describe "User" do
 
-  context "Guest with account wants to sign in" do
+  let!(:registered) { FactoryGirl.create(:user) }
 
-    it "Allows Guest to sign in using username and password" do
+  context "with an account" do
+
+    it "can sign in using their username and password" do
+      visit root_path
+      click_on "Sign In"
+      expect(current_path).to eq(new_user_session_path)
+      fill_in "Username", :with => registered.username
+      fill_in "Password", :with => registered.password
+      click_button "Log In"
+      expect(page).to have_content("Signed in successfully")
     end
 
-    it "Does not allow Guest to sign in with invalid credentials" do
+    it "cannot sign in with invalid credentials" do
+      visit root_path
+      click_on "Sign In"
+      expect(current_path).to eq(new_user_session_path)
+      click_button "Log In"
+      expect(page).to have_content("Invalid email or password.")
     end
 
   end
 
-end
+  context "that is signed in" do
 
-describe "User Profile" do
-
-  context "A signed in user wants to view their information" do
-
-    it "Allows User to visit their profile page" do
+    it 'cannot link to their profile' do
+      visit root_path
+      expect(page).to_not have_content("User Profile")
+      visit user_path(registered)
+      expect(page).to have_content("Need to sign in to visit user profiles.")
     end
 
-    it "Does not allow User to visit their profile page if not signed in" do
+    it "can visit their profile page" do
+      sign_in_as registered
+      visit user_path(registered)
+      expect(page).to have_content("Profile for " + registered.username)
+    end
+
+    it 'can choose to change password' do
+      sign_in_as registered
+      visit user_path(registered)
+      click_on "Change Password"
+      expect(current_path).to include(edit_user_registration_path)
     end
 
   end
