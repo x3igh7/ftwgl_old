@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="row">
+    <div class="span12 text-center">
+      <%= "Profile for #{@user.username}" %>
+      <div class="row">
+        <div class="span6"> <%= @user.email %> </div>
+        
+        <% if user_signed_in? && current_user == @user %>
+          <div class="span5 offset1"><%= link_to "Change Password", edit_user_registration_path(@user) %></div>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+</div>
