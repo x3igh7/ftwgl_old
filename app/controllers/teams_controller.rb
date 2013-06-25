@@ -17,5 +17,7 @@ class TeamsController < ApplicationController
 
   def show
     @team = Team.find(params[:id])
+    @user = current_user
+    @membership = @team.memberships
   end
 end

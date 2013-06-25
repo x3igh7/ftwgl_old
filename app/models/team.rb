@@ -13,9 +13,14 @@ class Team < ActiveRecord::Base
     owners.map { |owner| owner.user }
   end
 
+  def actives
+    actives = memberships.where("active = 'true'")
+    actives.map { |active| active.user }
+  end
+
   def save_with_owner(user)
     Team.transaction do
-      save and Membership.create(:team => self, :user => user, :role => 'owner')
+      save and Membership.create(:team => self, :user => user, :role => 'owner', :active => true)
     end
   end
 

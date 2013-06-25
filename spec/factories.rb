@@ -9,5 +9,6 @@ FactoryGirl.define do
     team
     user
     role 'user'
+    active false
   end
 end

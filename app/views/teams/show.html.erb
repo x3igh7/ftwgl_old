@@ -1,3 +1,15 @@
 <h1>Team Profile Page</h1>
 <%= @team.name %>
 <%= @team.tag %>
+
+<h2>Roster</h2>
+
+<% @team.memberships.each do |member| %>
+  <% if member.active == true %>
+    <p><%= "#{member.user.username}" %></p>
+  <% else %>
+    <p><%= "#{member.user.username} Status: Pending" %></p>
+  <% end %>
+<% end %>
+
+<%= button_to "Apply to Team", memberships_path(:team_id => @team.id), :method => 'post' %>

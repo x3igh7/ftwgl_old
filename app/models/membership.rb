@@ -1,5 +1,5 @@
 class Membership < ActiveRecord::Base
-  attr_accessible :user, :role, :team
+  attr_accessible :user, :role, :team, :active
 
   validates_presence_of :team, :user, :role
 
