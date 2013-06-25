@@ -38,8 +38,6 @@ describe "Team roster" do
 
     it "can be approved by a team owner" do
       FactoryGirl.create(:membership, team: team, user: team_owner, role: 'owner', active: true)
-
-
     end
 
     it "can be rejected by a team owner" do
