@@ -10,4 +10,5 @@ class User < ActiveRecord::Base
   # attr_accessible :title, :body
 
   validates_presence_of :email, :password, :username
+  has_many :memberships
 end
