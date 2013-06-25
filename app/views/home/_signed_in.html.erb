@@ -1,0 +1,20 @@
+<h2>
+  <%= link_to "Create Team", new_team_path %>
+</h2>
+
+<h5>
+  <%= link_to 'Sign Out', destroy_user_session_path, 
+:method => 'delete' %>
+</h5>
+
+<h3>
+  <%= link_to "User Profile", user_path(current_user) %>
+</h3>
+
+<h3>
+  <ul class="inline">Teams:
+    <% @teams.each do |team| %>
+      <%= link_to "#{team.name}#{team.tag}", team_path(team) %>
+    <% end %>
+  </ul>
+</h3>
