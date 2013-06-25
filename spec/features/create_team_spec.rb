@@ -10,12 +10,7 @@ describe 'creating a team' do
     end
 
     it 'shows the team page after successful creation' do
-      visit new_team_path
-
-      fill_in 'Name', with: 'foobar'
-      fill_in 'Tag', with: '[TAG]'
-
-      click_button 'Create Team'
+      create_team
 
       expect(page).to have_content('foobar')
       expect(page).to have_content('[TAG]')
@@ -32,13 +27,28 @@ describe 'creating a team' do
     end
 
     it 'makes the current user the owner' do
-      visit new_team_path
-      fill_in 'Name', with: 'foobar'
-      fill_in 'Tag', with: '[TAG]'
-      click_button 'Create Team'
+      create_team
 
       team = Team.first
       team.owners.should include(user)
     end
+
+    it 'can navigate to their team page' do
+      team = FactoryGirl.create(:team)
+      FactoryGirl.create(:membership, team: team, user: user)
+
+      visit root_path
+      
+      click_on "foo[bar]"
+
+      expect(current_path).to eq(team_path(team))
+    end
+  end
+
+  def create_team
+    visit new_team_path
+    fill_in 'Name', with: 'foobar'
+    fill_in 'Tag', with: '[TAG]'
+    click_button 'Create Team'
   end
 end

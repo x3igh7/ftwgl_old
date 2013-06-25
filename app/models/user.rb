@@ -11,4 +11,5 @@ class User < ActiveRecord::Base
 
   validates_presence_of :email, :password, :username
   has_many :memberships
+  has_many :teams, through: :memberships
 end
