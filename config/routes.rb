@@ -1,6 +1,7 @@
 Ftwgl::Application.routes.draw do
   devise_for :users
   resources :user, :only => [:show]
+  resources :teams, :only => [:new, :create, :show]
 
   root :to => 'home#home'
 
