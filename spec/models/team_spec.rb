@@ -34,6 +34,14 @@ describe Team do
     it {should_not have_valid(:tag).when('[THISISALONGTAG]')}
   end
 
+  # it "active? returns true if player is active" do
+  #   team = FactoryGirl.create(:team)
+  #   user = FactoryGirl.create(:user)
+  #   FactoryGirl.create(:membership, team: team, role: 'member', active: true)
+
+  #   is_active?(user,team).should be_true
+  # end
+
 end
 
 

@@ -4,6 +4,8 @@ class TeamsController < ApplicationController
   end
 
   def create
+    :authenticate_user!
+
     @team = Team.new(params[:team])
     
     if @team.save_with_owner(current_user)
@@ -20,5 +22,30 @@ class TeamsController < ApplicationController
     @user = current_user
     @membership = @team.memberships
   end
+
+  def edit
+    :authenticate_user!
+
+    @team = Team.find(params[:id])
+    if @team.owners.include?(current_user)
+      true
+    else
+      redirect_to team_path(@team)
+      flash[:alert] = "You are not the owner of this team"
+    end
+  end
+
+  def update
+    @team = Team.find(params[:id])
+
+    if @team.update_attributes(params[:team])
+      redirect_to @team
+      flash[:notice] = "Team Updated Successfully!"
+    else
+      render 'edit'
+      flash[:alert] = "Update Unsuccessful."
+    end
+  end
+
 
 end

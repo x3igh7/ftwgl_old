@@ -18,13 +18,15 @@ class Team < ActiveRecord::Base
     actives.map { |active| active.user }
   end
 
-  def active?(user,team)
-    user.memberships.where(:team_id => team.id).last.active
-  end
+  # def is_active?(user, team)
+  #   member = Memberships.where("team_id = '?'", team).where("user_id = '?'", user)
+  #   member.active == true
+  # end
 
   def members
-    members = memberships.where("role = 'member'")
-    members.map { |member| member.user }
+    # users.joins(:memberships).where("role = 'member'")
+    actives = memberships.where("active = 'true'")
+    actives.map { |active| active.user }
   end
 
   def save_with_owner(user)

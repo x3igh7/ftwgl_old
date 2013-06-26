@@ -47,12 +47,18 @@ describe "Team roster" do
 
       visit team_path(team)
       click_button "Approve"
-
+      
       expect(user.memberships.last.active).to be_true
       expect(page).to_not have_content("Pending")
     end
 
-    it "can be rejected by a team owner" do
+    it "can be removed by a team owner" do
+      visit team_path(team)
+
+      valid_user = user.memberships
+      click_button "Remove"
+
+      expect(valid_user.exists?).to be_false
     end
 
   end

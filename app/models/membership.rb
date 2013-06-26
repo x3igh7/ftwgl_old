@@ -8,4 +8,10 @@ class Membership < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :team
+
+  class << self
+    def of_role(role)
+      where(role: role)
+    end
+  end
 end

@@ -1,6 +1,8 @@
+<div class="container">
+
 <h1>Team Profile Page</h1>
-<%= @team.name %>
-<%= @team.tag %>
+<h2><%= "#{@team.name} #{@team.tag}" %></h2>
+<h4><%= link_to "Edit Team Profile", edit_team_path(@team) %></h4>
 
 <h2>Roster</h2>
 
@@ -8,36 +10,17 @@
 <table class="table table-condensed">
   <tr>
     <th>Member</th>
+    <th>Role</th>
     <th>Status</th>
     <th></th>
+    <th></th>
   </tr>
-<% @membership.each do |member| %>
- 
-  <tr>
-
-    <% if member.active %>
-      <td><%= "#{member.user.username}" %></td>
-      <td></td>
-      <td></td>
-    <% else %>
-      <td><%= "#{member.user.username}" %></td>
-      <td>(Pending)</td>
-      <% if @team.owners.include?(current_user) %>
-        <td>
-          <%= button_to 'Approve', membership_path(:user_id => member.user.id,:team_id => @team.id,:active => true), :method => 'put' %>
-        </td>
-      <% else %>
-        <td></td>
-      <% end %>
-    <% end %>
-
-     
-
-
-  </tr>
-<% end %>
+  <%= render 'team_roster_values' %>
 </table>
+
 
 <% unless @team.owners.include?(current_user) || @team.members.include?(current_user) %>
   <%= button_to "Apply to Team", memberships_path(:team_id => @team.id), :method => 'post' %>
 <% end %>
+
+</div>
