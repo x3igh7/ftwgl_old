@@ -18,6 +18,10 @@ class Team < ActiveRecord::Base
     actives.map { |active| active.user }
   end
 
+  def active?(user,team)
+    user.memberships.where(:team_id => team.id).last.active
+  end
+
   def members
     members = memberships.where("role = 'member'")
     members.map { |member| member.user }
