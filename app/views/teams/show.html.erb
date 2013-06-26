@@ -1,3 +1,26 @@
+<div class="container">
+
 <h1>Team Profile Page</h1>
-<%= @team.name %>
-<%= @team.tag %>
+<h2><%= "#{@team.name} #{@team.tag}" %></h2>
+<h4><%= link_to "Edit Team Profile", edit_team_path(@team) %></h4>
+
+<h2>Roster</h2>
+
+
+<table class="table table-condensed">
+  <tr>
+    <th>Member</th>
+    <th>Role</th>
+    <th>Status</th>
+    <th></th>
+    <th></th>
+  </tr>
+  <%= render 'team_roster_values' %>
+</table>
+
+
+<% unless @team.owners.include?(current_user) || @team.members.include?(current_user) %>
+  <%= button_to "Apply to Team", memberships_path(:team_id => @team.id), :method => 'post' %>
+<% end %>
+
+</div>
