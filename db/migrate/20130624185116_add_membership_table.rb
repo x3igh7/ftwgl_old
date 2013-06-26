@@ -3,7 +3,7 @@ class AddMembershipTable < ActiveRecord::Migration
     create_table :memberships do |t|
       t.integer :user_id, :null => false
       t.integer :team_id, :null => false
-      t.string  :role, :null => false, :default => 'user'
+      t.string  :role, :null => false, :default => 'member'
     end
   end
 end

@@ -18,6 +18,11 @@ class Team < ActiveRecord::Base
     actives.map { |active| active.user }
   end
 
+  def members
+    members = memberships.where("role = 'member'")
+    members.map { |member| member.user }
+  end
+
   def save_with_owner(user)
     Team.transaction do
       save and Membership.create(:team => self, :user => user, :role => 'owner', :active => true)

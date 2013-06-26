@@ -10,7 +10,7 @@ class TeamsController < ApplicationController
       redirect_to team_path(@team)
       flash[:notice] = "Successfully created team"
     else
-      flash[:error] = "Failed to create team"
+      flash[:alert] = "Failed to create team"
       render :new
     end
   end
@@ -20,4 +20,5 @@ class TeamsController < ApplicationController
     @user = current_user
     @membership = @team.memberships
   end
+
 end

@@ -9,7 +9,7 @@ describe Team do
   it "shows the team owners" do
     team = FactoryGirl.create(:team)
     user = FactoryGirl.create(:user)
-    FactoryGirl.create(:membership, team: team, role: 'user')
+    FactoryGirl.create(:membership, team: team, role: 'member')
     FactoryGirl.create(:membership, team: team, user: user, role: 'owner', active: true)
 
     team.owners.should include(user)

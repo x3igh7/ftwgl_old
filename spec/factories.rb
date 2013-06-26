@@ -8,7 +8,7 @@ FactoryGirl.define do
   factory :membership do
     team
     user
-    role 'user'
+    role 'member'
     active false
   end
 end

@@ -4,12 +4,40 @@
 
 <h2>Roster</h2>
 
-<% @team.memberships.each do |member| %>
-  <% if member.active == true %>
-    <p><%= "#{member.user.username}" %></p>
-  <% else %>
-    <p><%= "#{member.user.username} Status: Pending" %></p>
-  <% end %>
-<% end %>
 
-<%= button_to "Apply to Team", memberships_path(:team_id => @team.id), :method => 'post' %>
+<table class="table table-condensed">
+  <tr>
+    <th>Member</th>
+    <th>Status</th>
+    <th></th>
+  </tr>
+<% @membership.each do |member| %>
+ 
+  <tr>
+
+    <% if member.active %>
+      <td><%= "#{member.user.username}" %></td>
+      <td></td>
+      <td></td>
+    <% else %>
+      <td><%= "#{member.user.username}" %></td>
+      <td>(Pending)</td>
+      <% if @team.owners.include?(current_user) %>
+        <td>
+          <%= button_to 'Approve', membership_path(:user_id => member.user.id,:team_id => @team.id,:active => true), :method => 'put' %>
+        </td>
+      <% else %>
+        <td></td>
+      <% end %>
+    <% end %>
+
+     
+
+
+  </tr>
+<% end %>
+</table>
+
+<% unless @team.owners.include?(current_user) || @team.members.include?(current_user) %>
+  <%= button_to "Apply to Team", memberships_path(:team_id => @team.id), :method => 'post' %>
+<% end %>

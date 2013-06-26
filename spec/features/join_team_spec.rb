@@ -3,9 +3,9 @@ require 'spec_helper'
 describe "Team roster" do
   
   context "applications" do
-    let(:user) { FactoryGirl.create(:user) }
-    let(:team_owner) {FactoryGirl.create(:user) }
-    let(:team) { FactoryGirl.create(:team) }
+    let!(:user) { FactoryGirl.create(:user) }
+    let!(:team_owner) {FactoryGirl.create(:user) }
+    let!(:team) { FactoryGirl.create(:team) }
     
     before :each do
       sign_in_as user
@@ -32,12 +32,24 @@ describe "Team roster" do
 
 
   context "pending application" do
-    let(:user) { FactoryGirl.create(:user) }
-    let(:team_owner) {FactoryGirl.create(:user) }
-    let(:team) { FactoryGirl.create(:team) }
+    let!(:user) { FactoryGirl.create(:user) }
+    let!(:team_owner) {FactoryGirl.create(:user) }
+    let!(:team) { FactoryGirl.create(:team) }
+    let!(:member1) {FactoryGirl.create(:membership, team: team, user: user, role: 'member', active: false)}
+    let!(:member2) {FactoryGirl.create(:membership, team: team, user: team_owner, role: 'owner', active: true)}
+
+
+    before :each do
+      sign_in_as team_owner
+    end
 
     it "can be approved by a team owner" do
-      FactoryGirl.create(:membership, team: team, user: team_owner, role: 'owner', active: true)
+
+      visit team_path(team)
+      click_button "Approve"
+
+      expect(user.memberships.last.active).to be_true
+      expect(page).to_not have_content("Pending")
     end
 
     it "can be rejected by a team owner" do
