@@ -9,18 +9,19 @@ describe Team do
   it "shows the team owners" do
     team = FactoryGirl.create(:team)
     user = FactoryGirl.create(:user)
-    FactoryGirl.create(:membership, team: team, role: 'user')
-    FactoryGirl.create(:membership, team: team, user: user, role: 'owner')
+    FactoryGirl.create(:membership, team: team, role: 'member')
+    FactoryGirl.create(:membership, team: team, user: user, role: 'owner', active: true)
 
     team.owners.should include(user)
   end
 
-  it "creates a new team from an owner" do
+  it "creates a new team from an owner and owner is active" do
     user = FactoryGirl.create(:user)
 
     team = Team.new(name: 'foo', tag: '[bar]')
     team.save_with_owner(user).should be_true
     team.owners.should include(user)
+    team.actives.should include(user)
   end
 
   describe "Name length is 50" do
@@ -32,6 +33,14 @@ describe Team do
     it {should have_valid(:tag).when('[TAG]')}
     it {should_not have_valid(:tag).when('[THISISALONGTAG]')}
   end
+
+  # it "active? returns true if player is active" do
+  #   team = FactoryGirl.create(:team)
+  #   user = FactoryGirl.create(:user)
+  #   FactoryGirl.create(:membership, team: team, role: 'member', active: true)
+
+  #   is_active?(user,team).should be_true
+  # end
 
 end
 
