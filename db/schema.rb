@@ -11,13 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130626205914) do
+ActiveRecord::Schema.define(:version => 20130627192008) do
 
   create_table "memberships", :force => true do |t|
-    t.integer "user_id",                       :null => false
-    t.integer "team_id",                       :null => false
-    t.string  "role",    :default => "member", :null => false
-    t.boolean "active",  :default => false,    :null => false
+    t.integer  "user_id",                          :null => false
+    t.integer  "team_id",                          :null => false
+    t.string   "role",       :default => "member", :null => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
+    t.boolean  "active",     :default => false,    :null => false
   end
 
   add_index "memberships", ["team_id"], :name => "index_memberships_on_team_id"
@@ -25,8 +27,18 @@ ActiveRecord::Schema.define(:version => 20130626205914) do
   add_index "memberships", ["user_id"], :name => "index_memberships_on_user_id"
 
   create_table "teams", :force => true do |t|
-    t.string "name", :null => false
-    t.string "tag",  :null => false
+    t.string   "name",       :null => false
+    t.string   "tag",        :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "tournaments", :force => true do |t|
+    t.string   "name",        :null => false
+    t.string   "description"
+    t.text     "rules"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "users", :force => true do |t|

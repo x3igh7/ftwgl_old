@@ -11,4 +11,5 @@ FactoryGirl.define do
     role 'member'
     active false
   end
+
 end

@@ -3,15 +3,17 @@ class Membership < ActiveRecord::Base
 
   validates_presence_of :team, :user, :role
   validates_inclusion_of :active, :in => [true, false]
-  validates_inclusion_of :role, :in => ['owner', 'member']
+  validates_inclusion_of :role, :in => ['owner', 'captain', 'member']
   validates_uniqueness_of :user_id, scoped_to: :team_id
 
   belongs_to :user
   belongs_to :team
 
-  class << self
-    def of_role(role)
-      where(role: role)
-    end
+
+  ROLES = %w[owner captain member]
+  
+  def role_symbols
+    [role.to_sym]
   end
+
 end
