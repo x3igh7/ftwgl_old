@@ -12,4 +12,10 @@ FactoryGirl.define do
     active false
   end
 
+  factory :tournament do
+    name "FTW Team Survivor"
+    description "Season 1"
+    rules "Don't cheat"
+  end
+
 end

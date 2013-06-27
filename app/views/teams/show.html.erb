@@ -2,7 +2,9 @@
 
 <h1>Team Profile Page</h1>
 <h2><%= "#{@team.name} #{@team.tag}" %></h2>
+<% if @team.owners.include?(current_user) %>
 <h4><%= link_to "Edit Team Profile", edit_team_path(@team) %></h4>
+<% end %>
 
 <h2>Roster</h2>
 
