@@ -66,8 +66,6 @@ describe "User" do
     it 'cannot link to their profile' do
       visit root_path
       expect(page).to_not have_content("User Profile")
-      visit user_path(registered)
-      expect(page).to have_content("Need to sign in to visit user profiles.")
     end
 
     it "can visit their profile page" do

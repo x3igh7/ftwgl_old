@@ -11,6 +11,7 @@ gem 'simple_form'
 gem 'devise'
 gem 'rails_admin'
 gem 'cancan'
+gem 'role_model'
 
 
 # Gems used only for assets and not required

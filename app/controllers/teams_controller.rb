@@ -1,11 +1,15 @@
 class TeamsController < ApplicationController
+load_and_authorize_resource
+
+  def index 
+    @team = Team.order("name")
+  end
+
   def new
     @team = Team.new    
   end
 
   def create
-    :authenticate_user!
-
     @team = Team.new(params[:team])
     
     if @team.save_with_owner(current_user)
@@ -24,8 +28,6 @@ class TeamsController < ApplicationController
   end
 
   def edit
-    :authenticate_user!
-
     @team = Team.find(params[:id])
     if @team.owners.include?(current_user)
       true

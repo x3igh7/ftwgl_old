@@ -1,0 +1,20 @@
+<div class="container">
+  <h1>Teams</h1>
+
+  <table class="table">
+    <tr>
+      <th>Team Name</th>
+      <th>Team Tag</th>
+    </tr>
+    <% @team.each do |team| %>
+      <tr>
+        <td>
+          <%= link_to team.name, team_path(team) %>
+        </td>
+        <td>
+          <%= team.tag %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>
