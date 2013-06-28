@@ -7,9 +7,9 @@ class TournamentsController < ApplicationController
   def new
     @tournament = Tournament.new
 
-    if current_user.role != 'admin'
+    unless current_user.has_role? :admin
       redirect_to root_path
-      flash[:alert] = "You don't have permission to access this."
+      flash[:alert] = "You are not authorized to access this page."
     end
   end
 

@@ -9,5 +9,6 @@
 user = User.create(username: 'x8', password: 'f00tball', email: 'conner@gmail.com')
 user.roles = :admin
 user.save
+user2 = User.create(username: 'x3igh7', password: 'f00tball', email: 'conners@gmail.com')
 team = Team.create(name: 'foo', tag: '[bar]')
 Membership.create(user: user, team: team, role: 'owner', active: true )

@@ -19,9 +19,12 @@ class User < ActiveRecord::Base
   roles_attribute :roles_mask
   roles :admin, :user
 
-  before_save :default_role
-  def default_role
-    self.roles ||= :user
+  before_save :default_roles
+
+  def default_roles
+    if self.roles_mask == nil
+      self.roles = :user
+    end
   end
   
 end

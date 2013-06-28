@@ -3,10 +3,12 @@ require 'spec_helper'
 describe "creating a tournament" do
 
   context "as an admin" do
-    let!(:admin) { FactoryGirl.create(:user, role: 'admin') }
+    let!(:admin) { FactoryGirl.create(:user) }
     let!(:tournament) { FactoryGirl.build(:tournament) }
     
     before do
+      admin.roles = :admin
+      admin.save
       sign_in_as admin
     end
 
@@ -45,7 +47,7 @@ describe "creating a tournament" do
 
       visit new_tournament_path
 
-      expect(page).to have_content("You don't have permission to access this.")
+      expect(page).to have_content("You are not authorized to access this page.")
     end
     
   end
