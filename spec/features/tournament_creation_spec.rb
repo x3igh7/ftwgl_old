@@ -36,4 +36,17 @@ describe "creating a tournament" do
     end
 
   end
+
+  context "as a user" do
+    let!(:user) { FactoryGirl.create(:user) }
+
+    it "results in errors" do
+      sign_in_as user
+
+      visit new_tournament_path
+
+      expect(page).to have_content("You don't have permission to access this.")
+    end
+    
+  end
 end

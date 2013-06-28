@@ -1,4 +1,5 @@
 class TeamsController < ApplicationController
+load_and_authorize_resource
 
   def index 
     @team = Team.order("name")

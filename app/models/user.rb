@@ -8,15 +8,20 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  attr_accessible :email, :password, :username, :role, :password_confirmation, :remember_me, :roles_mask
+  attr_accessible :email, :password, :username, :password_confirmation, :remember_me, :roles_mask
 
   # Setup accessible (or protected) attributes for your model
   # attr_accessible :title, :body
-  validates_presence_of :email, :password, :username
+  validates_presence_of :email, :username
   has_many :memberships
   has_many :teams, through: :memberships
 
   roles_attribute :roles_mask
   roles :admin, :user
+
+  before_save :default_role
+  def default_role
+    self.roles ||= :user
+  end
   
 end

@@ -6,6 +6,11 @@ class TournamentsController < ApplicationController
 
   def new
     @tournament = Tournament.new
+
+    if current_user.role != 'admin'
+      redirect_to root_path
+      flash[:alert] = "You don't have permission to access this."
+    end
   end
 
   def create
