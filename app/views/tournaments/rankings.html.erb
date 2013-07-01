@@ -1,0 +1,25 @@
+<div class="container">
+  <table class="table">
+    <legend>Rankings</legend>
+    <tr>
+      <th>Rank</th>
+      <th>Team</th>
+      <th>Points</th>
+      <th>Wins</th>
+      <th>Losses</th>
+      <th>Differential</th>
+    </tr>
+    <% @teams.each_with_index do |team, x| %>
+    <tr>
+      <td><%= x+1 %></td>
+      <td><%= "#{team.team.name} #{team.team.tag}" %></td>
+      <td><%= team.total_points %></td>
+      <td><%= team.wins %></td>
+      <td><%= team.losses %></td>
+      <td><%= team.total_diff %></td>
+    </tr>
+    <% end %>
+  </table>
+
+</div>
+

@@ -7,6 +7,7 @@
     <% else %>
       <td>Pending</td>
     <% end %>
+<!--Checking to see if the current user is a team owner and the member in question is not an owner, that is to say you cant remove or approve an owner-->
     <% if @team.owners.include?(current_user) && member.role != 'owner' %>
       <% if member.active == false %>
       <td>
