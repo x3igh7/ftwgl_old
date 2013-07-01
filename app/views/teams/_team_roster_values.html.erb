@@ -1,6 +1,6 @@
 <% @membership.each do |member| %> 
   <tr>
-    <td><%= "#{member.user.username}" %></td>
+    <td><%= link_to member.user.username, user_path(member.user) %></td>
     <td><%= "#{member.role }" %></td>
     <% if member.active == true %>
       <td>Active</td>

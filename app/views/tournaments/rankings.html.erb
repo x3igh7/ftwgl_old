@@ -12,7 +12,7 @@
     <% @teams.each_with_index do |team, x| %>
     <tr>
       <td><%= x+1 %></td>
-      <td><%= "#{team.team.name} #{team.team.tag}" %></td>
+      <td><%= link_to "#{team.team.name} #{team.team.tag}", team_path(team) %></td>
       <td><%= team.total_points %></td>
       <td><%= team.wins %></td>
       <td><%= team.losses %></td>

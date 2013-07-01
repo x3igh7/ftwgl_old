@@ -23,7 +23,7 @@ describe 'Tournaments' do
       expect(page).to have_content(team.name)
     end
 
-    it 'but can only join the tournament once', :focus => true do
+    it 'but can only join the tournament once' do
       join_tournament
       page.should_not have_css("#JoinTournament")
     end
