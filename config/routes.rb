@@ -3,7 +3,10 @@ Ftwgl::Application.routes.draw do
   resources :user, :only => [:show, :index]
   resources :teams, :only => [:new, :create, :show, :edit, :update, :index]
   resources :memberships, :only => [:create, :update, :destroy, :index]
-  resources :tournaments, :only => [:new, :create, :show, :index]
+  resources :tournaments, :only => [:new, :create, :show, :index] do
+    get "/rankings" => "tournaments#rankings"
+  end 
+  resources :tournament_teams, :only => [:create]
 
   root :to => 'home#home'
 

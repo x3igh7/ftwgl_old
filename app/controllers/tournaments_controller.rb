@@ -27,6 +27,25 @@ class TournamentsController < ApplicationController
 
   def show
     @tournament = Tournament.find(params[:id])
+    @has_active_team = false
+    @tournament_team = TournamentTeam.new
+    @current_user_teams = []
+    current_user.teams.each do |team|
+      if team.owners.include?(current_user)
+        @current_user_teams << team
+      end
+    end
+    @current_user_teams.each do |x| 
+      has_active = x.tournament_teams.where("tournament_id = '?'", @tournament.id)
+      if has_active.length > 0 
+        @has_active_team = true
+      end
+    end
+  end
+
+  def rankings
+    @tournament = Tournament.find(params[:tournament_id])
+    @teams = @tournament.tournament_teams
   end
 
 end

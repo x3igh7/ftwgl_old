@@ -18,4 +18,8 @@ FactoryGirl.define do
     rules "Don't cheat"
   end
 
+  factory :tournament_team do
+    team
+    tournament
+  end
 end
