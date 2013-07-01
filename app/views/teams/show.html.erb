@@ -31,8 +31,9 @@
       <h2>Tournaments</h2>
       <dl>
         <% @team.tournaments.each do |tourny| %>
-        <dt><%=link_to tourny.name, tournament_rankings_path(tourny) %></dt>
+        <dt><%=link_to tourny.name, tournament_path(tourny) %></dt>
         <dd><%= tourny.description %></dd>
+        <dd><%= link_to "Rankings", tournament_rankings_path(tourny) %></dd>
         <% end %>
       </dl>
     </div>
