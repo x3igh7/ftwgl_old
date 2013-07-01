@@ -1,5 +1,13 @@
 <div class="container">
+  <%= link_to "Rankings", tournament_rankings_path(@tournament) %>
   <h1><%= @tournament.name %></h1>
   <h3><%= @tournament.description %></h3>
   <h5><%= "Rules: #{@tournament.rules}"%></h5>
+  <% if @has_active_team == true %>
+    <p></p>
+  <% else %>
+    <div>
+      <%=render 'tournament_team/join_tournament_form' %>
+    </div>
+  <% end %>
 </div>

@@ -5,6 +5,8 @@ describe Team do
   it { should validate_presence_of(:tag) }
   it { should have_many(:memberships) }
   it { should have_many(:users) }
+  it { should have_many(:tournaments) }
+  it { should have_many(:tournament_teams) }
 
   it "shows the team owners" do
     team = FactoryGirl.create(:team)

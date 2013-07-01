@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130628171246) do
+ActiveRecord::Schema.define(:version => 20130701183836) do
 
   create_table "memberships", :force => true do |t|
     t.integer  "user_id",                          :null => false
@@ -32,6 +32,22 @@ ActiveRecord::Schema.define(:version => 20130628171246) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "tournament_teams", :force => true do |t|
+    t.integer  "team_id",                        :null => false
+    t.integer  "tournament_id",                  :null => false
+    t.integer  "wins",          :default => 0,   :null => false
+    t.integer  "losses",        :default => 0,   :null => false
+    t.integer  "total_points",  :default => 0,   :null => false
+    t.float    "total_diff",    :default => 0.0, :null => false
+    t.integer  "rank"
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+  end
+
+  add_index "tournament_teams", ["team_id", "tournament_id"], :name => "index_tournament_teams_on_team_id_and_tournament_id", :unique => true
+  add_index "tournament_teams", ["team_id"], :name => "index_tournament_teams_on_team_id"
+  add_index "tournament_teams", ["tournament_id"], :name => "index_tournament_teams_on_tournament_id"
 
   create_table "tournaments", :force => true do |t|
     t.string   "name",        :null => false
