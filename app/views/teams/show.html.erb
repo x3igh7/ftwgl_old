@@ -21,9 +21,10 @@
       <%= render 'team_roster_values' %>
     </table>
   
-  
-    <% unless @team.owners.include?(current_user) || @team.members.include?(current_user) %>
-      <%= button_to "Apply to Team", memberships_path(:team_id => @team.id), :method => 'post' %>
+    <% if user_signed_in? %>
+      <% unless @team.owners.include?(current_user) || @team.members.include?(current_user) %>
+        <%= button_to "Apply to Team", memberships_path(:team_id => @team.id), :method => 'post' %>
+      <% end %>
     <% end %>
   
     </div>
@@ -45,7 +46,7 @@
         <dt>Losses</dt>
         <dd id="losses_count"><%= @total_losses %></dd>
         <dt>Winning Percentage</dt>
-        <dd id="winning_perc"><%= @winning_perc %></dd>
+        <dd id="winning_perc"><%= "#{@winning_perc}%" %></dd>
       </dl>
     </div>
   </div>

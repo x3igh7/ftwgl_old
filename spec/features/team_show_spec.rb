@@ -24,7 +24,7 @@ describe "show" do
 
     it "calculated win perc" do
       visit team_path(team)
-      expect(page.find("#winning_perc")).to have_content(0.75)
+      expect(page.find("#winning_perc")).to have_content("75.0%")
     end
 
   end

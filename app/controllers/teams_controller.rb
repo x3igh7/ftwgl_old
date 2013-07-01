@@ -38,7 +38,7 @@ load_and_authorize_resource
     else
       @winning_perc = @total_wins.to_f / (@total_losses + @total_wins)
     end
-    @winning_perc.round(2)
+    @winning_perc = (@winning_perc * 100).round(1)
   end
 
   def edit
