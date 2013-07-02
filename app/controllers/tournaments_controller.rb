@@ -30,15 +30,17 @@ class TournamentsController < ApplicationController
     @has_active_team = false
     @tournament_team = TournamentTeam.new
     @current_user_teams = []
-    current_user.teams.each do |team|
-      if team.owners.include?(current_user)
-        @current_user_teams << team
+    if user_signed_in?
+      current_user.teams.each do |team|
+        if current_user.is_team_owner?(team)
+          @current_user_teams << team
+        end
       end
-    end
-    @current_user_teams.each do |x| 
-      has_active = x.tournament_teams.current_tourny(@tournament)
-      if has_active.length > 0 
-        @has_active_team = true
+      @current_user_teams.each do |x| 
+        has_active = x.tournament_teams.current_tourny(@tournament)
+        if has_active.length > 0 
+          @has_active_team = true
+        end
       end
     end
   end
