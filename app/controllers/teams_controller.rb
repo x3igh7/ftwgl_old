@@ -25,20 +25,9 @@ load_and_authorize_resource
     @team = Team.find(params[:id])
     @user = current_user
     @membership = @team.memberships
-    @total_wins = 0
-    @total_losses = 0
-
-    @team.tournament_teams.each do |ranking|
-      @total_wins += ranking.wins
-      @total_losses += ranking.losses
-    end
-    
-    if @total_wins == 0
-      @winning_perc = 0.0
-    else
-      @winning_perc = @total_wins.to_f / (@total_losses + @total_wins)
-    end
-    @winning_perc = (@winning_perc * 100).round(1)
+    @total_wins = @team.total_wins
+    @total_losses = @team.total_losses
+    @winning_perc = @team.winning_perc
   end
 
   def edit

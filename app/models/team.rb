@@ -20,13 +20,7 @@ class Team < ActiveRecord::Base
     actives.map { |active| active.user }
   end
 
-  # def is_active?(user, team)
-  #   member = Memberships.where("team_id = '?'", team).where("user_id = '?'", user)
-  #   member.active == true
-  # end
-
   def members
-    # users.joins(:memberships).where("role = 'member'")
     actives = memberships.where("active = 'true'")
     actives.map { |active| active.user }
   end
@@ -37,4 +31,34 @@ class Team < ActiveRecord::Base
     end
   end
 
+  def total_wins
+    total_wins = 0
+    self.tournament_teams.each do |stats|
+      total_wins += stats.wins
+    end
+    total_wins
+  end
+
+  def total_losses
+    total_losses = 0
+    self.tournament_teams.each do |stats|
+      total_losses += stats.losses
+    end
+    total_losses
+  end
+
+  def winning_perc
+    x = self.total_wins
+    y = self.total_losses
+    total = x + y
+    if total == 0
+      winning_perc = 0
+    else
+      winning_perc = (x.to_f / total) * 100
+    end
+    winning_perc.round(1)
+  end
+
 end
+
+

@@ -6,3 +6,7 @@ class Tournament < ActiveRecord::Base
   has_many :tournament_teams
   has_many :teams, through: :tournament_teams
 end
+
+def current_tourny(tournament)
+  self.where("tournament_id = '?'", tournament.id)
+end

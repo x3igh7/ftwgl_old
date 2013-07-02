@@ -26,5 +26,14 @@ class User < ActiveRecord::Base
       self.roles = :user
     end
   end
-  
+
+  def is_team_owner?(team)
+    team.owners.include?(self)
+  end
+
+  def is_team_member?(team)
+    team.members.include?(self)
+  end
+
+
 end

@@ -11,9 +11,8 @@ class Membership < ActiveRecord::Base
 
 
   ROLES = %w[owner captain member]
-  
-  def role_symbols
-    [role.to_sym]
-  end
+end
 
+def users_current_team(params)
+  Membership.where("team_id = ?", params[:team_id]).where("user_id = ?", params[:user_id])
 end

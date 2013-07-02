@@ -17,7 +17,7 @@ class MembershipsController < ApplicationController
   def update
     @team = Team.find(params[:team_id])
     @status = params[:active]
-    @membership = Membership.where("team_id = ?", params[:team_id]).where("user_id = ?", params[:user_id])
+    @membership = users_current_team(params)
     if @membership[0].update_attributes(:active => @status)
       redirect_to team_path(@team)
       flash[:notice] = 'Member status changed'
@@ -29,7 +29,7 @@ class MembershipsController < ApplicationController
 
   def destroy
     @team = Team.find(params[:team_id])
-    @membership = Membership.where("team_id = ?", params[:team_id]).where("user_id = ?", params[:user_id])
+    @membership = users_current_team(params)
     @membership[0].destroy
 
     redirect_to team_path(@team)
