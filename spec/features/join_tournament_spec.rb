@@ -28,6 +28,11 @@ describe 'Tournaments' do
       page.should_not have_css("#JoinTournament")
     end
   end
+
+  it "cannot be joined in user not signed in" do
+    visit tournament_path(tournament)
+    expect(page).to_not have_css("#JoinTournament")
+  end
 end
 
 def join_tournament

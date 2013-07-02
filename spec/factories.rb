@@ -1,7 +1,7 @@
 FactoryGirl.define do
   
   factory :team do
-    name 'foo'
+    sequence(:name) {|n| "foo#{n}"}
     tag '[bar]'
   end
 
