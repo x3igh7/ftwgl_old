@@ -39,7 +39,7 @@ describe 'creating a team' do
 
       visit root_path
       
-      click_on "foo[bar]"
+      click_on "#{team.name}[bar]"
 
       expect(current_path).to eq(team_path(team))
     end
