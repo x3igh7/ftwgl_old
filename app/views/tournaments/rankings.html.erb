@@ -10,7 +10,7 @@
       <th>Differential</th>
     </tr>
     <% @teams.each_with_index do |team, x| %>
-    <tr id=<%= "rank#{x}" %>>
+    <tr id=<%= "rank#{x+1}" %>>
       <td class="rank"><%= x+1 %></td>
       <td class="name"><%= link_to "#{team.team.name} #{team.team.tag}", team_path(team) %></td>
       <td class="points"><%= team.total_points %></td>
