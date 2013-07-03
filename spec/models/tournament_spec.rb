@@ -4,6 +4,7 @@ describe Tournament do
   it { should validate_presence_of(:name) }
   it { should have_many(:tournament_teams) }
   it { should have_many(:teams) }
+  it { should have_many(:matches) }
 
   describe "rank" do
     let!(:team) { FactoryGirl.create(:team) }
