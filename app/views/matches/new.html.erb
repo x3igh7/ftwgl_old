@@ -1,8 +1,8 @@
 <div class="container">
   <h1>Create New Match</h1>
-  <%= simple_form_for([@tournament,@match]) do |f| %>
-    <%= f.input :home_team, collection: @teams, as: :select, label: "Home Team" %>
-    <%= f.input :away_team, collection: @teams, as: :select, label: "Away Team" %>
+  <%= simple_form_for([@tournament, @match]) do |f| %>
+    <%= f.input :home_team, collection: @tournament.teams, as: :select, label: "Home Team", label_method: :name, value_method: :id %>
+    <%= f.input :away_team, collection: @tournament.teams, as: :select, label: "Away Team", label_method: :name, value_method: :id %>
     <%= f.input :week_num, label: "Week" %>
     <%= f.input :match_date, as: :date, label: "Match Date" %>
     <%= f.submit "Add New Match" %>

@@ -6,4 +6,12 @@ class TournamentTeam < ActiveRecord::Base
   validates_uniqueness_of :team_id, scoped_to: :tournament_id
   belongs_to :team
   belongs_to :tournament
+
+  def self.in_tournament(tournament)
+    where(tournament_id: tournament.id)
+  end
+
+  def self.ranking
+    order("total_points DESC", "total_diff DESC")
+  end
 end

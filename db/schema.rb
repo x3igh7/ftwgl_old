@@ -14,15 +14,15 @@
 ActiveRecord::Schema.define(:version => 20130703145237) do
 
   create_table "matches", :force => true do |t|
-    t.string   "home_team",  :null => false
-    t.string   "away_team",  :null => false
-    t.integer  "week_num",   :null => false
-    t.datetime "match_date", :null => false
+    t.integer  "home_team_id", :null => false
+    t.integer  "away_team_id", :null => false
+    t.integer  "week_num",     :null => false
+    t.datetime "match_date",   :null => false
     t.integer  "home_score"
     t.integer  "away_score"
     t.integer  "winner_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "memberships", :force => true do |t|

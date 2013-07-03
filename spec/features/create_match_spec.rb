@@ -16,11 +16,12 @@ describe "Match Creation" do
       sign_in_as admin
     end
     
-    it "between two teams", :focus => true do
+    it "between two teams"do
       prev = Match.count
       visit new_tournament_match_path(tournament)
       select home.name, from: "Home"
       select away.name, from: "Away"
+      fill_in "Week", with: 4
       click_on "Add New Match"
       expect(Match.count).to eq(prev + 1)
     end
@@ -32,6 +33,9 @@ describe "Match Creation" do
     end
 
     it "and can be visited for more info" do
+    end
+
+    it "unless the two teams selected are the same" do
     end
 
   end

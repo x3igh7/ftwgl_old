@@ -37,10 +37,7 @@ class TournamentsController < ApplicationController
         end
       end
       @current_user_teams.each do |x| 
-        has_active = x.tournament_teams.current_tourny(@tournament)
-        if has_active.length > 0 
-          @has_active_team = true
-        end
+        @has_active_team = x.tournament_teams.in_tournament(@tournament).any?
       end
     end
   end
