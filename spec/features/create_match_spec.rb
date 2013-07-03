@@ -2,16 +2,30 @@ require 'spec_helper'
 
 
 describe "Match Creation" do
+  let!(:admin) { FactoryGirl.create(:user) }
+  let!(:home) { FactoryGirl.create(:team) }
+  let!(:away) { FactoryGirl.create(:team) }
+  let!(:team1) { FactoryGirl.create(:tournament_team, team: home, tournament: tournament)}
+  let!(:team2) { FactoryGirl.create(:tournament_team, team: away, tournament: tournament)}
+  let!(:tournament) { FactoryGirl.create(:tournament) }
+
   context "creates a single match within a tournament" do
+    before do
+      admin.roles = :admin
+      admin.save
+      sign_in_as admin
+    end
     
-    it "between two teams" do
-      prev = TournamentMatch.count
-      sign_in_as :admin
-      visit tournament_new_match_path(tournament)
-      select team1.name, from: "Home"
-      select team2.name, from: "Away"
+    it "between two teams", :focus => true do
+      prev = Match.count
+      visit new_tournament_match_path(tournament)
+      select home.name, from: "Home"
+      select away.name, from: "Away"
       click_on "Add New Match"
-      expect(TournamentMatch.count).to eq(prev + 1)
+      expect(Match.count).to eq(prev + 1)
+    end
+
+    it "and adds a tournament_match for each team" do
     end
 
     it "and appears under matches section" do
