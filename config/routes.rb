@@ -5,7 +5,7 @@ Ftwgl::Application.routes.draw do
   resources :memberships, :only => [:create, :update, :destroy, :index]
   resources :tournaments, :only => [:new, :create, :show, :index] do
     get "/rankings" => "tournaments#rankings"
-    resources :matches, :only => [:new, :create]
+    resources :matches, :only => [:new, :create, :index]
   end 
   resources :tournament_teams, :only => [:create]
 

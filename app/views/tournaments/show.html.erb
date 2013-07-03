@@ -1,5 +1,12 @@
 <div class="container">
-  <%= link_to "Rankings", tournament_rankings_path(@tournament) %>
+  <ul class="inline">
+    <li>
+      <%= link_to "Rankings", tournament_rankings_path(@tournament) %>
+    </li>
+    <li>
+      <%= link_to "All Matches", tournament_matches_path(@tournament) %>
+    </li>
+  </ul>
   <h1><%= @tournament.name %></h1>
   <h3><%= @tournament.description %></h3>
   <h5><%= "Rules: #{@tournament.rules}"%></h5>

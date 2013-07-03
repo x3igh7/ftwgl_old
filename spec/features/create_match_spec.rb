@@ -18,25 +18,31 @@ describe "Match Creation" do
     
     it "between two teams"do
       prev = Match.count
-      visit new_tournament_match_path(tournament)
-      select home.name, from: "Home"
-      select away.name, from: "Away"
-      fill_in "Week", with: 4
-      click_on "Add New Match"
+      create_match
       expect(Match.count).to eq(prev + 1)
     end
 
-    it "and adds a tournament_match for each team" do
-    end
-
     it "and appears under matches section" do
+      create_match
+      visit tournament_path(tournament)
+      click_on "All Matches"
+      expect(page.find("#match1")).to have_content(home.name)
+      expect(page.find("#match1")).to have_content(away.name)
     end
-
+  
     it "and can be visited for more info" do
     end
-
+  
     it "unless the two teams selected are the same" do
     end
 
   end
+end
+
+def create_match
+  visit new_tournament_match_path(tournament)
+  select home.name, from: "Home"
+  select away.name, from: "Away"
+  fill_in "Week", with: 4
+  click_on "Add New Match"
 end
