@@ -14,6 +14,7 @@ end
 def ranking
   order("total_points DESC", "total_diff DESC")
 end
+
 # shevling this for later... might use it with scheduling
 # def rank
 #   prev_teams = []

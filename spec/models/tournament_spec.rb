@@ -6,6 +6,18 @@ describe Tournament do
   it { should have_many(:teams) }
 end
 
+describe "current_tourny" do
+  it "selects all teams present for the current tournament" do
+    team = FactoryGirl.create(:team)
+    tournament = FactoryGirl.create(:tournament)
+    tournament_team = FactoryGirl.create(:tournament_team, team: team, tournament: tournament)
+    
+    x = team.tournament_teams.current_tourny(tournament)
+    expect(x.length).to eq(1)
+  end
+end
+
+
 describe "rank" do
   let!(:team) { FactoryGirl.create(:team) }
   let!(:team2) { FactoryGirl.create(:team) }

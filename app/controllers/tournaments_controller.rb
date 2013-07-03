@@ -48,7 +48,6 @@ class TournamentsController < ApplicationController
   def rankings
     @tournament = Tournament.find(params[:tournament_id])
     @teams = @tournament.tournament_teams.ranking
-    #@teams = @tournament.tournament_teams.rank
   end
 
 end
