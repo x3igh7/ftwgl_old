@@ -1,5 +1,10 @@
 class MatchesController < ApplicationController
 
+  def show
+    @tournament = Tournament.find(params[:tournament_id])
+    @match = Match.find(params[:id])
+  end
+
   def new
     @tournament = Tournament.find(params[:tournament_id])
     @match = @tournament.matches.new
@@ -17,10 +22,9 @@ class MatchesController < ApplicationController
     # @match.home_team_id = params[:match][:home_team]
     # @match.away_team_id = params[:match][:away_team]
     # @match.week_num = params[:match][:week_num]
-
-    if @match.save
+    if params[:match][:home_team_id] != params[:match][:away_team_id] && @match.save
       flash[:notice] = "Match created"
-      redirect_to tournament_path(@tournament)
+      redirect_to tournament_match_path(:tournament_id => @tournament.id, :id => @match.id)
     else
       flash[:alert] = "Failed to create match"
       render 'matches/new'

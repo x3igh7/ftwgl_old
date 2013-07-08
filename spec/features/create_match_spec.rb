@@ -29,11 +29,19 @@ describe "Match Creation" do
       expect(page.find("#match1")).to have_content(home.name)
       expect(page.find("#match1")).to have_content(away.name)
     end
-  
-    it "and can be visited for more info" do
+
+    it "can be visited for more info" do
+      create_match
+      expect(page).to have_content("Match")
     end
   
     it "unless the two teams selected are the same" do
+      visit new_tournament_match_path(tournament)
+      select home.name, from: "Home"
+      select home.name, from: "Away"
+      fill_in "Week", with: 4
+      click_on "Add New Match"
+      expect(page).to have_content("Failed to create match")
     end
 
   end
