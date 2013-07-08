@@ -33,6 +33,15 @@ class MatchesController < ApplicationController
     end
   end
 
+  def edit
+    @tournament = Tournament.find(params[:tournament_id])
+    @match = Match.find(params[:id])
+  end
+
+  def update
+    
+  end
+
   def index
     @tournament = Tournament.find(params[:tournament_id])
     @matches = @tournament.matches

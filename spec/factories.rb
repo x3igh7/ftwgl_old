@@ -22,4 +22,12 @@ FactoryGirl.define do
     team
     tournament
   end
+
+  factory :match do
+    home_team_id 1
+    away_team_id 2
+    tournament_id 1
+    week_num 1
+    match_date Time.now
+  end
 end
