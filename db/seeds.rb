@@ -6,10 +6,10 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-user = User.create(username: 'x8', password: 'f00tball', email: 'conner@gmail.com')
+user = User.create(username: 'x8', password: 'administrator', email: 'conner@gmail.com')
 user.roles = :admin
 user.save
-user2 = User.create(username: 'x3igh7', password: 'f00tball', email: 'conners@gmail.com')
+user2 = User.create(username: 'x3igh7', password: 'administrator', email: 'conners@gmail.com')
 team = Team.create(name: 'foo', tag: '[bar]')
 Membership.create(user: user, team: team, role: 'owner', active: true )
 tournament = Tournament.create(name: "FTW Season 1", description: "Team Survivor", rules: "Don't Cheat")

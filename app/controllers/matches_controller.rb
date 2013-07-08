@@ -3,6 +3,8 @@ class MatchesController < ApplicationController
   def show
     @tournament = Tournament.find(params[:tournament_id])
     @match = Match.find(params[:id])
+    @home_team = Team.find(@match.home_team_id)
+    @away_team = Team.find(@match.away_team_id)
   end
 
   def new

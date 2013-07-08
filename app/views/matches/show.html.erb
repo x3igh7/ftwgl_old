@@ -1,4 +1,20 @@
 <div class="container">
-  <h1>Match</h1>
-  <p></p>
+  <div class= row>
+    <h1 class="span12 text-center"><%= "#{@home_team.name} vs. #{@away_team.name}" %></h1>
+    <h3 class="span12 text-center"><%= "Week: #{@match.week_num} - Match Date: #{@match.match_date.in_time_zone("EST").strftime("%a, %b %-d, %-r %Z")}"%></h3>
+  </div>
+  <div class="row text-center">
+    <div class="span6 home-team">
+      <dl>
+        <dt class="home-team-tag"><%= @home_team.tag %></dt>
+        <dd class="home-team-score"><%= @match.home_score %></dd>
+      </dl>
+    </div>
+    <div class="span6 away-team">
+      <dl>
+        <dt class="away-team-tag"><%= @away_team.tag %></dt>
+        <dd class="away-team-score"><%= @match.away_score %></dd>
+      </dl>
+    </div>
+  </div>
 </div>
