@@ -1,9 +1,8 @@
-<div class= row>
-  <h1 class="span12 text-center"><%= "#{@home_team.name} vs. #{@away_team.name}" %></h1>
-  <h3 class="span12 text-center"><%= "Week: #{@match.week_num} - Match Date: #{@match.match_date.in_time_zone("EST").strftime("%a, %b %-d, %-r %Z")}"%></h3>
-</div>
+<h1 class="span8 text-center"><%= "#{@home_team.name} vs. #{@away_team.name}" %></h1>
+<h3 class="span8 text-center"><%= "Week: #{@match.week_num} - Match Date: #{@match.match_date.in_time_zone("EST").strftime("%a, %b %-d, %-r %Z")}"%></h3>
+
 <div class="row text-center">
-  <div class="span6 home-team">
+  <div class="span4 home-team">
     <dl>
       <dt class="home-team-tag"><%= @home_team.tag %></dt>
       <dd class="home-team-score"><%= @match.home_score %></dd>
@@ -12,7 +11,7 @@
     <p class="text_center"><%= link_to "Enter Results",edit_tournament_match_path(@tournament.id, @match) %></p>
     <% end %>
   </div>
-  <div class="span6 away-team">
+  <div class="span4 away-team">
     <dl>
       <dt class="away-team-tag"><%= @away_team.tag %></dt>
       <dd class="away-team-score"><%= @match.away_score %></dd>
