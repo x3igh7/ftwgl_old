@@ -11,6 +11,13 @@ class MatchesController < ApplicationController
     @tournament = Tournament.find(params[:tournament_id])
     @match = @tournament.matches.new
 
+    if user_signed_in? && current_user.has_role?(:admin)
+      true
+    else
+      flash[:alert]
+      redirect_to tournament_path(@tournament)
+    end
+
     @teams = @tournament.tournament_teams.map do |tourny_team| 
       [tourny_team.team.name, tourny_team.id]
     end
@@ -19,11 +26,7 @@ class MatchesController < ApplicationController
   def create
     @tournament = Tournament.find(params[:tournament_id])
     @match = @tournament.matches.new(params[:match])
-    # @date = "#{params[:match]["match_date(1i)"]}/#{params[:match]["match_date(2i)"]}/#{params[:match]["match_date(3i)"]}"
-    # @match.match_date = @date
-    # @match.home_team_id = params[:match][:home_team]
-    # @match.away_team_id = params[:match][:away_team]
-    # @match.week_num = params[:match][:week_num]
+    
     if params[:match][:home_team_id] != params[:match][:away_team_id] && @match.save
       flash[:notice] = "Match created"
       redirect_to tournament_match_path(@tournament.id, @match.id)
@@ -34,13 +37,19 @@ class MatchesController < ApplicationController
   end
 
   def edit
+
     @tournament = Tournament.find(params[:tournament_id])
     @match = Match.find(params[:id])
     @home_team = @match.home_team.team
     @away_team = @match.away_team.team
 
-    if current_user.is_team_owner?(@home_team) || current_user.is_team_owner?(@away_team)
-      true
+    if user_signed_in?
+      if current_user.is_team_owner?(@home_team) || current_user.is_team_owner?(@away_team)
+        true
+      else
+        flash[:alert] = "You are not authorized to view this page."
+        redirect_to tournament_match_path(@tournament.id, @match.id)
+      end
     else
       flash[:alert] = "You are not authorized to view this page."
       redirect_to tournament_match_path(@tournament.id, @match.id)
