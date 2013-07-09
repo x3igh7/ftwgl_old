@@ -2,6 +2,6 @@
 <%= simple_form_for(@tournament) do |f| %>
     <%= f.input :name %>
     <%= f.input :description %>
-    <%= f.input :rules, as: :text, :input_html =>   {:rows => "6",class => "span5"} %>
+    <%= f.input :rules, as: :text, :input_html => { :rows => "6", :class =>"span5"} %>
     <%= f.submit "Create Tournament" %>
 <% end %>

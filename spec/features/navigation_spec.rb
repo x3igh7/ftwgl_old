@@ -7,11 +7,6 @@ describe "Navigation" do
       visit root_path
     end
 
-    it "brand links to the home page" do
-      page.find('.navbar-inner').click_on "FTW"
-      expect(current_path).to eq(root_path)
-    end
-
     it "links to the home page" do
       page.find('.navbar-inner').click_on "Home"
       expect(current_path).to eq(root_path)
