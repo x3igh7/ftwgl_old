@@ -71,6 +71,9 @@ describe "match results" do
       click_on "Save Results"
       expect(page).to have_content("#{home.name} vs. #{away.name}")
     end
+    
+    it "can't be saved twice" do
+    end
 
   end
 
