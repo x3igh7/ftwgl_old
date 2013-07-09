@@ -50,9 +50,16 @@ class MatchesController < ApplicationController
   def update
     @tournament = Tournament.find(params[:tournament_id])
     @match = Match.find(params[:id])
+    @home_team = @match.home_team.team
+    @away_team = @match.away_team.team
 
+    if @match.home_score > @match.away_score
+      @match.winner_id = @home_team.id
+    else
+      @match.winner_id = @away_team.id
+    end
 
-    if @match.update_attributes(params[:match])
+    if @match.update_attributes(params[:match]) && @match.update_tourny_teams_scores
       flash[:notice] = "Match results updated."
       redirect_to tournament_match_path(@tournament.id, @match.id)
     else

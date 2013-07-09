@@ -14,4 +14,5 @@ class TournamentTeam < ActiveRecord::Base
   def self.ranking
     order("total_points DESC", "total_diff DESC")
   end
+
 end
