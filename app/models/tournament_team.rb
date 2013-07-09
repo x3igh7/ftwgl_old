@@ -14,4 +14,22 @@ class TournamentTeam < ActiveRecord::Base
   def self.ranking
     order("total_points DESC", "total_diff DESC")
   end
+
+  def calc_diff(match)
+    if self.id == match.home_team.id
+      self.total_diff += (match.home_score - match.away_score)
+    else
+      self.total_diff += (match.away_score - match.home_score)
+    end
+  end
+
+  def winner_points
+    self.wins += 1
+    self.total_points += 3
+  end
+
+  def loser_points
+    self.losses += 1
+    self.total_points += 0
+  end
 end

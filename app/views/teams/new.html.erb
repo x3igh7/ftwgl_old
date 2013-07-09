@@ -1,8 +1,11 @@
-<h1>New Team</h1>
-
-<%= simple_form_for @team do |f| %>
-<%=f.input :name %>
-<%=f.input :tag %>
-
-<%=f.submit "Create Team" %>
-<% end %>
+<div class="container">
+  
+  <%= simple_form_for @team do |f| %>
+    <legend>New Team</legend>
+    <%= f.error_notification %>
+    <%=f.input :name %>
+    <%=f.input :tag %>
+  
+    <%=f.submit "Create Team" %>
+  <% end %>
+</div>
