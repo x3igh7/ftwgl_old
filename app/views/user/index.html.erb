@@ -1,22 +1,19 @@
-<div class="container">
-  <h1>Members</h1>
-
-  <table class="table">
+<h1>Members</h1>
+<table class="table">
+  <tr>
+    <th>Username</th>
+    <th>Team</th>
+  </tr>
+  <% @user.each do |user| %>
     <tr>
-      <th>Username</th>
-      <th>Team</th>
+      <td>
+        <%= link_to user.username, user_path(user) %>
+      </td>
+      <td>
+        <% user.teams.each do |team| %>
+          <%= link_to "#{team.name} #{team.tag}", team_path(team) %>
+        <% end %>
+      </td>
     </tr>
-    <% @user.each do |user| %>
-      <tr>
-        <td>
-          <%= link_to user.username, user_path(user) %>
-        </td>
-        <td>
-          <% user.teams.each do |team| %>
-            <%= link_to "#{team.name} #{team.tag}", team_path(team) %>
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-  </table>
-</div>
+  <% end %>
+</table>

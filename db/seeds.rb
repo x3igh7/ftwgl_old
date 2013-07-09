@@ -13,4 +13,4 @@ user2 = User.create(username: 'x3igh7', password: 'administrator', email: 'conne
 team = Team.create(name: 'foo', tag: '[bar]')
 Membership.create(user: user, team: team, role: 'owner', active: true )
 tournament = Tournament.create(name: "FTW Season 1", description: "Team Survivor", rules: "Don't Cheat")
-TournamentTeam.create(team: team, tournament: tournament, wins: 5)
+TournamentTeam.create(team: team, tournament: tournament)

@@ -1,37 +1,30 @@
-<div class="container">
+<div class="span8 text-center">
+  <h1><%= "Profile for #{@user.username}" %></h1>
   <div class="row">
-    <div class="span12 text-center">
-      <h1><%= "Profile for #{@user.username}" %></h1>
-      <div class="row">
-        <div class="span4">
-          <dl class="dl-horizontal">
-            <dt>User Name:</dt>
-            <dd><%= @user.username%></dd>
-            <dt>Email:</dt>
-            <dd><%= @user.email %></dd>
-            <dt>Date Joined:</dt>
-            <dd><%= @user.created_at.strftime("%B %d,%Y") %></dd>
-            <dt>Last Seen:</dt>
-            <dd><%= @user.last_sign_in_at.strftime("%B %d,%Y") %></dd>
-            <% if user_signed_in? && current_user == @user %>
-            <dd><%= link_to "Change Password", edit_user_registration_path(@user) %></dd>
-            <% end %>
-          </dl>
-        </div>
-        <div class="span4">
-          <dl>
-            <dt>Teams</dt>
-            <% @user.teams.each do |team| %>
-            <dd><%= link_to "#{team.name} #{team.tag}", team_path(team) %></dd>
-            <% end %>
-          </dl>
-        </div>
-        <div class="span4">
-          <dl>
-            <dt>Recent Matches</dt>
-          </dl>
-        </div>
-      </div>
+    <div class="span4">
+      <dl class="dl-horizontal">
+        <dt>User Name:</dt>
+        <dd><%= @user.username%></dd>
+        <dt>Email:</dt>
+        <dd><%= @user.email %></dd>
+        <dt>Date Joined:</dt>
+        <dd><%= @user.created_at.strftime("%B %d,%Y") %></dd>
+        <dt>Last Seen:</dt>
+        <dd><%= @user.last_sign_in_at.strftime("%B %d,%Y") %></dd>
+        <% if user_signed_in? && current_user == @user %>
+        <dd>
+        <%= link_to "Change Password", edit_user_registration_path(@user) %>
+        </dd>
+        <% end %>
+      </dl>
+    </div>
+    <div class="span4">
+      <dl>
+        <dt>Teams</dt>
+        <% @user.teams.each do |team| %>
+          <dd><%= link_to "#{team.name} #{team.tag}", team_path(team) %></dd>
+        <% end %>
+      </dl>
     </div>
   </div>
 </div>

@@ -1,13 +1,8 @@
-<div class="row">
-  <div class="hero-unit">
-    <div class="container text-center">
-      <h1>Welcome to FTWGL</h1>
-      <% if user_signed_in? %>
-        <%= render 'signed_in' %>
-      <% else %>
-        <%= render 'signed_out' %>
-      <% end %>
-    </div>
-  </div>
-</div> 
-
+<div class="text-center">
+  <h1>Welcome to FTWGL</h1>
+  <% if user_signed_in? %>
+    <%= render 'signed_in' %>
+  <% else %>
+    <%= render 'signed_out' %>
+  <% end %>
+</div>

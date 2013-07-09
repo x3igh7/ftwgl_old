@@ -1,12 +1,10 @@
-<div class="container">
-  <%= simple_form_for([@tournament, @match]) do |f| %>
-    <legend>Create New Match</legend>
-    <%= f.error_notification %>
+<%= simple_form_for([@tournament, @match]) do |f| %>
+  <legend>Create New Match</legend>
+  <%= f.error_notification %>
 
-    <%= f.input :home_team_id, collection: @teams, as: :select, label: "Home Team" %>
-    <%= f.input :away_team_id, collection: @teams, as: :select, label: "Away Team" %>
-    <%= f.input :week_num, label: "Week" %>
-    <%= f.input :match_date, as: :date, label: "Match Date" %>
-    <%= f.submit "Add New Match" %>
-  <% end %>
-</div>
+  <%= f.input :home_team_id, collection: @teams, as: :select, label: "Home Team" %>
+  <%= f.input :away_team_id, collection: @teams, as: :select, label: "Away Team" %>
+  <%= f.input :week_num, label: "Week" %>
+  <%= f.input :match_date, as: :date, label: "Match Date" %>
+  <%= f.submit "Add New Match" %>
+<% end %>

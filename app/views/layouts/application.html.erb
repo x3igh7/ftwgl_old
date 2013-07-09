@@ -8,14 +8,30 @@
 </head>
 <body>
 
-<%= render 'navbar' %>
-
-<div class='container'>
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
+<div class="container top-banner">
+  <div class="hero-unit">
+      <%= image_tag("ftwlogo.png", :alt => "FTW Logo") %>
+  </div>
+  <%= render 'navbar' %>
 </div>
 
-<%= yield %>
+<div class="container">
+  <div class="row">
+    <div class="span9 home">
+      <div class="span8">
+      <%= yield %>
+      </div>
+    </div>
+    <div class="span3 side-bar home">
+      Side Bar
+    </div>
+  </div>
+</div>
+
+<div class='container'>
+  <p class="alert alert-success"><%= notice %></p>
+  <p class="alert"><%= alert %></p>
+</div>
 
 </body>
 </html>
