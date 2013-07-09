@@ -1,6 +1,7 @@
 <div class="container">
-  <h1>Match Results</h1>
   <%= simple_form_for([@tournament, @match], :html => {:class => 'form-horizontal' } ) do |f| %>
+    <legend>Match Results</legend>
+    <%= f.error_notification %>
     
     <%= f.input :home_score, label: "Home Team Score" %>
     <%= f.input :away_score, label: "Away Team Score" %>
