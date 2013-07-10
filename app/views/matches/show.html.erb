@@ -7,8 +7,10 @@
       <dt class="home-team-tag"><%= @home_team.tag %></dt>
       <dd class="home-team-score"><%= @match.home_score %></dd>
     </dl>
-    <% if current_user.is_team_owner?(@home_team) %>
-    <p class="text_center"><%= link_to "Enter Results",edit_tournament_match_path(@tournament.id, @match) %></p>
+    <% if user_signed_in? && current_user.is_team_owner?(@home_team) %>
+      <% if @match.winner_id.nil? %>
+        <p class="text_center"><%= link_to "Enter Results",edit_tournament_match_path(@tournament.id, @match) %></p>
+      <% end %>
     <% end %>
   </div>
   <div class="span4 away-team">
@@ -16,8 +18,10 @@
       <dt class="away-team-tag"><%= @away_team.tag %></dt>
       <dd class="away-team-score"><%= @match.away_score %></dd>
     </dl>
-    <% if current_user.is_team_owner?(@away_team) %>
-    <p class="text_center"><%= link_to "Enter Results", edit_tournament_match_path(@tournament.id, @match) %></p>
+    <% if user_signed_in? &&current_user.is_team_owner?(@away_team) %>
+      <% if @match.winner_id.nil? %>
+        <p class="text_center"><%= link_to "Enter Results", edit_tournament_match_path(@tournament.id, @match) %></p>
+      <% end %>
     <% end %>
   </div>
 </div>

@@ -73,6 +73,14 @@ describe "match results" do
     end
     
     it "can't be saved twice" do
+      visit tournament_match_path(tournament, match)
+      click_on "Enter Results"
+
+      fill_in "Home Team Score", with: 10
+      fill_in "Away Team Score", with: 8
+
+      click_on "Save Results"
+      expect(page).to_not have_content("Enter Results")
     end
 
   end
