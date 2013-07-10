@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%= stylesheet_link_tag "application", :media => "all" %>
+  <%= favicon_link_tag 'ftwlogo.png', :rel => 'shortcut icon', :sizes => '32x32' %>
   <title>FTW Gaming League</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
@@ -26,9 +30,8 @@
       <% if user_signed_in? %>
         <h2 class="text-center">Your Upcoming Matches</h2>
         <ul class="unstyled text-center">
-        <div class="side-bar-tournament">
         <% @team_tournaments.each do |tournament| %>
-          <h4><li><%= link_to tournament.name, tournament_path(tournament) %></li></h4>
+          <li><h4><%= link_to tournament.name, tournament_path(tournament) %></h4></li>
             <% if @team_tournament_matches.length < 1 %>
               <li> No upcoming matches </li>
             <% else %>
@@ -37,7 +40,6 @@
               <% end %>
             <% end %>
         <% end %>
-        </div>
       </ul>
       <% else %>
         <div class="text-center">
