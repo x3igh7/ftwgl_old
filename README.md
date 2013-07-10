@@ -15,8 +15,7 @@ playoff.
 Urban Terror
 
 ### FTW Staging Site available at:
-staging-ftwgl.herokuapp.com
+[staging-ftwgl.herokuapp.com](staging-ftwgl.herokuapp.com)
 
 ### Log on with admin credentials:
-user: x8
-pw: administrator
+user: x8  pw: administrator
