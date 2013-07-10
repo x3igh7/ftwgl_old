@@ -11,12 +11,12 @@ FTW boasts a Season format, similar to any real life sport. Win multiple
 scheduled games in a season, then you will face off against the best in a
 playoff.
 
-## FTW currently supports:
+### FTW currently supports:
 Urban Terror
 
-## FTW Staging Site available at:
+### FTW Staging Site available at:
 staging-ftwgl.herokuapp.com
 
-## Log on with admin credentials:
+### Log on with admin credentials:
 user: x8
 pw: administrator
