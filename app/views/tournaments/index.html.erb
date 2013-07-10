@@ -1,4 +1,11 @@
-<h1>Tournaments</h1>
+<ul class="inline">
+  <li><h1>Tournaments</h1></li>
+  <% if user_signed_in? && current_user.has_role?(:admin) %>
+    <li class="btn btn-primary create-tournament-btn">
+      <%= link_to "Create Tournament", new_tournament_path %>
+    </li>
+  <% end %>
+</ul>
 <table class="table">
   <tr>
     <th>Tournament</th>

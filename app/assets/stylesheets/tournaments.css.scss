@@ -1,0 +1,15 @@
+.tournament-nav {
+  border-bottom: 1px solid;
+}
+
+.create-tournament-btn {
+  margin-bottom: 10px;
+
+  a{
+    color: white;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}

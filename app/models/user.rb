@@ -17,6 +17,7 @@ class User < ActiveRecord::Base
   validates_presence_of :email, :username
   has_many :memberships
   has_many :teams, through: :memberships
+  has_many :tournaments, through: :teams
 
   roles_attribute :roles_mask
   roles :admin, :user

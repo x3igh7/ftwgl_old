@@ -1,0 +1,15 @@
+<h4>
+  <ul class="inline">
+    <li>
+      <%= link_to "Rankings", tournament_rankings_path(@tournament) %>
+    </li>
+    <li>
+      <%= link_to "All Matches", tournament_matches_path(@tournament) %>
+    </li>
+    <% if user_signed_in? && current_user.has_role?(:admin) %>
+    <li>
+      <%= link_to "Create Match", new_tournament_match_path(@tournament)%>
+    </li>
+    <% end %>
+  </ul>
+</h4>

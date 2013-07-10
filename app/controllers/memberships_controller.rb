@@ -10,7 +10,7 @@ class MembershipsController < ApplicationController
       redirect_to team_path(@team)
     else
       flash[:alert] = "Error submitting application."
-      render "teams/show"
+      redirect_to team_path(@team)
     end
   end
 
@@ -22,7 +22,7 @@ class MembershipsController < ApplicationController
       redirect_to team_path(@team)
       flash[:notice] = 'Member status changed'
     else
-      render 'teams/show'
+      redirect_to team_path(@team)
       flash[:alert] = "Unable to change member status"
     end
   end

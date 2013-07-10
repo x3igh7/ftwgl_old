@@ -6,6 +6,12 @@ class TournamentTeam < ActiveRecord::Base
   validates_uniqueness_of :team_id, scoped_to: :tournament_id
   belongs_to :team
   belongs_to :tournament
+  has_many  :home_matches, :foreign_key => 'away_team_id', :class_name => 'Match'
+  has_many  :away_matches, :foreign_key => 'home_team_id', :class_name => 'Match'
+
+  def matches
+    home_matches + away_matches
+  end
 
   def self.in_tournament(tournament)
     where(tournament_id: tournament.id)

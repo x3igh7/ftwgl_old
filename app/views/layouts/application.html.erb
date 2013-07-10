@@ -23,7 +23,28 @@
       </div>
     </div>
     <div class="span3 side-bar home">
-      Side Bar
+      <% if user_signed_in? %>
+        <h2 class="text-center">Your Upcoming Matches</h2>
+        <ul class="unstyled text-center">
+        <div class="side-bar-tournament">
+        <% @team_tournaments.each do |tournament| %>
+          <h4><li><%= link_to tournament.name, tournament_path(tournament) %></li></h4>
+            <% if @team_tournament_matches.length < 1 %>
+              <li> No upcoming matches </li>
+            <% else %>
+              <% @team_tournament_matches.each do |match| %>
+                <li><%= link_to "#{match.home_team.team.name} vs. #{match.away_team.team.name}", tournament_match_path(tournament.id, match.id) %></li>
+              <% end %>
+            <% end %>
+        <% end %>
+        </div>
+      </ul>
+      <% else %>
+        <div class="text-center">
+          <h3><%= link_to "Register", new_user_registration_path %></h3>
+          <h3><%= link_to "Sign In", new_user_session_path %></h3>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

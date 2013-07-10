@@ -1,8 +1,8 @@
-<div class="text-center">
+<div class="span8 text-center">
   <h1>Welcome to FTWGL</h1>
   <% if user_signed_in? %>
-    <%= render 'signed_in' %>
+    <%= render 'home_signed_in' %>
   <% else %>
-    <%= render 'signed_out' %>
+    <%= render 'home_signed_out' %>
   <% end %>
 </div>

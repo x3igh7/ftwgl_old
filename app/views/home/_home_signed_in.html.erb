@@ -1,0 +1,31 @@
+<% if @teams.length < 1 %>
+<div class="join-team">
+  <h2>
+    <p><%= link_to "Create a Team", new_team_path %></p>
+    <p>or</p>
+    <p><%= link_to "Join a Team", teams_path %></p>
+  </h2>
+</div>
+<% else %>
+<div class="tournaments-list">
+  <ul class="inline"><h2>Tournaments:</h2>
+    <% @tournaments.each do |tourny| %>
+      <h3><li><%= link_to tourny.name, tournament_path(tourny) %> </li></h3>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<h3>
+  <%= link_to "Your Profile", user_path(current_user) %>
+</h3>
+
+<% if @teams.length > 0 %>
+<h3>
+  <ul class="inline">Your Teams:
+    <% @teams.each do |team| %>
+      <li><%= link_to "#{team.name}#{team.tag}", team_path(team) %></li>
+    <% end %>
+  </ul>
+</h3>
+<% end %>

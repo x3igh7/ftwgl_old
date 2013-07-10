@@ -1,4 +1,11 @@
-<h1>Teams</h1>
+<ul class="inline">
+  <li><h1>Teams</h1></li>
+  <% if user_signed_in? %>
+  <li class="btn btn-primary create-team-btn">
+    <%= link_to "Create a Team", new_team_path %>
+  </li>
+  <% end %>
+</ul>
 <table class="table">
   <tr>
     <th>Team Name</th>

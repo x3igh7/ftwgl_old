@@ -24,6 +24,7 @@ body {
 
 .notice {
   background-color: transparent;
+  color: #E87E00;
 }
 
 .alert {
@@ -35,3 +36,15 @@ h1 {
   text-shadow: 0 0.5px 0 #A60000;
 }
 
+.btn-primary {
+  background-color: #E87E00;
+  background-image: linear-gradient(to bottom, #E87E00, #F3A03D); 
+
+  &:hover {
+    background-color: #F3A03D;
+  }
+}
+
+.side-bar-tournament {
+  border-bottom: 5px;
+}

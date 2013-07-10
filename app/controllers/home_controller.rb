@@ -2,7 +2,8 @@ class HomeController < ApplicationController
 
   def home
     if user_signed_in?
-      @teams = User.find(current_user).teams
+      @teams = current_user.teams
+      @tournaments = Tournament.all
     end
   end
 end

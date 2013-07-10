@@ -26,6 +26,8 @@ FactoryGirl.define do
   factory :match do
     home_team_id 1
     away_team_id 2
+    home_score 0
+    away_score 0
     tournament_id 1
     week_num 1
     match_date Time.now

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130703205115) do
+ActiveRecord::Schema.define(:version => 20130710191259) do
 
   create_table "matches", :force => true do |t|
     t.integer  "home_team_id",  :null => false
@@ -19,12 +19,16 @@ ActiveRecord::Schema.define(:version => 20130703205115) do
     t.integer  "week_num",      :null => false
     t.datetime "match_date",    :null => false
     t.integer  "home_score",    :null => false, :default => 0
-    t.integer  "away_score",    :null => false, :default => 0      
+    t.integer  "away_score",    :null => false, :default => 0
     t.integer  "winner_id"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
     t.integer  "tournament_id", :null => false
   end
+
+  add_index "matches", ["away_team_id"], :name => "index_matches_on_away_team_id"
+  add_index "matches", ["home_team_id"], :name => "index_matches_on_home_team_id"
+  add_index "matches", ["tournament_id"], :name => "index_matches_on_tournament_id"
 
   create_table "memberships", :force => true do |t|
     t.integer  "user_id",                          :null => false
