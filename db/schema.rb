@@ -18,8 +18,8 @@ ActiveRecord::Schema.define(:version => 20130710191259) do
     t.integer  "away_team_id",  :null => false
     t.integer  "week_num",      :null => false
     t.datetime "match_date",    :null => false
-    t.integer  "home_score",    :null => false, :default => 0
-    t.integer  "away_score",    :null => false, :default => 0
+    t.integer  "home_score"
+    t.integer  "away_score"
     t.integer  "winner_id"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
@@ -33,10 +33,10 @@ ActiveRecord::Schema.define(:version => 20130710191259) do
   create_table "memberships", :force => true do |t|
     t.integer  "user_id",                          :null => false
     t.integer  "team_id",                          :null => false
+    t.string   "role",       :default => "member", :null => false
     t.datetime "created_at",                       :null => false
     t.datetime "updated_at",                       :null => false
     t.boolean  "active",     :default => false,    :null => false
-    t.string   "role",       :default => "member", :null => false
   end
 
   add_index "memberships", ["team_id"], :name => "index_memberships_on_team_id"
