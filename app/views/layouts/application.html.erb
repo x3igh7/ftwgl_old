@@ -20,42 +20,51 @@
 	  <p class="alert alert-success"><%= notice %></p>
 	  <p class="alert"><%= alert %></p>
 	
-	<ul class="nav">
-		<li>
-		  <%= link_to 'home', root_path, :class => controller_name == 'home' ? 'nav_link selected' : 'nav_link' %>
-		</li>
-		<li>
-		  <%= link_to 'members', user_index_path, :class => controller_name == 'user' ? 'nav_link selected' : 'nav_link' %>
-		</li>
-		<li>
-		  <%= link_to 'teams', teams_path, :class => controller_name == 'teams' ? 'nav_link selected' : 'nav_link' %>
-		</li>
-		<li>
-		  <%= link_to 'tournaments', tournaments_path, :class => controller_name == 'tournaments' ? 'nav_link selected' : 'nav_link' %>
-		</li>
-		<% if user_signed_in? %>
-			<li style="float:right;margin-right:20px;">
-				<%= link_to "sign out", "javascript:void:(0);", :id => "sign_out", :class => "nav_link" %> 
-			</li>
-		<% else %>
-			<li style="float:right;margin-right:20px;">
-				  <%= link_to "register", new_user_registration_path, :class => controller_name == 'registrations' ? 'nav_link selected' : 'nav_link' %>
-			</li>
-		<% end %>
-	</ul>
 	<div id="content-main">
+		<ul id="nav-main" class="nav">
+			<li>
+			  <%= link_to 'home', root_path, :class => controller_name == 'home' ? 'nav_link selected' : 'nav_link' %>
+			</li>
+			<li>
+			  <%= link_to 'members', user_index_path, :class => controller_name == 'user' ? 'nav_link selected' : 'nav_link' %>
+			</li>
+			<li>
+			  <%= link_to 'teams', teams_path, :class => controller_name == 'teams' ? 'nav_link selected' : 'nav_link' %>
+			</li>
+			<li>
+			  <%= link_to 'tournaments', tournaments_path, :class => controller_name == 'tournaments' ? 'nav_link selected' : 'nav_link' %>
+			</li>
+			
+		</ul>
+		
 		<div class="content-outer">
 			<%= yield %>
 		</div>
 	</div>
 	<div id="content-side">
+		<ul class="nav">
+			<% if user_signed_in? %>
+				<li>
+					<%= link_to "profile", user_path(current_user), :class => "nav_link" %>
+				</li>
+				<li>
+					<%= link_to "sign out", "javascript:void:(0);", :id => "sign_out", :class => "nav_link"%> 
+				</li>
+			<% else %>
+				<li>
+					  <%= link_to "register", new_user_registration_path, :class => controller_name == 'registrations' ? 'nav_link selected' : 'nav_link' %>
+				</li>
+			<% end %>
+		</ul>
+		
 		<div class="content-outer">
-			<div class="content-inner">
+			
 			  <% if user_signed_in? %>
-					<h2 class="text-center">Your Upcoming Matches</h2>
+				<h1 class="text-center">your upcoming matches</h1>
+				<div class="content-inner">	
 					<% if @team_tournaments.count == 0 %>
-					<h5 class="text-center no-tournaments">You're not participating in any tournaments...</h5>
-				<% else %>
+						You're not participating in any tournaments.
+					<% else %>
 					
 						<ul class="unstyled text-center">
 						<% @team_tournaments.each do |tournament| %>
@@ -63,22 +72,26 @@
 							<% if @team_tournament_matches.length < 1 %>
 							  <li> No upcoming matches </li>
 							<% else %>
-							  <% @team_tournament_matches.each do |match| %>
+								<% @team_tournament_matches.each do |match| %>
 								<li><%= link_to "#{match.home_team.team.name} vs. #{match.away_team.team.name}", tournament_match_path(tournament.id, match.id) %></li>
-							  <% end %>
+								<% end %>
 							<% end %>
 						<% end %>
-						<% end %>
-					  </ul>
-			  <% else %>
-					<%= simple_form_for(User.new, :namespace => "session", :url => user_session_path) do |f| %>
-					  <%= f.input :username, :required => false, :autofocus => true %>
-					  <%= f.input :password, :required => false %>
-					  <%= f.check_box :remember_me %>
-					  <%= f.label :remember_me %><br />
-					  <%= f.submit 'Sign in' %><p />
-					  <%= link_to "Forgot your password?", new_password_path('user') %>
 					<% end %>
+					  </ul>
+					</div>
+			  <% else %>
+					<h1>sign in</h1>
+					<div class="content-inner">
+						<%= simple_form_for(User.new, :namespace => "session", :url => user_session_path) do |f| %>
+						  <%= f.input :username, :required => false, :autofocus => true %>
+						  <%= f.input :password, :required => false %>
+						  <%= f.check_box :remember_me %>
+						  <%= f.label :remember_me %><br />
+						  <%= f.submit 'Sign in' %><p />
+						  <%= link_to "Forgot your password?", new_password_path('user') %>
+						<% end %>
+					</div>
 
 			  <% end %>
 			</div>

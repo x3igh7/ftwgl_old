@@ -27,6 +27,7 @@ input[type=submit]{
 	background:#cc5500;
 	padding:5px;
 	color:white;
+	margin-top:10px;
 }
 input[type=submit]:hover{
 	background:#dd8800;
@@ -36,6 +37,7 @@ input[type=submit]:hover{
 	color:white;
 	border:none;
 	padding:5px;
+	margin-top:10px;
 }
 .button:hover{
 	background:#ff9900;
@@ -58,12 +60,14 @@ a:hover{
 	list-style-type:none;
 	font-size:24px;
 	width:100%;
-	margin:0 0 0 30px;
+	margin-top:0;
+	overflow:hidden;
+	padding:0;
 }
 
 .nav li {
-	width:150px;
 	display:inline-block;
+	margin-right:50px;
 }
 
 .nav_link {
@@ -86,7 +90,7 @@ a:hover{
 #content-main{
 	width:800px;
 	float:left;
-	margin:20px 0 0 30px;
+	margin:0 0 0 30px;
 }
 
 .content-outer{
@@ -114,5 +118,5 @@ background-color: #cc5500;
 #content-side{
 	float:left;
 	width:275px;
-	margin:20px 0 0 30px;
+	margin:0 0 0 30px;
 }
