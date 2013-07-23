@@ -2,20 +2,25 @@
 <% if user_signed_in? && current_user.has_role?(:admin) %>
       <%= link_to "Create Tournament", new_tournament_path, :class => "btn btn-primary create-tournament-btn" %>
 <% end %>
-<table class="table">
-  <tr>
-    <th>Tournament</th>
-    <th>Description</th>
-  </tr>
-  <% @tournament.each do |tournament| %>
-    <tr>
-      <td>
-        <%= link_to tournament.name, tournament_path(tournament) %>
-      </td>
-      <td>
-        <%= tournament.description %>
-      </td>
-    </tr>
-  <% end %>
+
+  <% if not @tournament.any? %>
+There are currently no tournaments.
+  <% else %>
+	<table class="table" cellspacing="0">
+	  <tr>
+		<th>Tournament</th>
+		<th>Description</th>
+	  </tr>
+	  <% @tournament.each do |tournament| %>
+		<tr>
+		  <td>
+			<%= link_to tournament.name, tournament_path(tournament) %>
+		  </td>
+		  <td>
+			<%= tournament.description %>
+		  </td>
+		</tr>
+	  <% end %>
+	<% end %>
 </table>
 

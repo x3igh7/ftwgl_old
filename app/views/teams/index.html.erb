@@ -1,9 +1,6 @@
 <h1>teams</h1>
-<% if user_signed_in? %>
-    <%= link_to "Create a Team", new_team_path, :class => "btn btn-primary create-team-btn" %>
-<% end %>
 
-<table class="table">
+<table class="table" cellspacing="0">
   <tr>
     <th>Team Name</th>
     <th>Team Tag</th>
@@ -19,3 +16,6 @@
     </tr>
   <% end %>
 </table>
+<% if user_signed_in? %>
+    <%= link_to "Create a Team", new_team_path, :class => "button" %>
+<% end %>
