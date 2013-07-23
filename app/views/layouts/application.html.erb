@@ -70,11 +70,9 @@
 			  <% else %>
 				
 				
-					<%= form_for(User.new, :url => user_session_path) do |f| %>
-					  Username
-					  <%= f.text_field :username %>
-					  Password
-					  <%= f.password_field :password %><br />
+					<%= simple_form_for(User.new, :namespace => "session", :url => user_session_path) do |f| %>
+					  <%= f.input :username, :required => false, :autofocus => true %>
+					  <%= f.input :password, :required => false %>
 					  <%= f.check_box :remember_me %>
 					  <%= f.label :remember_me %><br />
 					  <%= f.submit 'Sign in' %><p />

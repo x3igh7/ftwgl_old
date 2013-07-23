@@ -13,13 +13,15 @@ describe "A User" do
       visit root_path
       click_on "Register"
       expect(current_path).to eq(new_user_registration_path)
-      fill_in "Username", :with => valid_user.username
-      fill_in "Email", :with => valid_user.email
-      fill_in "user_password", :with => valid_user.password
-      fill_in "user_password_confirmation", :with => valid_user.password_confirmation
-      click_on "Create New Account"
-      expect(User.count).to eq(prev_user + 1)
-      expect(User.last.email).to eq(valid_user.email)
+	  within("#new_user") do #exclude the sign in form from scope
+		  fill_in "Username", :with => valid_user.username
+		  fill_in "Email", :with => valid_user.email
+		  fill_in "user_password", :with => valid_user.password
+		  fill_in "user_password_confirmation", :with => valid_user.password_confirmation
+		  click_on "Create New Account"
+		  expect(User.count).to eq(prev_user + 1)
+		  expect(User.last.email).to eq(valid_user.email)
+       end
     end
 
     it "cannot register using invalid details" do
@@ -43,11 +45,11 @@ describe "User" do
 
     it "can sign in using their username and password" do
       visit root_path
-      click_on "Sign In"
-      expect(current_path).to eq(new_user_session_path)
+      #click_on "Sign In"
+      #expect(current_path).to eq(new_user_session_path)
       fill_in "Username", :with => registered.username
       fill_in "Password", :with => registered.password
-      click_button "Log In"
+      click_button "Sign in"
       expect(page).to have_content("Signed in successfully")
     end
 
