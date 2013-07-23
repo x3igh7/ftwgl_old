@@ -20,39 +20,43 @@
 	  <p class="alert alert-success"><%= notice %></p>
 	  <p class="alert"><%= alert %></p>
 	
-	<% @controllers = ['home', 'user', 'teams', 'tournaments', 'registrations'] %>
-	<% @selected = @controllers.find_index(controller_name) %>
 	<ul class="nav">
 		<li>
-		  <%= link_to 'home', root_path, :class => @selected == 0 ? 'nav_link selected' : 'nav_link' %>
+		  <%= link_to 'home', root_path, :class => controller_name == 'home' ? 'nav_link selected' : 'nav_link' %>
 		</li>
 		<li>
-		  <%= link_to 'members', user_index_path, :class => @selected == 1 ? 'nav_link selected' : 'nav_link' %>
+		  <%= link_to 'members', user_index_path, :class => controller_name == 'user' ? 'nav_link selected' : 'nav_link' %>
 		</li>
 		<li>
-		  <%= link_to 'teams', teams_path, :class => @selected == 2 ? 'nav_link selected' : 'nav_link' %>
+		  <%= link_to 'teams', teams_path, :class => controller_name == 'teams' ? 'nav_link selected' : 'nav_link' %>
 		</li>
 		<li>
-		  <%= link_to 'tournaments', tournaments_path, :class => @selected == 3 ? 'nav_link selected' : 'nav_link' %>
+		  <%= link_to 'tournaments', tournaments_path, :class => controller_name == 'tournaments' ? 'nav_link selected' : 'nav_link' %>
 		</li>
+		<% if user_signed_in? %>
 			<li style="float:right;margin-right:20px;">
-			  <%= link_to "register", new_user_registration_path, :class => @selected == 4 ? 'nav_link selected' : 'nav_link' %>
-		 </li>
+				<%= link_to "sign out", "javascript:void:(0);", :id => "sign_out", :class => "nav_link" %> 
+			</li>
+		<% else %>
+			<li style="float:right;margin-right:20px;">
+				  <%= link_to "register", new_user_registration_path, :class => controller_name == 'registrations' ? 'nav_link selected' : 'nav_link' %>
+			</li>
+		<% end %>
 	</ul>
-	
-	<div class="content-outer content-main">
-		<%= yield %>
+	<div id="content-main">
+		<div class="content-outer">
+			<%= yield %>
+		</div>
 	</div>
-		<div class="content-outer content-side">
-			
+	<div id="content-side">
+		<div class="content-outer">
+			<div class="content-inner">
 			  <% if user_signed_in? %>
-				<div class="content-inner">
 					<h2 class="text-center">Your Upcoming Matches</h2>
 					<% if @team_tournaments.count == 0 %>
 					<h5 class="text-center no-tournaments">You're not participating in any tournaments...</h5>
-				</div>
 				<% else %>
-					<div class="content-inner">
+					
 						<ul class="unstyled text-center">
 						<% @team_tournaments.each do |tournament| %>
 						  <li><h4><%= link_to tournament.name, tournament_path(tournament) %></h4></li>
@@ -66,10 +70,7 @@
 						<% end %>
 						<% end %>
 					  </ul>
-					</div>
 			  <% else %>
-				
-				
 					<%= simple_form_for(User.new, :namespace => "session", :url => user_session_path) do |f| %>
 					  <%= f.input :username, :required => false, :autofocus => true %>
 					  <%= f.input :password, :required => false %>
@@ -79,11 +80,24 @@
 					  <%= link_to "Forgot your password?", new_password_path('user') %>
 					<% end %>
 
-				</div>
 			  <% end %>
+			</div>
 		</div>
 	  </div>
-	</div>
 </div>
+<% if user_signed_in? %>
+<!-- sign out js placed at bottom for efficiency -->
+<script type="text/javascript">
+	$("#sign_out").click(function(){
+		$.ajax({
+				url: '<%= destroy_user_session_path %>',
+				method: 'delete',
+				complete: function(){
+					location.reload();
+				}
+		});
+	});
+</script>
+<% end %>
 </body>
 </html>

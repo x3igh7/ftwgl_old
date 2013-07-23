@@ -24,21 +24,21 @@ input[type=submit]{
 	height:auto;
 	width:auto;
 	border:none;
-	background:#767676;
+	background:#cc5500;
 	padding:5px;
 	color:white;
 }
 input[type=submit]:hover{
-	background:#888888;
+	background:#dd8800;
 }
 .button{
-	background:#767676;
+	background:#cc5500;
 	color:white;
 	border:none;
 	padding:5px;
 }
 .button:hover{
-	background:#999;
+	background:#ff9900;
 }
 
 .body-container{
@@ -47,11 +47,11 @@ input[type=submit]:hover{
 
 a{
 	text-decoration:none;
-	color:#db7700;
+	color:#fb8800;
 }
 
 a:hover{
-	color:#fb8800;
+	color:#ff9900;
 }
 
 .nav{
@@ -76,33 +76,43 @@ a:hover{
 }
 
 .selected {
-	color:#db7700;
+	color:#fb8800;
 }
 
-.content-main{
+.selected:hover{
+	color:#fb8800;
+}
+
+#content-main{
 	width:800px;
 	float:left;
+	margin:20px 0 0 30px;
 }
 
 .content-outer{
 	background:#373737;
-	margin:20px 0 0 30px;
 	color:#f6f6f6;
-	padding:10px;
+	padding:5px;
 }
 
-.content-outer h1{
-	margin:0;
-	font-weight:100;
-	font-size:36px;
-	border-bottom:1px solid white;
+.content-outer h1 {
+position: relative;
+top: -10px;
+left: -10px;
+padding: 5px;
+display: table;
+margin: 0;
+font-weight: 100;
+font-size: 20px;
+background-color: #cc5500;
 }
 
 .content-inner{
 	padding:5px;
 }
 
-.content-side{
+#content-side{
 	float:left;
-	width:250px;
+	width:275px;
+	margin:20px 0 0 30px;
 }
