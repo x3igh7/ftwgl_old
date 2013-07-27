@@ -1,25 +1,26 @@
-<ul class="inline">
-  <li><h1>Tournaments</h1></li>
-  <% if user_signed_in? && current_user.has_role?(:admin) %>
-    <li class="btn btn-primary create-tournament-btn">
-      <%= link_to "Create Tournament", new_tournament_path %>
-    </li>
-  <% end %>
-</ul>
-<table class="table">
-  <tr>
-    <th>Tournament</th>
-    <th>Description</th>
-  </tr>
-  <% @tournament.each do |tournament| %>
-    <tr>
-      <td>
-        <%= link_to tournament.name, tournament_path(tournament) %>
-      </td>
-      <td>
-        <%= tournament.description %>
-      </td>
-    </tr>
-  <% end %>
-</table>
+<h1>tournaments</h1>
 
+
+  <% if not @tournament.any? %>
+There are currently no tournaments.
+  <% else %>
+	<table class="center" cellspacing="0">
+	  <tr>
+		<th>Tournament</th>
+		<th>Description</th>
+	  </tr>
+	  <% @tournament.each do |tournament| %>
+		<tr>
+		  <td>
+			<%= link_to tournament.name, tournament_path(tournament) %>
+		  </td>
+		  <td>
+			<%= tournament.description %>
+		  </td>
+		</tr>
+	  <% end %>
+	<% end %>
+</table>
+<% if user_signed_in? && current_user.has_role?(:admin) %>
+      <%= link_to "Create Tournament", new_tournament_path, :class => "button" %>
+<% end %>

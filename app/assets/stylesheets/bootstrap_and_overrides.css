@@ -1,7 +1,22 @@
-/*
-  =require twitter-bootstrap-static/bootstrap
 
-  Use Font Awesome icons (default)
-  To use Glyphicons sprites instead of Font Awesome, replace with "require twitter-bootstrap-static/sprites"
-  =require twitter-bootstrap-static/fontawesome
-  */
+ body{
+	background:#222;
+}
+ 
+ .hero-unit{
+	background:none;
+	padding:0;
+	margin-bottom:15px;
+ }
+ 
+ .navbar .nav > li > a{
+	text-shadow:none;
+	color:#f6f6f6;
+	font-size:24px;
+ }
+ 
+.navbar-inner{
+	background:none;
+	box-shadow:none;
+	border:none;
+}

@@ -1,12 +1,6 @@
-<ul class="inline">
-  <li><h1>Teams</h1></li>
-  <% if user_signed_in? %>
-  <li class="btn btn-primary create-team-btn">
-    <%= link_to "Create a Team", new_team_path %>
-  </li>
-  <% end %>
-</ul>
-<table class="table">
+<h1>teams</h1>
+
+<table class="center" cellspacing="0">
   <tr>
     <th>Team Name</th>
     <th>Team Tag</th>
@@ -22,3 +16,6 @@
     </tr>
   <% end %>
 </table>
+<% if user_signed_in? %>
+    <%= link_to "Create a Team", new_team_path, :class => "button" %>
+<% end %>

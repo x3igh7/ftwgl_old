@@ -32,7 +32,7 @@ class MatchesController < ApplicationController
       redirect_to tournament_match_path(@tournament.id, @match.id)
     else
       flash[:alert] = "Failed to create match"
-      render 'matches/new'
+      redirect_to new_tournament_match_path(@tournament.id)
     end
   end
 
