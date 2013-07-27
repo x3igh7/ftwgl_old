@@ -1,0 +1,15 @@
+<script type="text/javascript">
+$("#new_comment").submit(function(e){
+	e.preventDefault();
+	var $this = $(this);
+	var url = $this.attr('action');
+	$.ajax({
+		url: url,
+		method: "post",
+		data: $this.serialize(),
+		success: function(d){
+			$this.parent().append("<div></div>").html(d);
+		}
+	});
+})
+</script>

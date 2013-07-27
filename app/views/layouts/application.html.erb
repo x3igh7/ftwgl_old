@@ -3,62 +3,114 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <%= stylesheet_link_tag "application", :media => "all" %>
+  <!--<%= stylesheet_link_tag "application", :media => "all" %>-->
+  <%= stylesheet_link_tag "ftwgl" %>
   <%= favicon_link_tag 'ftwlogo.png', :rel => 'shortcut icon', :sizes => '32x32' %>
   <title>FTW Gaming League</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <!--<%= stylesheet_link_tag    "application", :media => "all" %>-->
+  <!--<%= stylesheet_link_tag "bootstrap_and_overrides" %>-->
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 
-<div class="container top-banner">
-  <div class="hero-unit">
-      <%= image_tag("ftwlogo.png", :alt => "FTW Logo") %>
-  </div>
-  <%= render 'navbar' %>
-</div>
+<div class="body-container center">
+	<%= image_tag("ftwlogo.png", :alt => "FTW Logo", :width => 407, :height => 152) %>
+	
+	  <p class="flash"><%= notice %></p>
+	  <p class="flash"><%= alert %></p>
+	
+	<div id="content-main">
+		<ul id="nav-main" class="nav">
+			<li>
+			  <%= link_to 'home', root_path, :class => controller_name == 'home' ? 'nav_link selected' : 'nav_link' %>
+			</li>
+			<li>
+			  <%= link_to 'members', user_index_path, :class => controller_name == 'user' ? 'nav_link selected' : 'nav_link' %>
+			</li>
+			<li>
+			  <%= link_to 'teams', teams_path, :class => controller_name == 'teams' ? 'nav_link selected' : 'nav_link' %>
+			</li>
+			<li>
+			  <%= link_to 'tournaments', tournaments_path, :class => controller_name == 'tournaments' ? 'nav_link selected' : 'nav_link' %>
+			</li>
+			
+		</ul>
+		
+		<div class="content-outer">
+			<%= yield %>
+		</div>
+	</div>
+	<div id="content-side">
+		<ul class="nav">
+			<% if user_signed_in? %>
+				<li>
+					<%= link_to "profile", user_path(current_user), :class => "nav_link" %>
+				</li>
+				<li>
+					<%= link_to "sign out", "javascript:void:(0);", :id => "sign_out", :class => "nav_link"%> 
+				</li>
+			<% else %>
+				<li>
+					  <%= link_to "register", new_user_registration_path, :class => controller_name == 'registrations' ? 'nav_link selected' : 'nav_link' %>
+				</li>
+			<% end %>
+		</ul>
+		
+		<div class="content-outer">
+			
+			  <% if user_signed_in? %>
+				<h1 class="text-center">your upcoming matches</h1>
+				<div class="content-inner">	
+					<% if @team_tournaments.count == 0 %>
+						You're not participating in any tournaments.
+					<% else %>
+					
+						<ul class="unstyled text-center">
+						<% @team_tournaments.each do |tournament| %>
+						  <li><h4><%= link_to tournament.name, tournament_path(tournament) %></h4></li>
+							<% if @team_tournament_matches.length < 1 %>
+							  <li> No upcoming matches </li>
+							<% else %>
+								<% @team_tournament_matches.each do |match| %>
+								<li><%= link_to "#{match.home_team.team.name} vs. #{match.away_team.team.name}", tournament_match_path(tournament.id, match.id) %></li>
+								<% end %>
+							<% end %>
+						<% end %>
+					<% end %>
+					  </ul>
+					</div>
+			  <% else %>
+					<h1>sign in</h1>
+					<div class="content-inner">
+						<%= simple_form_for(User.new, :namespace => "session", :url => user_session_path) do |f| %>
+						  <%= f.input :username, :required => false, :autofocus => true %>
+						  <%= f.input :password, :required => false %>
+						  <%= f.check_box :remember_me %>
+						  <%= f.label :remember_me %><br />
+						  <%= f.submit 'Sign in' %><p />
+						  <%= link_to "Forgot your password?", new_password_path('user') %>
+						<% end %>
+					</div>
 
-<div class="container">
-  <div class="row">
-    <div class="span9 home">
-      <div class="span8">
-      <%= yield %>
-      </div>
-    </div>
-    <div class="span3 side-bar home">
-      <% if user_signed_in? %>
-        <h2 class="text-center">Your Upcoming Matches</h2>
-        <% if @team_tournaments.count == 0 %>
-        <h5 class="text-center no-tournaments">You're not participating in any tournaments...</h5>
-        <% else %>
-        <ul class="unstyled text-center">
-        <% @team_tournaments.each do |tournament| %>
-          <li><h4><%= link_to tournament.name, tournament_path(tournament) %></h4></li>
-            <% if @team_tournament_matches.length < 1 %>
-              <li> No upcoming matches </li>
-            <% else %>
-              <% @team_tournament_matches.each do |match| %>
-                <li><%= link_to "#{match.home_team.team.name} vs. #{match.away_team.team.name}", tournament_match_path(tournament.id, match.id) %></li>
-              <% end %>
-            <% end %>
-        <% end %>
-        <% end %>
-      </ul>
-      <% else %>
-        <div class="text-center">
-          <h3><%= link_to "Register", new_user_registration_path %></h3>
-          <h3><%= link_to "Sign In", new_user_session_path %></h3>
-        </div>
-      <% end %>
-    </div>
-  </div>
+			  <% end %>
+			</div>
+		</div>
+	  </div>
 </div>
-
-<div class='container'>
-  <p class="alert alert-success"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
-</div>
-
+<% if user_signed_in? %>
+<script type="text/javascript">
+	$("#sign_out").click(function(){
+		$.ajax({
+				url: '<%= destroy_user_session_path %>',
+				method: 'delete',
+				complete: function(){
+					location.reload();
+				}
+		});
+	});
+</script>
+<%= yield :js %>
+<% end %>
 </body>
 </html>
