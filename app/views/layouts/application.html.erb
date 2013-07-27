@@ -17,8 +17,8 @@
 <div class="body-container center">
 	<%= image_tag("ftwlogo.png", :alt => "FTW Logo", :width => 407, :height => 152) %>
 	
-	  <p class="alert alert-success"><%= notice %></p>
-	  <p class="alert"><%= alert %></p>
+	  <p class="flash"><%= notice %></p>
+	  <p class="flash"><%= alert %></p>
 	
 	<div id="content-main">
 		<ul id="nav-main" class="nav">
@@ -99,7 +99,6 @@
 	  </div>
 </div>
 <% if user_signed_in? %>
-<!-- sign out js placed at bottom for efficiency -->
 <script type="text/javascript">
 	$("#sign_out").click(function(){
 		$.ajax({
@@ -111,6 +110,7 @@
 		});
 	});
 </script>
+<%= yield :js %>
 <% end %>
 </body>
 </html>

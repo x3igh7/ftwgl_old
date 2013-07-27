@@ -11,7 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130723004113) do
+ActiveRecord::Schema.define(:version => 20130727045514) do
+
+  create_table "comments", :force => true do |t|
+    t.integer  "user_id",          :null => false
+    t.string   "content"
+    t.integer  "commentable_id"
+    t.string   "commentable_type"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
 
   create_table "matches", :force => true do |t|
     t.integer  "home_team_id",                 :null => false

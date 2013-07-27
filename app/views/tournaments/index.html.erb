@@ -1,12 +1,10 @@
 <h1>tournaments</h1>
-<% if user_signed_in? && current_user.has_role?(:admin) %>
-      <%= link_to "Create Tournament", new_tournament_path, :class => "btn btn-primary create-tournament-btn" %>
-<% end %>
+
 
   <% if not @tournament.any? %>
 There are currently no tournaments.
   <% else %>
-	<table class="table" cellspacing="0">
+	<table class="center" cellspacing="0">
 	  <tr>
 		<th>Tournament</th>
 		<th>Description</th>
@@ -23,4 +21,6 @@ There are currently no tournaments.
 	  <% end %>
 	<% end %>
 </table>
-
+<% if user_signed_in? && current_user.has_role?(:admin) %>
+      <%= link_to "Create Tournament", new_tournament_path, :class => "button" %>
+<% end %>

@@ -8,6 +8,8 @@ class Match < ActiveRecord::Base
   belongs_to :away_team, :class_name => "TournamentTeam"
 
   belongs_to :tournament
+	
+	has_many :comments, :as => :commentable
 
   def update_tourny_teams_scores
     home_team = self.home_team

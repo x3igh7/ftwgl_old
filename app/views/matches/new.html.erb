@@ -1,5 +1,5 @@
+ <h1>create new match</h1>
 <%= simple_form_for([@tournament, @match]) do |f| %>
-  <legend>Create New Match</legend>
   <%= f.error_notification %>
 
   <%= f.input :home_team_id, collection: @teams, as: :select, label: "Home Team" %>

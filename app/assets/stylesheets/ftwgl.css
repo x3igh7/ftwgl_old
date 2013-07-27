@@ -61,6 +61,7 @@ a:hover{
 th{
 	background-color: #cc5500;
 	padding:3px;
+	font-weight:200;
 }
 td{
 	background-color: #404040;
@@ -109,21 +110,27 @@ td{
 	background:#373737;
 	color:#f6f6f6;
 	padding:5px;
+	margin:5px;
 }
 
 .content-outer h1 {
-position: relative;
-top: -10px;
-left: -10px;
-padding: 5px;
-display: table;
-margin: 0;
-font-weight: 100;
-font-size: 20px;
-background-color: #cc5500;
+	position: relative;
+	top: -10px;
+	left: -10px;
+	padding: 5px;
+	display: table;
+	margin: 0;
+	font-weight: 100;
+	font-size: 20px;
+	background-color: #cc5500;
 }
 
 .content-inner{
+	padding:5px;
+}
+
+.content-inner-inner{
+	background-color: #404040;	
 	padding:5px;
 }
 
@@ -131,4 +138,18 @@ background-color: #cc5500;
 	float:left;
 	width:275px;
 	margin:0 0 0 30px;
+}
+
+.important{
+	font-weight:bold;
+}
+
+.comments{
+	width:500px;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.flash{
+	text-align:center;
 }
