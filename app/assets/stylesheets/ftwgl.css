@@ -45,6 +45,10 @@ input[type=submit]:hover{
 	color:white;
 }
 
+.faded {
+	opacity:.5;
+}
+
 .body-container{
 	width:1172px;
 }
@@ -131,6 +135,16 @@ td{
 
 .content-inner-inner{
 	background-color: #404040;	
+	padding:5px;
+	margin-bottom:15px;
+}
+
+.content-inner-inner td {
+	background:#484848;
+}
+
+.content-inner-inner-inner{
+	background:#484848;	
 	padding:5px;
 }
 

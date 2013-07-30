@@ -10,8 +10,11 @@ Ftwgl::Application.routes.draw do
 		end
   end 
   resources :tournament_teams, :only => [:create]
-
-
+	get "/admin" => "admin#cpanel"
+	get "/admin/find_user" => "admin#find_user"
+	get "/admin/ban_user(/:id)" => "admin#ban_user"
+	get "/admin/unban_user(/:id)" => "admin#unban_user"
+	get "/admin/find_tournament(/:id)" => "admin#find_tournament"
   root :to => 'home#home'
 
   # The priority is based upon order of creation:

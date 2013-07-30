@@ -3,14 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!--<%= stylesheet_link_tag "application", :media => "all" %>-->
   <%= stylesheet_link_tag "ftwgl" %>
   <%= favicon_link_tag 'ftwlogo.png', :rel => 'shortcut icon', :sizes => '32x32' %>
   <title>FTW Gaming League</title>
-  <!--<%= stylesheet_link_tag    "application", :media => "all" %>-->
-  <!--<%= stylesheet_link_tag "bootstrap_and_overrides" %>-->
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+	<%= yield :head %>
 </head>
 <body>
 
@@ -34,7 +32,11 @@
 			<li>
 			  <%= link_to 'tournaments', tournaments_path, :class => controller_name == 'tournaments' ? 'nav_link selected' : 'nav_link' %>
 			</li>
-			
+			<% if user_signed_in? and current_user.has_role?(:admin) %>
+				<li>
+					<%= link_to 'admin', admin_path, :class => controller_name == 'admin' ? 'nav_link selected' : 'nav_link' %>
+				</li>
+			<% end %>
 		</ul>
 		
 		<div class="content-outer">
@@ -99,18 +101,18 @@
 	  </div>
 </div>
 <% if user_signed_in? %>
-<script type="text/javascript">
-	$("#sign_out").click(function(){
-		$.ajax({
-				url: '<%= destroy_user_session_path %>',
-				method: 'delete',
-				complete: function(){
-					location.reload();
-				}
+	<script type="text/javascript">
+		$("#sign_out").click(function(){
+			$.ajax({
+					url: '<%= destroy_user_session_path %>',
+					method: 'delete',
+					complete: function(){
+						location.reload();
+					}
+			});
 		});
-	});
-</script>
-<%= yield :js %>
+	</script>
 <% end %>
+<%= yield :js %>
 </body>
 </html>

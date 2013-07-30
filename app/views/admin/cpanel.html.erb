@@ -1,0 +1,25 @@
+<h1>admin</h1>
+<div class="content-inner">
+	<div class="content-inner-inner">
+	<h1>manage users</h1>
+		<table id="users_panel" class="center" cellspacing="0">
+		</table>
+	</div>
+	
+	<div class="content-inner-inner">
+	<h1>manage tournaments</h1>
+		<div id="tournaments_panel" class="content-inner-inner-inner" cellspacing="0">
+		</div>
+		
+		<a href="tournaments/new" class="button">Create Tournament</a>
+	</div>
+</div>
+
+<%= content_for :head do %>
+	<%= stylesheet_link_tag "loading" %>
+	<%= stylesheet_link_tag "cpanel" %>
+<% end %>
+
+<%= content_for :js do %>
+	<%= javascript_include_tag "cpanel" %>
+<% end %>
