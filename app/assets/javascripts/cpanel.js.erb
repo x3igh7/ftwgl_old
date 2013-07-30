@@ -1,0 +1,193 @@
+String.prototype.format = function() {
+  var args = arguments;
+  return this.replace(/{(\d+)}/g, function(match, number) { 
+    return typeof args[number] != 'undefined'
+      ? args[number]
+      : match
+    ;
+  });
+};
+
+$users_panel = $('#users_panel');
+$tournaments_panel = $('#tournaments_panel');
+$flashWindow = $('<div class="content-outer cpanel-flash-window"><h1 /><div class="content-inner"></div></div>').hide().appendTo("body");
+
+
+var createLoading = function(){
+	return $('<div class="loading" style="height:100%; width:100%; background:#404040; opacity:.5">' +
+						'<div><div id="floatingCirclesG" class="center"><div class="f_circleG" id="frotateG_01"></div>' +
+						'<div class="f_circleG" id="frotateG_02"></div>' +
+						'<div class="f_circleG" id="frotateG_03"></div>' +
+						'<div class="f_circleG" id="frotateG_04"></div>' +
+						'<div class="f_circleG" id="frotateG_05"></div>' +
+						'<div class="f_circleG" id="frotateG_06"></div>' +
+						'<div class="f_circleG" id="frotateG_07"></div>' +
+						'<div class="f_circleG" id="frotateG_08"></div></div></div>');
+}
+
+var loading = function($elem){
+	var $loading = createLoading();
+	var newHeight = Math.max(50, $elem.height());
+	var newWidth = Math.max(50, $elem.width());
+	$loading.show();
+	$loading.css({
+		height: newHeight,
+		width: newWidth,
+		position: "absolute",
+		top:0,
+		left:0,
+		zIndex: 5
+	});
+	$elem.css({
+		position: "relative",
+		height: newHeight,
+		width: newWidth
+	})
+	$elem.append($loading);
+}
+
+var unloading = function($elem){
+	$elem.find(".loading").remove();
+	$elem.css({
+		height: "auto",
+		width: "auto"
+	});
+}
+
+var getTournamentId = function($elem){
+	return $elem.attr("id").split("_")[1];
+};
+
+var findUsers = function(page){
+	page = page || 1;
+	loading($users_panel);	
+	$.ajax({
+		url: adminRoutes.users,
+		data: { page: page },
+		success: function(users){
+			unloading($users_panel);
+			$users_panel.empty();
+			$users_panel.append("<th>Username</th><th>Email</th><th>Actions</th>");	
+			$.each(users, function(i,user){
+				bannedLink = (user.banned ? "admin/unban_user/" : "admin/ban_user/") + user.id;
+				banned = user.banned ? "Unban" : "Ban";
+				$users_panel.append(
+					'<tr>' +
+						'<td><a href="user/' + user.id + '">' + user.username + '</a></td>' +
+						'<td>' + user.email + '</td>' +
+						'<td><a href="' + bannedLink + '">' + banned + '</a></td>' +
+					'</tr>'
+				);
+			});
+		}
+	});
+}
+
+var findTournaments = function(page){
+	page = page || 1;
+	loading($tournaments_panel);
+	$.ajax({
+		url: adminRoutes.tournaments,
+		data: { page: page },
+		success: function(tournaments){
+			unloading($tournaments_panel);
+			$tournaments_panel.empty();
+			var $tournaments = [];
+			$.each(tournaments, function(i,tournament){
+				var $tournament = $(
+					'<div class="tournament" id="tournament_' + tournament.id +'">' +
+						'<a class="cpanel-tournament-name" href="tournaments/' + tournament.id + '">' + tournament.name + '</a><br />' +
+						'<div class="faded">' + tournament.description + '</div>' +
+						'<a href="javascript:void(0)" class="viewmatches" id="viewmatches_' + tournament.id +'">Matches</a> <a href="">Start</a> <a href="">Edit</a> <a href="">Destroy</a>' +
+					'</div>'
+				);
+				$tournaments_panel.append($tournament);
+				$tournaments.push($tournament);
+			});
+			$.each($tournaments, function(i, elem){
+				attachEventsTournaments($(elem));
+			});
+		}
+	});
+}
+
+var generateMatchesTable = function(matches){
+	if(matches.length == 0){
+		return $("<div>No matches</div>");
+	}
+	$table = $(
+		'<table cellspacing="0" class="center">' +
+			'<th>Home</th><th>Away</th><th colspan="2">Scores</th><th>Date</th><th>Actions</th>' +
+		'</table>');
+	$.each(matches, function(i, match){
+		$table.append(
+			'<tr>' +
+				'<td>' + match.home_team + '</td>' +
+				'<td>' + match.away_team + '</td>' +
+				'<td>' + match.home_score + '</td>' +
+				'<td>' + match.away_score + '</td>' +
+				'<td>' + match.match_date + '</td>' +
+				'<td> actions </td>' +
+			'</tr>'
+		);
+	});
+	return $table;
+};
+
+var attachEventsTournaments = function($tournament){
+	$tournament.find(".viewmatches").click(function(e){
+		tournamentId = $tournament.attr("id").split("_")[1];
+		if($tournament.find(".matches").length == 0){
+			$tournament.append(
+				'<div id="matches_' + tournamentId + '" class="content-inner-inner-inner matches">' +
+				'</div>');
+		}
+
+		loading($tournament);
+		$.ajax({
+			url: adminRoutes.matches.format(tournamentId),
+			success: function(matches){
+				var $matches = $('#matches_' + tournamentId);
+				$matches.empty()
+					.append(generateMatchesTable(matches))
+					.append('<a href="javascript:void(0);" id="creatematches_' + tournamentId + '" class="creatematches button">Create match</a>');
+				attachEventsMatches($matches);
+				unloading($tournament);
+			}
+		})
+	});
+};
+
+var attachEventsMatches = function($matches){
+	$matches.find(".creatematches").click(function(){
+		/*	$.each(teams, function(i, team){
+				$homeTeams.append('<option value="' + team.id + '">' + team.tag + '</option>');
+			});
+			$awayTeams = $homeTeams.clone().attr("name", "away_team_id");
+			$createMatch = $('<form method="post" action="admin/create_match" />');
+			$createMatch
+				.append($homeTeams)
+				.append($awayTeams)
+				.append('<label for="match_home_score" /><input id="match_home_score" name="home_score" type="number" />')
+				.append('<input name="away_score" type="number" />')
+				.append('<input type="datetime" />'); */
+			var $createMatch =  $(templates.createMatch.format([ getTournamentId($matches) ]));
+			flashWindow("create match", $createMatch);
+	});
+}
+
+var flashWindow = function(heading, $elem){
+	$close = $('<a href="javascript:void(0)">Cancel</a>').addClass("button").click(closeWindow);
+	$flashWindow.find(".content-inner").empty().append($elem).append($close);
+	$flashWindow.find("h1").text(heading);
+	$flashWindow.css("top", $(window).scrollTop() + 200).show();
+	$(".body-container").css("opacity", .5);
+}
+
+var closeWindow = function(){
+	$flashWindow.hide()
+	$(".body-container").css("opacity", 1);
+};
+
+findUsers();
+findTournaments();

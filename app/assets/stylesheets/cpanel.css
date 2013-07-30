@@ -2,3 +2,14 @@
 	font-size:36px;
 	font-weight:100;
 }
+
+.cpanel-flash-window{
+	position:absolute;
+	width:400px;
+	margin-left:-200px;
+	left:50%;
+}
+
+.cpanel-hidden{
+	display:none;
+}
