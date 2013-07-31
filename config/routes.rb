@@ -12,10 +12,10 @@ Ftwgl::Application.routes.draw do
   resources :tournament_teams, :only => [:create]
 	namespace :admin do
 		root :to => "cpanel#index"
-		resources :tournaments, :only => [ :create, :edit, :index, :destroy ] do
-			resources :matches, :only => [ :create, :edit, :index, :destroy ]
+		resources :tournaments, :only => [ :create, :update, :index, :destroy, :update ] do
+			resources :matches, :only => [ :create, :update, :index, :destroy ]
 		end
-		resources :users, :only => [ :edit, :index, :destroy ]
+		resources :users, :only => [ :update, :index, :destroy ]
 		get "users/ban(/:id)" => "users#ban"
 		get "users/unban(/:id)" => "users#unban"
 	end

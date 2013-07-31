@@ -15,7 +15,7 @@ describe TournamentTeam do
       FactoryGirl.create(:tournament_team, team: team, tournament: tournament)
     end
   
-    it { should validate_uniqueness_of(:team_id) }
+    it { should validate_uniqueness_of(:team_id).scoped_to(:tournament_id) }
   end
 
   describe "update tourny scores" do

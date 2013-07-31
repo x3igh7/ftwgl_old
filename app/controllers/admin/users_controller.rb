@@ -17,7 +17,7 @@ class Admin::UsersController < AdminController
 		else
 			flash[:alert] = "Could not ban " + @user.username + " (user #" + String(@user.id) + ")"
 		end
-		redirect_to :action => :cpanel
+		redirect_to admin_root_path
 	end
 	
 	def unban
@@ -28,6 +28,6 @@ class Admin::UsersController < AdminController
 		else
 			flash[:alert] = "Could not unban " + @user.username + " (user #" + String(@user.id) + ")"
 		end
-		redirect_to :action => :cpanel
+		redirect_to admin_root_path
 	end
 end

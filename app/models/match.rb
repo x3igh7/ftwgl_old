@@ -9,7 +9,11 @@ class Match < ActiveRecord::Base
 
   belongs_to :tournament
 	
-	has_many :comments, :as => :commentable
+	has_many :comments, :as => :commentable, :dependent => :destroy
+	
+	#TODO: add after_destroy callback to rollback changes to tourny team scores
+	#OR I would suggest writing a compute points function for tournament model so
+	#all points can be calculated at once and will always remain consistent
 
   def update_tourny_teams_scores
     home_team = self.home_team

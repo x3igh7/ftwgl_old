@@ -10,7 +10,7 @@ String.prototype.format = function() {
 
 $users_panel = $('#users_panel');
 $tournaments_panel = $('#tournaments_panel');
-$flashWindow = $('<div class="content-outer cpanel-flash-window"><h1 /><div class="content-inner"></div></div>').hide().appendTo("body");
+$flashWindow = $('<div class="content-outer cpanel-flash-window"><a href="javascript:void(0);" class="button" id="cpanel-flash-window-close">x</a><h1 /><div class="content-inner"></div></div>').hide().appendTo("body");
 
 
 var createLoading = function(){
@@ -54,7 +54,7 @@ var unloading = function($elem){
 	});
 }
 
-var getTournamentId = function($elem){
+var getId = function($elem){
 	return $elem.attr("id").split("_")[1];
 };
 
@@ -65,11 +65,16 @@ var findUsers = function(page){
 		url: adminRoutes.users,
 		data: { page: page },
 		success: function(users){
+			meta.users = users;
 			unloading($users_panel);
 			$users_panel.empty();
+			if(users.length == 0){
+				$users_panel.text("No users"); //theoretically should never happen
+				return;
+			}
 			$users_panel.append("<th>Username</th><th>Email</th><th>Actions</th>");	
 			$.each(users, function(i,user){
-				bannedLink = (user.banned ? "admin/unban_user/" : "admin/ban_user/") + user.id;
+				bannedLink =  user.banned ? adminRoutes.unban.format(user.id): adminRoutes.ban.format(user.id)
 				banned = user.banned ? "Unban" : "Ban";
 				$users_panel.append(
 					'<tr>' +
@@ -90,15 +95,22 @@ var findTournaments = function(page){
 		url: adminRoutes.tournaments,
 		data: { page: page },
 		success: function(tournaments){
+			meta.tournaments = tournaments;
 			unloading($tournaments_panel);
 			$tournaments_panel.empty();
+			if($.isEmptyObject(tournaments)){
+				$tournaments_panel.text("No tournaments");
+				return;
+			}
 			var $tournaments = [];
 			$.each(tournaments, function(i,tournament){
 				var $tournament = $(
 					'<div class="tournament" id="tournament_' + tournament.id +'">' +
 						'<a class="cpanel-tournament-name" href="tournaments/' + tournament.id + '">' + tournament.name + '</a><br />' +
-						'<div class="faded">' + tournament.description + '</div>' +
-						'<a href="javascript:void(0)" class="viewmatches" id="viewmatches_' + tournament.id +'">Matches</a> <a href="">Start</a> <a href="">Edit</a> <a href="">Destroy</a>' +
+						'<div class="faded">' + tournament.description + ' / ' + tournament.rules + '</div>' +
+						'<a href="javascript:void(0);" class="viewmatches" id="viewmatches_' + tournament.id +'"> Matches</a>' +
+						'<a href="javascript:void(0);" class="edittournaments" id="edittournaments_' + tournament.id + '"> Edit</a>' +  
+						'<a href="javascript:void(0);" class="destroytournaments" id="destroytournaments_' + tournament.id + '"> Destroy</a>' +
 					'</div>'
 				);
 				$tournaments_panel.append($tournament);
@@ -111,7 +123,7 @@ var findTournaments = function(page){
 	});
 }
 
-var generateMatchesTable = function(matches){
+var generateMatchesTable = function(matches, tournamentId){
 	if(matches.length == 0){
 		return $("<div>No matches</div>");
 	}
@@ -127,7 +139,9 @@ var generateMatchesTable = function(matches){
 				'<td>' + match.home_score + '</td>' +
 				'<td>' + match.away_score + '</td>' +
 				'<td>' + match.match_date + '</td>' +
-				'<td> actions </td>' +
+				'<td><a href="' + viewRoutes.match.format(match.tournament_id, match.id) + '"> View</a>' +
+						'<a class="editmatches" id="editmatches_' + match.id +'" href="javasript:void(0);"> Edit</a>' +
+						'<a class="destroymatches" id="destroymatches_' + match.id + '" href="javascript:void(0);"> Destroy</a></td>' +
 			'</tr>'
 		);
 	});
@@ -135,52 +149,200 @@ var generateMatchesTable = function(matches){
 };
 
 var attachEventsTournaments = function($tournament){
+	var tournamentId = getId($tournament);
 	$tournament.find(".viewmatches").click(function(e){
-		tournamentId = $tournament.attr("id").split("_")[1];
-		if($tournament.find(".matches").length == 0){
-			$tournament.append(
-				'<div id="matches_' + tournamentId + '" class="content-inner-inner-inner matches">' +
+		var $matches = $tournament.find(".matches");
+		if($matches.length == 0){
+			$matches = $('<div id="matches_' + tournamentId + '" class="content-inner-inner-inner matches">' +
 				'</div>');
+			$tournament.append($matches);
 		}
 
-		loading($tournament);
-		$.ajax({
-			url: adminRoutes.matches.format(tournamentId),
-			success: function(matches){
-				var $matches = $('#matches_' + tournamentId);
-				$matches.empty()
-					.append(generateMatchesTable(matches))
-					.append('<a href="javascript:void(0);" id="creatematches_' + tournamentId + '" class="creatematches button">Create match</a>');
-				attachEventsMatches($matches);
-				unloading($tournament);
-			}
-		})
+		findMatches($matches);
+	});
+	
+	$tournament.find(".destroytournaments").click(function(e){
+		var $destroyTournament = $(templates.destroyTournament.format(tournamentId));
+		$destroyTournament.submit(function(e){
+			e.preventDefault();
+			$.ajax({
+				url: adminRoutes.tournament.format(tournamentId),
+				method: 'delete',
+				data: $(this).serialize(),
+				success: function(d){
+					if(d.success){
+						$("#alert").text("Successfully destroyed " + d.tournament.name);
+					}
+					else{
+						$("#alert").text("Could not destroy " + d.tournament.name);
+					}
+					closeWindow();
+					findTournaments();
+				}
+			});
+		});
+		flashWindow("destroy tournament", $destroyTournament);
+	});
+	
+	$tournament.find(".edittournaments").click(function(e){
+		var $editTournament = $(templates.editTournament.format(tournamentId));
+		$editTournament.submit(function(e){
+			e.preventDefault();
+			$.ajax({
+				url: adminRoutes.tournament.format(tournamentId),
+				method: 'put',
+				data: $(this).serialize(),
+				success: function(d){
+					if(d.success){
+						$("#alert").text("Successfully updated " + d.tournament.name);
+					}
+					else{
+						$("alert").text("Could not update " + d.tournament.name);
+					}
+				}
+			});
+			closeWindow()
+			findTournaments();
+		});
+		flashWindow("edit tournament", $editTournament);
 	});
 };
 
+var findMatches = function($matches){
+	loading($matches);
+	var tournamentId = getId($matches);
+	$.ajax({
+			url: adminRoutes.matches.format(tournamentId),
+			success: function(matches){
+				meta.tournaments[tournamentId].matches = matches;
+				$matches.empty()
+					.append(generateMatchesTable(matches, tournamentId))
+					.append('<a href="javascript:void(0);" id="creatematches_' + tournamentId + '" class="creatematches button">Create match</a>');
+				attachEventsMatches($matches);
+				unloading($matches);
+			}
+		});
+};
+
+var generateTournamentTeamOptionsString = function(teams){
+	var html = [];
+	$.each(teams, function(i, team){
+		$outerHtml = $("<div><option /></div>");
+		$outerHtml.find("option").attr("value", team.id).html(team.tag);
+		html.push($outerHtml.html());
+	});
+	return html.join('');
+}
+
 var attachEventsMatches = function($matches){
+	var tournamentId = getId($matches);
 	$matches.find(".creatematches").click(function(){
-		/*	$.each(teams, function(i, team){
-				$homeTeams.append('<option value="' + team.id + '">' + team.tag + '</option>');
+		//hack to get form to display correct tournament teams since proper template couldn't be created with the rails form helpers
+		var tournamentTeamOptionsString = generateTournamentTeamOptionsString(meta.tournaments[tournamentId].teams);
+		var $createMatch =  $(templates.createMatch.format(tournamentId));
+		$createMatch.find("#match_home_team_id").html(tournamentTeamOptionsString); 
+		$createMatch.find("#match_away_team_id").html(tournamentTeamOptionsString);
+		
+		$createMatch.submit(function(e){
+			e.preventDefault();
+			$.ajax({
+				url: adminRoutes.matches.format([ tournamentId ]),
+				method: "post",
+				data: $(this).serialize(),
+				success: function(d){
+					if(d.success){
+						$("#alert").text("Match created successfully")
+					}
+					else{
+						$("#alert").text("Could not create match")
+					}
+					findMatches($matches);
+					closeWindow();
+				}
 			});
-			$awayTeams = $homeTeams.clone().attr("name", "away_team_id");
-			$createMatch = $('<form method="post" action="admin/create_match" />');
-			$createMatch
-				.append($homeTeams)
-				.append($awayTeams)
-				.append('<label for="match_home_score" /><input id="match_home_score" name="home_score" type="number" />')
-				.append('<input name="away_score" type="number" />')
-				.append('<input type="datetime" />'); */
-			var $createMatch =  $(templates.createMatch.format([ getTournamentId($matches) ]));
-			flashWindow("create match", $createMatch);
+		});
+		flashWindow("create match", $createMatch);
+	});
+	
+	$matches.find(".editmatches").click(function(){
+		var matchId = getId($(this));
+		var $editMatch = $(templates.editMatch.format(tournamentId, matchId));
+		$editMatch.submit(function(e){
+			e.preventDefault();
+			$.ajax({
+				url: adminRoutes.match.format(tournamentId, matchId),
+				method: 'put',
+				data: $(this).serialize(),
+				success: function(d){
+					if(d.success){
+						$("#alert").text("Match results updated successfully")
+					}
+					else{
+						$("#alert").text("Could not update match")
+					}
+					findMatches($matches);
+					closeWindow();
+				}
+			});
+		});
+		flashWindow("edit match", $editMatch);
+	});
+	
+	$matches.find(".destroymatches").click(function(){
+		var matchId = getId($(this));
+		var $destroyMatch = $(templates.destroyMatch.format(tournamentId, matchId));
+		$destroyMatch.submit(function(e){
+			e.preventDefault();
+			$.ajax({
+				url: adminRoutes.match.format(tournamentId, matchId),
+				method: 'delete',
+				data: $(this).serialize(),
+				success: function(d){
+					if(d.success){
+						$("#alert").text("Destroyed match #" + d.match.id + " successfully")
+					}
+					else{
+						$("#alert").text("Could not destroy match #" + d.match.id)
+					}
+					findMatches($matches);
+					closeWindow();
+				}
+			});
+		});
+		flashWindow("destroy match", $destroyMatch);
 	});
 }
 
+var attachEventsPage = function(){
+	$('#create_tournament').click(function(){
+		$createTournament = $(templates.createTournament);
+		$createTournament.submit(function(e){
+			e.preventDefault();
+			$.ajax({
+				url: adminRoutes.tournaments,
+				method: 'post',
+				data: $(this).serialize(),
+				success: function(d){
+					if(d.success){
+						$("#alert").text('Successfully created ' + d.tournament.name);
+						findTournaments();
+					}
+					else{
+						$("#alert").text('Could not create ' + d.tournament.name);
+					}
+					closeWindow();
+				}
+			});
+		});
+		flashWindow("create tournament", $createTournament);
+	});
+};
+
 var flashWindow = function(heading, $elem){
-	$close = $('<a href="javascript:void(0)">Cancel</a>').addClass("button").click(closeWindow);
-	$flashWindow.find(".content-inner").empty().append($elem).append($close);
+	$flashWindow.find("#cpanel-flash-window-close").one("click", closeWindow);
+	$flashWindow.find(".content-inner").empty().append($elem);
 	$flashWindow.find("h1").text(heading);
-	$flashWindow.css("top", $(window).scrollTop() + 200).show();
+	$flashWindow.css("top", $(window).scrollTop() + $(window).height() / 6).show();
 	$(".body-container").css("opacity", .5);
 }
 
@@ -189,5 +351,6 @@ var closeWindow = function(){
 	$(".body-container").css("opacity", 1);
 };
 
+attachEventsPage();
 findUsers();
 findTournaments();

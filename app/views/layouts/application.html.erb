@@ -15,8 +15,8 @@
 <div class="body-container center">
 	<%= image_tag("ftwlogo.png", :alt => "FTW Logo", :width => 407, :height => 152) %>
 	
-	  <p class="flash"><%= notice %></p>
-	  <p class="flash"><%= alert %></p>
+	  <p class="flash" id="notice"><%= notice %></p>
+	  <p class="flash" id="alert"><%= alert %></p>
 	
 	<div id="content-main">
 		<ul id="nav-main" class="nav">
@@ -34,7 +34,7 @@
 			</li>
 			<% if user_signed_in? and current_user.has_role?(:admin) %>
 				<li>
-					<%= link_to 'admin', admin_path, :class => controller_name == 'admin' ? 'nav_link selected' : 'nav_link' %>
+					<%= link_to 'admin', admin_root_path, :class => controller_name == 'admin' ? 'nav_link selected' : 'nav_link' %>
 				</li>
 			<% end %>
 		</ul>

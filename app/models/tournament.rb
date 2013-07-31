@@ -3,9 +3,9 @@ class Tournament < ActiveRecord::Base
 
   validates_presence_of :name
 
-  has_many :tournament_teams
+  has_many :tournament_teams, :dependent => :destroy
   has_many :teams, through: :tournament_teams
-  has_many :matches
+  has_many :matches, :dependent => :destroy
 
 end
 

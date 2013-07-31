@@ -11,7 +11,7 @@
 		<div id="tournaments_panel" class="content-inner-inner" cellspacing="0">
 		</div>
 		
-		<a href="tournaments/new" class="button">Create Tournament</a>
+		<a href="javascript:void(0);" class="button" id="create_tournament">Create Tournament</a>
 	</div>
 </div>
 
@@ -19,11 +19,54 @@
 	<%= simple_form_for([:admin, Tournament.new, Match.new], :url => CGI::unescape(admin_tournament_matches_path("{0}"))) do |f| %>
 		<%= f.error_notification %>
 
-		<%= f.input :home_team_id, collection: @teams, as: :select, label: "Home Team" %>
-		<%= f.input :away_team_id, collection: @teams, as: :select, label: "Away Team" %>
+		<%= f.input :home_team_id, collection: [], as: :select, label: "Home Team", :class => "teams" %>
+		<%= f.input :away_team_id, collection: [], as: :select, label: "Away Team", :class => "teams" %>
 		<%= f.input :week_num, label: "Week" %>
 		<%= f.input :match_date, as: :date, label: "Match Date" %>
 		<%= f.submit "Add New Match" %>
+	<% end %>
+</script>
+
+<script type="text/template" id="edit_match_template">
+	<%= simple_form_for([Tournament.new, Match.new], :html => {:class => "form-horizontal" }, :method => :put, :url => CGI::unescape(admin_tournament_match_path("{0}", "{1}")) ) do |f| %>
+		<%= f.error_notification %>
+		
+		<%= f.input :home_score, label: "Home Team Score" %>
+		<%= f.input :away_score, label: "Away Team Score" %>
+		
+		<%= f.submit "Save" %>
+	<% end %>
+</script>
+
+<script type="text/template" id="create_tournament_template">
+	<%= simple_form_for(Tournament.new, :url => admin_tournaments_path) do |f| %>
+			<%= f.input :name %>
+			<%= f.input :description %>
+			<%= f.input :rules, as: :text, :input_html => { :rows => "6" } %>
+			<%= f.submit "Create tournament" %>
+	<% end %>
+</script>
+
+<script type="text/template" id="destroy_match_template">
+	<%= simple_form_for([ Tournament.new, Match.new ], :url => CGI::unescape(admin_tournament_match_path("{0}", "{1}"))) do |f| %>
+		You are about to destroy this match. Are you sure? <br />
+		<%= f.submit "Destroy" %>
+	<% end %>
+</script>
+
+<script type="text/template" id="destroy_tournament_template">
+	<%= simple_form_for([ Tournament.new ], :url => CGI::unescape(admin_tournament_path("{0}"))) do |f| %>
+		You are about to destroy this tournament. Are you sure? <br />
+		<%= f.submit "Destroy" %>
+	<% end %>
+</script>
+
+<script type="text/template" id="edit_tournament_template">
+	<%= simple_form_for([ Tournament.new ], :url => CGI::unescape(admin_tournament_path("{0}"))) do |f| %>
+		<%= f.input :name %>
+		<%= f.input :description %>
+		<%= f.input :rules, :as => :text, :input_html => { :rows => "6" } %>
+		<%= f.submit "Update tournament" %>
 	<% end %>
 </script>
 
@@ -37,12 +80,26 @@
 		var adminRoutes = {
 			users: '<%= admin_users_path %>',
 			matches: '<%= CGI::unescape(admin_tournament_matches_path("{0}")) %>',
-			tournaments: '<%= admin_tournaments_path %>'
-		}
+			tournaments: '<%= admin_tournaments_path %>',
+			tournament: '<%= CGI::unescape(admin_tournament_path("{0}")) %>',
+			match: '<%= CGI::unescape(admin_tournament_match_path("{0}", "{1}")) %>',
+			ban: '/admin/users/ban/{0}',
+			unban: '/admin/users/unban/{0}'
+		};
+		var viewRoutes = {
+			match: '<%= CGI::unescape(tournament_match_path("{0}", "{1}")) %>'
+		};
 		var templates = {
-			createMatch: $('#create_match_template').html()
+			createMatch: $('#create_match_template').html(),
+			editMatch: $("#edit_match_template").html(),
+			createTournament: $('#create_tournament_template').html(),
+			destroyMatch: $('#destroy_match_template').html(),
+			destroyTournament: $('#destroy_tournament_template').html(),
+			editTournament: $("#edit_tournament_template").html()
+		};
+		var meta = { //store meta data for teams, tournaments, etc accessible everywhere
+			teams: eval('<%= raw(@teams.to_json) %>')
 		}
-		var teams = eval('<%= raw(@teams.to_json) %>');
 	</script>
 	<%= javascript_include_tag "cpanel" %>
 <% end %>
