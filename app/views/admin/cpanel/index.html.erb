@@ -72,9 +72,9 @@
 
 <script type="text/template" id="users_row_template">
 	<tr>
-		<td><a href="<%= user_path("{0}") %>">{1}</a></td>
+		<td><a href="<%= CGI::unescape user_path("{0}") %>">{1}</a></td>
 		<td>{2}</td>
-		<td><a href="{3}">{4}</a></td>
+		<td><a href="{3}">{4}</a> <a href="javascript:void(0);" class="editusers" id="{5}">Edit</a></td>
 	</tr>
 </script>
 
@@ -87,7 +87,7 @@
 		<a class="cpanel-tournament-name" href="<%= CGI::unescape(tournament_path("{1}")) %>">{2}</a><br />
 		<div class="faded">{3} / {4}</div>
 		<a href="javascript:void(0);" class="viewmatches" id="{5}"> Matches</a>
-		<a href="javascript:void(0);" class="edittournaments" id="{6}"> Edit</a> 
+		<a href="javascript:void(0);" class="edittournaments" id="{6}"> Edit</a>
 		<a href="javascript:void(0);" class="destroytournaments" id="{7}"> Destroy</a>
 	</div>
 </script>
@@ -139,6 +139,23 @@
 	<div class="f_circleG" id="frotateG_08"></div></div></div>
 </script>
 
+<script type="text/template" id="edit_user_template">
+	<%= simple_form_for(User.new, :url => admin_user_path("{0}"), :html => { :method => :put }) do |f| %>
+		<%= f.error_notification %>
+
+		<div class="form-inputs">
+			<%= f.input :email, :required => true %>
+
+			<%= f.input :password, :autocomplete => "off", :hint => "leave it blank if you don't want to change it", :required => false %>
+			<%= f.input :password_confirmation, :required => false %>
+		</div>
+
+		<div class="form-actions">
+			<%= f.button :submit, "Update" %>
+		</div>
+	<% end %>
+</script>
+
 <%= content_for :head do %>
 	<%= stylesheet_link_tag "loading" %>
 	<%= stylesheet_link_tag "cpanel" %>
@@ -149,6 +166,7 @@
 		var Routes = {
 			Admin: {
 				users: '<%= admin_users_path %>',
+				user: '<%= CGI::unescape admin_user_path("{0}") %>',
 				matches: '<%= CGI::unescape(admin_tournament_matches_path("{0}")) %>',
 				tournaments: '<%= admin_tournaments_path %>',
 				tournament: '<%= CGI::unescape(admin_tournament_path("{0}")) %>',
@@ -170,7 +188,8 @@
 			loading: $("#loading_template").html(),
 			Users: {
 				heading: $("#users_heading_template").html(),
-				row: $("#users_row_template").html()
+				row: $("#users_row_template").html(),
+				edit: $("#edit_user_template").html()
 			},
 			Tournaments: {
 				tournament: $("#tournaments_template").html()

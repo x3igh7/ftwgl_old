@@ -9,6 +9,20 @@ class Admin::UsersController < AdminController
 		return
  	end
 	
+	def update
+		@user = User.find(params[:id])
+		if params[:user][:password].blank? #so that devise will validate
+			params[:user].delete(:password)
+			params[:user].delete(:password_confirmation)
+		end
+		
+		if @user.update_attributes(params[:user])
+			render :json => { :success => true, :user => @user }
+		else
+			render :json => { :success => false, :user => @user }
+		end
+	end
+	
 	def ban
 		@user = User.find(params[:id])
 		@user.roles << :banned

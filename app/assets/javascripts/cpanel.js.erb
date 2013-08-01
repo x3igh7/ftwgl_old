@@ -93,7 +93,32 @@ var Events = {
 			$.each(users, function(i,user){
 				bannedLink =  user.banned ? Routes.Admin.unban.format(user.id): Routes.Admin.ban.format(user.id)
 				banned = user.banned ? "Unban" : "Ban";
-				$panel.append(Templates.Users.row.format(user.id, user.username, user.email, bannedLink, banned));
+				$panel.append(Templates.Users.row.format(user.id, user.username, user.email, bannedLink, banned, Modules.generateId("editusers", user.id)));
+				Events.Users.attach(user.id);
+			});
+		},
+		attach: function(id){
+			var $panel = Modules.Users.$panel;
+			$("#" + Modules.generateId("editusers", id)).click(function(){
+				var $edit = $(Templates.Users.edit).submit(function(e){
+					e.preventDefault();
+					$.ajax({
+						url: Routes.Admin.user.format(id),
+						method: 'put',
+						data: $(this).serialize(),
+						success: function(d){
+							if(d.success){
+								$("#alert").text("Successfully updated " + d.user.username + " (user #" + d.user.id + ")");
+							}
+							else{
+								$("#alert").text("Could not update " + d.user.username + " (user #" + d.user.id + ")");
+							}
+							closeWindow();
+							Events.Users.get();
+						}
+					});
+				});
+				flashWindow("edit user", $edit);
 			});
 		}
 	},
@@ -317,7 +342,8 @@ var Modules = {
 			type == "destroytournaments" ||
 			type == "creatematches" ||
 			type == "editmatches" ||
-			type == "destroymatches"
+			type == "destroymatches" ||
+			type == "editusers"
 		){
 			var tournamentId = args[1];
 			return [ type, tournamentId.toString() ].join("_");
