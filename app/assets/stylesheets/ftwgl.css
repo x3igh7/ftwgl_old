@@ -147,6 +147,7 @@ td{
 .content-inner-inner-inner{
 	background:#484848;	
 	padding:5px;
+	position:relative;
 }
 
 .content-inner-inner-inner td{

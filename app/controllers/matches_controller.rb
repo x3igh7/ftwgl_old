@@ -27,7 +27,7 @@ class MatchesController < ApplicationController
     @tournament = Tournament.find(params[:tournament_id])
     @match = @tournament.matches.new(params[:match])
     
-    if params[:match][:home_team_id] != params[:match][:away_team_id] && @match.save
+    if @match.save
       flash[:notice] = "Match created"
       redirect_to tournament_match_path(@tournament.id, @match.id)
     else

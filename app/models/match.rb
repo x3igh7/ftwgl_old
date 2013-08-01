@@ -3,7 +3,8 @@ class Match < ActiveRecord::Base
   attr_accessible :home_team_id, :away_team_id, :week_num, :home_team, :away_team
   validates_presence_of :home_team, :away_team, :week_num, :match_date
   validates_presence_of :tournament, :home_score, :away_score
-  
+  validate :team_cannot_play_against_itself
+	
   belongs_to :home_team, :class_name => "TournamentTeam"
   belongs_to :away_team, :class_name => "TournamentTeam"
 
@@ -30,4 +31,9 @@ class Match < ActiveRecord::Base
     home_team.save && away_team.save
   end
 
+	def team_cannot_play_against_itself
+		if home_team_id == away_team_id
+			errors.add(:home_team_id, "is the same as away_team_id")
+		end
+	end
 end
