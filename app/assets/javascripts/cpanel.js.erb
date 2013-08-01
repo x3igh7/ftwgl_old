@@ -79,6 +79,7 @@ var Events = {
 					Meta.users = users;
 					Events.Loading.end($panel);
 					Events.Users.refresh(page);
+					Events.Users.attach();
 				}
 			});
 		},
@@ -91,9 +92,10 @@ var Events = {
 			}
 			Modules.Users.get(page);
 		},
-		attach: function(id){
+		attach: function(){
 			var $panel = Modules.Users.$panel;
-			$("#" + Modules.generateId("editusers", id)).click(function(){
+			$(".editusers").click(function(){
+				var id = $(this).attr("id").split("_")[1];
 				var $edit = $(Templates.Users.edit).submit(function(e){
 					e.preventDefault();
 					$.ajax({
@@ -383,7 +385,6 @@ var Modules = {
 					bannedLink =  user.banned ? Routes.Admin.unban.format(user.id): Routes.Admin.ban.format(user.id)
 					banned = user.banned ? "Unban" : "Ban";
 					$users.append(Templates.Users.row.format(user.id, user.username, user.email, bannedLink, banned, Modules.generateId("editusers", user.id)));
-					Events.Users.attach(user.id);
 				});
 				$panel.append($users);
 				
