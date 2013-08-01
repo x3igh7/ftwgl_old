@@ -78,24 +78,18 @@ var Events = {
 				success: function(users){
 					Meta.users = users;
 					Events.Loading.end($panel);
-					Events.Users.refresh(users);
+					Events.Users.refresh(page);
 				}
 			});
 		},
-		refresh: function(users){
+		refresh: function(page){
 			var $panel = Modules.Users.$panel;
 			$panel.empty();
-			if(users.length == 0){
+			if(Meta.users.users.length == 0){
 				$panel.text("No users"); //theoretically should never happen
 				return;
 			}
-			$panel.append(Templates.Users.heading);	
-			$.each(users, function(i,user){
-				bannedLink =  user.banned ? Routes.Admin.unban.format(user.id): Routes.Admin.ban.format(user.id)
-				banned = user.banned ? "Unban" : "Ban";
-				$panel.append(Templates.Users.row.format(user.id, user.username, user.email, bannedLink, banned, Modules.generateId("editusers", user.id)));
-				Events.Users.attach(user.id);
-			});
+			Modules.Users.get(page);
 		},
 		attach: function(id){
 			var $panel = Modules.Users.$panel;
@@ -119,6 +113,11 @@ var Events = {
 					});
 				});
 				flashWindow("edit user", $edit);
+			});
+			
+			$panel.find(".cpanel-week-button").click(function(){
+				var page = $(this).attr("id").split("_")[1];
+				Events.Users.get(page);
 			});
 		}
 	},
@@ -343,10 +342,11 @@ var Modules = {
 			type == "creatematches" ||
 			type == "editmatches" ||
 			type == "destroymatches" ||
-			type == "editusers"
+			type == "editusers" ||
+			type == "userspage"
 		){
-			var tournamentId = args[1];
-			return [ type, tournamentId.toString() ].join("_");
+			var id = args[1];
+			return [ type, id ].join("_");
 		}
 		if(type == "weekbutton"){
 			var tournamentId = args[1];
@@ -363,7 +363,34 @@ var Modules = {
 		return $elem.attr("id").split("_")[1];
 	},
 	Users: {
-		$panel: $("#users_panel")
+		$panel: $("#users_panel"),
+		get: function(page){
+			var $panel = Modules.Users.$panel;
+			$users = $("#users");
+			if($users.length == 0){
+				//create pagination
+				var users = Meta.users;
+				$pagination = $(Templates.Matches.weeks.format("Page"));
+				var totalPages = users.total_pages;
+				for(var p = 1; p <= totalPages; p++){
+					$pagination.append($(Templates.Matches.weeksButton.format(Modules.generateId("userspage", p), p)));
+				}
+				$panel.append($pagination);
+				
+				//create table
+				$users = $(Templates.Users.table).append($(Templates.Users.heading));	
+				$.each(users.users, function(i,user){
+					bannedLink =  user.banned ? Routes.Admin.unban.format(user.id): Routes.Admin.ban.format(user.id)
+					banned = user.banned ? "Unban" : "Ban";
+					$users.append(Templates.Users.row.format(user.id, user.username, user.email, bannedLink, banned, Modules.generateId("editusers", user.id)));
+					Events.Users.attach(user.id);
+				});
+				$panel.append($users);
+				
+				$pagination.find("#" + Modules.generateId("userspage", page)).addClass("cpanel-week-button-selected");
+			}
+			return $users;
+		}
 	},
 	Tournaments: {
 		$panel: $('#tournaments_panel'),
@@ -407,7 +434,7 @@ var Modules = {
 				return $("<div>No matches</div>");
 			}
 			var $wrapper = $("<div />");
-			var $weeks = $(Templates.Matches.weeks);
+			var $weeks = $(Templates.Matches.weeks.format("Week"));
 			$wrapper.append($weeks);
 			$.each(matches, function(week, weekMatches){
 				var $weekButton = $(Templates.Matches.weeksButton.format(gid("weekbutton", tournamentId, week), week)).click(function(){

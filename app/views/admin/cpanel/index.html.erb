@@ -2,8 +2,8 @@
 <div class="content-inner">
 	<div class="content-inner-inner">
 	<h1>manage users</h1>
-		<table id="users_panel" class="center" cellspacing="0">
-		</table>
+		<div id="users_panel" class="content-inner-inner-inner">
+		</div>
 	</div>
 	
 	<div class="content-inner-inner">
@@ -70,6 +70,10 @@
 	<% end %>
 </script>
 
+<script type="text/template" id="users_table_template">
+	<table id="users" class="center" cellspacing="0"></table>
+</script>
+
 <script type="text/template" id="users_row_template">
 	<tr>
 		<td><a href="<%= CGI::unescape user_path("{0}") %>">{1}</a></td>
@@ -120,7 +124,7 @@
 </script>
 
 <script type="text/template" id="matches_weeks_template">
-	<div class="cpanel-weeks"><span class="cpanel-week-label">Week </span></div>
+	<div class="cpanel-weeks"><span class="cpanel-week-label">{0} </span></div>
 </script>
 
 <script type="text/template" id="matches_weeks_button_template">
@@ -189,7 +193,8 @@
 			Users: {
 				heading: $("#users_heading_template").html(),
 				row: $("#users_row_template").html(),
-				edit: $("#edit_user_template").html()
+				edit: $("#edit_user_template").html(),
+				table: $("#users_table_template").html()
 			},
 			Tournaments: {
 				tournament: $("#tournaments_template").html()
