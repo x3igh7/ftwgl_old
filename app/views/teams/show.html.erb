@@ -1,33 +1,32 @@
-<h1>team profile</h1>
-<h2><%= "#{@team.name} #{@team.tag}" %></h2>
+<h1><%= "#{@team.name} (#{@team.tag})" %></h1>
 <% if user_signed_in? and current_user.is_team_owner?(@team) %>
-<h4><%= link_to "Edit Team Profile", edit_team_path(@team) %></h4>
+	<%= link_to "Edit team profile", edit_team_path(@team) %>
 <% end %>
-
-  <div class="row">
-    <div class="span4">
-    <h2>Roster</h2>
+<div class="spacer"></div>
+<div class="content-inner">
+    <div class="content-inner-inner">
+			<h1>roster</h1>
   
-    <table class="table table-condensed" cellspacing="0">
-      <tr>
-        <th>Member</th>
-        <th>Role</th>
-        <th>Status</th>
-        <th></th>
-        <th></th>
-      </tr>
-      <%= render 'team_roster_values' %>
-    </table>
-  
-    <% if user_signed_in? %>
-      <% unless current_user.is_team_owner?(@team) || current_user.is_team_member?(@team) %>
-        <%= button_to "Apply to Team", memberships_path(:team_id => @team.id), :method => 'post' %>
-      <% end %>
-    <% end %>
+			<table class="table table-condensed" cellspacing="0">
+				<tr>
+					<th>Member</th>
+					<th>Role</th>
+					<th>Status</th>
+					<th></th>
+					<th></th>
+				</tr>
+				<%= render 'team_roster_values' %>
+			</table>
+		
+			<% if user_signed_in? %>
+				<% unless current_user.is_team_owner?(@team) || current_user.is_team_member?(@team) %>
+					<%= button_to "Apply to Team", memberships_path(:team_id => @team.id), :method => 'post' %>
+				<% end %>
+			<% end %>
   
     </div>
-    <div class="span3 offset1">
-      <h2>Tournaments</h2>
+    <div class="content-inner-inner">
+      <h1>tournaments</h1>
       <dl>
         <% @team.tournaments.each do |tourny| %>
         <dt><%=link_to tourny.name, tournament_path(tourny) %></dt>
@@ -36,6 +35,7 @@
         <% end %>
       </dl>
       <p></p>
+		</div>
       <h2>Team Stats</h2>
       <dl>
         <dt>Wins</dt>
@@ -45,5 +45,5 @@
         <dt>Winning Percentage</dt>
         <dd id="winning_perc"><%= "#{@winning_perc}%" %></dd>
       </dl>
-    </div>
-  </div>
+    
+</div>

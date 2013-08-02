@@ -1,11 +1,8 @@
-<div class="tournament-nav">
-  <%= render 'tournament_nav' %>
-</div>
+<h1><%= "#{@home_team.name} vs. #{@away_team.name}" %></h1>
+<a class="outer-heading" href="<%= tournament_path(@tournament) %>"><%= @tournament.name %></a><br />
+<%= "Week #{@match.week_num}" %><br /><span class="faded"><%= "#{@match.standard_date}"%></span><br />
 
-<h1 class="span8 text-center"><%= "#{@home_team.name} vs. #{@away_team.name}" %></h1>
-<h3 class="span8 text-center"><%= "Week: #{@match.week_num} - Match Date: #{@match.match_date.in_time_zone("EST").strftime("%a, %b %-d, %-r %Z")}"%></h3>
-
-<div class="row text-center">
+<div class="content-inner">
   <div class="span4 home-team">
     <dl>
       <dt class="home-team-tag"><%= @home_team.tag %></dt>
@@ -17,7 +14,7 @@
       <% end %>
     <% end %>
   </div>
-  <div class="span4 away-team">
+  <div>
     <dl>
       <dt class="away-team-tag"><%= @away_team.tag %></dt>
       <dd class="away-team-score"><%= @match.away_score %></dd>

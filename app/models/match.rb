@@ -36,4 +36,8 @@ class Match < ActiveRecord::Base
 			errors.add(:home_team_id, "is the same as away_team_id")
 		end
 	end
+	
+	def standard_date
+		match_date.in_time_zone("EST").strftime("%a, %b %-d, %-r %Z")
+	end
 end

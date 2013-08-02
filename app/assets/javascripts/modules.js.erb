@@ -118,9 +118,10 @@ var Modules = {
 				var $table = $(Templates.Matches.table.format(gid("matchestable", tournamentId, week)));
 				$table.append(Templates.Matches.heading);
 				$.each(weekMatches, function(i, match){
+					var teams = Meta.tournaments[tournamentId].teams;
 					$table.append(Templates.Matches.row.format(
-						Meta.tournaments[tournamentId].teams[match.home_team_id].tag,
-						Meta.tournaments[tournamentId].teams[match.away_team_id].tag,
+						'<a href="' + Routes.User.team.format(teams[match.home_team_id].team_id) + '">' + teams[match.home_team_id].tag + '</a>',
+						'<a href="' + Routes.User.team.format(teams[match.away_team_id].team_id) + '">' + teams[match.away_team_id].tag + '</a>',
 						match.home_score,
 						match.away_score,
 						match.match_date,
@@ -140,9 +141,9 @@ var Modules = {
 
 var generateTournamentTeamOptionsString = function(teams){
 	var html = [];
-	$.each(teams, function(i, team){
+	$.each(teams, function(tournamentTeamId, team){
 		$outerHtml = $("<div><option /></div>");
-		$outerHtml.find("option").attr("value", team.id).html(team.tag);
+		$outerHtml.find("option").attr("value", tournamentTeamId).html(team.tag);
 		html.push($outerHtml.html());
 	});
 	return html.join('');

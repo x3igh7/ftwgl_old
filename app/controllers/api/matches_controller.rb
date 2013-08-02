@@ -16,7 +16,7 @@ class Api::MatchesController < ApplicationController
 				:away_team_id => match.away_team_id,
 				:home_score => match.home_score,
 				:away_score => match.away_score,
-				:match_date => match.match_date
+				:match_date => match.standard_date
 			})
 		end
 		#return hash grouped by week number

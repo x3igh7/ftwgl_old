@@ -34,11 +34,11 @@
 			</li>
 			<% if user_signed_in? and current_user.has_role?(:admin) %>
 				<li>
-					<%= link_to 'admin', admin_root_path, :class => controller_name == 'admin' ? 'nav_link selected' : 'nav_link' %>
+					<%= link_to 'admin', admin_root_path, :class => controller.class.name.split("::").first == "Admin" ? 'nav_link selected' : 'nav_link' %>
 				</li>
 			<% end %>
 		</ul>
-		
+	
 		<div class="content-outer">
 			<%= yield %>
 		</div>
@@ -72,10 +72,10 @@
 						<% @team_tournaments.each do |tournament| %>
 							<div class="content-inner-inner">
 						  <h1><%= link_to tournament.name, tournament_path(tournament) %></h1>
-							<% if @team_tournament_matches.length < 1 %>
-							  <li> No upcoming matches </li>
+							<% if @team_tournament_matches[tournament.id].empty? %>
+							  No upcoming matches
 							<% else %>
-								<% @team_tournament_matches.each do |match| %>
+								<% @team_tournament_matches[tournament.id].each do |match| %>
 									<%= link_to "#{match.home_team.team.name} vs. #{match.away_team.team.name}", tournament_match_path(tournament.id, match.id) %>
 									<div class="faded" style="font-size:16px;"><%= match.match_date %></div>
 								<% end %>

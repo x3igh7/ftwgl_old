@@ -18,12 +18,15 @@ var Routes = {
 	Admin: {
 		user: '<%= CGI::unescape url.admin_user_path("{0}") %>',
 		tournament: '<%= CGI::unescape(url.admin_tournament_path("{0}")) %>',
+		tournaments: '<%= url.admin_tournaments_path %>',
 		match: '<%= CGI::unescape(url.admin_tournament_match_path("{0}", "{1}")) %>',
 		ban: '/admin/users/ban/{0}',
-		unban: '/admin/users/unban/{0}'
+		unban: '/admin/users/unban/{0}',
+		matches: '<%= CGI::unescape url.admin_tournament_matches_path("{0}") %>'
 	},
 	User: {
-		match: '<%= CGI::unescape(url.tournament_match_path("{0}", "{1}")) %>'
+		match: '<%= CGI::unescape(url.tournament_match_path("{0}", "{1}")) %>',
+		team: '<%= CGI::unescape(url.team_path("{0}")) %>'
 	},
 	Api: {
 		users: '<%= url.api_users_path %>',

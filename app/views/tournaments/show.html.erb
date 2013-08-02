@@ -1,79 +1,72 @@
 <h1><%= @tournament.name %></h1>
 <div class="content-inner">
-	<span style="font-size:24px;"><%= @tournament.description %></span><br />
+	<span class="outer-heading"><%= @tournament.description %></span><br />
 	<span class="faded"><%= "#{@tournament.rules}"%></span>
 	<% if user_signed_in? %>  
 		<% if @has_active_team == true %>
 			<p></p>
 		<% else %>
-			<div>
+			<div style="float:right;">
 				<%=render 'tournament_team/join_tournament_form' %>
 			</div>
 		<% end %>
 	<% end %>
-	<div class="content-inner-inner">
+	<div class="spacer"></div>
+	<div class="content-inner-inner clear">
 		<h1>rankings</h1>
-		<table class="center" cellspacing="0">
-				<tr>
-					<th>Rank</th>
-					<th>Team</th>
-					<th>Points</th>
-					<th>Wins</th>
-					<th>Losses</th>
-					<th>Differential</th>
-				</tr>
-				<% @teams.each_with_index do |team, x| %>
-					<tr id=<%= "rank#{x+1}" %>>
-						<td class="rank"><%= x+1 %></td>
-						<td class="name"><%= link_to "#{team.team.name} #{team.team.tag}", team_path(team) %></td>
-						<td class="points"><%= team.total_points %></td>
-						<td class="wins"><%= team.wins %></td>
-						<td class="losses"><%= team.losses %></td>
-						<td class="diff"><%= team.total_diff %></td>
+		<% if @teams.any? %>
+			<table class="center" cellspacing="0">
+					<tr>
+						<th>Rank</th>
+						<th>Team</th>
+						<th>Points</th>
+						<th>Wins</th>
+						<th>Losses</th>
+						<th>Differential</th>
 					</tr>
-				<% end %>
-		</table>
+					<% @teams.each_with_index do |team, x| %>
+						<tr id=<%= "rank#{x+1}" %>>
+							<td class="rank"><%= x+1 %></td>
+							<td class="name"><%= link_to "#{team.team.name} #{team.team.tag}", team_path(team.team) %></td>
+							<td class="points"><%= team.total_points %></td>
+							<td class="wins"><%= team.wins %></td>
+							<td class="losses"><%= team.losses %></td>
+							<td class="diff"><%= team.total_diff %></td>
+						</tr>
+					<% end %>
+			</table>
+		<% else %>
+			No teams have joined this tournament yet.
+		<% end %>
 	</div>
 	
 	<div class="content-inner-inner">
 		<h1>schedule</h1>
-		<div id="matches_<%= @tournament.id %>" class="content-inner-inner-inner">
-			<div class="weeks">
-				<span class="week-label">Week </span>
-				<% @matches.keys.sort.each do |week| %>
-					<a href="javascript:void(0);" class="week-button" id="week_<%= week %>"><%= week %></a>
+		<% if @matches.empty? %>
+			This tournament has not started.
+		<% else %>
+			<div id="matches_<%= @tournament.id %>" class="content-inner-inner-inner">
+				<div class="weeks">
+					<span class="week-label">Week </span>
+					<% @matches.keys.sort.each do |week| %>
+						<a href="javascript:void(0);" class="week-button" id="week_<%= week %>"><%= week %></a>
+					<% end %>
+				</div>
+				<% @matches.each_key do |week| %>
+					<table class="matches_table center" id="matches_table_<%= week %>" style="display:none;" cellspacing="0" class="center">
+						<%= render :partial => "heading_matches" %>
+						<% @matches[week].each do |match| %>
+							<%= render :partial => "row_matches", :locals => { :match => match } %>
+						<% end %>
+					</table>
 				<% end %>
 			</div>
-			<% @matches.each_key do |week| %>
-				<table class="matches_table center" id="matches_table_<%= week %>" style="display:none;" cellspacing="0" class="center">
-					<%= render :partial => "heading_matches" %>
-					<% @matches[week].each do |match| %>
-						<%= render :partial => "row_matches", :locals => { :match => match } %>
-					<% end %>
-				</table>
-			<% end %>
-		</div>
+		<% end %>
 	</div>
 </div>
-<%= load_templates([ "matches", "loading", "tournaments"]) %>
-<%= content_for :head do %>
-	<%= stylesheet_link_tag "loading" %>
-<% end %>
+
 <%= content_for :js do %>
-	<%= javascript_include_tag "common" %>
-	<%= javascript_include_tag "modules" %>
-	<%= javascript_include_tag "events" %>
-	<script type="text/javascript">
-		loadTemplates([ "matches", "loading", "tournaments" ]);
-		//load meta data for tournaments so Events.Matches.get will work
-		$.ajax({
-			url: Routes.Api.tournaments,
-			success: function(tournaments){
-				Meta.tournaments = tournaments;
-			},
-			async: false
-		});
-			
+	<script type="text/javascript">	
 		$(".week-button").click(function(){
 			$(".week-button").removeClass("week-button-selected");
 			$(this).addClass("week-button-selected");

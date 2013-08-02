@@ -1,5 +1,12 @@
 <%= simple_form_for(@tournament_team) do |f| %>
-  <%= f.input :team, collection: @current_user_teams, as: :select, label: "Team" %>
-  <%= f.input :tournament, as: :hidden, :input_html => { :value => @tournament.id } %>
-  <%= f.submit "Join Tournament", :id => "JoinTournament" %>
+	<div>
+		<div style="float:left;padding:10px;">
+			<%= f.input :team, collection: @current_user_teams, as: :select, :default => 1, :label => false%>
+			<%= f.input :tournament, as: :hidden, :input_html => { :value => @tournament.id } %>
+		</div>
+		<div style="float:left;">
+		 <%= f.submit "Join Tournament", :id => "JoinTournament" %>
+		</div>
+	</div>
+	<div class="clear"></div>
 <% end %>

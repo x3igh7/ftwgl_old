@@ -213,3 +213,16 @@ td{
 	display:table;
 	margin-bottom:5px;
 }
+
+.clear{
+	clear:both;
+}
+
+.spacer{
+	clear:both;
+	height:10px;
+}
+
+.outer-heading{
+	font-size:24px;
+}

@@ -6,12 +6,12 @@ class ApplicationController < ActionController::Base
   def load_sidebar
     if user_signed_in?
       @team_tournaments = current_user.tournaments
-      @team_tournament_matches = []
-      @team_tournaments.each do |tourny|
-        if tourny.matches.count != 0
-          @team_tournament_matches = tourny.tournament_teams.last.matches
-        end
-      end
+      @team_tournament_matches = {}
+			current_user.teams.each do |team|
+				team.tournament_teams.each do |tournament_team|
+					@team_tournament_matches[tournament_team.tournament_id] = tournament_team.matches
+				end
+			end
     end
   end
   
