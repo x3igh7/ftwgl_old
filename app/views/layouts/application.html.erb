@@ -68,19 +68,23 @@
 						You're not participating in any tournaments.
 					<% else %>
 					
-						<ul class="unstyled text-center">
+						
 						<% @team_tournaments.each do |tournament| %>
-						  <li><h4><%= link_to tournament.name, tournament_path(tournament) %></h4></li>
+							<div class="content-inner-inner">
+						  <h1><%= link_to tournament.name, tournament_path(tournament) %></h1>
 							<% if @team_tournament_matches.length < 1 %>
 							  <li> No upcoming matches </li>
 							<% else %>
 								<% @team_tournament_matches.each do |match| %>
-								<li><%= link_to "#{match.home_team.team.name} vs. #{match.away_team.team.name}", tournament_match_path(tournament.id, match.id) %></li>
+									<%= link_to "#{match.home_team.team.name} vs. #{match.away_team.team.name}", tournament_match_path(tournament.id, match.id) %>
+									<div class="faded" style="font-size:16px;"><%= match.match_date %></div>
 								<% end %>
 							<% end %>
+							</div>
 						<% end %>
+				
 					<% end %>
-					  </ul>
+					  
 					</div>
 			  <% else %>
 					<h1>sign in</h1>

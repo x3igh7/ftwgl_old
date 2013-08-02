@@ -1,0 +1,51 @@
+<% url = Ftwgl::Application.routes.url_helpers %>
+
+String.prototype.capitalize = function(){
+	return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
+String.prototype.format = function() {
+  var args = arguments;
+  return this.replace(/{(\d+)}/g, function(match, number) { 
+    return typeof args[number] != 'undefined'
+      ? args[number]
+      : match
+    ;
+  });
+};
+
+var Routes = {
+	Admin: {
+		users: '<%= url.admin_users_path %>',
+		user: '<%= CGI::unescape url.admin_user_path("{0}") %>',
+		matches: '<%= CGI::unescape(url.admin_tournament_matches_path("{0}")) %>',
+		tournaments: '<%= url.admin_tournaments_path %>',
+		tournament: '<%= CGI::unescape(url.admin_tournament_path("{0}")) %>',
+		match: '<%= CGI::unescape(url.admin_tournament_match_path("{0}", "{1}")) %>',
+		ban: '/admin/users/ban/{0}',
+		unban: '/admin/users/unban/{0}'
+	},
+	User: {
+		match: '<%= CGI::unescape(url.tournament_match_path("{0}", "{1}")) %>'
+	}
+}
+
+var Meta = {};
+
+var Templates = {};
+
+var loadTemplates = function(types){
+	$.each(types, function(i, type){
+		var Type = type.capitalize();
+		Templates[Type] = {};
+		$("." + type + "_template").each(function(){
+			var name = $(this).attr("id").split("_")[1];
+			var $template = $(this).html();
+			if(name.length == 0){
+				Templates[Type] = $template;
+				return;
+			}
+			Templates[Type][name] = $template
+		});
+	});
+};

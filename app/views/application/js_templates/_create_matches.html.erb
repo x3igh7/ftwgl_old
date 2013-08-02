@@ -1,0 +1,9 @@
+	<%= simple_form_for([:admin, Tournament.new, Match.new], :url => CGI::unescape(admin_tournament_matches_path("{0}"))) do |f| %>
+		<%= f.error_notification %>
+
+		<%= f.input :home_team_id, collection: [], as: :select, label: "Home Team", :class => "teams" %>
+		<%= f.input :away_team_id, collection: [], as: :select, label: "Away Team", :class => "teams" %>
+		<%= f.input :week_num, label: "Week" %>
+		<%= f.input :match_date, as: :date, label: "Match Date" %>
+		<%= f.submit "Add New Match" %>
+	<% end %>

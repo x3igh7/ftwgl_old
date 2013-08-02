@@ -1,0 +1,157 @@
+
+$flashWindow = $('<div class="content-outer cpanel-flash-window"><a href="javascript:void(0);" class="button" id="cpanel-flash-window-close">x</a><h1 /><div class="content-inner"></div></div>').hide().appendTo("body");
+
+var Modules = {
+	generateId: function(){
+		var args = arguments;
+		var type = args[0];
+		if(
+			type == "tournament" ||
+			type == "matches" ||
+			type == "viewmatches" ||
+			type == "edittournaments" ||
+			type == "destroytournaments" ||
+			type == "creatematches" ||
+			type == "editmatches" ||
+			type == "destroymatches" ||
+			type == "editusers" ||
+			type == "userspage"
+		){
+			var id = args[1];
+			return [ type, id ].join("_");
+		}
+		if(type == "weekbutton"){
+			var tournamentId = args[1];
+			var week = args[2];
+			return [ "matches", tournamentId, "week", week ].join("_");
+		}
+		if(type == "matchestable"){
+			var tournamentId = args[1];
+			var week = args[2];
+			return ["matchestable", tournamentId, "week", week].join("_");
+		}
+	},
+	retrieveId: function($elem){
+		return $elem.attr("id").split("_")[1];
+	},
+	Users: {
+		$panel: $("#users_panel"),
+		get: function(page){
+			var $panel = Modules.Users.$panel;
+			$users = $("#users");
+			if($users.length == 0){
+				//create pagination
+				var users = Meta.users;
+				$pagination = $(Templates.Matches.weeks.format("Page"));
+				var totalPages = users.total_pages;
+				for(var p = 1; p <= totalPages; p++){
+					$pagination.append($(Templates.Matches.weeksButton.format(Modules.generateId("userspage", p), p)));
+				}
+				$panel.append($pagination);
+				
+				//create table
+				$users = $(Templates.Users.table).append($(Templates.Users.heading));	
+				$.each(users.users, function(i,user){
+					bannedLink =  user.banned ? Routes.Admin.unban.format(user.id): Routes.Admin.ban.format(user.id)
+					banned = user.banned ? "Unban" : "Ban";
+					$users.append(Templates.Users.row.format(user.id, user.username, user.email, bannedLink, banned, Modules.generateId("editusers", user.id)));
+				});
+				$panel.append($users);
+				
+				$pagination.find("#" + Modules.generateId("userspage", page)).addClass("cpanel-week-button-selected");
+			}
+			return $users;
+		}
+	},
+	Tournaments: {
+		$panel: $('#tournaments_panel'),
+		get: function(id){
+			var gid = Modules.generateId;
+			$tournament = $("#" + gid("tournament", id));
+			var tournament = Meta.tournaments[id];
+			if($tournament.length == 0){
+				$tournament = $(Templates.Tournaments.tournament.format(
+					gid("tournament", id),
+					id,
+					tournament.name,
+					tournament.description,
+					tournament.rules,
+					gid("viewmatches", id),
+					gid("edittournaments", id),
+					gid("destroytournaments", id))
+				);
+			}
+			return $tournament;
+		}
+	},
+	Matches: {
+		get: function(tournamentId){
+			var elemId = Modules.generateId("matches", tournamentId)
+			var $matches = $("#" + elemId);
+			if($matches.length == 0){
+				$matches = $(Templates.Matches.matches.format(elemId));
+				Modules.Tournaments.get(tournamentId).append($matches); //first create empty module
+				var matches = Meta.tournaments[tournamentId].matches;
+				$matches
+					.append(Modules.Matches.generateTables(tournamentId))
+					.append('<a href="javascript:void(0);" id="creatematches_' + tournamentId + '" class="creatematches button">Create match</a>');
+			}
+			return $matches;
+		},
+		generateTables: function(tournamentId){
+			var gid = Modules.generateId;
+			var matches = Meta.tournaments[tournamentId].matches;
+			if($.isEmptyObject(matches)){
+				return $("<div>No matches</div>");
+			}
+			var $wrapper = $("<div />");
+			var $weeks = $(Templates.Matches.weeks.format("Week"));
+			$wrapper.append($weeks);
+			$.each(matches, function(week, weekMatches){
+				var $weekButton = $(Templates.Matches.weeksButton.format(gid("weekbutton", tournamentId, week), week));
+				$weeks.append($weekButton);
+				var $table = $(Templates.Matches.table.format(gid("matchestable", tournamentId, week)));
+				$table.append(Templates.Matches.heading);
+				$.each(weekMatches, function(i, match){
+					$table.append(Templates.Matches.row.format(
+						Meta.tournaments[tournamentId].teams[match.home_team_id].tag,
+						Meta.tournaments[tournamentId].teams[match.away_team_id].tag,
+						match.home_score,
+						match.away_score,
+						match.match_date,
+						tournamentId,
+						match.id,
+						gid("editmatches", match.id),
+						gid("destroymatches", match.id)
+					));
+				});
+				$wrapper.append($table);
+			});
+			
+			return $($wrapper.html());
+		}
+	}
+};
+
+var generateTournamentTeamOptionsString = function(teams){
+	var html = [];
+	$.each(teams, function(i, team){
+		$outerHtml = $("<div><option /></div>");
+		$outerHtml.find("option").attr("value", team.id).html(team.tag);
+		html.push($outerHtml.html());
+	});
+	return html.join('');
+}
+
+var flashWindow = function(heading, $elem){
+	$flashWindow.find("#cpanel-flash-window-close").one("click", closeWindow);
+	$flashWindow.find(".content-inner").empty().append($elem);
+	$flashWindow.find("h1").text(heading);
+	$flashWindow.css("top", $(window).scrollTop() + $(window).height() / 6).show();
+	$(".body-container").css("opacity", .5);
+}
+
+var closeWindow = function(){
+	$flashWindow.hide()
+	$(".body-container").css("opacity", 1);
+};

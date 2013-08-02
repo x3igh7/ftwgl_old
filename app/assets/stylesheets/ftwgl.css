@@ -130,6 +130,10 @@ td{
 	background-color: #cc5500;
 }
 
+.content-outer h1 a{
+	color:#f6f6f6;
+}
+
 .content-inner{
 	padding:5px;
 }
@@ -168,6 +172,11 @@ td{
 	width:500px;
 	margin-left:auto;
 	margin-right:auto;
+}
+
+.tournament-name{
+	font-size:36px;
+	font-weight:100;
 }
 
 .flash{

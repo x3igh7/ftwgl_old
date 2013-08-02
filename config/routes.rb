@@ -19,6 +19,8 @@ Ftwgl::Application.routes.draw do
 		get "users/ban(/:id)" => "users#ban"
 		get "users/unban(/:id)" => "users#unban"
 	end
+	
+	get "/templates" => "templates#templates"
   root :to => 'home#home'
 
   # The priority is based upon order of creation:
