@@ -35,28 +35,32 @@ var Modules = {
 		return $elem.attr("id").split("_")[1];
 	},
 	Users: {
-		$panel: $("#users_panel"),
 		get: function(page){
-			var $panel = Modules.Users.$panel;
 			$users = $("#users");
 			if($users.length == 0){
+				$users = $('<div id="users"></div>');
+				
 				//create pagination
 				var users = Meta.users;
 				$pagination = $(Templates.Matches.weeks.format("Page"));
 				var totalPages = users.total_pages;
 				for(var p = 1; p <= totalPages; p++){
-					$pagination.append($(Templates.Matches.weeksButton.format(Modules.generateId("userspage", p), p)));
+					$paginationButton = $(Templates.Matches.weeksButton.format(Modules.generateId("userspage", p), p));
+					if(p == page){
+						$paginationButton.addClass("week-button-selected");
+					}
+					$pagination.append($paginationButton);
 				}
-				$panel.append($pagination);
+				$users.append($pagination);
 				
 				//create table
-				$users = $(Templates.Users.table).append($(Templates.Users.heading));	
+				$table = $(Templates.Users.table).append($(Templates.Users.heading));	
 				$.each(users.users, function(i,user){
 					bannedLink =  user.banned ? Routes.Admin.unban.format(user.id): Routes.Admin.ban.format(user.id)
 					banned = user.banned ? "Unban" : "Ban";
-					$users.append(Templates.Users.row.format(user.id, user.username, user.email, bannedLink, banned, Modules.generateId("editusers", user.id)));
+					$table.append(Templates.Users.row.format(user.id, user.username, user.email, bannedLink, banned, Modules.generateId("editusers", user.id)));
 				});
-				$panel.append($users);
+				$users.append($table);
 				
 				$pagination.find("#" + Modules.generateId("userspage", page)).addClass("cpanel-week-button-selected");
 			}
@@ -64,7 +68,6 @@ var Modules = {
 		}
 	},
 	Tournaments: {
-		$panel: $('#tournaments_panel'),
 		get: function(id){
 			var gid = Modules.generateId;
 			$tournament = $("#" + gid("tournament", id));
@@ -89,12 +92,14 @@ var Modules = {
 			var elemId = Modules.generateId("matches", tournamentId)
 			var $matches = $("#" + elemId);
 			if($matches.length == 0){
+				 //first create empty module
 				$matches = $(Templates.Matches.matches.format(elemId));
-				Modules.Tournaments.get(tournamentId).append($matches); //first create empty module
 				var matches = Meta.tournaments[tournamentId].matches;
 				$matches
-					.append(Modules.Matches.generateTables(tournamentId))
-					.append('<a href="javascript:void(0);" id="creatematches_' + tournamentId + '" class="creatematches button">Create match</a>');
+					.append(Modules.Matches.generateTables(tournamentId));
+				if(Meta.admin){
+					$matches.append('<a href="javascript:void(0);" id="creatematches_' + tournamentId + '" class="creatematches button">Create match</a>');
+				}
 			}
 			return $matches;
 		},

@@ -30,6 +30,7 @@ var Events = {
 			});
 		}
 	},
+	
 	Page:	{
 		attach: function(){
 			$('#create_tournament').click(function(){
@@ -60,10 +61,10 @@ var Events = {
 	Users: {
 		get: function(page){
 			page = page || 1;
-			var $panel = Modules.Users.$panel;
+			var $panel = Panels.users;
 			Events.Loading.start($panel);	
 			$.ajax({
-				url: Routes.Admin.users,
+				url: Routes.Api.users,
 				data: { page: page },
 				success: function(users){
 					Meta.users = users;
@@ -74,16 +75,16 @@ var Events = {
 			});
 		},
 		refresh: function(page){
-			var $panel = Modules.Users.$panel;
+			var $panel = Panels.users
 			$panel.empty();
 			if(Meta.users.users.length == 0){
 				$panel.text("No users"); //theoretically should never happen
 				return;
 			}
-			Modules.Users.get(page);
+			$panel.append(Modules.Users.get(page));
 		},
 		attach: function(){
-			var $panel = Modules.Users.$panel;
+			var $panel = Panels.users
 			$(".editusers").click(function(){
 				var id = $(this).attr("id").split("_")[1];
 				var $edit = $(Templates.Users.edit).submit(function(e){
@@ -107,7 +108,7 @@ var Events = {
 				flashWindow("edit user", $edit);
 			});
 			
-			$panel.find(".cpanel-week-button").click(function(){
+			$panel.find(".week-button").click(function(){
 				var page = $(this).attr("id").split("_")[1];
 				Events.Users.get(page);
 			});
@@ -116,10 +117,10 @@ var Events = {
 	
 	Tournaments: {
 		get: function(){
-			var $panel = Modules.Tournaments.$panel;
+			var $panel = Panels.tournaments;
 			Events.Loading.start($panel);
 			$.ajax({
-				url: Routes.Admin.tournaments,
+				url: Routes.Api.tournaments,
 				success: function(tournaments){
 					Meta.tournaments = tournaments;
 					Events.Loading.end($panel);
@@ -130,7 +131,7 @@ var Events = {
 		
 		refresh: function(){
 			var tournaments = Meta.tournaments;
-			var $panel = Modules.Tournaments.$panel;
+			var $panel = Panels.tournaments;
 			$panel.empty();
 			if($.isEmptyObject(tournaments)){
 				$panel.text("No tournaments");
@@ -149,7 +150,7 @@ var Events = {
 		attach: function(id){
 			var $tournament = Modules.Tournaments.get(id);
 			$tournament.find(".viewmatches").click(function(e){
-				Events.Matches.get(id);
+				Events.Matches.get(id, $tournament);
 			});
 			
 			$tournament.find(".destroytournaments").click(function(e){
@@ -201,13 +202,12 @@ var Events = {
 	},
 	
 	Matches: {
-		get: function(tournamentId){
-			var $tournament = Modules.Tournaments.get(tournamentId);
+		get: function(tournamentId, $panel){
 			var $matches = Modules.Matches.get(tournamentId);
 			Events.Loading.start($matches);
 			var tournamentId = Modules.retrieveId($matches);
 			$.ajax({
-				url: Routes.Admin.matches.format(tournamentId),
+				url: Routes.Api.matches.format(tournamentId),
 				success: function(matches){
 					Events.Loading.end($matches);
 					Meta.tournaments[tournamentId].matches = matches;
@@ -218,28 +218,29 @@ var Events = {
 						}
 					});
 					Meta.tournaments[tournamentId].currentWeek = currentWeek;
-					Events.Matches.refresh(tournamentId);
+					Events.Matches.refresh(tournamentId, $panel);
 					Events.Matches.select(tournamentId, Meta.tournaments[tournamentId].currentWeek);
 				}
 			});
 		},
-		refresh: function(tournamentId){
+		refresh: function(tournamentId, $panel){
 			Modules.Matches.get(tournamentId).remove(); //force matches.get to check for new loaded matches
-			$matches = Modules.Matches.get(tournamentId);
+			$panel.append(Modules.Matches.get(tournamentId));
 			Events.Matches.attach(tournamentId);
 		},
 		select: function(tournamentId, week){
 			$matches = Modules.Matches.get(tournamentId)
 			$matches.find(".cpanel-matches-table").hide();
 			$("#" + Modules.generateId("matchestable", tournamentId, week)).show();
-			$matches.find(".cpanel-week-button").removeClass("cpanel-week-button-selected");
-			$("#" + Modules.generateId("weekbutton", tournamentId, week)).addClass("cpanel-week-button-selected");
+			$matches.find(".week-button").removeClass("week-button-selected");
+			$("#" + Modules.generateId("weekbutton", tournamentId, week)).addClass("week-button-selected");
 		},
 		attach: function(tournamentId){
 			var gid = Modules.generateId;
+			var $tournament = Modules.Tournaments.get(tournamentId);
 			var $matches = Modules.Matches.get(tournamentId);
-			$matches.find(".cpanel-week-button").click(function(){
-				var week = $(this).attr("id").split("_")[2];
+			$matches.find(".week-button").click(function(){
+				var week = $(this).attr("id").split("_")[3];
 				Events.Matches.select(tournamentId, week);
 			});
 			$matches.find(".creatematches").click(function(){
@@ -262,7 +263,7 @@ var Events = {
 							else{
 								$("#alert").text("Could not create match")
 							}
-							Events.Matches.get(tournamentId);
+							Events.Matches.get(tournamentId, $tournament);
 							closeWindow();
 						}
 					});
@@ -286,7 +287,7 @@ var Events = {
 							else{
 								$("#alert").text("Could not update match")
 							}
-							Events.Matches.get(tournamentId);
+							Events.Matches.get(tournamentId, $tournament);
 							closeWindow();
 						}
 					});
@@ -310,16 +311,12 @@ var Events = {
 							else{
 								$("#alert").text("Could not destroy match #" + d.match.id)
 							}
-							Events.Matches.get(tournamentId);
+							Events.Matches.get(tournamentId, $tournament);
 							closeWindow();
 						}
 					});
 				});
 				flashWindow("destroy match", $destroyMatch);
-			});
-			
-			$("#" + gid("matches", tournamentId)).find(".cpanel-week-button").click(function(){
-				Events.Matches.select(tournamentId, $(this).attr("id").split("_").pop());
 			});
 		}
 	}

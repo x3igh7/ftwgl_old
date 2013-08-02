@@ -27,6 +27,7 @@ class TournamentsController < ApplicationController
 
   def show
     @tournament = Tournament.find(params[:id])
+		@teams = @tournament.tournament_teams.ranking
     @has_active_team = false
     @tournament_team = TournamentTeam.new
     @current_user_teams = []
@@ -40,6 +41,15 @@ class TournamentsController < ApplicationController
         @has_active_team = x.tournament_teams.in_tournament(@tournament).any?
       end
     end
+		
+		
+		@matches = {}
+		Tournament.find(params[:id]).matches.each do |match|
+			if @matches[match.week_num].nil?
+				@matches[match.week_num] = []
+			end
+			@matches[match.week_num] << match
+		end
   end
 
   def rankings

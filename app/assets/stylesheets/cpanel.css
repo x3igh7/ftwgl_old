@@ -17,37 +17,6 @@
 	padding-bottom:0;
 }
 
-.cpanel-week-button{
-	margin: 0 5px 0 5px;
-	color: #999;
-}
-
-.cpanel-week-button:hover{
-	color:#ccc;
-}
-
-.cpanel-week-button-selected{
-	font-weight:bold;
-	color:white;
-}
-
-.cpanel-week-button-selected:hover{
-	color:white;
-}
-
-.cpanel-week-label{
-	background:#cc5500;
-}
-
-.cpanel-weeks{
-	position:relative;
-	top:-5px;
-	left:-5px;
-	background:#565656;
-	display:table;
-	margin-bottom:5px;
-}
-
 .cpanel-matches-table{
 	display:none;
 }

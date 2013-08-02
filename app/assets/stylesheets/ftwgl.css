@@ -182,3 +182,34 @@ td{
 .flash{
 	text-align:center;
 }
+
+.week-button{
+	margin: 0 5px 0 5px;
+	color: #999;
+}
+
+.week-button:hover{
+	color:#ccc;
+}
+
+.week-button-selected{
+	font-weight:bold;
+	color:white;
+}
+
+.week-button-selected:hover{
+	color:white;
+}
+
+.week-label{
+	background:#cc5500;
+}
+
+.weeks{
+	position:relative;
+	top:-5px;
+	left:-5px;
+	background:#565656;
+	display:table;
+	margin-bottom:5px;
+}

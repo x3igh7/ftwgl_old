@@ -12,15 +12,21 @@ Ftwgl::Application.routes.draw do
   resources :tournament_teams, :only => [:create]
 	namespace :admin do
 		root :to => "cpanel#index"
-		resources :tournaments, :only => [ :create, :update, :index, :destroy, :update ] do
-			resources :matches, :only => [ :create, :update, :index, :destroy ]
+		resources :tournaments, :only => [ :create, :update, :destroy, :update ] do
+			resources :matches, :only => [ :create, :update, :destroy ]
 		end
-		resources :users, :only => [ :update, :index, :destroy ]
+		resources :users, :only => [ :update, :destroy ]
 		get "users/ban(/:id)" => "users#ban"
 		get "users/unban(/:id)" => "users#unban"
 	end
 	
-	get "/templates" => "templates#templates"
+	namespace :api do
+		resources :tournaments, :only => [ :index, :show ] do
+			resources :matches, :only => [ :index ]
+		end
+		resources :users, :only => [ :index ]
+	end
+
   root :to => 'home#home'
 
   # The priority is based upon order of creation:

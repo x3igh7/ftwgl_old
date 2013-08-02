@@ -16,10 +16,7 @@ String.prototype.format = function() {
 
 var Routes = {
 	Admin: {
-		users: '<%= url.admin_users_path %>',
 		user: '<%= CGI::unescape url.admin_user_path("{0}") %>',
-		matches: '<%= CGI::unescape(url.admin_tournament_matches_path("{0}")) %>',
-		tournaments: '<%= url.admin_tournaments_path %>',
 		tournament: '<%= CGI::unescape(url.admin_tournament_path("{0}")) %>',
 		match: '<%= CGI::unescape(url.admin_tournament_match_path("{0}", "{1}")) %>',
 		ban: '/admin/users/ban/{0}',
@@ -27,12 +24,19 @@ var Routes = {
 	},
 	User: {
 		match: '<%= CGI::unescape(url.tournament_match_path("{0}", "{1}")) %>'
+	},
+	Api: {
+		users: '<%= url.api_users_path %>',
+		matches: '<%= CGI::unescape(url.api_tournament_matches_path("{0}")) %>',
+		tournaments: '<%= url.api_tournaments_path %>'
 	}
 }
 
-var Meta = {};
+var Meta = { admin: false };
 
 var Templates = {};
+
+var Panels = {};
 
 var loadTemplates = function(types){
 	$.each(types, function(i, type){
