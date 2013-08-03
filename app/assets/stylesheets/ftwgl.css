@@ -33,6 +33,7 @@ input[type=submit]{
 input[type=submit]:hover{
 	background:#dd8800;
 }
+
 .button{
 	background:#cc5500;
 	color:white;
@@ -172,6 +173,7 @@ td{
 	width:500px;
 	margin-left:auto;
 	margin-right:auto;
+	word-wrap:break-word;
 }
 
 .tournament-name{

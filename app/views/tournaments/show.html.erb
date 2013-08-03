@@ -1,10 +1,13 @@
 <h1><%= @tournament.name %></h1>
 <div class="content-inner">
 	<span class="outer-heading"><%= @tournament.description %></span><br />
-	<span class="faded"><%= "#{@tournament.rules}"%></span>
+	<span class="faded"><%= "#{@tournament.rules}"%></span><br />
 	<% if user_signed_in? %>  
-		<% if @has_active_team == true %>
-			<p></p>
+		<% if @active_tournament_team %>
+			<% @active_team = Team.find(@active_tournament_team.team_id) %>
+			You are participating in this tournament with <%= link_to @active_team.name, team_path(@active_team) %>.
+		<% elsif not @current_user_teams.any? %>
+			You can join a team from the rankings below, or <%= link_to "create", new_team_path %> your own team.
 		<% else %>
 			<div style="float:right;">
 				<%=render 'tournament_team/join_tournament_form' %>

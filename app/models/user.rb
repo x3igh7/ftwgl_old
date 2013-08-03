@@ -38,6 +38,10 @@ class User < ActiveRecord::Base
     team.members.include?(self)
   end
 	
+	def has_applied?(team)
+		team.applications.include?(self)
+	end
+	
 	def banned?
 		self.has_role?(:banned)
 	end

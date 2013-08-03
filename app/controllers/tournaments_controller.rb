@@ -28,7 +28,7 @@ class TournamentsController < ApplicationController
   def show
     @tournament = Tournament.find(params[:id])
 		@teams = @tournament.tournament_teams.ranking
-    @has_active_team = false
+    @active_tournament_team = nil
     @tournament_team = TournamentTeam.new
     @current_user_teams = []
     if user_signed_in?
@@ -38,7 +38,10 @@ class TournamentsController < ApplicationController
         end
       end
       @current_user_teams.each do |x| 
-        @has_active_team = x.tournament_teams.in_tournament(@tournament).any?
+				@active_tournament_team = x.tournament_teams.in_tournament(@tournament).first
+        if not @active_tournament_team.nil?
+					 break
+				end
       end
     end
 		

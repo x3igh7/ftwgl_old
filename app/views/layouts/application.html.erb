@@ -77,7 +77,7 @@
 							<% else %>
 								<% @team_tournament_matches[tournament.id].each do |match| %>
 									<%= link_to "#{match.home_team.team.name} vs. #{match.away_team.team.name}", tournament_match_path(tournament.id, match.id) %>
-									<div class="faded" style="font-size:16px;"><%= match.match_date %></div>
+									<div class="faded" style="font-size:16px;"><%= match.standard_date %></div>
 								<% end %>
 							<% end %>
 							</div>

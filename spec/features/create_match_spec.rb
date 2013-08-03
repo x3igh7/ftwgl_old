@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 
-describe "Match Creation" do
+describe "Match Creation", :js => true do
   let!(:admin) { FactoryGirl.create(:user) }
   let!(:home) { FactoryGirl.create(:team) }
   let!(:away) { FactoryGirl.create(:team) }
@@ -25,9 +25,9 @@ describe "Match Creation" do
     it "and appears under matches section" do
       create_match
       visit tournament_path(tournament)
-      click_on "All Matches"
-      expect(page.find("#match1")).to have_content(home.name)
-      expect(page.find("#match1")).to have_content(away.name)
+      #click_on "All Matches" 
+      expect(page.find(".match")).to have_content(home.tag)
+      expect(page.find(".match")).to have_content(away.tag)
     end
 
     it "can be visited for more info" do
@@ -37,8 +37,8 @@ describe "Match Creation" do
   
     it "unless the two teams selected are the same" do
       visit new_tournament_match_path(tournament)
-      select home.name, from: "Home"
-      select home.name, from: "Away"
+      select home.name, from: "Home Team"
+      select home.name, from: "Away Team"
       fill_in "Week", with: 4
       click_on "Add New Match"
       expect(page).to have_content("Failed to create match")
@@ -49,8 +49,8 @@ end
 
 def create_match
   visit new_tournament_match_path(tournament)
-  select home.name, from: "Home"
-  select away.name, from: "Away"
+  select home.name, from: "Home Team"
+  select away.name, from: "Away Team"
   fill_in "Week", with: 4
   click_on "Add New Match"
 end

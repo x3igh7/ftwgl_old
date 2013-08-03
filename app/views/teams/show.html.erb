@@ -2,48 +2,54 @@
 <% if user_signed_in? and current_user.is_team_owner?(@team) %>
 	<%= link_to "Edit team profile", edit_team_path(@team) %>
 <% end %>
-<div class="spacer"></div>
+
+<% if user_signed_in? %>
+	<% unless current_user.is_team_owner?(@team) || current_user.is_team_member?(@team)	%>
+		<% if not current_user.has_applied? @team %>
+			<%= button_to "Apply to team", memberships_path(:team_id => @team.id), :method => 'post' %>
+		<% else %>
+			<div class="spacer"></div>
+			You have applied to this team.
+		<% end %>
+	<% end %>
+<% end %>
 <div class="content-inner">
-    <div class="content-inner-inner">
-			<h1>roster</h1>
-  
-			<table class="table table-condensed" cellspacing="0">
-				<tr>
-					<th>Member</th>
-					<th>Role</th>
-					<th>Status</th>
-					<th></th>
-					<th></th>
-				</tr>
-				<%= render 'team_roster_values' %>
-			</table>
-		
-			<% if user_signed_in? %>
-				<% unless current_user.is_team_owner?(@team) || current_user.is_team_member?(@team) %>
-					<%= button_to "Apply to Team", memberships_path(:team_id => @team.id), :method => 'post' %>
+	<div style="float:left;width:50%">
+		<%= render 'team_roster_values' %>
+	</div>
+	<div style="float:right;height:100%;width:50%">
+		<div class="content-inner-inner">
+			<h1>record</h1>
+				<% if not @team.tournaments.any? %>
+					Not currently participating in any tournaments.
+				<% else %>
+					<% @team.tournaments.each do |tourny| %>
+						<% ranking = TournamentTeam.where('"tournament_id" = ' + String(tourny.id)).ranking %>
+						<% tournament_team =  @team.tournament_teams.find_by_tournament_id(tourny.id) %>
+						<% rank = 1 %>
+						<% ranking.each do |ranked| %>
+							<% if tournament_team.id == ranked.id %>
+								<% break %>
+							<% end %>
+							<% rank = rank + 1 %>
+						<% end %>
+						<div style="display:inline-block;margin-right:20px;">
+							<%=link_to tourny.name, tournament_path(tourny), :class => "outer-heading" %><br />
+							<span class="faded">Rank <%= rank %> of <%= ranking.count %></span>
+						
+							<div class="outer-heading">
+								<%= tournament_team.wins %> - <%= tournament_team.losses %>
+							</div>
+						</div>
+					<% end %>
 				<% end %>
-			<% end %>
-  
-    </div>
-    <div class="content-inner-inner">
-      <h1>tournaments</h1>
-      <dl>
-        <% @team.tournaments.each do |tourny| %>
-        <dt><%=link_to tourny.name, tournament_path(tourny) %></dt>
-        <dd><%= tourny.description %></dd>
-        <dd><%= link_to "Rankings", tournament_rankings_path(tourny) %></dd>
-        <% end %>
-      </dl>
-      <p></p>
 		</div>
-      <h2>Team Stats</h2>
-      <dl>
-        <dt>Wins</dt>
-        <dd id="wins_count"><%= @total_wins %></dd>
-        <dt>Losses</dt>
-        <dd id="losses_count"><%= @total_losses %></dd>
-        <dt>Winning Percentage</dt>
-        <dd id="winning_perc"><%= "#{@winning_perc}%" %></dd>
+		<div class="content-inner-inner">
+			<h1>stats</h1>
+      <div class="outer-heading">Total record</div>
+					<span id="wins_count"><%= @total_wins %></span> - <span id="losses_count"><%= @total_losses %></span> <span id="winning_perc">(<%= "#{@winning_perc}%" %>)</span>
       </dl>
-    
+		</div>
+	</div>
+	<div class="clear"></div>
 </div>
