@@ -9,6 +9,7 @@ class Api::TournamentsController < ApplicationController
 				:id => tournament.id,
 				:name => tournament.name,
 				:rules => tournament.rules,
+				:current_week_num => tournament.current_week_num,
 				:teams => Hash[(tournament.tournament_teams.map{|team| {:tournament_team_id => team.id, :team_id => team.team.id, :tag => team.team.tag }}).map{|team| [ team[:tournament_team_id], team ] }]
 			})
 		end

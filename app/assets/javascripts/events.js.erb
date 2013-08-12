@@ -189,14 +189,37 @@ var Events = {
 								$("#alert").text("Successfully updated " + d.tournament.name);
 							}
 							else{
-								$("alert").text("Could not update " + d.tournament.name);
+								$("#alert").text("Could not update " + d.tournament.name);
 							}
 						}
 					});
-					closeWindow()
+					closeWindow();
 					Events.Tournaments.get();
 				});
 				flashWindow("edit tournament", $editTournament);
+			});
+					
+			$tournament.find(".schedulematches").click(function(){
+				var $scheduleMatches = $(Templates.Matches.schedule.format(id));
+				$scheduleMatches.submit(function(e){
+					e.preventDefault();
+					$.ajax({
+						url: Routes.Admin.schedule.format(id),
+						method: 'post',
+						data: $(this).serialize(),
+						success: function(d){
+							if(d.success){
+								$("#alert").text("Successfully scheduled matches for " + d.tournament.name + ", week " + d.tournament.current_week_num);
+							}	
+							else{
+								$("#alert").text("Could not schedule matches");
+							}
+						}
+					});
+					closeWindow();
+					Events.Matches.get(id, $tournament);
+				});
+				flashWindow("schedule matches", $scheduleMatches);
 			});
 		}
 	},

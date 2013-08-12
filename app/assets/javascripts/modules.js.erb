@@ -15,7 +15,8 @@ var Modules = {
 			type == "editmatches" ||
 			type == "destroymatches" ||
 			type == "editusers" ||
-			type == "userspage"
+			type == "userspage" ||
+			type == "schedulematches"
 		){
 			var id = args[1];
 			return [ type, id ].join("_");
@@ -81,7 +82,8 @@ var Modules = {
 					tournament.rules,
 					gid("viewmatches", id),
 					gid("edittournaments", id),
-					gid("destroytournaments", id))
+					gid("destroytournaments", id),
+					gid("schedulematches", id))
 				);
 			}
 			return $tournament;
@@ -89,17 +91,15 @@ var Modules = {
 	},
 	Matches: {
 		get: function(tournamentId){
-			var elemId = Modules.generateId("matches", tournamentId)
+			var elemId = Modules.generateId("matches", tournamentId);
 			var $matches = $("#" + elemId);
+			var tournament = Meta.tournaments[tournamentId];
 			if($matches.length == 0){
 				 //first create empty module
 				$matches = $(Templates.Matches.matches.format(elemId));
-				var matches = Meta.tournaments[tournamentId].matches;
 				$matches
 					.append(Modules.Matches.generateTables(tournamentId));
-				if(Meta.admin){
-					$matches.append('<a href="javascript:void(0);" id="creatematches_' + tournamentId + '" class="creatematches button">Create match</a>');
-				}
+				$matches.append('<a href="javascript:void(0);" id="creatematches_' + tournamentId + '" class="creatematches button">Create match</a>');
 			}
 			return $matches;
 		},

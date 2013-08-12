@@ -14,6 +14,7 @@ Ftwgl::Application.routes.draw do
 		root :to => "cpanel#index"
 		resources :tournaments, :only => [ :create, :update, :destroy, :update ] do
 			resources :matches, :only => [ :create, :update, :destroy ]
+			post "matches/schedule" => "matches#schedule"
 		end
 		resources :users, :only => [ :update, :destroy ]
 		get "users/ban(/:id)" => "users#ban"
