@@ -60,7 +60,7 @@ var Events = {
 	
 	Users: {
 		get: function(page){
-			page = page || 1;
+			page = page || Modules.Users.currentPage || 1;
 			var $panel = Panels.users;
 			Events.Loading.start($panel);	
 			$.ajax({
@@ -106,6 +106,30 @@ var Events = {
 					});
 				});
 				flashWindow("edit user", $edit);
+			});
+			
+			$(".jointeams").click(function(){
+				var id = $(this).attr("id").split("_")[1];
+				$joinTeams = $(Templates.Users.joinTeams.format(id)).submit(function(e){
+					e.preventDefault();
+					$.ajax({
+						url: Routes.Admin.memberships,
+						method: 'post',
+						data: $(this).serialize(),
+						success: function(d){
+							if(d.success){
+								$("#alert").text("Added " + d.user.username + " to " + d.team.name);
+							}
+							else{
+								$("#alert").text("Failed to add " + d.user.username + " to " + d.team.name);
+							}
+							closeWindow();
+							Events.Users.get();
+							Events.Teams.get();
+						}
+					});
+				});
+				flashWindow("add to team", $joinTeams);
 			});
 			
 			$panel.find(".week-button").click(function(){
@@ -435,7 +459,7 @@ var Events = {
 					var userId = $(this).attr("id").split("_")[2],
 							userRow = $("#" + Modules.generateId("memberships_row", id, userId));
 					$.ajax({
-						url: Routes.Admin.memberships.format(id),
+						url: Routes.Admin.membership.format(id),
 						data: { team_id: id, user_id: userId },
 						method: 'delete',
 						success: function(d){

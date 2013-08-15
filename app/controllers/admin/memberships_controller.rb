@@ -1,16 +1,16 @@
 class Admin::MembershipsController < AdminController
 
   def create
-    @team = Team.find(params[:team_id])
-    @membership = Membership.new()
-    @membership.user = current_user
-    @membership.team = @team
-    if @membership.save
-      flash[:notice] = "Application submitted."
-      redirect_to team_path(@team)
+    team = Team.find(params[:membership][:team_id])
+		user = User.find(params[:membership][:user_id])
+		membership = Membership.new()
+		membership.team = team
+		membership.user = user
+		membership.active = true
+    if membership.save
+      render :json => { :success => true, :user => user, :team => team }
     else
-      flash[:alert] = "Error submitting application."
-      redirect_to team_path(@team)
+      render :json => { :success => false, :user => user, :team => team }
     end
   end
 

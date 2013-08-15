@@ -1,8 +1,9 @@
 .cpanel-flash-window{
 	position:absolute;
-	width:400px;
+	min-width:400px;
 	margin-left:-200px;
 	left:50%;
+	box-shadow: 0 0 20px #111;
 }
 
 .cpanel-hidden{

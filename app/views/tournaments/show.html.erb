@@ -48,7 +48,7 @@
 		<% if @matches.empty? %>
 			This tournament has not started.
 		<% else %>
-			<div id="matches_<%= @tournament.id %>" class="content-inner-inner-inner">
+			<div id="matches_<%= @tournament.id %>" class="content-inner-inner">
 				<div class="weeks">
 					<span class="week-label">Week </span>
 					<% @matches.keys.sort.each do |week| %>

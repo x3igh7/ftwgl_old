@@ -106,13 +106,15 @@
 </div>
 <% if user_signed_in? %>
 	<script type="text/javascript">
-		$("#sign_out").click(function(){
-			$.ajax({
-					url: '<%= destroy_user_session_path %>',
-					method: 'delete',
-					complete: function(){
-						location.reload();
-					}
+		$(function(){
+			$("#sign_out").click(function(){
+				$.ajax({
+						url: '<%= destroy_user_session_path %>',
+						method: 'delete',
+						complete: function(){
+							location.reload();
+						}
+				});
 			});
 		});
 	</script>

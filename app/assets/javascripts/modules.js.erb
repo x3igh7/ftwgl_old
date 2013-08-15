@@ -21,7 +21,8 @@ var Modules = {
 			type == "editteams" ||
 			type == "editrosters" ||
 			type == "editteamstournaments" ||
-			type == "memberships" 
+			type == "memberships" ||
+			type == "jointeams"
 		){
 			var id = args[1];
 			return [ type, id ].join("_");
@@ -69,14 +70,25 @@ var Modules = {
 				$.each(users.users, function(i,user){
 					bannedLink =  user.banned ? Routes.Admin.unban.format(user.id): Routes.Admin.ban.format(user.id)
 					banned = user.banned ? "Unban" : "Ban";
-					$table.append(Templates.Users.row.format(user.id, user.username, user.email, bannedLink, banned, Modules.generateId("editusers", user.id)));
+					$table.append(Templates.Users.row.format(
+						user.id, 
+						user.username, 
+						user.email, 
+						bannedLink, 
+						banned, 
+						Modules.generateId("editusers", user.id),
+						Modules.generateId("jointeams", user.id)
+					));
 				});
 				$users.append($table);
 				
 				$pagination.find("#" + Modules.generateId("userspage", page)).addClass("cpanel-week-button-selected");
 			}
+			Modules.Users.currentPage = page;
 			return $users;
-		}
+		},
+		
+		currentPage: 0
 	},
 	Tournaments: {
 		get: function(id){
