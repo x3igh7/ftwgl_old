@@ -16,7 +16,12 @@ var Modules = {
 			type == "destroymatches" ||
 			type == "editusers" ||
 			type == "userspage" ||
-			type == "schedulematches"
+			type == "schedulematches" ||
+			type == "teamspage" ||
+			type == "editteams" ||
+			type == "editrosters" ||
+			type == "editteamstournaments" ||
+			type == "memberships" 
 		){
 			var id = args[1];
 			return [ type, id ].join("_");
@@ -30,6 +35,11 @@ var Modules = {
 			var tournamentId = args[1];
 			var week = args[2];
 			return ["matchestable", tournamentId, "week", week].join("_");
+		}
+		if(type == "removememberships" || type == "memberships_row"){
+			var teamId = args[1];
+			var userId = args[2];
+			return [type, teamId, userId].join("_");
 		}
 	},
 	retrieveId: function($elem){
@@ -135,6 +145,96 @@ var Modules = {
 			});
 			
 			return $($wrapper.html());
+		}
+	},
+	
+	Teams: {
+		currentPage: 0,
+		get: function(page){
+			//build pagination
+			$teams = $("#teams");
+			if($teams.length == 0){
+				$teams = $("<div id='teams'></div>");
+				var teams = Meta.teams;
+				$pagination = $(Templates.Matches.weeks.format("Page"));
+				var totalPages = teams.total_pages;
+				for(var p = 1; p <= totalPages; p++){
+					$paginationButton = $(Templates.Matches.weeksButton.format(Modules.generateId("teamspage", p), p));
+					if(p == page){
+						$paginationButton.addClass("week-button-selected");
+					}
+					$pagination.append($paginationButton);
+				}
+				$teams.append($pagination);
+				
+				//build table
+				var gid = Modules.generateId;
+				$table = $(Templates.Teams.table)
+					.append(Templates.Teams.heading);
+				$.each(teams.teams, function(i, team){
+					var tournaments;
+					if(team.tournaments.length > 0)
+						var tournaments = team.tournaments.map(function(tid){
+							return 	'<a href="' + Routes.User.tournament.format(tid) + '">' + 
+									Meta.tournaments[tid].name +
+								'</a>'
+						}).join(", ");
+					else{
+						tournaments = "<span class='faded'>None</span>";
+					}
+					$table.append(Templates.Teams.row.format(
+						team.id,
+						team.name,
+						team.tag,
+						tournaments,
+						gid("editteams", team.id),
+						gid("editrosters", team.id),
+						gid("editteamstournaments", team.id)
+					));
+				});
+				
+				$teams.append($table);
+				Modules.Teams.currentPage = page;
+				return $teams;
+			}
+		}
+	},
+	
+	Memberships: {
+		get: function(teamId){
+			var gid = Modules.generateId;
+			var elemId = gid("memberships", teamId);
+			var $memberships = $("#" + elemId);
+			if($memberships.length == 0){
+				$memberships = $('<div id="' + gid("memberships", teamId) +'"></div>');
+				$table = $(Templates.Memberships.table);
+				$table.append(Templates.Memberships.heading);
+				//teams not stored as hash by team id
+				var team = Meta.teams.teams.filter(function(team){
+							if(team.id == teamId){
+								return true;
+							}	
+						})[0],
+						memberships = team.memberships;
+				$.each(memberships, function(i, membership){
+					$table.append(Templates.Memberships.row.format(
+						gid("memberships_row", membership.team_id, membership.user.id),
+						membership.user.id,
+						membership.user.username,
+						membership.role,
+						membership.active ? "Active" : "Pending",
+						membership.role != "owner" ? 
+							'<a href="javascript:void(0);" class="removememberships" id="' + 
+							gid("removememberships", membership.team_id, membership.user.id) + '">' +
+							'Remove' +
+							'</a>' :
+							'<span class="faded">None</span>'
+					));
+				});
+				$memberships.append('<span class="outer-heading">' + team.name + '</span><p />');
+				$memberships.append($table);
+			}
+			return $memberships;
 		}
 	}
 };

@@ -17,6 +17,9 @@ Ftwgl::Application.routes.draw do
 			post "matches/schedule" => "matches#schedule"
 		end
 		resources :users, :only => [ :update, :destroy ]
+		resources :teams, :only => [ :update ]
+		resources :tournament_teams, :only => [ :create ]
+		resources :memberships, :only => [ :create, :destroy ]
 		get "users/ban(/:id)" => "users#ban"
 		get "users/unban(/:id)" => "users#unban"
 	end
@@ -26,6 +29,7 @@ Ftwgl::Application.routes.draw do
 			resources :matches, :only => [ :index ]
 		end
 		resources :users, :only => [ :index ]
+		resources :teams, :only => [ :index ]
 	end
 
   root :to => 'home#home'

@@ -44,11 +44,11 @@ var Events = {
 						success: function(d){
 							if(d.success){
 								$("#alert").text('Successfully created ' + d.tournament.name);
-								Events.Tournaments.get();
 							}
 							else{
 								$("#alert").text('Could not create ' + d.tournament.name);
 							}
+							location.reload();
 							closeWindow();
 						}
 					});
@@ -121,6 +121,7 @@ var Events = {
 			Events.Loading.start($panel);
 			$.ajax({
 				url: Routes.Api.tournaments,
+				async: false, //fix race condition on tournaments metadata
 				success: function(tournaments){
 					Meta.tournaments = tournaments;
 					Events.Loading.end($panel);
@@ -170,6 +171,7 @@ var Events = {
 							}
 							closeWindow();
 							Events.Tournaments.get();
+							Events.Teams.get();
 						}
 					});
 				});
@@ -195,6 +197,7 @@ var Events = {
 					});
 					closeWindow();
 					Events.Tournaments.get();
+					Events.Teams.get();
 				});
 				flashWindow("edit tournament", $editTournament);
 			});
@@ -340,6 +343,109 @@ var Events = {
 					});
 				});
 				flashWindow("destroy match", $destroyMatch);
+			});
+		}
+	},
+	
+	Teams: {
+		get: function(page){
+			page = page || Modules.Teams.currentPage || 1;
+			var $panel = Panels.teams;
+			Events.Loading.start($panel);	
+			$.ajax({
+				url: Routes.Api.teams,
+				data: { page: page },
+				success: function(teams){
+					Meta.teams = teams;
+					Events.Loading.end($panel);
+					Events.Teams.refresh(page);
+					Events.Teams.attach();
+				}
+			});
+		},
+		refresh: function(page){
+			var $panel = Panels.teams
+			$panel.empty();
+			if(Meta.teams.teams.length == 0){
+				$panel.text("No teams");
+				return;
+			}
+			$panel.append(Modules.Teams.get(page));
+		},
+		attach: function(){
+			var $panel = Panels.teams;
+			
+			$(".editteams").click(function(){
+				var id = $(this).attr("id").split("_")[1];
+				var $edit = $(Templates.Teams.edit).submit(function(e){
+					e.preventDefault();
+					$.ajax({
+						url: Routes.Admin.team.format(id),
+						method: 'put',
+						data: $(this).serialize(),
+						success: function(d){
+							if(d.success){
+								$("#alert").text("Successfully updated " + d.team.name + " (team #" + d.team.id + ")");
+							}
+							else{
+								$("#alert").text("Could not update " + d.team.name + " (team #" + d.team.id + ")");
+							}
+							closeWindow();
+							Events.Teams.get();
+						}
+					});
+				});
+				flashWindow("edit team", $edit);
+			});
+			
+			$panel.find(".week-button").click(function(){
+				var page = $(this).attr("id").split("_")[1];
+				Events.Teams.get(page);
+			});
+			
+			$(".editteamstournaments").click(function(){
+				var id = $(this).attr("id").split("_")[1];
+				var $editTournaments = $(Templates.Teams.editTournaments.format(id)).submit(function(e){
+					e.preventDefault();
+					$.ajax({
+						url: Routes.Admin.tournamentTeam,
+						method: 'post',
+						data: $(this).serialize(),
+						success: function(d){
+							if(d.success){
+								$("#alert").text("Added " + d.team.name + " to " + d.tournament.name);
+							}
+							else{
+								$("#alert").text("Failed to add " + d.team.name + " to " + d.tournament.name);
+							}
+							closeWindow();
+							Events.Teams.get();
+							Events.Tournaments.get();
+						}
+					});
+				});
+				flashWindow("add to tournaments", $editTournaments);
+			});
+						
+			$(".editrosters").click(function(){
+				var id = parseInt($(this).attr("id").split("_")[1]),
+						$that = $(this);
+				var $roster = $(Modules.Memberships.get(id));
+				$roster.find(".removememberships").click(function(){
+					var userId = $(this).attr("id").split("_")[2],
+							userRow = $("#" + Modules.generateId("memberships_row", id, userId));
+					$.ajax({
+						url: Routes.Admin.memberships.format(id),
+						data: { team_id: id, user_id: userId },
+						method: 'delete',
+						success: function(d){
+							userRow.remove();
+							Events.Teams.get();
+							$("#alert").text("Removed " + d.user.username + " from " + d.team.name);
+						}
+					});
+				});
+				flashWindow("edit roster", $roster);
 			});
 		}
 	}
