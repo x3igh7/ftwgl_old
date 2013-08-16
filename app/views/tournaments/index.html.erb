@@ -11,6 +11,6 @@
 	<% end %>
 	
 	<% if user_signed_in? && current_user.has_role?(:admin) %>
-				<%= link_to "Create Tournament", new_tournament_path, :class => "button" %>
+				<%= link_to "Create tournament", new_tournament_path, :class => "button" %>
 	<% end %>
 </div>

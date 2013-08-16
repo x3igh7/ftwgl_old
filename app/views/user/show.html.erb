@@ -8,7 +8,7 @@
         <dt>Email:</dt>
         <dd><%= @user.email %></dd>
         <dt>Date Joined:</dt>
-        <dd><%= @user.created_at.strftime("%B %d,%Y") %></dd>
+        <dd><%= @user.created_at.strftime("%B %d, %Y") %></dd>
         <dt>Last Seen:</dt>
         <dd><%= @user.last_sign_in_at.strftime("%B %d,%Y") %></dd>
         <% if user_signed_in? && current_user == @user %>

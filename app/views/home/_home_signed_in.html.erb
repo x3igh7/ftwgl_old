@@ -1,31 +1,44 @@
 <% if @teams.length < 1 %>
 <div class="join-team">
-  <h2>
-    <p><%= link_to "Create a Team", new_team_path %></p>
-    <p>or</p>
-    <p><%= link_to "Join a Team", teams_path %></p>
-  </h2>
+		<%= link_to "Create", new_team_path %> or
+		<%= link_to "join", teams_path %> a team.
 </div>
 <% else %>
 <div class="tournaments-list">
-  <h2>Tournaments:</h2>
-  <ul class="inline">
-    <% @tournaments.each do |tourny| %>
-      <li><h3><%= link_to tourny.name, tournament_path(tourny) %></h3></li>
-    <% end %>
-  </ul>
+	<% if @tournaments.any? %>
+		You are participating in 
+		<% num_tournaments = @tournaments.length %>
+		<% if num_tournaments == 1 %>
+			<% tournament = @tournaments.first %>
+			<%= link_to tournament.name, tournament_path(tournament) %>.
+		<% else %>
+			<% tournaments = [] %>
+			<% @tournaments.each_with_index do |tournament, i| %>
+				<% if i == num_tournaments - 1 %>
+					<% tournaments << 'and ' + link_to(tournament.name, tournament_path(tournament)) + '.' %>
+					<% next %>
+				<% end %>
+				<% tournaments << link_to(tournament.name, tournament_path(tournament)) %>
+			<% end %>
+			<%= tournaments.join(", ").html_safe %>
+		<% end %>
+	<% end %>
 </div>
-<% end %>
-
-<h3>
-  <%= link_to "Your Profile", user_path(current_user) %>
-</h3>
-
-<% if @teams.length > 0 %>
-<h3>Your Teams:</h3>
-  <ul class="inline">
-    <% @teams.each do |team| %>
-      <li><%= link_to "#{team.name}#{team.tag}", team_path(team) %></li>
-    <% end %>
-  </ul>
+<p />
+You belong to
+  <% num_teams = @teams.length %>
+		<% if num_teams == 1 %>
+			<% team = @teams.first %>
+			<%= link_to team.name, team_path(team) %>.
+		<% else %>
+			<% teams = [] %>
+			<% @teams.each_with_index do |team, i| %>
+				<% if i == num_teams - 1 %>
+					<% teams << 'and ' + link_to(team.name, team_path(team)) + '.'%>
+					<% next %>
+				<% end %>
+				<% teams << link_to(team.name, team_path(team)) %>
+			<% end %>
+			<%= teams.join(", ").html_safe %>
+		<% end %>
 <% end %>
