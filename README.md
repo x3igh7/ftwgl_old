@@ -3,7 +3,7 @@ ftwgl
 
 # For The Win Gaming League
 
-Is an online gaming league that is geared towards the amateur gamer.
+Is an online gaming league app that is geared towards managing tournaments for the amateur online gamer.
 While the professional scene has exploded in terms of E-sports, everyday
 gamers have been forgotten and relegated to boring and inactive ladders.
 
