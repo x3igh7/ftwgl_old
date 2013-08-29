@@ -14,10 +14,10 @@
 
 <div class="body-container center">
 	<%= image_tag("ftwlogo.png", :alt => "FTW Logo", :width => 407, :height => 152) %>
-	
+
 	  <p class="flash" id="notice"><%= notice %></p>
 	  <p class="flash" id="alert"><%= alert %></p>
-	
+
 	<div id="content-main">
 		<ul id="nav-main" class="nav">
 			<li>
@@ -38,7 +38,7 @@
 				</li>
 			<% end %>
 		</ul>
-	
+
 		<div class="content-outer">
 			<%= yield %>
 		</div>
@@ -50,7 +50,7 @@
 					<%= link_to "profile", user_path(current_user), :class => "nav_link" %>
 				</li>
 				<li>
-					<%= link_to "sign out", "javascript:void:(0);", :id => "sign_out", :class => "nav_link"%> 
+					<%= link_to "sign out", "javascript:void:(0);", :id => "sign_out", :class => "nav_link"%>
 				</li>
 			<% else %>
 				<li>
@@ -58,17 +58,17 @@
 				</li>
 			<% end %>
 		</ul>
-		
+
 		<div class="content-outer">
-			
+
 			  <% if user_signed_in? %>
 				<h1 class="text-center">your upcoming matches</h1>
-				<div class="content-inner">	
+				<div class="content-inner">
 					<% if @team_tournaments.count == 0 %>
 						You're not participating in any tournaments.
 					<% else %>
-					
-						
+
+
 						<% @team_tournaments.each do |tournament| %>
 							<div class="content-inner-inner">
 						  <h1><%= link_to tournament.name, tournament_path(tournament) %></h1>
@@ -82,9 +82,9 @@
 							<% end %>
 							</div>
 						<% end %>
-				
+
 					<% end %>
-					  
+
 					</div>
 			  <% else %>
 					<h1>sign in</h1>
