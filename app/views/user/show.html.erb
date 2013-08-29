@@ -1,6 +1,7 @@
-  <h1><%= "Profile for #{@user.username}" %></h1>
-  <div>
-  <dl>
+<h1><%= "profile for #{@user.username}" %></h1>
+<div class="content-inner">
+  <div style="float:left;width:50%;vertical-align:top;">
+    <dl>
       <dt>User Name:</dt>
       <dd><%= @user.username%></dd>
       <dt>Email:</dt>
@@ -16,11 +17,13 @@
       <% end %>
     </dl>
   </div>
-  <div>
-    <dl>
-      <dt>Teams</dt>
+  <div style="float:right;width:50%;height:100%">
+    <dl class="content-inner-inner">
+      <dt><h1>teams</h1></dt>
       <% @user.teams.each do |team| %>
       <dd><%= link_to "#{team.name} #{team.tag}", team_path(team) %></dd>
       <% end %>
     </dl>
   </div>
+  <div class="clear"></div>
+</div>
