@@ -20,10 +20,10 @@ class User < ActiveRecord::Base
   has_many :tournaments, through: :teams
 
   roles_attribute :roles_mask
-  roles :admin, :user
+  roles :admin, :user, :banned
 
   before_save :default_roles
-
+	
   def default_roles
     if self.roles_mask == nil
       self.roles = :user
@@ -37,6 +37,12 @@ class User < ActiveRecord::Base
   def is_team_member?(team)
     team.members.include?(self)
   end
-
-
+	
+	def has_applied?(team)
+		team.applications.include?(self)
+	end
+	
+	def banned?
+		self.has_role?(:banned)
+	end
 end

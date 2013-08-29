@@ -1,0 +1,8 @@
+	<%= simple_form_for([Tournament.new, Match.new], :html => {:class => "form-horizontal" }, :method => :put, :url => CGI::unescape(admin_tournament_match_path("{0}", "{1}")) ) do |f| %>
+		<%= f.error_notification %>
+		
+		<%= f.input :home_score, label: "Home Team Score" %>
+		<%= f.input :away_score, label: "Away Team Score" %>
+		
+		<%= f.submit "Save" %>
+	<% end %>

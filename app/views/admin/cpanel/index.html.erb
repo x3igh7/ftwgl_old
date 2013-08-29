@@ -1,0 +1,37 @@
+<h1>admin</h1>
+<div class="content-inner">
+	<div class="content-inner-inner">
+	<h1>manage users</h1>
+		<div id="users_panel" class="content-inner-inner">
+		</div>
+	</div>
+	
+	<div class="content-inner-inner">
+	<h1>manage tournaments</h1>
+		<div id="tournaments_panel" class="content-inner-inner">
+		</div>
+		
+		<a href="javascript:void(0);" class="button" id="create_tournament">Create tournament</a>
+	</div>
+	
+	<div class="content-inner-inner">
+	<h1>manage teams</h1>
+		<div id="teams_panel" class="content-inner-inner">
+		</div>
+		
+	</div>
+</div>
+
+<%= load_templates %>
+
+<%= content_for :head do %>
+	<%= stylesheet_link_tag "loading" %>
+	<%= stylesheet_link_tag "cpanel" %>
+<% end %>
+
+<%= content_for :js do %>
+	<%= javascript_include_tag "common" %>
+	<%= javascript_include_tag "modules" %>
+	<%= javascript_include_tag "events" %>
+	<%= javascript_include_tag "cpanel" %>
+<% end %>

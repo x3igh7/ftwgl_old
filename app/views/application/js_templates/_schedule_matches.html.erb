@@ -1,0 +1,8 @@
+	<%= simple_form_for([Tournament.new, Match.new], :html => {:class => "form-horizontal" }, :method => :post, :url => CGI::unescape(admin_tournament_matches_path("{0}")) + "/schedule" ) do |f| %>
+		Enter the date for next week's matches.
+		<%= f.error_notification %>
+		
+		<%= f.input :match_date, as: :date, label: "Match Date" %>
+
+		<%= f.submit "Schedule" %>
+	<% end %>

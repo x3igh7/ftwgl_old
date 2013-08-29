@@ -1,0 +1,10 @@
+	<% home_team = TournamentTeam.find(match.home_team_id).team %>
+	<% away_team = TournamentTeam.find(match.away_team_id).team %>
+	<tr class="match" id="match_<%= match.id %>" >
+		<td <%= match.home_score > match.away_score ? 'style="background:#556655;"'.html_safe : '' %>><%= link_to home_team.tag, team_path(home_team.id) %></td>
+		<td <%= match.away_score > match.home_score ? 'style="background:#556655;"'.html_safe : '' %>><%= link_to away_team.tag, team_path(away_team.id) %></td>
+		<td><%= match.home_score %></td>
+		<td><%= match.away_score %></td>
+		<td><%= match.standard_date %></td>
+		<td><a href="<%= tournament_match_path(match.tournament_id, match.id) %>"> View</a></td>
+	</tr>

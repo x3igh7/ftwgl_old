@@ -30,8 +30,8 @@ class MembershipsController < ApplicationController
   def destroy
     @team = Team.find(params[:team_id])
     @membership = users_current_team(params)
-    @membership[0].destroy
-
+    destroyed = @membership[0].destroy
+		flash[:notice] = 'Removed ' + destroyed.user.username + ' from the team'
     redirect_to team_path(@team)
   end
 

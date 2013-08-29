@@ -1,9 +1,11 @@
 <h1>home</h1>
 <div class="content-inner">
-	Welcome to FTWGL.
-  <% if user_signed_in? %>
-    <%= render 'home_signed_in' %>
-  <% else %>
-    <%= render 'home_signed_out' %>
-  <% end %>
+	<span class="outer-heading">Welcome to FTWGL.</span><p />
+	<div class="content-inner">
+		<% if user_signed_in? %>
+			<%= render 'home_signed_in' %>
+		<% else %>
+			<%= render 'home_signed_out' %>
+		<% end %>
+	</div>
 </div>

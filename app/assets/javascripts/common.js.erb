@@ -1,0 +1,65 @@
+<% url = Ftwgl::Application.routes.url_helpers %>
+
+String.prototype.capitalize = function(){
+	return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
+String.prototype.format = function() {
+  var args = arguments;
+  return this.replace(/{(\d+)}/g, function(match, number) { 
+    return typeof args[number] != 'undefined'
+      ? args[number]
+      : match
+    ;
+  });
+};
+
+var Routes = {
+	Admin: {
+		user: '<%= CGI::unescape url.admin_user_path("{0}") %>',
+		tournament: '<%= CGI::unescape(url.admin_tournament_path("{0}")) %>',
+		tournaments: '<%= url.admin_tournaments_path %>',
+		match: '<%= CGI::unescape(url.admin_tournament_match_path("{0}", "{1}")) %>',
+		ban: '/admin/users/ban/{0}',
+		unban: '/admin/users/unban/{0}',
+		matches: '<%= CGI::unescape url.admin_tournament_matches_path("{0}") %>',
+		schedule: '/admin/tournaments/{0}/matches/schedule',
+		team: '<%= CGI::unescape url.admin_team_path("{0}") %>',
+		tournamentTeam: '<%= url.admin_tournament_teams_path %>',
+		membership: '<%= CGI::unescape url.admin_membership_path("{0}") %>',
+		memberships: '<%= url.admin_memberships_path %>'
+	},
+	User: {
+		match: '<%= CGI::unescape(url.tournament_match_path("{0}", "{1}")) %>',
+		team: '<%= CGI::unescape(url.team_path("{0}")) %>',
+		tournament: '<%= CGI::unescape(url.tournament_path("{0}")) %>'
+	},
+	Api: {
+		users: '<%= url.api_users_path %>',
+		matches: '<%= CGI::unescape(url.api_tournament_matches_path("{0}")) %>',
+		tournaments: '<%= url.api_tournaments_path %>',
+		teams: '<%= url.api_teams_path %>'
+	}
+}
+
+var Meta = { admin: false };
+
+var Templates = {};
+
+var Panels = {};
+
+var loadTemplates = function(types){
+	$.each(types, function(i, type){
+		var Type = type.capitalize();
+		Templates[Type] = {};
+		$("." + type + "_template").each(function(){
+			var name = $(this).attr("id").split("_")[1];
+			var $template = $(this).html();
+			if(name.length == 0){
+				Templates[Type] = $template;
+				return;
+			}
+			Templates[Type][name] = $template
+		});
+	});
+};

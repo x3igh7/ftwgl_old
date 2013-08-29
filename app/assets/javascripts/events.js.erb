@@ -1,0 +1,476 @@
+
+var Events = {
+	Loading: {
+		start: function($elem){
+			var $loading = $(Templates.Loading.loading);
+			var newHeight = Math.max(50, $elem.height());
+			var newWidth = Math.max(50, $elem.width());
+			$loading.show();
+			$loading.css({
+				height: newHeight,
+				width: newWidth,
+				position: "absolute",
+				top:0,
+				left:0,
+				zIndex: 5
+			});
+			$elem.css({
+				position: "relative",
+				height: newHeight,
+				width: newWidth
+			})
+			$elem.append($loading);
+		},
+		
+		end: function($elem){
+			$elem.find(".loading").remove();
+			$elem.css({
+				height: "auto",
+				width: "auto"
+			});
+		}
+	},
+	
+	Page:	{
+		attach: function(){
+			$('#create_tournament').click(function(){
+				$createTournament = $(Templates.Tournaments.create);
+				$createTournament.submit(function(e){
+					e.preventDefault();
+					$.ajax({
+						url: Routes.Admin.tournaments,
+						method: 'post',
+						data: $(this).serialize(),
+						success: function(d){
+							if(d.success){
+								$("#alert").text('Successfully created ' + d.tournament.name);
+							}
+							else{
+								$("#alert").text('Could not create ' + d.tournament.name);
+							}
+							location.reload();
+							closeWindow();
+						}
+					});
+				});
+				flashWindow("create tournament", $createTournament);
+			});
+		}
+	},
+	
+	Users: {
+		get: function(page){
+			page = page || Modules.Users.currentPage || 1;
+			var $panel = Panels.users;
+			Events.Loading.start($panel);	
+			$.ajax({
+				url: Routes.Api.users,
+				data: { page: page },
+				success: function(users){
+					Meta.users = users;
+					Events.Loading.end($panel);
+					Events.Users.refresh(page);
+					Events.Users.attach();
+				}
+			});
+		},
+		refresh: function(page){
+			var $panel = Panels.users
+			$panel.empty();
+			if(Meta.users.users.length == 0){
+				$panel.text("No users"); //theoretically should never happen
+				return;
+			}
+			$panel.append(Modules.Users.get(page));
+		},
+		attach: function(){
+			var $panel = Panels.users
+			$(".editusers").click(function(){
+				var id = $(this).attr("id").split("_")[1];
+				var $edit = $(Templates.Users.edit).submit(function(e){
+					e.preventDefault();
+					$.ajax({
+						url: Routes.Admin.user.format(id),
+						method: 'put',
+						data: $(this).serialize(),
+						success: function(d){
+							if(d.success){
+								$("#alert").text("Successfully updated " + d.user.username + " (user #" + d.user.id + ")");
+							}
+							else{
+								$("#alert").text("Could not update " + d.user.username + " (user #" + d.user.id + ")");
+							}
+							closeWindow();
+							Events.Users.get();
+						}
+					});
+				});
+				flashWindow("edit user", $edit);
+			});
+			
+			$(".jointeams").click(function(){
+				var id = $(this).attr("id").split("_")[1];
+				$joinTeams = $(Templates.Users.joinTeams.format(id)).submit(function(e){
+					e.preventDefault();
+					$.ajax({
+						url: Routes.Admin.memberships,
+						method: 'post',
+						data: $(this).serialize(),
+						success: function(d){
+							if(d.success){
+								$("#alert").text("Added " + d.user.username + " to " + d.team.name);
+							}
+							else{
+								$("#alert").text("Failed to add " + d.user.username + " to " + d.team.name);
+							}
+							closeWindow();
+							Events.Users.get();
+							Events.Teams.get();
+						}
+					});
+				});
+				flashWindow("add to team", $joinTeams);
+			});
+			
+			$panel.find(".week-button").click(function(){
+				var page = $(this).attr("id").split("_")[1];
+				Events.Users.get(page);
+			});
+		}
+	},
+	
+	Tournaments: {
+		get: function(){
+			var $panel = Panels.tournaments;
+			Events.Loading.start($panel);
+			$.ajax({
+				url: Routes.Api.tournaments,
+				async: false, //fix race condition on tournaments metadata
+				success: function(tournaments){
+					Meta.tournaments = tournaments;
+					Events.Loading.end($panel);
+					Events.Tournaments.refresh(tournaments);
+				}
+			});
+		},
+		
+		refresh: function(){
+			var tournaments = Meta.tournaments;
+			var $panel = Panels.tournaments;
+			$panel.empty();
+			if($.isEmptyObject(tournaments)){
+				$panel.text("No tournaments");
+				return;
+			}
+			var $tournaments = [];
+			$.each(tournaments, function(i,tournament){
+				var id = tournament.id;
+				var gid = Modules.generateId;
+				var $tournament = Modules.Tournaments.get(id);
+				$panel.append($tournament);
+				Events.Tournaments.attach(id);
+			});
+		},
+		
+		attach: function(id){
+			var $tournament = Modules.Tournaments.get(id);
+			$tournament.find(".viewmatches").click(function(e){
+				Events.Matches.get(id, $tournament);
+			});
+			
+			$tournament.find(".destroytournaments").click(function(e){
+				var $destroyTournament = $(Templates.Tournaments.destroy.format(id));
+				$destroyTournament.submit(function(e){
+					e.preventDefault();
+					$.ajax({
+						url: Routes.Admin.tournament.format(id),
+						method: 'delete',
+						data: $(this).serialize(),
+						success: function(d){
+							if(d.success){
+								$("#alert").text("Successfully destroyed " + d.tournament.name);
+							}
+							else{
+								$("#alert").text("Could not destroy " + d.tournament.name);
+							}
+							closeWindow();
+							Events.Tournaments.get();
+							Events.Teams.get();
+						}
+					});
+				});
+				flashWindow("destroy tournament", $destroyTournament);
+			});
+			
+			$tournament.find(".edittournaments").click(function(e){
+				var $editTournament = $(Templates.Tournaments.edit.format(id));
+				$editTournament.submit(function(e){
+					e.preventDefault();
+					$.ajax({
+						url: Routes.Admin.tournament.format(id),
+						method: 'put',
+						data: $(this).serialize(),
+						success: function(d){
+							if(d.success){
+								$("#alert").text("Successfully updated " + d.tournament.name);
+							}
+							else{
+								$("#alert").text("Could not update " + d.tournament.name);
+							}
+						}
+					});
+					closeWindow();
+					Events.Tournaments.get();
+					Events.Teams.get();
+				});
+				flashWindow("edit tournament", $editTournament);
+			});
+					
+			$tournament.find(".schedulematches").click(function(){
+				var $scheduleMatches = $(Templates.Matches.schedule.format(id));
+				$scheduleMatches.submit(function(e){
+					e.preventDefault();
+					$.ajax({
+						url: Routes.Admin.schedule.format(id),
+						method: 'post',
+						data: $(this).serialize(),
+						success: function(d){
+							if(d.success){
+								$("#alert").text("Successfully scheduled matches for " + d.tournament.name + ", week " + d.tournament.current_week_num);
+							}	
+							else{
+								$("#alert").text("Could not schedule matches");
+							}
+						}
+					});
+					closeWindow();
+					Events.Matches.get(id, $tournament);
+				});
+				flashWindow("schedule matches", $scheduleMatches);
+			});
+		}
+	},
+	
+	Matches: {
+		get: function(tournamentId, $panel){
+			var $matches = Modules.Matches.get(tournamentId);
+			Events.Loading.start($matches);
+			var tournamentId = Modules.retrieveId($matches);
+			$.ajax({
+				url: Routes.Api.matches.format(tournamentId),
+				success: function(matches){
+					Events.Loading.end($matches);
+					Meta.tournaments[tournamentId].matches = matches;
+					var currentWeek = -9999;
+					$.each(matches, function(week, match){
+						if(week > currentWeek){
+							currentWeek = week;
+						}
+					});
+					Meta.tournaments[tournamentId].currentWeek = currentWeek;
+					Events.Matches.refresh(tournamentId, $panel);
+					Events.Matches.select(tournamentId, Meta.tournaments[tournamentId].currentWeek);
+				}
+			});
+		},
+		refresh: function(tournamentId, $panel){
+			Modules.Matches.get(tournamentId).remove(); //force matches.get to check for new loaded matches
+			$panel.append(Modules.Matches.get(tournamentId));
+			Events.Matches.attach(tournamentId);
+		},
+		select: function(tournamentId, week){
+			$matches = Modules.Matches.get(tournamentId)
+			$matches.find(".cpanel-matches-table").hide();
+			$("#" + Modules.generateId("matchestable", tournamentId, week)).show();
+			$matches.find(".week-button").removeClass("week-button-selected");
+			$("#" + Modules.generateId("weekbutton", tournamentId, week)).addClass("week-button-selected");
+		},
+		attach: function(tournamentId){
+			var gid = Modules.generateId;
+			var $tournament = Modules.Tournaments.get(tournamentId);
+			var $matches = Modules.Matches.get(tournamentId);
+			$matches.find(".week-button").click(function(){
+				var week = $(this).attr("id").split("_")[3];
+				Events.Matches.select(tournamentId, week);
+			});
+			$matches.find(".creatematches").click(function(){
+				//hack to get form to display correct tournament teams since proper template couldn't be created with the rails form helpers
+				var tournamentTeamOptionsString = generateTournamentTeamOptionsString(Meta.tournaments[tournamentId].teams);
+				var $createMatch =  $(Templates.Matches.create.format(tournamentId));
+				$createMatch.find("#match_home_team_id").html(tournamentTeamOptionsString); 
+				$createMatch.find("#match_away_team_id").html(tournamentTeamOptionsString);
+				
+				$createMatch.submit(function(e){
+					e.preventDefault();
+					$.ajax({
+						url: Routes.Admin.matches.format([ tournamentId ]),
+						method: "post",
+						data: $(this).serialize(),
+						success: function(d){
+							if(d.success){
+								$("#alert").text("Match created successfully")
+							}
+							else{
+								$("#alert").text("Could not create match")
+							}
+							Events.Matches.get(tournamentId, $tournament);
+							closeWindow();
+						}
+					});
+				});
+				flashWindow("create match", $createMatch);
+			});
+			
+			$matches.find(".editmatches").click(function(){
+				var matchId = Modules.retrieveId($(this));
+				var $editMatch = $(Templates.Matches.edit.format(tournamentId, matchId));
+				$editMatch.submit(function(e){
+					e.preventDefault();
+					$.ajax({
+						url: Routes.Admin.match.format(tournamentId, matchId),
+						method: 'put',
+						data: $(this).serialize(),
+						success: function(d){
+							if(d.success){
+								$("#alert").text("Match results updated successfully")
+							}
+							else{
+								$("#alert").text("Could not update match")
+							}
+							Events.Matches.get(tournamentId, $tournament);
+							closeWindow();
+						}
+					});
+				});
+				flashWindow("edit match", $editMatch);
+			});
+			
+			$matches.find(".destroymatches").click(function(){
+				var matchId = Modules.retrieveId($(this));
+				var $destroyMatch = $(Templates.Matches.destroy.format(tournamentId, matchId));
+				$destroyMatch.submit(function(e){
+					e.preventDefault();
+					$.ajax({
+						url: Routes.Admin.match.format(tournamentId, matchId),
+						method: 'delete',
+						data: $(this).serialize(),
+						success: function(d){
+							if(d.success){
+								$("#alert").text("Destroyed match #" + d.match.id + " successfully")
+							}
+							else{
+								$("#alert").text("Could not destroy match #" + d.match.id)
+							}
+							Events.Matches.get(tournamentId, $tournament);
+							closeWindow();
+						}
+					});
+				});
+				flashWindow("destroy match", $destroyMatch);
+			});
+		}
+	},
+	
+	Teams: {
+		get: function(page){
+			page = page || Modules.Teams.currentPage || 1;
+			var $panel = Panels.teams;
+			Events.Loading.start($panel);	
+			$.ajax({
+				url: Routes.Api.teams,
+				data: { page: page },
+				success: function(teams){
+					Meta.teams = teams;
+					Events.Loading.end($panel);
+					Events.Teams.refresh(page);
+					Events.Teams.attach();
+				}
+			});
+		},
+		refresh: function(page){
+			var $panel = Panels.teams
+			$panel.empty();
+			if(Meta.teams.teams.length == 0){
+				$panel.text("No teams");
+				return;
+			}
+			$panel.append(Modules.Teams.get(page));
+		},
+		attach: function(){
+			var $panel = Panels.teams;
+			
+			$(".editteams").click(function(){
+				var id = $(this).attr("id").split("_")[1];
+				var $edit = $(Templates.Teams.edit).submit(function(e){
+					e.preventDefault();
+					$.ajax({
+						url: Routes.Admin.team.format(id),
+						method: 'put',
+						data: $(this).serialize(),
+						success: function(d){
+							if(d.success){
+								$("#alert").text("Successfully updated " + d.team.name + " (team #" + d.team.id + ")");
+							}
+							else{
+								$("#alert").text("Could not update " + d.team.name + " (team #" + d.team.id + ")");
+							}
+							closeWindow();
+							Events.Teams.get();
+						}
+					});
+				});
+				flashWindow("edit team", $edit);
+			});
+			
+			$panel.find(".week-button").click(function(){
+				var page = $(this).attr("id").split("_")[1];
+				Events.Teams.get(page);
+			});
+			
+			$(".editteamstournaments").click(function(){
+				var id = $(this).attr("id").split("_")[1];
+				var $editTournaments = $(Templates.Teams.editTournaments.format(id)).submit(function(e){
+					e.preventDefault();
+					$.ajax({
+						url: Routes.Admin.tournamentTeam,
+						method: 'post',
+						data: $(this).serialize(),
+						success: function(d){
+							if(d.success){
+								$("#alert").text("Added " + d.team.name + " to " + d.tournament.name);
+							}
+							else{
+								$("#alert").text("Failed to add " + d.team.name + " to " + d.tournament.name);
+							}
+							closeWindow();
+							Events.Teams.get();
+							Events.Tournaments.get();
+						}
+					});
+				});
+				flashWindow("add to tournaments", $editTournaments);
+			});
+						
+			$(".editrosters").click(function(){
+				var id = parseInt($(this).attr("id").split("_")[1]),
+						$that = $(this);
+				var $roster = $(Modules.Memberships.get(id));
+				$roster.find(".removememberships").click(function(){
+					var userId = $(this).attr("id").split("_")[2],
+							userRow = $("#" + Modules.generateId("memberships_row", id, userId));
+					$.ajax({
+						url: Routes.Admin.membership.format(id),
+						data: { team_id: id, user_id: userId },
+						method: 'delete',
+						success: function(d){
+							userRow.remove();
+							Events.Teams.get();
+							$("#alert").text("Removed " + d.user.username + " from " + d.team.name);
+						}
+					});
+				});
+				flashWindow("edit roster", $roster);
+			});
+		}
+	}
+}
