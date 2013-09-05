@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
   roles :admin, :user, :banned
 
   before_save :default_roles
-	
+
   def default_roles
     if self.roles_mask == nil
       self.roles = :user
@@ -37,11 +37,11 @@ class User < ActiveRecord::Base
   def is_team_member?(team)
     team.members.include?(self)
   end
-	
+
 	def has_applied?(team)
 		team.applications.include?(self)
 	end
-	
+
 	def banned?
 		self.has_role?(:banned)
 	end
