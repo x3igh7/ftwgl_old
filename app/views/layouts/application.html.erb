@@ -13,7 +13,9 @@
 <body>
 
 <div class="body-container center">
-	<%= image_tag("ftwlogo.png", :alt => "FTW Logo", :width => 407, :height => 152) %>
+	<%= link_to root_path do%>
+		<%= image_tag("ftwlogo.png", :alt => "FTW Logo", :width => 407, :height => 152) %>
+	<% end %>
 
 	  <p class="flash" id="notice"><%= notice %></p>
 	  <p class="flash" id="alert"><%= alert %></p>
