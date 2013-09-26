@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'creating a team' do
-  
+
   context 'as a user' do
     let(:user) { FactoryGirl.create(:user) }
 
@@ -15,11 +15,11 @@ describe 'creating a team' do
       expect(page).to have_content('foobar')
       expect(page).to have_content('[TAG]')
 
-      expect(page).to have_content('Successfully created team') 
+      expect(page).to have_content('Successfully created team')
     end
 
     it "shows errors with an invalid team creation" do
-      visit new_team_path 
+      visit new_team_path
 
       click_button "Create Team"
 
@@ -38,8 +38,8 @@ describe 'creating a team' do
       FactoryGirl.create(:membership, team: team, user: user)
 
       visit root_path
-      
-      click_on "#{team.name}[bar]"
+
+      click_on "#{team.name}"
 
       expect(current_path).to eq(team_path(team))
     end

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 
-describe "Match Creation", :js => true do
+describe "Match Creation" do
   let!(:admin) { FactoryGirl.create(:user) }
   let!(:home) { FactoryGirl.create(:team) }
   let!(:away) { FactoryGirl.create(:team) }
@@ -15,7 +15,7 @@ describe "Match Creation", :js => true do
       admin.save
       sign_in_as admin
     end
-    
+
     it "between two teams"do
       prev = Match.count
       create_match
@@ -25,16 +25,16 @@ describe "Match Creation", :js => true do
     it "and appears under matches section" do
       create_match
       visit tournament_path(tournament)
-      #click_on "All Matches" 
-      expect(page.find(".match")).to have_content(home.tag)
-      expect(page.find(".match")).to have_content(away.tag)
+      #click_on "All Matches"
+      expect(page).to have_content(home.tag)
+      expect(page).to have_content(away.tag)
     end
 
     it "can be visited for more info" do
       create_match
       expect(page).to have_content("Match")
     end
-  
+
     it "unless the two teams selected are the same" do
       visit new_tournament_match_path(tournament)
       select home.name, from: "Home Team"

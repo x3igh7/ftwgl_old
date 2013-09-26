@@ -52,7 +52,7 @@
 					<%= link_to "profile", user_path(current_user), :class => "nav_link" %>
 				</li>
 				<li>
-					<%= link_to "sign out", "javascript:void:(0);", :id => "sign_out", :class => "nav_link"%>
+					<%= link_to "sign out", destroy_user_session_path, :id => "sign_out", :method => 'delete', :class => "nav_link"%>
 				</li>
 			<% else %>
 				<li>
@@ -105,21 +105,6 @@
 			</div>
 		</div>
 </div>
-<% if user_signed_in? %>
-	<script type="text/javascript">
-		$(function(){
-			$("#sign_out").click(function(){
-				$.ajax({
-						url: '<%= destroy_user_session_path %>',
-						method: 'delete',
-						complete: function(){
-							location.reload();
-						}
-				});
-			});
-		});
-	</script>
-<% end %>
-<%= yield :js %>
+
 </body>
 </html>

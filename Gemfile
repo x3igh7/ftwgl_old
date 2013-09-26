@@ -21,7 +21,7 @@ group :assets do
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby
-  
+
   gem 'uglifier', '>= 1.0.3'
 end
 
@@ -32,7 +32,6 @@ group :test, :development do
   gem 'capybara'
   gem 'launchy'
   gem 'pry'
-	gem 'selenium-webdriver'
 	gem 'database_cleaner'
 end
 
