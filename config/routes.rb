@@ -8,7 +8,7 @@ Ftwgl::Application.routes.draw do
     resources :matches, :only => [:new, :create, :index, :show, :edit, :update] do
 			resources :comments, :only => [ :create ]
 		end
-  end 
+  end
   resources :tournament_teams, :only => [:create]
 	namespace :admin do
 		root :to => "cpanel#index"
@@ -16,6 +16,7 @@ Ftwgl::Application.routes.draw do
 			resources :matches, :only => [ :create, :update, :destroy ]
 			post "matches/schedule" => "matches#schedule"
 		end
+    resources :ranks, :only => [:edit, :update]
 		resources :users, :only => [ :update, :destroy ]
 		resources :teams, :only => [ :update ]
 		resources :tournament_teams, :only => [ :create ]
@@ -23,7 +24,7 @@ Ftwgl::Application.routes.draw do
 		get "users/ban(/:id)" => "users#ban"
 		get "users/unban(/:id)" => "users#unban"
 	end
-	
+
 	namespace :api do
 		resources :tournaments, :only => [ :index, :show ] do
 			resources :matches, :only => [ :index ]

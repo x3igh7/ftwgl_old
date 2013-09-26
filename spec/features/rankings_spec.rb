@@ -5,7 +5,7 @@ describe "Rankings" do
   let!(:team2) { FactoryGirl.create(:team) }
   let!(:team3) { FactoryGirl.create(:team) }
   let!(:tournament) { FactoryGirl.create(:tournament) }
-  it "ranks teams from most points to lowest points", :focus => true do
+  it "ranks teams from most points to lowest points" do
     FactoryGirl.create(:tournament_team, team: team2, tournament: tournament, :wins => 2, :losses => 1, :total_points => 6)
     FactoryGirl.create(:tournament_team, team: team3, tournament: tournament, :wins => 1, :losses => 2, :total_points => 3)
     FactoryGirl.create(:tournament_team, team: team, tournament: tournament, :wins => 3, :total_points => 9)

@@ -11,6 +11,7 @@ gem 'devise'
 gem 'rails_admin'
 gem 'cancan'
 gem 'role_model'
+gem 'selenium-webdriver'
 
 
 # Gems used only for assets and not required
