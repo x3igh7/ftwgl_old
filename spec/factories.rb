@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  
+
   factory :team do
     sequence(:name) {|n| "foo#{n}"}
     tag '[bar]'
@@ -13,8 +13,8 @@ FactoryGirl.define do
   end
 
   factory :tournament do
-    name "FTW Team Survivor"
-    description "Season 1"
+    sequence(:name) {|n| "FTW Team Survivor#{n}"}
+    sequence(:description) {|n| "Season 1#{n}"}
     rules "Don't cheat"
   end
 
