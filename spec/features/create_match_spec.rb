@@ -13,7 +13,7 @@ describe "Match Creation" do
     before do
       admin.roles = :admin
       admin.save
-      sign_in_as admin
+      sign_in_as(admin)
     end
 
     it "between two teams"do

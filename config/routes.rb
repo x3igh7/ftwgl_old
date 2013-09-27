@@ -11,26 +11,7 @@ Ftwgl::Application.routes.draw do
   end
   resources :tournament_teams, :only => [:create]
 	namespace :admin do
-		root :to => "cpanel#index"
-		resources :tournaments, :only => [ :create, :update, :destroy, :update ] do
-			resources :matches, :only => [ :create, :update, :destroy ]
-			post "matches/schedule" => "matches#schedule"
-		end
-    resources :ranks, :only => [:edit, :update]
-		resources :users, :only => [ :update, :destroy ]
-		resources :teams, :only => [ :update ]
-		resources :tournament_teams, :only => [ :create ]
-		resources :memberships, :only => [ :create, :destroy ]
-		get "users/ban(/:id)" => "users#ban"
-		get "users/unban(/:id)" => "users#unban"
-	end
-
-	namespace :api do
-		resources :tournaments, :only => [ :index, :show ] do
-			resources :matches, :only => [ :index ]
-		end
-		resources :users, :only => [ :index ]
-		resources :teams, :only => [ :index ]
+    root :to => 'admin#cpanel'
 	end
 
   root :to => 'home#home'
