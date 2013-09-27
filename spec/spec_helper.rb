@@ -3,11 +3,14 @@ ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
+require 'valid_attribute'
 require 'capybara/rails'
 require 'capybara/rspec'
 
 require 'capybara/poltergeist'
 Capybara.javascript_driver = :poltergeist
+
+
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -18,6 +21,7 @@ RSpec.configure do |config|
   config.run_all_when_everything_filtered = true
   config.include FactoryGirl::Syntax::Methods
   config.include SignIn
+  config.include ValidAttribute::Method
   # ## Mock Framework
   #
   # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:

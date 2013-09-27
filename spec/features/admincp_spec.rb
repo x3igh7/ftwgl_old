@@ -6,11 +6,6 @@ describe "Admin CP" do
 
   context "Tournament Management" do
 
-    before do
-      admin.roles = :admin
-      admin.save
-      sign_in_as(admin)
-    end
 
     it "lists all active tournaments" do
       visit admin_root_path
