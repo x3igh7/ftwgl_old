@@ -16,6 +16,7 @@ FactoryGirl.define do
     sequence(:name) {|n| "FTW Team Survivor#{n}"}
     sequence(:description) {|n| "Season 1#{n}"}
     rules "Don't cheat"
+    active true
   end
 
   factory :tournament_team do

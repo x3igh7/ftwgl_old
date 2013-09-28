@@ -1,0 +1,46 @@
+<h1>admin</h1>
+<div class="content-inner">
+  <div class="content-inner-inner">
+    <h1>manage users</h1>
+    <div id="users_panel" class="content-inner-inner">
+    </div>
+  </div>
+
+  <div class="content-inner-inner">
+    <h1>manage tournaments</h1>
+    <div id="tournaments_panel" class="content-inner-inner">
+
+      <table>
+        <% @active_tournaments.each do |tourny| %>
+          <tr cellspacing="0">
+            <td><%= tourny.name %></td>
+            <td class="show-management" style="float:right;"><button>manage</button></td>
+          </tr>
+        <% end %>
+      </table>
+
+
+    </div>
+
+  </div>
+
+  <div class="content-inner-inner">
+    <h1>manage teams</h1>
+    <div id="teams_panel" class="content-inner-inner">
+    </div>
+
+  </div>
+</div>
+
+<script>
+$(document).ready(function(){
+  $(document).on("click", ".show-management", function() {
+    $(this).closest('tr').after("<tr class='management'><td>edit</td></tr>");
+    $(this).replaceWith("<td class='hide-management'><button>hide</button></td>");
+  });
+  $(document).on("click", ".hide-management", function() {
+    $(this).parent('tr').next().remove();
+    $(this).replaceWith("<td class='show-management'><button>manage</button></td>");
+  });
+});
+</script>
