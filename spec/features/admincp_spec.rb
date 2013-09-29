@@ -25,22 +25,23 @@ describe "Admin CP" do
       expect(page).to have_content(tournament1.name)
       click_button "manage"
       expect(page).to have_content("edit")
+      expect(page).to have_content("teams")
+      expect(page).to have_content("matches")
+      expect(page).to have_content("rankings")
+      expect(page).to have_content("schedule")
       expect(page).to have_content("hide")
     end
 
-    it "has an option for editting tournament rules" do
+    it "shows tournament teams" do
     end
 
-    it "has an option for managing participating tournament teams" do
+    it "shows tournament matches" do
     end
 
-    it "has an option to view all tournament matches" do
+    it "shows rankings" do
     end
 
-    it "has an option to set rankings" do
-    end
-
-    it "has an option to create schedule" do
+    it "shows create schedule" do
     end
 
   end

@@ -19,8 +19,10 @@
           </tr>
           <tr class="management">
             <td>edit</td>
-            <td>test</td>
-            <td>test</td>
+            <td>teams</td>
+            <td>matches</td>
+            <td>rankings</td>
+            <td>schedule</td>
           </tr>
         <% end %>
       </table>
@@ -39,16 +41,6 @@
 </div>
 
  <script>
-// $(document).ready(function(){
-//   $(document).on("click", ".show-management", function() {
-//     $(this).closest('tr').after("<tr class='management'><td>edit</td></tr>");
-//     $(this).replaceWith("<td class='hide-management'><button>hide</button></td>");
-//   });
-//   $(document).on("click", ".hide-management", function() {
-//     $(this).parent('tr').next().remove();
-//     $(this).replaceWith("<td class='show-management'><button>manage</button></td>");
-//   });
-// });
 
   $(document).ready(function(){
     $(".management").hide();
