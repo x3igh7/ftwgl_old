@@ -15,6 +15,12 @@
           <tr cellspacing="0">
             <td><%= tourny.name %></td>
             <td class="show-management" style="float:right;"><button>manage</button></td>
+            <td class="hide-management"><button>hide</button></td>
+          </tr>
+          <tr class="management">
+            <td>edit</td>
+            <td>test</td>
+            <td>test</td>
           </tr>
         <% end %>
       </table>
@@ -32,15 +38,31 @@
   </div>
 </div>
 
-<script>
-$(document).ready(function(){
-  $(document).on("click", ".show-management", function() {
-    $(this).closest('tr').after("<tr class='management'><td>edit</td></tr>");
-    $(this).replaceWith("<td class='hide-management'><button>hide</button></td>");
+ <script>
+// $(document).ready(function(){
+//   $(document).on("click", ".show-management", function() {
+//     $(this).closest('tr').after("<tr class='management'><td>edit</td></tr>");
+//     $(this).replaceWith("<td class='hide-management'><button>hide</button></td>");
+//   });
+//   $(document).on("click", ".hide-management", function() {
+//     $(this).parent('tr').next().remove();
+//     $(this).replaceWith("<td class='show-management'><button>manage</button></td>");
+//   });
+// });
+
+  $(document).ready(function(){
+    $(".management").hide();
+    $(".hide-management").hide();
+    $(document).on("click", ".show-management", function(){
+      $(this).parent('tr').next(".management").show("slow");
+      $(this).closest(".show-management").hide();
+      $(this).next(".hide-management").show();
+    });
+    $(document).on("click", ".hide-management", function(){
+      $(this).parent('tr').next('.management').hide();
+      $(this).prev('.show-management').show();
+      $(this).closest(".hide-management").hide();
+    });
   });
-  $(document).on("click", ".hide-management", function() {
-    $(this).parent('tr').next().remove();
-    $(this).replaceWith("<td class='show-management'><button>manage</button></td>");
-  });
-});
-</script>
+ </script>
+
