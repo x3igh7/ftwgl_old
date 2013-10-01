@@ -7,5 +7,4 @@ class UserController < ApplicationController
   def index 
     @user = User.order("username")
   end
-
 end

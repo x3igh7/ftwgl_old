@@ -19,7 +19,7 @@ describe 'Tournaments' do
 
     it 'and the team appears on the tournament rankings' do
       join_tournament
-      click_on "Rankings"
+      #click_on "Rankings"
       expect(page).to have_content(team.name)
     end
 
@@ -38,5 +38,5 @@ end
 def join_tournament
   visit tournament_path(tournament)
   select team.name, from: "Team"
-  click_on "Join Tournament"
+  click_on "Join tournament"
 end

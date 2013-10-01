@@ -12,7 +12,7 @@ input{
 	background:#f6f6f6;
 	border:solid 1px #ccc;
 	height:20px;
-	width:250px;
+	width:245px;
 	font-size:18px;
 	font-family: Calibri, Tahoma;
 }
@@ -28,10 +28,12 @@ input[type=submit]{
 	padding:5px;
 	color:white;
 	margin-top:10px;
+	cursor:pointer;
 }
 input[type=submit]:hover{
 	background:#dd8800;
 }
+
 .button{
 	background:#cc5500;
 	color:white;
@@ -43,6 +45,10 @@ input[type=submit]:hover{
 .button:hover{
 	background:#dd8800;
 	color:white;
+}
+
+.faded {
+	opacity:.5;
 }
 
 .body-container{
@@ -125,13 +131,32 @@ td{
 	background-color: #cc5500;
 }
 
+.content-outer h1 a{
+	color:#f6f6f6;
+}
+
 .content-inner{
 	padding:5px;
 }
 
 .content-inner-inner{
-	background-color: #404040;	
+	background-color: #404040;
 	padding:5px;
+	margin-bottom:15px;
+}
+
+.content-inner-inner td {
+	background:#484848;
+}
+
+.content-inner-inner-inner{
+	background:#484848;
+	padding:5px;
+	position:relative;
+}
+
+.content-inner-inner-inner td{
+	background:#535353;
 }
 
 #content-side{
@@ -148,8 +173,58 @@ td{
 	width:500px;
 	margin-left:auto;
 	margin-right:auto;
+	word-wrap:break-word;
+}
+
+.tournament-name{
+	font-size:36px;
+	font-weight:100;
 }
 
 .flash{
 	text-align:center;
+}
+
+.week-button{
+	margin: 0 5px 0 5px;
+	color: #999;
+}
+
+.week-button:hover{
+	color:#ccc;
+}
+
+.week-button-selected{
+	font-weight:bold;
+	color:white;
+}
+
+.week-button-selected:hover{
+	color:white;
+}
+
+.week-label{
+	background:#cc5500;
+}
+
+.weeks{
+	position:relative;
+	top:-5px;
+	left:-5px;
+	background:#565656;
+	display:table;
+	margin-bottom:5px;
+}
+
+.clear{
+	clear:both;
+}
+
+.spacer{
+	clear:both;
+	height:10px;
+}
+
+.outer-heading{
+	font-size:24px;
 }

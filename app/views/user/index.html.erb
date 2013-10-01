@@ -3,7 +3,8 @@
 <table class="center" cellspacing="0">
   <tr>
     <th>Username</th>
-    <th>Teams</th>
+		<th>Teams</th>
+    <th>Joined</th>
   </tr>
   <% @user.each do |user| %>
     <tr>
@@ -11,10 +12,19 @@
         <%= link_to user.username, user_path(user) %>
       </td>
       <td>
-        <% user.teams.each do |team| %>
-          <%= link_to "#{team.name} #{team.tag}", team_path(team) %>
-        <% end %>
+				<% if user.teams.any? %>
+					<% teams = [] %>
+					<% user.teams.each do |team| %>
+						<% teams << link_to(team.name, team_path(team)) %>
+					<% end %>
+					<%= teams.join(", ").html_safe %>
+				<% else %>
+					<span class="faded">None</span>
+				<% end %>
       </td>
+			<td>
+				<%= user.created_at.strftime("%B %d, %Y") %>
+			</td>
     </tr>
   <% end %>
 </table>

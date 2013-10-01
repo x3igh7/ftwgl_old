@@ -1,21 +1,11 @@
 <h1>teams</h1>
 
 <table class="center" cellspacing="0">
-  <tr>
-    <th>Team Name</th>
-    <th>Team Tag</th>
-  </tr>
+  <%= render :partial => "heading_teams" %>
   <% @team.each do |team| %>
-    <tr>
-      <td>
-        <%= link_to team.name, team_path(team) %>
-      </td>
-      <td>
-        <%= team.tag %>
-      </td>
-    </tr>
+    <%= render :partial => "row_teams", :locals => { :team => team } %>
   <% end %>
 </table>
 <% if user_signed_in? %>
-    <%= link_to "Create a Team", new_team_path, :class => "button" %>
+    <%= link_to "Create a team", new_team_path, :class => "button" %>
 <% end %>

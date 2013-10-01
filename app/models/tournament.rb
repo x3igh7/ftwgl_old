@@ -1,11 +1,13 @@
 class Tournament < ActiveRecord::Base
-  attr_accessible :description, :name, :rules
+  attr_accessible :description, :name, :rules, :current_week_num
 
   validates_presence_of :name
+  validates_inclusion_of :active, :in => [true, false]
 
-  has_many :tournament_teams
+
+  has_many :tournament_teams, :dependent => :destroy
   has_many :teams, through: :tournament_teams
-  has_many :matches
+  has_many :matches, :dependent => :destroy
 
 end
 

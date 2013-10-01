@@ -1,16 +1,83 @@
-<div class="tournament-nav">
-  <%= render 'tournament_nav' %>
-</div>
 <h1><%= @tournament.name %></h1>
-<h3><%= @tournament.description %></h3>
-<h5><%= "Rules: #{@tournament.rules}"%></h5>
-<% if user_signed_in? %>  
-  <% if @has_active_team == true %>
-    <p></p>
-  <% else %>
-    <div>
-      <%=render 'tournament_team/join_tournament_form' %>
-    </div>
-  <% end %>
+<div class="content-inner">
+	<span class="outer-heading"><%= @tournament.description %></span><br />
+	<span class="faded"><%= "#{@tournament.rules}"%></span><br />
+	<% if user_signed_in? %>  
+		<% if @active_tournament_team %>
+			<% @active_team = Team.find(@active_tournament_team.team_id) %>
+			You are participating in this tournament with <%= link_to @active_team.name, team_path(@active_team) %>.
+		<% elsif not @current_user_teams.any? %>
+			You can join a team from the rankings below, or <%= link_to "create", new_team_path %> your own team.
+		<% else %>
+			<div style="float:right;">
+				<%=render 'tournament_team/join_tournament_form' %>
+			</div>
+		<% end %>
+	<% end %>
+	<div class="spacer"></div>
+	<div class="content-inner-inner clear">
+		<h1>rankings</h1>
+		<% if @teams.any? %>
+			<table class="center" cellspacing="0">
+					<tr>
+						<th>Rank</th>
+						<th>Team</th>
+						<th>Points</th>
+						<th>Wins</th>
+						<th>Losses</th>
+						<th>Differential</th>
+					</tr>
+					<% @teams.each_with_index do |team, x| %>
+						<tr id=<%= "rank#{x+1}" %>>
+							<td class="rank"><%= x+1 %></td>
+							<td class="name"><%= link_to "#{team.team.name} #{team.team.tag}", team_path(team.team) %></td>
+							<td class="points"><%= team.total_points %></td>
+							<td class="wins"><%= team.wins %></td>
+							<td class="losses"><%= team.losses %></td>
+							<td class="diff"><%= team.total_diff %></td>
+						</tr>
+					<% end %>
+			</table>
+		<% else %>
+			No teams have joined this tournament yet.
+		<% end %>
+	</div>
+	
+	<div class="content-inner-inner">
+		<h1>schedule</h1>
+		<% if @matches.empty? %>
+			This tournament has not started.
+		<% else %>
+			<div id="matches_<%= @tournament.id %>" class="content-inner-inner">
+				<div class="weeks">
+					<span class="week-label">Week </span>
+					<% @matches.keys.sort.each do |week| %>
+						<a href="javascript:void(0);" class="week-button" id="week_<%= week %>"><%= week %></a>
+					<% end %>
+				</div>
+				<% @matches.each_key do |week| %>
+					<table class="matches_table center" id="matches_table_<%= week %>" style="display:none;" cellspacing="0" class="center">
+						<%= render :partial => "heading_matches" %>
+						<% @matches[week].each do |match| %>
+							<%= render :partial => "row_matches", :locals => { :match => match } %>
+						<% end %>
+					</table>
+				<% end %>
+			</div>
+		<% end %>
+	</div>
+</div>
+
+<%= content_for :js do %>
+	<script type="text/javascript">	
+		$(".week-button").click(function(){
+			$(".week-button").removeClass("week-button-selected");
+			$(this).addClass("week-button-selected");
+			$(".matches_table").hide();
+			$("#" + "matches_table_" + $(this).attr("id").split("_")[1]).show();
+		});
+		
+		$(".week-button").last().click();
+	</script>
 <% end %>
 

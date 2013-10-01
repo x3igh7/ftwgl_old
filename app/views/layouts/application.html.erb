@@ -3,23 +3,23 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!--<%= stylesheet_link_tag "application", :media => "all" %>-->
   <%= stylesheet_link_tag "ftwgl" %>
   <%= favicon_link_tag 'ftwlogo.png', :rel => 'shortcut icon', :sizes => '32x32' %>
   <title>FTW Gaming League</title>
-  <!--<%= stylesheet_link_tag    "application", :media => "all" %>-->
-  <!--<%= stylesheet_link_tag "bootstrap_and_overrides" %>-->
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+	<%= yield :head %>
 </head>
 <body>
 
 <div class="body-container center">
-	<%= image_tag("ftwlogo.png", :alt => "FTW Logo", :width => 407, :height => 152) %>
-	
-	  <p class="flash"><%= notice %></p>
-	  <p class="flash"><%= alert %></p>
-	
+	<%= link_to root_path do%>
+		<%= image_tag("ftwlogo.png", :alt => "FTW Logo", :width => 407, :height => 152) %>
+	<% end %>
+
+	  <p class="flash" id="notice"><%= notice %></p>
+	  <p class="flash" id="alert"><%= alert %></p>
+
 	<div id="content-main">
 		<ul id="nav-main" class="nav">
 			<li>
@@ -34,9 +34,13 @@
 			<li>
 			  <%= link_to 'tournaments', tournaments_path, :class => controller_name == 'tournaments' ? 'nav_link selected' : 'nav_link' %>
 			</li>
-			
+			<% if user_signed_in? and current_user.has_role?(:admin) %>
+				<li>
+					<%= link_to 'admin', admin_root_path, :class => controller.class.name.split("::").first == "Admin" ? 'nav_link selected' : 'nav_link' %>
+				</li>
+			<% end %>
 		</ul>
-		
+
 		<div class="content-outer">
 			<%= yield %>
 		</div>
@@ -48,7 +52,7 @@
 					<%= link_to "profile", user_path(current_user), :class => "nav_link" %>
 				</li>
 				<li>
-					<%= link_to "sign out", "javascript:void:(0);", :id => "sign_out", :class => "nav_link"%> 
+					<%= link_to "sign out", destroy_user_session_path, :id => "sign_out", :method => 'delete', :class => "nav_link"%>
 				</li>
 			<% else %>
 				<li>
@@ -56,29 +60,33 @@
 				</li>
 			<% end %>
 		</ul>
-		
+
 		<div class="content-outer">
-			
+
 			  <% if user_signed_in? %>
 				<h1 class="text-center">your upcoming matches</h1>
-				<div class="content-inner">	
+				<div class="content-inner">
 					<% if @team_tournaments.count == 0 %>
 						You're not participating in any tournaments.
 					<% else %>
-					
-						<ul class="unstyled text-center">
+
+
 						<% @team_tournaments.each do |tournament| %>
-						  <li><h4><%= link_to tournament.name, tournament_path(tournament) %></h4></li>
-							<% if @team_tournament_matches.length < 1 %>
-							  <li> No upcoming matches </li>
+							<div class="content-inner-inner">
+						  <h1><%= link_to tournament.name, tournament_path(tournament) %></h1>
+							<% if @team_tournament_matches[tournament.id].empty? %>
+							  No upcoming matches
 							<% else %>
-								<% @team_tournament_matches.each do |match| %>
-								<li><%= link_to "#{match.home_team.team.name} vs. #{match.away_team.team.name}", tournament_match_path(tournament.id, match.id) %></li>
+								<% @team_tournament_matches[tournament.id].each do |match| %>
+									<%= link_to "#{match.home_team.team.name} vs. #{match.away_team.team.name}", tournament_match_path(tournament.id, match.id) %>
+									<div class="faded" style="font-size:16px;"><%= match.standard_date %></div>
 								<% end %>
 							<% end %>
+							</div>
 						<% end %>
+
 					<% end %>
-					  </ul>
+
 					</div>
 			  <% else %>
 					<h1>sign in</h1>
@@ -96,21 +104,7 @@
 			  <% end %>
 			</div>
 		</div>
-	  </div>
 </div>
-<% if user_signed_in? %>
-<script type="text/javascript">
-	$("#sign_out").click(function(){
-		$.ajax({
-				url: '<%= destroy_user_session_path %>',
-				method: 'delete',
-				complete: function(){
-					location.reload();
-				}
-		});
-	});
-</script>
-<%= yield :js %>
-<% end %>
+
 </body>
 </html>

@@ -3,7 +3,7 @@ class TournamentTeam < ActiveRecord::Base
   attr_protected :total_points, :total_diff, :wins, :losses
 
   validates_presence_of :team, :tournament, :total_points, :total_diff, :wins, :losses
-  validates_uniqueness_of :team_id, scoped_to: :tournament_id
+  validates_uniqueness_of :team_id, scope: :tournament_id
   belongs_to :team
   belongs_to :tournament
   has_many  :home_matches, :foreign_key => 'away_team_id', :class_name => 'Match'
@@ -38,4 +38,13 @@ class TournamentTeam < ActiveRecord::Base
     self.losses += 1
     self.total_points += 0
   end
+	
+	def has_played?(tournament_team)
+		matches.each do |match|
+			if match.away_team_id == tournament_team.id or match.home_team_id == tournament_team.id
+				return true
+			end
+		end
+		return false
+	end
 end
