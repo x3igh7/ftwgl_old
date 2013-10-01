@@ -1,12 +1,12 @@
 require 'spec_helper'
 
 describe "Team roster" do
-  
+
   context "applications" do
     let!(:user) { FactoryGirl.create(:user) }
     let!(:team_owner) {FactoryGirl.create(:user) }
     let!(:team) { FactoryGirl.create(:team) }
-    
+
     before :each do
       sign_in_as user
     end
@@ -14,17 +14,17 @@ describe "Team roster" do
     it "can be submitted by a user" do
       visit team_path(team)
 
-      click_on "Apply to Team"
+      click_on "Apply to team"
       expect(page).to have_content("Application submitted")
     end
-    
+
     it "appears as Pending" do
       FactoryGirl.create(:membership, team: team, user: team_owner, role: 'owner', active: true)
-      
+
       visit team_path(team)
       expect(page).to have_content("#{team_owner.username}")
 
-      click_on "Apply to Team"
+      click_on "Apply to team"
       expect(page).to have_content("Pending")
     end
 
@@ -46,8 +46,9 @@ describe "Team roster" do
     it "can be approved by a team owner" do
 
       visit team_path(team)
-      click_button "Approve"
-      
+
+      click_on "Approve"
+
       expect(user.memberships.last.active).to be_true
       expect(page).to_not have_content("Pending")
     end
@@ -56,7 +57,7 @@ describe "Team roster" do
       visit team_path(team)
 
       valid_user = user.memberships
-      click_button "Remove"
+      click_on "Remove"
 
       expect(valid_user.exists?).to be_false
     end

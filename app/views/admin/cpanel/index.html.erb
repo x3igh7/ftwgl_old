@@ -1,0 +1,60 @@
+<h1>admin</h1>
+<div class="content-inner">
+  <div class="content-inner-inner">
+    <h1>manage users</h1>
+    <div id="users_panel" class="content-inner-inner">
+    </div>
+  </div>
+
+  <div class="content-inner-inner">
+    <h1>manage tournaments</h1>
+    <div id="tournaments_panel" class="content-inner-inner">
+
+      <table>
+        <% @active_tournaments.each do |tourny| %>
+          <tr cellspacing="0">
+            <td><%= tourny.name %></td>
+            <td class="show-management" style="float:right;"><button>manage</button></td>
+            <td class="hide-management"><button>hide</button></td>
+          </tr>
+          <tr class="management">
+            <td><%= link_to "edit", edit_admin_tournament_path(tourny) %></td>
+            <td>teams</td>
+            <td>matches</td>
+            <td>rankings</td>
+            <td>schedule</td>
+          </tr>
+        <% end %>
+      </table>
+
+
+    </div>
+
+  </div>
+
+  <div class="content-inner-inner">
+    <h1>manage teams</h1>
+    <div id="teams_panel" class="content-inner-inner">
+    </div>
+
+  </div>
+</div>
+
+ <script>
+
+  $(document).ready(function(){
+    $(".management").hide();
+    $(".hide-management").hide();
+    $(document).on("click", ".show-management", function(){
+      $(this).parent('tr').next(".management").show("slow");
+      $(this).closest(".show-management").hide();
+      $(this).next(".hide-management").show();
+    });
+    $(document).on("click", ".hide-management", function(){
+      $(this).parent('tr').next('.management').hide();
+      $(this).prev('.show-management').show();
+      $(this).closest(".hide-management").hide();
+    });
+  });
+ </script>
+

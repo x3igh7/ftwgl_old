@@ -1,0 +1,11 @@
+<tr>
+	<td><%= link_to team.name, team_path(team) %></td>
+	<td><%= team.tag %></td>
+	<td>
+		<% tournaments = [] %>
+		<% team.tournaments.each do |tournament| %>
+			<% tournaments << link_to(tournament.name, tournament_path(tournament)) %> 
+		<% end %>
+		<%= tournaments.join(", ").html_safe %>
+	</td>
+</tr>

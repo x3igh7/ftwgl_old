@@ -3,7 +3,7 @@ require 'spec_helper'
 
 
 describe "A User" do
-  
+
   valid_user = FactoryGirl.build(:user)
 
   context "without an account" do
@@ -45,8 +45,6 @@ describe "User" do
 
     it "can sign in using their username and password" do
       visit root_path
-      #click_on "Sign In"
-      #expect(current_path).to eq(new_user_session_path)
       fill_in "Username", :with => registered.username
       fill_in "Password", :with => registered.password
       click_button "Sign in"
@@ -54,9 +52,7 @@ describe "User" do
     end
 
     it "cannot sign in with invalid credentials" do
-      visit root_path
-      click_on "Sign In"
-      expect(current_path).to eq(new_user_session_path)
+      visit new_user_session_path
       click_button "Log In"
       expect(page).to have_content("Invalid email or password.")
     end
@@ -73,7 +69,7 @@ describe "User" do
     it "can visit their profile page" do
       sign_in_as registered
       visit user_path(registered)
-      expect(page).to have_content("Profile for " + registered.username)
+      expect(page).to have_content(registered.username)
     end
 
     it 'can choose to change password' do

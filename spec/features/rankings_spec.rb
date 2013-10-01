@@ -10,11 +10,11 @@ describe "Rankings" do
     FactoryGirl.create(:tournament_team, team: team3, tournament: tournament, :wins => 1, :losses => 2, :total_points => 3)
     FactoryGirl.create(:tournament_team, team: team, tournament: tournament, :wins => 3, :total_points => 9)
 
-    visit tournament_rankings_path(tournament)
+    visit tournament_path(tournament)
     expect(page.find("#rank1 .rank")).to have_content(1)
     expect(page.find("#rank1 .name")).to have_content(team.name)
     expect(page.find("#rank3 .rank")).to have_content(3)
-    expect(page.find("#rank3 .name")).to have_content(team3.name) 
+    expect(page.find("#rank3 .name")).to have_content(team3.name)
   end
 
   it "ranks teams from highest diff to lowest diff if points are equal" do
@@ -22,7 +22,7 @@ describe "Rankings" do
     FactoryGirl.create(:tournament_team, team: team3, tournament: tournament, :total_diff => 3)
     FactoryGirl.create(:tournament_team, team: team, tournament: tournament, :total_diff => 10)
 
-    visit tournament_rankings_path(tournament)
+    visit tournament_path(tournament)
     expect(page.find("#rank1 .rank")).to have_content(1)
     expect(page.find("#rank1 .name")).to have_content(team.name)
     expect(page.find("#rank2 .rank")).to have_content(2)

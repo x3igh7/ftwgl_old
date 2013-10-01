@@ -12,7 +12,7 @@ describe "Editting a team profile" do
     
     visit team_path(team)
 
-    click_on "Edit Team Profile"
+    click_on "Edit team profile"
 
     expect(current_path).to eq(edit_team_path(team))
   end
@@ -30,7 +30,7 @@ describe "Editting a team profile" do
   it "updates your info" do
     sign_in_as team_owner
     visit team_path(team)
-    click_on "Edit Team Profile"
+    click_on "Edit team profile"
 
     fill_in "Name", :with => "bar"
     fill_in "Tag", :with => "[foo]"

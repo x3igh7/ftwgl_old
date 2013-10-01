@@ -1,0 +1,5 @@
+<%= simple_form_for(TournamentTeam.new) do |f| %>
+	<%= f.input :team, as: :hidden, :input_html => { :value => "{0}" } %>
+	<%= f.input :tournament, as: :select, :label => "Tournament", :default => 1, :collection => Tournament.find(:all), :required => true %>
+	<%= f.submit "Join tournament", :id => "JoinTournament" %>
+<% end %>
