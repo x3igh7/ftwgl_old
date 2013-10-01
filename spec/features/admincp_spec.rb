@@ -20,7 +20,7 @@ describe "Admin CP" do
       expect(page).to_not have_content(tournament2.name)
     end
 
-    it "has an option for editting tournament info", :js => true, :focus => true do
+    it "has an option for editting tournament info", :js => true do
       visit admin_root_path
       expect(page).to have_content(tournament1.name)
       click_button "manage"
@@ -30,6 +30,24 @@ describe "Admin CP" do
       expect(page).to have_content("rankings")
       expect(page).to have_content("schedule")
       expect(page).to have_content("hide")
+    end
+
+    it "links to tournament edit", :js => true do
+      visit admin_root_path
+      click_button "manage"
+      click_link "edit"
+      expect(page).to have_content("edit tournament")
+      expect(page).to have_button("update tournament")
+    end
+
+    it "successfully updates a tournament", :js => true, :focus => true do
+      visit admin_root_path
+      click_button "manage"
+      click_link "edit"
+      fill_in "Name", with: "FTW Season 3"
+      click_button "update tournament"
+      expect(current_path).to eq(admin_root_path)
+      expect(page).to have_content("FTW Season 3")
     end
 
     it "shows tournament teams" do

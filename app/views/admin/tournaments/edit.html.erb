@@ -1,0 +1,13 @@
+<h1>edit tournament</h1>
+<div class="content-inner">
+
+<%= simple_form_for([:admin, @tournament]) do |f| %>
+  <%= f.error_notification %>
+
+  <%= f.input :name %>
+  <%= f.input :description %>
+  <%= f.input :rules %>
+  <%= f.submit "update tournament"%>
+<% end %>
+
+</div>
