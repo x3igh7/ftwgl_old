@@ -64,7 +64,7 @@ describe "Admin CP" do
         expect(page).to have_content("[bar]")
       end
 
-      it "allows you to edit tournament teams", :js => true, :focus => true do
+      it "allows you to edit tournament teams", :js => true do
         manage
         click_link "tournament teams"
         click_link "edit"
@@ -74,6 +74,16 @@ describe "Admin CP" do
         expect(current_path).to eq(admin_tournament_teams_path)
         expect(TournamentTeam.last.wins).to eq(3)
         expect(TournamentTeam.last.losses).to eq(2)
+      end
+
+      it "redirects back to edit page with bad inputs", :js => true do
+        manage
+        click_link "tournament teams"
+        click_link "edit"
+        fill_in "Wins", with: "hello"
+        fill_in "Losses", with: 2
+        click_button "update tournament team"
+        expect(current_path).to eq(edit_admin_tournament_team_path(team.id))
       end
 
       it "allows you to add a tournament team" do

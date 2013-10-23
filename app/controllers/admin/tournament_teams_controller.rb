@@ -21,7 +21,7 @@ class Admin::TournamentTeamsController < AdminController
       redirect_to admin_tournament_teams_path(:tournament_id => @team.tournament_id)
       flash[:notice] = "Tournament Successfully Updated"
     else
-      redirect_to edit_admin_tournament_team_path(@team)
+      redirect_to edit_admin_tournament_team_path(@team.id)
       flash[:error] = "Failed to Update Tournament"
     end
   end
