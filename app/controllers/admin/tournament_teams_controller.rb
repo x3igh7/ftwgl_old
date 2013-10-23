@@ -19,10 +19,20 @@ class Admin::TournamentTeamsController < AdminController
 
     if @team.save
       redirect_to admin_tournament_teams_path(:tournament_id => @team.tournament_id)
-      flash[:notice] = "Tournament Successfully Updated"
+      flash[:notice] = "Tournament Team Successfully Updated"
     else
       redirect_to edit_admin_tournament_team_path(@team.id)
-      flash[:error] = "Failed to Update Tournament"
+      flash[:error] = "Failed to Update Tournament Team"
+    end
+  end
+
+  def destroy
+    @team = TournamentTeam.find(params[:id])
+    @team.destroy
+
+    respond_to do |format|
+      format.html { redirect_to admin_tournament_teams_path(:tournament_id => @team.tournament_id) }
+      format.json { head :no_content }
     end
   end
 

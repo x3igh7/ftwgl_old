@@ -89,7 +89,13 @@ describe "Admin CP" do
       it "allows you to add a tournament team" do
       end
 
-      it "allows you to remove a tournament team from the tournament" do
+      it "allows you to remove a tournament team from the tournament", :js => true do
+        manage
+        prev_tourny_teams = TournamentTeam.count
+        click_link "tournament teams"
+        click_link "delete"
+        expect(TournamentTeam.count).to eq(prev_tourny_teams - 1)
+        expect(current_path).to eq(admin_tournament_teams_path)
       end
 
     end
