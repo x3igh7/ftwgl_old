@@ -38,7 +38,7 @@ class TournamentTeam < ActiveRecord::Base
     self.losses += 1
     self.total_points += 0
   end
-	
+
 	def has_played?(tournament_team)
 		matches.each do |match|
 			if match.away_team_id == tournament_team.id or match.home_team_id == tournament_team.id

@@ -19,7 +19,7 @@
           </tr>
           <tr class="management">
             <td><%= link_to "edit", edit_admin_tournament_path(tourny) %></td>
-            <td>teams</td>
+            <td class="show-tournament-teams">tournament teams</td>
             <td>matches</td>
             <td>rankings</td>
             <td>schedule</td>
@@ -41,7 +41,6 @@
 </div>
 
  <script>
-
   $(document).ready(function(){
     $(".management").hide();
     $(".hide-management").hide();

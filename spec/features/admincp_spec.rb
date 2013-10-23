@@ -5,6 +5,7 @@ describe "Admin CP" do
   let!(:tournament1) {FactoryGirl.create(:tournament)}
   let!(:tournament2) {FactoryGirl.create(:tournament, active: false)}
   let!(:admin) {FactoryGirl.create(:user)}
+  let!(:tournament_team) {FactoryGirl.create(:tournament_team, tournament: tournament1)}
 
   it "cannot access admincp if not admin" do
     visit admin_root_path
@@ -57,7 +58,23 @@ describe "Admin CP" do
       end
     end
 
-    it "shows tournament teams" do
+    context "tournament teams" do
+      it "links tournament teams index", :js => true, :focus => true do
+        visit admin_root_path
+        click_button "manage"
+        click_link "tournament teams"
+        expect(page).to have_content("[bar]")
+      end
+
+      it "allows you to edit tournament teams" do
+      end
+
+      it "allows you to add a tournament team" do
+      end
+
+      it "allows you to remove a tournament team from the tournament" do
+      end
+
     end
 
     it "shows tournament matches" do
