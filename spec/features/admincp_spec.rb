@@ -41,16 +41,14 @@ describe "Admin CP" do
       end
 
       it "links to tournament edit", :js => true do
-        visit admin_root_path
-        click_button "manage"
+        manage
         click_link "edit"
         expect(page).to have_content("edit tournament")
         expect(page).to have_button("update tournament")
       end
 
       it "successfully updates a tournament", :js => true do
-        visit admin_root_path
-        click_button "manage"
+        manage
         click_link "edit"
         fill_in "Name", with: "FTW Killfest 3"
         click_button "update tournament"
@@ -61,14 +59,14 @@ describe "Admin CP" do
 
     context "tournament teams" do
       it "links tournament teams index", :js => true, :focus => true do
-        visit admin_root_path
-        click_button "manage"
+        manage
         click_link "tournament teams"
-        binding.pry
         expect(page).to have_content("[bar]")
       end
 
       it "allows you to edit tournament teams" do
+        visit admin_root_path
+        click_button "manage"
       end
 
       it "allows you to add a tournament team" do
@@ -89,4 +87,9 @@ describe "Admin CP" do
     end
 
   end
+end
+
+def manage
+  visit admin_root_path
+  click_button "manage"
 end

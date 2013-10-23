@@ -1,7 +1,8 @@
 class Admin::TournamentTeamsController < AdminController
 
   def index
-    @teams = TournamentTeam.where("tournament_id = ?", params[:tournament_id])
+    @tournament = Tournament.find(params[:tournament_id])
+    @teams = TournamentTeam.in_tournament(@tournament)
   end
 
 end
