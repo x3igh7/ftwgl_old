@@ -13,9 +13,8 @@ Ftwgl::Application.routes.draw do
 	namespace :admin do
     root :to => 'cpanel#index'
     resources :tournaments do
-      get "/teams" => "tournaments#teams"
+      resources :tournament_teams, :only => [:index, :new, :create, :edit, :update, :destroy]
     end
-    resources :tournament_teams, :only => [:new, :create, :edit, :update]
 	end
 
   root :to => 'home#home'

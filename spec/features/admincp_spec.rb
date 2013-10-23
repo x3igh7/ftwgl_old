@@ -5,7 +5,8 @@ describe "Admin CP" do
   let!(:tournament1) {FactoryGirl.create(:tournament)}
   let!(:tournament2) {FactoryGirl.create(:tournament, active: false)}
   let!(:admin) {FactoryGirl.create(:user)}
-  let!(:tournament_team) {FactoryGirl.create(:tournament_team, tournament: tournament1)}
+  let!(:team) { FactoryGirl.create(:team) }
+  let!(:tournament_team) {FactoryGirl.create(:tournament_team, team: team, tournament: tournament1)}
 
   it "cannot access admincp if not admin" do
     visit admin_root_path
@@ -63,6 +64,7 @@ describe "Admin CP" do
         visit admin_root_path
         click_button "manage"
         click_link "tournament teams"
+        binding.pry
         expect(page).to have_content("[bar]")
       end
 

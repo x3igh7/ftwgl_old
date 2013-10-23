@@ -1,0 +1,17 @@
+<h1>Tournament Teams</h1>
+<table>
+  <tr>
+    <th>Team Name</th>
+    <th>Team Tag</th>
+    <th></th>
+    <th></th>
+  </tr>
+  <% @teams.each do |team| %>
+    <tr>
+      <td><%= team.team.name %></td>
+      <td><%= team.team.tag %></td>
+      <td>edit</td>
+      <td>delete</td>
+    </tr>
+  <% end %>
+</table>
