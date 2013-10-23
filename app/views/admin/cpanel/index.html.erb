@@ -19,7 +19,7 @@
           </tr>
           <tr class="management">
             <td><%= link_to "edit", edit_admin_tournament_path(tourny) %></td>
-            <td><%= link_to "tournament teams", admin_tournament_tournament_teams_path(tourny) %></td>
+            <td><%= link_to "tournament teams", admin_tournament_teams_path(:tournament_id => tourny.id) %></td>
             <td>matches</td>
             <td>rankings</td>
             <td>schedule</td>

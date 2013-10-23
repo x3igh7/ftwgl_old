@@ -10,7 +10,7 @@
     <tr>
       <td><%= team.team.name %></td>
       <td><%= team.team.tag %></td>
-      <td>edit</td>
+      <td><%= link_to "edit", edit_admin_tournament_team_path(team) %></td>
       <td>delete</td>
     </tr>
   <% end %>

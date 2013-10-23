@@ -58,15 +58,22 @@ describe "Admin CP" do
     end
 
     context "tournament teams" do
-      it "links tournament teams index", :js => true, :focus => true do
+      it "links tournament teams index", :js => true do
         manage
         click_link "tournament teams"
         expect(page).to have_content("[bar]")
       end
 
-      it "allows you to edit tournament teams" do
-        visit admin_root_path
-        click_button "manage"
+      it "allows you to edit tournament teams", :js => true, :focus => true do
+        manage
+        click_link "tournament teams"
+        click_link "edit"
+        fill_in "Wins", with: 3
+        fill_in "Losses", with: 2
+        click_button "update tournament team"
+        expect(current_path).to eq(admin_tournament_teams_path)
+        expect(TournamentTeam.last.wins).to eq(3)
+        expect(TournamentTeam.last.losses).to eq(2)
       end
 
       it "allows you to add a tournament team" do
