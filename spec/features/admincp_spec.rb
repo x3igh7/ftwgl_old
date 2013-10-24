@@ -100,7 +100,14 @@ describe "Admin CP" do
 
     end
 
-    it "shows tournament matches" do
+    context "shows tournament matches" do
+      it "links to tournament matches index" do
+        manage
+        click_link "matches"
+        expect(page).to have_content("tournament matches")
+        expect(page).to have_content("week")
+        expect(page).to have_content("[bar]")
+      end
     end
 
     it "shows rankings" do

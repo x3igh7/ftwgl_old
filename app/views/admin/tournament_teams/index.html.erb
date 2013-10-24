@@ -1,6 +1,7 @@
 <h1>Tournament Teams</h1>
 <table>
   <tr>
+    <th>Tournament</th>
     <th>Team Name</th>
     <th>Team Tag</th>
     <th></th>
@@ -8,6 +9,7 @@
   </tr>
   <% @teams.each do |team| %>
     <tr>
+      <td><%= team.tournament.name %></td>
       <td><%= team.team.name %></td>
       <td><%= team.team.tag %></td>
       <td><%= link_to "edit", edit_admin_tournament_team_path(team) %></td>
