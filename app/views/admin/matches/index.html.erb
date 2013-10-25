@@ -8,6 +8,7 @@
     <th>match date</th>
     <th></th>
     <th></th>
+    <th></th>
   </tr>
   <% @matches.each do |match| %>
     <tr>
@@ -16,8 +17,12 @@
       <td><%= match.away_team.team.name + " " + match.away_team.team.tag %></td>
       <td><%= match.week_num %></td>
       <td><%= match.standard_date %></td>
+      <td><%= link_to "show", tournament_match_path(match.tournament_id, match.id) %></td>
       <td><%= link_to "edit", edit_admin_match_path(match) %></td>
       <td><%= link_to "delete", admin_match_path(match), :method => :delete, :class => 'action destroy', data: { confirm: 'Are you sure?' } %></td>
     </tr>
   <% end %>
 </table>
+<div>
+  <%= link_to "create match", new_admin_match_path(:tournament_id => @tournament.id), :class => "button" %>
+</div>

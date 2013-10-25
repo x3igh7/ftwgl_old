@@ -7,35 +7,6 @@ class MatchesController < ApplicationController
     @away_team = @match.away_team.team
   end
 
-  def new
-    @tournament = Tournament.find(params[:tournament_id])
-    @match = @tournament.matches.new
-
-    if user_signed_in? && current_user.has_role?(:admin)
-      true
-    else
-      flash[:alert]
-      redirect_to tournament_path(@tournament)
-    end
-
-    @teams = @tournament.tournament_teams.map do |tourny_team| 
-      [tourny_team.team.name, tourny_team.id]
-    end
-  end
-
-  def create
-    @tournament = Tournament.find(params[:tournament_id])
-    @match = @tournament.matches.new(params[:match])
-    
-    if @match.save
-      flash[:notice] = "Match created"
-      redirect_to tournament_match_path(@tournament.id, @match.id)
-    else
-      flash[:alert] = "Failed to create match"
-      redirect_to new_tournament_match_path(@tournament.id)
-    end
-  end
-
   def edit
 
     @tournament = Tournament.find(params[:tournament_id])
