@@ -15,12 +15,13 @@ class Admin::MatchesController < AdminController
     @match.away_score = params[:match][:away_score]
     @match.week_num = params[:match][:week_num]
     @match.winner_id = params[:match][:winner_id]
+    @match.match_date = DateTime.strptime(params[:match][:match_date], '%m/%d/%Y').to_date
 
-    if @match.update_attributes(params[:match])
+    if @match.save
       redirect_to admin_matches_path(:tournament_id => @match.tournament_id)
       flash[:notice] = "Tournament Successfully Updated"
     else
-      redirect_to admin_edit_match_path(@match)
+      redirect_to edit_admin_match_path(@match)
       flash[:error] = "Failed to Update Tournament"
     end
   end

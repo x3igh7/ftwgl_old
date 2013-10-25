@@ -129,7 +129,7 @@ describe "Admin CP" do
         expect(edit_match.week_num).to eq(2)
       end
 
-      it "doesn't allow edit with bad details", :js => true do
+      it "doesn't allow edit with bad details", :js => true, :focus => true do
         manage
         click_link "matches"
         click_link "edit"

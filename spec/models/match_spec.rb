@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Match, :focus => true do
+describe Match do
   it { should belong_to :home_team }
   it { should belong_to :away_team }
   it { should belong_to :tournament }
@@ -13,7 +13,6 @@ describe Match, :focus => true do
   it { should validate_presence_of :away_score }
   it { should validate_numericality_of :home_score }
   it { should validate_numericality_of :away_score }
-  it { should validate_numericality_of :winner_id }
   it { should validate_numericality_of :week_num }
 
   describe "update_tourny_team_scores" do

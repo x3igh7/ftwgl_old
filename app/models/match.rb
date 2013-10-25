@@ -1,9 +1,10 @@
 class Match < ActiveRecord::Base
-  attr_accessible :match_date, :home_score, :away_score, :winner_id
+  attr_accessible :match_date, :home_score, :away_score
   attr_accessible :home_team_id, :away_team_id, :week_num, :home_team, :away_team
+  attr_protected :winner_id
   validates_presence_of :home_team, :away_team, :week_num, :match_date
   validates_presence_of :tournament, :home_score, :away_score
-  validates_numericality_of :home_score, :away_score, :week_num, :winner_id
+  validates_numericality_of :home_score, :away_score, :week_num
   validate :team_cannot_play_against_itself
 
   belongs_to :home_team, :class_name => "TournamentTeam"
