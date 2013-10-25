@@ -7,8 +7,9 @@
   <%= f.input :wins %>
   <%= f.input :losses %>
   <%= f.input :total_points %>
-  <%= f.input :total_diff %>
-  <%= f.submit "update tournament team"%>
+  <%= f.input :match_date, as: :date, label: "Match Date #{@match.standard_date}" %>
+  <%= f.input :winner_id, collection: [@match.home_team.team.name]
+  <%= f.submit "update tournament match"%>
 <% end %>
 
 </div>

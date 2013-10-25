@@ -11,7 +11,7 @@ gem 'devise'
 gem 'cancan'
 gem 'role_model'
 gem 'gon'
-
+gem 'bootstrap-datepicker-rails'
 
 
 # Gems used only for assets and not required

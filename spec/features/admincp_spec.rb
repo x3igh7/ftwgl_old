@@ -112,13 +112,37 @@ describe "Admin CP" do
         expect(page).to have_content("foo2 [bar]")
       end
 
-      it "allows admins to edit match details" do
+      it "allows admins to edit match details", :js => true do
+        manage
+        click_link "matches"
+        click_link "edit"
+        save_and_open_page
+        fill_in "Home score", with: 5
+        fill_in "Away score", with: 4
+        fill_in "Week", with: 2
+        click_button "update tournament match"
+        expect(current_path).to eq(admin_matches_path)
+        click_link "edit"
+        edit_match = Match.last
+        expect(edit_match.home_score).to eq(5)
+        expect(edit_match.away_score).to eq(4)
+        expect(edit_match.week_num).to eq(2)
+      end
+
+      it "doesn't allow edit with bad details", :js => true do
+        manage
+        click_link "matches"
+        click_link "edit"
+        fill_in "Home score", with: "abc"
+        fill_in "Away score", with: 4
+        click_button "update tournament match"
+        expect(current_path).to eq(edit_admin_match_path(match))
       end
 
       it "properly adjusts the results when updating a match" do
       end
 
-      it "allows you to remove a match", :js => true, :focus => true do
+      it "allows you to remove a match", :js => true do
         manage
         prev_matches = Match.count
         click_link "matches"

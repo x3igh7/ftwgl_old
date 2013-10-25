@@ -2,8 +2,8 @@
 <table>
   <tr>
     <th>tournament</th>
-    <th>home Team</th>
-    <th>away Team</th>
+    <th>home team</th>
+    <th>away team</th>
     <th>week</th>
     <th>match date</th>
     <th></th>
@@ -15,7 +15,7 @@
       <td><%= match.home_team.team.name + " " + match.home_team.team.tag %></td>
       <td><%= match.away_team.team.name + " " + match.away_team.team.tag %></td>
       <td><%= match.week_num %></td>
-      <td><%= match.match_date %></td>
+      <td><%= match.standard_date %></td>
       <td><%= link_to "edit", edit_admin_match_path(match) %></td>
       <td><%= link_to "delete", admin_match_path(match), :method => :delete, :class => 'action destroy', data: { confirm: 'Are you sure?' } %></td>
     </tr>

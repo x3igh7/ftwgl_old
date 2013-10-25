@@ -33,6 +33,8 @@ GEM
     atomic (1.1.14)
     bcrypt-ruby (3.1.2)
     bcrypt-ruby (3.1.2-x86-mingw32)
+    bootstrap-datepicker-rails (1.1.1.8)
+      railties (>= 3.0)
     builder (3.0.4)
     cancan (1.6.10)
     capybara (2.1.0)
@@ -185,6 +187,7 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
+  bootstrap-datepicker-rails
   cancan
   capybara
   coffee-rails (~> 3.2.1)
