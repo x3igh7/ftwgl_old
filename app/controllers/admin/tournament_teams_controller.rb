@@ -2,7 +2,8 @@ class Admin::TournamentTeamsController < AdminController
 
   def index
     @tournament = Tournament.find(params[:tournament_id])
-    @teams = TournamentTeam.in_tournament(@tournament)
+    @teams_unsorted = TournamentTeam.in_tournament(@tournament)
+    @teams = @teams_unsorted.sort { |a,b| a.team.name <=> b.team.name }
   end
 
   def edit

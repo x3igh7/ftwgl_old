@@ -2,7 +2,7 @@ class Admin::MatchesController < AdminController
 
   def index
     @tournament = Tournament.find(params[:tournament_id])
-    @matches = Match.in_tournament(@tournament)
+    @matches = Match.in_tournament(@tournament).order("week_num")
   end
 
   def edit
@@ -15,7 +15,7 @@ class Admin::MatchesController < AdminController
     @match.away_score = params[:match][:away_score]
     @match.week_num = params[:match][:week_num]
     @match.winner_id = params[:match][:winner_id]
-    @match.match_date = DateTime.strptime(params[:match][:match_date], '%m/%d/%Y').to_date
+    @match.match_date = params[:match][:match_date]
 
     if @match.save
       redirect_to admin_matches_path(:tournament_id => @match.tournament_id)
