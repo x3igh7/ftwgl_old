@@ -5,7 +5,7 @@ Ftwgl::Application.routes.draw do
   resources :memberships, :only => [:create, :update, :destroy, :index]
   resources :tournaments, :only => [:new, :create, :show, :index] do
     get "/rankings" => "tournaments#rankings"
-    resources :matches, :only => [:new, :create, :index, :show, :edit, :update] do
+    resources :matches, :only => [:index, :show, :edit, :update] do
 			resources :comments, :only => [ :create ]
 		end
   end
@@ -13,6 +13,8 @@ Ftwgl::Application.routes.draw do
 	namespace :admin do
     root :to => 'cpanel#index'
     resources :tournaments
+    resources :tournament_teams, :only => [:index, :new, :create, :edit, :update, :destroy]
+    resources :matches
 	end
 
   root :to => 'home#home'

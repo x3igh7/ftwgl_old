@@ -1,6 +1,6 @@
 class TournamentTeam < ActiveRecord::Base
   attr_accessible :team, :tournament
-  attr_protected :total_points, :total_diff, :wins, :losses
+  attr_protected :total_points, :total_diff, :wins, :losses, :rank
 
   validates_presence_of :team, :tournament, :total_points, :total_diff, :wins, :losses
   validates_uniqueness_of :team_id, scope: :tournament_id
@@ -38,7 +38,7 @@ class TournamentTeam < ActiveRecord::Base
     self.losses += 1
     self.total_points += 0
   end
-	
+
 	def has_played?(tournament_team)
 		matches.each do |match|
 			if match.away_team_id == tournament_team.id or match.home_team_id == tournament_team.id
@@ -47,4 +47,5 @@ class TournamentTeam < ActiveRecord::Base
 		end
 		return false
 	end
+
 end

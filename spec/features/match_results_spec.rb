@@ -37,7 +37,7 @@ describe "match results" do
       visit tournament_match_path(tournament, match)
       expect(page).to have_content("Enter Results")
     end
-  
+
     it "save with properly entered info" do
       visit tournament_match_path(tournament, match)
       click_on "Enter Results"
@@ -50,7 +50,7 @@ describe "match results" do
       expect(Match.last.home_score).to eq(10)
       expect(Match.last.away_score).to eq(8)
     end
-  
+
     it "will not save without proper info" do
       visit tournament_match_path(tournament, match)
       click_on "Enter Results"
@@ -59,7 +59,7 @@ describe "match results" do
       click_on "Save Results"
       expect(page).to have_content("Failed to update")
     end
-  
+
     it "redirects to the match show page on successful save" do
       visit tournament_match_path(tournament, match)
       click_on "Enter Results"
@@ -71,7 +71,7 @@ describe "match results" do
       click_on "Save Results"
       expect(page).to have_content("#{home.name} vs. #{away.name}")
     end
-    
+
     it "can't be saved twice" do
       visit tournament_match_path(tournament, match)
       click_on "Enter Results"

@@ -1,7 +1,6 @@
 class Admin::TournamentsController < AdminController
 
   def new
-
   end
 
   def edit

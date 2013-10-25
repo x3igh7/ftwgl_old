@@ -1,0 +1,14 @@
+<h1>edit tournament teams</h1>
+<div class="content-inner">
+
+<%= simple_form_for([:admin, @team]) do |f| %>
+  <%= f.error_notification %>
+
+  <%= f.input :wins %>
+  <%= f.input :losses %>
+  <%= f.input :total_points %>
+  <%= f.input :total_diff %>
+  <%= f.submit "update tournament team"%>
+<% end %>
+
+</div>
