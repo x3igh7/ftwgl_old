@@ -6,7 +6,10 @@ describe "Admin CP" do
   let!(:tournament2) {FactoryGirl.create(:tournament, active: false)}
   let!(:admin) {FactoryGirl.create(:user)}
   let!(:team) { FactoryGirl.create(:team) }
+  let!(:team2) { FactoryGirl.create(:team) }
   let!(:tournament_team) {FactoryGirl.create(:tournament_team, team: team, tournament: tournament1)}
+  let!(:tournament_team2) {FactoryGirl.create(:tournament_team, team: team2, tournament: tournament1)}
+  let!(:match) { FactoryGirl.create(:match, home_team_id: tournament_team.id, away_team_id: tournament_team2.id, tournament_id: tournament1.id) }
 
   it "cannot access admincp if not admin" do
     visit admin_root_path
@@ -101,12 +104,26 @@ describe "Admin CP" do
     end
 
     context "shows tournament matches" do
-      it "links to tournament matches index" do
+      it "links to tournament matches index", :js => true do
         manage
         click_link "matches"
         expect(page).to have_content("tournament matches")
         expect(page).to have_content("week")
-        expect(page).to have_content("[bar]")
+        expect(page).to have_content("foo2 [bar]")
+      end
+
+      it "allows admins to edit match details" do
+      end
+
+      it "properly adjusts the results when updating a match" do
+      end
+
+      it "allows you to remove a match", :js => true, :focus => true do
+        manage
+        prev_matches = Match.count
+        click_link "matches"
+        click_link "delete"
+        expect(Match.count).to eq(prev_matches - 1)
       end
     end
 
