@@ -4,13 +4,10 @@
 	<% if not @tournament.any? %>
 		There are currently no tournaments.
 	<% else %>
-		
+
 		<% @tournament.each do |tournament| %>
 			<%= render :partial => "tournament_listing", :locals => { :tournament => tournament } %>
 		<% end %>
 	<% end %>
-	
-	<% if user_signed_in? && current_user.has_role?(:admin) %>
-				<%= link_to "Create tournament", new_tournament_path, :class => "button" %>
-	<% end %>
+
 </div>

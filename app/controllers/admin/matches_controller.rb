@@ -5,6 +5,28 @@ class Admin::MatchesController < AdminController
     @matches = Match.in_tournament(@tournament).order("week_num")
   end
 
+  def new
+    @tournament = Tournament.find(params[:tournament_id])
+    @match = @tournament.matches.new
+
+    @teams = @tournament.tournament_teams.map do |tourny_team|
+      [tourny_team.team.name, tourny_team.id]
+    end
+  end
+
+  def create
+    @tournament = Tournament.find(params[:match][:tournament_id])
+    @match = @tournament.matches.new(params[:match])
+
+    if @match.save
+      flash[:notice] = "Match created"
+      redirect_to admin_matches_path(:tournament_id => @tournament.id)
+    else
+      flash[:alert] = "Failed to create match"
+      redirect_to new_admin_match_path(:tournament_id => @tournament.id)
+    end
+  end
+
   def edit
     @match = Match.find(params[:id])
   end
