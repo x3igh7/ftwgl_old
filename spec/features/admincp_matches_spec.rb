@@ -16,6 +16,7 @@ describe "admincp tournament matches" do
     admin.save
     sign_in_as(admin)
   end
+
   it "links to tournament matches index", :js => true do
     manage
     click_link "matches"

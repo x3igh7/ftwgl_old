@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "AdminCP Match Creation", :focus => true do
+describe "AdminCP Match Creation" do
   let!(:admin) { FactoryGirl.create(:user) }
   let!(:home) { FactoryGirl.create(:team) }
   let!(:away) { FactoryGirl.create(:team) }

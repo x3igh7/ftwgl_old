@@ -30,88 +30,53 @@ describe "Admin CP" do
       expect(page).to_not have_content(tournament2.name)
     end
 
-    context "edit tournament" do
-      it "has an option for editting tournament info", :js => true do
-        visit admin_root_path
-        expect(page).to have_content(tournament1.name)
-        click_button "manage"
-        expect(page).to have_content("edit")
-        expect(page).to have_content("teams")
-        expect(page).to have_content("matches")
-        expect(page).to have_content("rankings")
-        expect(page).to have_content("schedule")
-        expect(page).to have_content("hide")
-      end
-
-      it "links to tournament edit", :js => true do
-        manage
-        click_link "edit"
-        expect(page).to have_content("edit tournament")
-        expect(page).to have_button("update tournament")
-      end
-
-      it "successfully updates a tournament", :js => true do
-        manage
-        click_link "edit"
-        fill_in "Name", with: "FTW Killfest 3"
-        click_button "update tournament"
-        expect(current_path).to eq(admin_root_path)
-        expect(page).to have_content("FTW Killfest 3")
-      end
-    end
-
-    context "shows tournament matches" do
-      it "links to tournament matches index", :js => true do
-        manage
-        click_link "matches"
-        expect(page).to have_content("tournament matches")
-        expect(page).to have_content("week")
-        expect(page).to have_content(team.name)
-        expect(page).to have_content(team2.name)
-      end
-
-      it "allows admins to edit match details", :js => true do
-        manage
-        click_link "matches"
-        click_link "edit"
-        fill_in "Home score", with: 5
-        fill_in "Away score", with: 4
-        fill_in "Week", with: 2
-        click_button "update tournament match"
-        expect(current_path).to eq(admin_matches_path)
-        click_link "edit"
-        edit_match = Match.last
-        expect(edit_match.home_score).to eq(5)
-        expect(edit_match.away_score).to eq(4)
-        expect(edit_match.week_num).to eq(2)
-      end
-
-      it "doesn't allow edit with bad details", :js => true do
-        manage
-        click_link "matches"
-        click_link "edit"
-        fill_in "Home score", with: "abc"
-        fill_in "Away score", with: 4
-        click_button "update tournament match"
-        expect(current_path).to eq(edit_admin_match_path(match))
-      end
-
-      it "properly adjusts the results when updating a match" do
-      end
-
-      it "allows you to remove a match", :js => true do
-        manage
-        prev_matches = Match.count
-        click_link "matches"
-        click_link "delete"
-        expect(Match.count).to eq(prev_matches - 1)
-      end
+    it "has a create tournament button" do
+      visit admin_root_path
+      expect(page).to have_content("create new tournament")
     end
 
     it "shows rankings" do
     end
 
     it "shows create schedule" do
+    end
+
+  end
+
+  context "creating a tournament" do
+    let!(:new_tournament) { FactoryGirl.build(:tournament) }
+
+    before do
+      admin.roles = :admin
+      admin.save
+      sign_in_as admin
+    end
+
+    it "has a name, description, and rules" do
+      prev = Tournament.count
+
+      visit admin_root_path
+      click_on "create new tournament"
+
+      fill_in "Name", :with => new_tournament.name
+      fill_in "Description", :with => new_tournament.description
+      fill_in "Rules", :with => new_tournament.rules
+
+      click_on "Create Tournament"
+
+      expect(Tournament.count).to eq(prev + 1)
+      expect(page).to have_content(new_tournament.name)
+    end
+
+    it "shows errors with invalid criteria" do
+      prev = Tournament.count
+      visit admin_root_path
+      click_on "create new tournament"
+
+      click_on "Create Tournament"
+
+      expect(Tournament.count).to eq(prev)
+      expect(page).to have_content("Failed to create tournament")
     end
 
   end
