@@ -1,0 +1,26 @@
+<h1>rankings</h1>
+<div class="content-inner">
+  <table>
+    <tr>
+      <th>rank</th>
+      <th>team name</th>
+      <th>team tag</th>
+      <th>points</th>
+      <th>differential</th>
+    </tr>
+    <%= form_tag rankings_admin_tournaments_path, method: :put do %>
+      <% @teams.each_with_index do |team, i| %>
+      <tr>
+        <td class="field"><%= select_tag(:rank, options_for_select(@ranks, i+1)) %></td>
+        <td><%= team.team.name %></td>
+        <td><%= team.team.tag %></td>
+        <td><%= team.total_points %></td>
+        <td><%= team.total_diff %></td>
+      </tr>
+      <% end %>
+  </table>
+  <div class="actions">
+    <%= submit_tag "Update" %>
+  </div>
+  <% end %>
+</div>
