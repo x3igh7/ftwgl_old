@@ -1,17 +1,21 @@
-<h1>rankings</h1>
+<h1>set ranks</h1>
 <div class="content-inner">
+  <blockquote>Teams are currently ranked according to total points and differential. Use the selector to manually edit ranks as needed. For example, if two teams have the same points, but one has beaten the other in head-to-head play, then the victor should be ranked ahead of the loser regardless of differential.</blockquote>
+  <br>
   <table>
     <tr>
-      <th>rank</th>
+      <th>set rank</th>
+      <th>current rank</th>
       <th>team name</th>
       <th>team tag</th>
       <th>points</th>
       <th>differential</th>
     </tr>
-    <%= form_tag rankings_admin_tournaments_path, method: :put do %>
+    <%= form_tag update_rankings_admin_tournaments_path, method: :put do %>
       <% @teams.each_with_index do |team, i| %>
       <tr>
         <td class="field"><%= select_tag(:rank, options_for_select(@ranks, i+1)) %></td>
+        <td><%= team.rank %></td>
         <td><%= team.team.name %></td>
         <td><%= team.team.tag %></td>
         <td><%= team.total_points %></td>

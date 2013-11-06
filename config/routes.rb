@@ -15,7 +15,7 @@ Ftwgl::Application.routes.draw do
     resources :tournaments do
       collection do
         get "rankings"
-        put "rankings"
+        put "update_rankings"
       end
     end
     resources :tournament_teams, :only => [:index, :new, :create, :edit, :update, :destroy]

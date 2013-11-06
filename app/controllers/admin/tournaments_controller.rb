@@ -40,7 +40,9 @@ class Admin::TournamentsController < AdminController
     for i in 1..@teams.length
       @ranks << i
     end
+  end
 
+  def update_rankings
   end
 
 end
