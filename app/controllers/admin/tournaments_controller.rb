@@ -43,6 +43,15 @@ class Admin::TournamentsController < AdminController
   end
 
   def update_rankings
+    @tournament = Tournament.find(params[:tournament_id])
+
+    if TournamentTeam.update(params[:teams].keys, params[:teams].values)
+      redirect_to rankings_admin_tournaments_path(:tournament_id => @tournament.id)
+      flash[:notice] = "ranks successfully updated"
+    else
+      redirect_to rankings_admin_tournaments_path(:tournament_id => @tournament.id)
+      flash[:alert] = "unable to update ranks"
+    end
   end
 
 end

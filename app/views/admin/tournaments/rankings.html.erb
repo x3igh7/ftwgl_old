@@ -13,18 +13,19 @@
     </tr>
     <%= form_tag update_rankings_admin_tournaments_path, method: :put do %>
       <% @teams.each_with_index do |team, i| %>
-      <tr>
-        <td class="field"><%= select_tag(:rank, options_for_select(@ranks, i+1)) %></td>
-        <td><%= team.rank %></td>
-        <td><%= team.team.name %></td>
-        <td><%= team.team.tag %></td>
-        <td><%= team.total_points %></td>
-        <td><%= team.total_diff %></td>
-      </tr>
+        <%= fields_for "teams[]", team do |f| %>
+        <tr>
+          <td class="field"><%= f.select :rank, options_for_select(@ranks, i+1) %></td>
+          <td><%= team.rank %></td>
+          <td><%= team.team.name %></td>
+          <td><%= team.team.tag %></td>
+          <td><%= team.total_points %></td>
+          <td><%= team.total_diff %></td>
+        </tr>
+        <% end %>
       <% end %>
   </table>
-  <div class="actions">
-    <%= submit_tag "Update" %>
-  </div>
+    <%= hidden_field_tag :tournament_id, @tournament.id %>
+    <%= submit_tag "update" %>
   <% end %>
 </div>
