@@ -48,7 +48,7 @@ describe "User" do
       fill_in "Username", :with => registered.username
       fill_in "Password", :with => registered.password
       click_button "Sign in"
-      expect(page).to have_content("Signed in successfully")
+      expect(page).to have_content("Signed in successfully.")
     end
 
     it "cannot sign in with invalid credentials" do

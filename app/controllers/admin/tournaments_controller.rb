@@ -2,7 +2,6 @@ class Admin::TournamentsController < AdminController
 
   def new
     @tournament = Tournament.new
-
   end
 
   def create
@@ -30,6 +29,28 @@ class Admin::TournamentsController < AdminController
     else
       redirect_to admin_edit_tournament_path(@tournament)
       flash[:error] = "Failed to Update Tournament"
+    end
+  end
+
+  def rankings
+    @tournament = Tournament.find(params[:tournament_id])
+    @teams = TournamentTeam.in_tournament(@tournament).ranking
+    @ranks = []
+
+    for i in 1..@teams.length
+      @ranks << i
+    end
+  end
+
+  def update_rankings
+    @tournament = Tournament.find(params[:tournament_id])
+
+    if TournamentTeam.update(params[:teams].keys, params[:teams].values)
+      redirect_to rankings_admin_tournaments_path(:tournament_id => @tournament.id)
+      flash[:notice] = "ranks successfully updated"
+    else
+      redirect_to rankings_admin_tournaments_path(:tournament_id => @tournament.id)
+      flash[:alert] = "unable to update ranks"
     end
   end
 
