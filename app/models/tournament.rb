@@ -9,6 +9,24 @@ class Tournament < ActiveRecord::Base
   has_many :teams, through: :tournament_teams
   has_many :matches, :dependent => :destroy
 
+  def scheduler
+    @teams = TournamentTeam.where(tournament_id: self.id).order(:rank)
+    @match_counter = 1
+    @matches = []
+    @already_scheduled = []
+    @teams.each do |team|
+      if @already_scheduled.include?(team)==false
+        potential_teams = team.has_not_played #has_not_played is ordered by rank
+        @matches << {"match#{@match_counter}" => {"home" => team.id, "away" => potential_teams[0].id}}
+        @already_scheduled << team
+        @already_scheduled << potential_teams[0]
+        @match_counter += 1
+      end
+    end
+    @matches
+    binding.pry
+  end
+
 end
 
 

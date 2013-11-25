@@ -24,7 +24,7 @@ describe "generate schedule" do
     sign_in_as(admin)
   end
 
-  it "is linked to from the cpanel", :js => true, :focus => true do
+  it "is linked to from the cpanel", :js => true do
     manage
     click_link "set schedule"
     expect(page).to have_content("set schedule")
@@ -32,7 +32,10 @@ describe "generate schedule" do
     expect(page).to have_content("date")
   end
 
-  it "generates matches based on rank and previous matchups" do
+  it "generates matches based on rank and previous matchups", :js => true do
+    manage
+    click_link "set schedule"
+    expect(page).to have_content("Home: #{team6.name} vs Away: #{team5.name}")
   end
 
   it "saves generated matches" do

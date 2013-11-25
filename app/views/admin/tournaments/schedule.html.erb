@@ -1,6 +1,7 @@
 <h1>set schedule</h1>
 <%= form_tag create_schedule_admin_tournaments_path, method: :post do %>
-<p><%= @tournament.name %></p>
-<p><%= select_tag, :week %></p>
-<p><%= select_tag, :match_date %></p>
+<p>tournament: <%= @tournament.name %></p>
+<p>week: <%= select_tag :week, options_for_select(1..5) %></p>
+<p>date: <%= select_date Date.today, prefix: :match_date %></p>
+<% end %>
 

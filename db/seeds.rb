@@ -11,6 +11,9 @@ user.roles = :admin
 user.save
 user2 = User.create(username: 'x3igh7', password: 'administrator', email: 'conners@gmail.com')
 team = Team.create(name: 'foo', tag: '[bar]')
+team2 = Team.create(name: 'bar', tag: '[foo]')
 Membership.create(user: user, team: team, role: 'owner', active: true )
+Membership.create(user: user2, team: team2, role: 'owner', active: true )
 tournament = Tournament.create(name: "FTW Season 1", description: "Team Survivor", rules: "Don't Cheat")
 TournamentTeam.create(team: team, tournament: tournament)
+TournamentTeam.create(team: team2, tournament: tournament)
