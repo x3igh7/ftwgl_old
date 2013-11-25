@@ -26,7 +26,7 @@ describe "admincp tournament rankings" do
     expect(page).to have_content(team2.name)
   end
 
-  it "updates all the ranks", :js => true, :focus => true do
+  it "updates all the ranks", :js => true do
     visit admin_root_path
     manage
     click_link "set ranks"
