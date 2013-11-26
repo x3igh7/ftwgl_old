@@ -66,7 +66,7 @@ describe TournamentTeam do
       expect(check).to be_true
     end
 
-    it "has_not_played returns an array of teams not yet played yet, ordered by rank", :focus => true do
+    it "has_not_played returns an array of teams not yet played yet, ordered by rank" do
       teams = TournamentTeam.where(tournament_id: tournament1.id)
       potential_opponents = tournament_team.has_not_played(teams)
       expect(potential_opponents).to eq([tournament_team4, tournament_team3])

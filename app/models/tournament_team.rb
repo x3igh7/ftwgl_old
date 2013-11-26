@@ -55,6 +55,7 @@ class TournamentTeam < ActiveRecord::Base
         has_not_played << team
       end
     end
+    has_not_played.delete(self)
     has_not_played.sort!{|a,b| a.rank <=> b.rank}
   end
 
