@@ -16,13 +16,7 @@ class Tournament < ActiveRecord::Base
     @already_scheduled = []
     teams.each do |team|
       if @already_scheduled.include?(team)==false
-        potential_teams = team.has_not_played(teams) #has_not_played is ordered by rank
-        @already_scheduled.each do |a_team|
-          if potential_teams.include?(a_team)
-            potential_teams.delete(a_team)
-          end
-          potential_teams
-        end
+        potential_teams = potential_teams_calc(@already_scheduled, teams, team)
         if potential_teams == []
           potential_teams = team.has_not_played(teams)
           @matches = []
@@ -33,13 +27,7 @@ class Tournament < ActiveRecord::Base
           @match_counter = 1
           teams.each do |team|
             if @already_scheduled.include?(team)==false
-              potential_teams = team.has_not_played(teams) #has_not_played is ordered by rank
-              @already_scheduled.each do |a_team|
-                if potential_teams.include?(a_team)
-                  potential_teams.delete(a_team)
-                end
-                potential_teams
-              end
+              potential_teams = potential_teams_calc(@already_scheduled, teams, team)
               @matches << {"match#{@match_counter}" => {"home" => team.id, "away" => potential_teams[0].id}}
               @already_scheduled << team
               @already_scheduled << potential_teams[0]
@@ -57,6 +45,20 @@ class Tournament < ActiveRecord::Base
     end
     @matches
   end
+
+  private
+
+  def potential_teams_calc(already_scheduled, all_teams, team)
+    potential_teams = team.has_not_played(all_teams) #has_not_played is ordered by rank
+    @already_scheduled.each do |a_team|
+      if potential_teams.include?(a_team)
+        potential_teams.delete(a_team)
+      end
+      potential_teams
+    end
+    potential_teams
+  end
+
 
 end
 
