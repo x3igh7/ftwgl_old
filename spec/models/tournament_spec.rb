@@ -61,7 +61,7 @@ describe Tournament do
       expect(matches[0]["match1"]["away"]).to eq(team5.id)
     end
 
-    it "won't suggest a match between 2 teams if they have already played against eachother", :focus => true do
+    it "won't suggest a match between 2 teams if they have already played against eachother" do
       FactoryGirl.create(:match, home_team_id: tournament_team2.id, away_team_id: tournament_team.id, tournament_id: tournament1.id)
       FactoryGirl.create(:match, home_team_id: tournament_team4.id, away_team_id: tournament_team3.id, tournament_id: tournament1.id)
       FactoryGirl.create(:match, home_team_id: tournament_team6.id, away_team_id: tournament_team5.id, tournament_id: tournament1.id)
@@ -76,5 +76,6 @@ describe Tournament do
     end
 
   end
+
 end
 

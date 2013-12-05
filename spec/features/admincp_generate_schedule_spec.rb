@@ -32,7 +32,7 @@ describe "generate schedule" do
     expect(page).to have_content("date")
   end
 
-  it "generates matches based on rank and previous matchups", :js => true do
+  it "generates matches based on rank and previous matchups", :js => true, :focus => true do
     manage
     click_link "set schedule"
     expect(page).to have_content("Home: #{team6.name} vs Away: #{team5.name}")

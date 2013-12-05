@@ -57,6 +57,11 @@ class Admin::TournamentsController < AdminController
   def schedule
     @tournament = Tournament.find(params[:tournament_id])
     @teams = TournamentTeam.in_tournament(@tournament).order(:rank)
+    @team_names = @teams.map do |tourny_team|
+      [tourny_team.team.name, tourny_team.id]
+    end
+
+    @matches = @tournament.scheduler
   end
 
 end
