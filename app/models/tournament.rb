@@ -50,6 +50,9 @@ class Tournament < ActiveRecord::Base
 
   def potential_teams_calc(already_scheduled, all_teams, team)
     potential_teams = team.has_not_played(all_teams) #has_not_played is ordered by rank
+    if potential_teams == []
+      potential_teams = all_teams
+    end
     @already_scheduled.each do |a_team|
       if potential_teams.include?(a_team)
         potential_teams.delete(a_team)
