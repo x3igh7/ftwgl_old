@@ -59,8 +59,8 @@ describe Tournament do
 
     it "suggests a match between the correct teams" do
       matches = tournament1.scheduler
-      expect(matches[0]["match1"]["home"]).to eq(team6.id)
-      expect(matches[0]["match1"]["away"]).to eq(team5.id)
+      expect(matches[0]["match1"]["home"]).to eq(tournament_team6.id)
+      expect(matches[0]["match1"]["away"]).to eq(tournament_team5.id)
     end
 
     it "won't suggest a match between 2 teams if they have already played against eachother" do
@@ -69,12 +69,12 @@ describe Tournament do
       FactoryGirl.create(:match, home_team_id: tournament_team6.id, away_team_id: tournament_team5.id, tournament_id: tournament1.id)
 
       matches = tournament1.scheduler
-      expect(matches[0]["match3"]["home"]).to eq(team3.id)
-      expect(matches[0]["match3"]["away"]).to eq(team2.id)
-      expect(matches[1]["match1"]["home"]).to eq(team6.id)
-      expect(matches[1]["match1"]["away"]).to eq(team4.id)
-      expect(matches[2]["match2"]["home"]).to eq(team5.id)
-      expect(matches[2]["match2"]["away"]).to eq(team.id)
+      expect(matches[0]["match3"]["home"]).to eq(tournament_team3.id)
+      expect(matches[0]["match3"]["away"]).to eq(tournament_team2.id)
+      expect(matches[1]["match1"]["home"]).to eq(tournament_team6.id)
+      expect(matches[1]["match1"]["away"]).to eq(tournament_team4.id)
+      expect(matches[2]["match2"]["home"]).to eq(tournament_team5.id)
+      expect(matches[2]["match2"]["away"]).to eq(tournament_team.id)
     end
 
   end

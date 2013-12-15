@@ -26,37 +26,32 @@ describe "generate schedule" do
     sign_in_as(admin)
   end
 
-  context "generate matchups" do
-
-    it "is linked to from the cpanel", :js => true do
-      manage
-      click_link "set schedule"
-      expect(page).to have_content("set schedule")
-      expect(page).to have_content("week")
-      expect(page).to have_content("date")
-    end
-
-    it "generates matches based on rank and previous matchups", :js => true do
-      manage
-      click_link "set schedule"
-      expect(page).to have_select("#{team6.id}", selected: team6.name)
-      expect(page).to have_select("#{team5.id}", selected: team5.name)
-    end
-
+  it "is linked to from the cpanel", :js => true do
+    manage
+    click_link "set schedule"
+    expect(page).to have_content("set schedule")
+    expect(page).to have_content("week")
+    expect(page).to have_content("date")
   end
 
-  context "save matchups" do
-
-    it "saves generated matches", :js => true do
-      prev = Match.all.count
-      manage
-      click_link "set schedule"
-      click_on "create matches"
-      expect(Match.all.count).to eq(prev+3)
-      expect(page).to have_content("matches successfully created!")
-    end
-
+  it "generates matches based on rank and previous matchups", :js => true do
+    manage
+    click_link "set schedule"
+    expect(page).to have_select("#{tournament_team6.id}", selected: tournament_team6.team.name)
+    expect(page).to have_select("#{tournament_team5.id}", selected: tournament_team5.team.name)
   end
+
+
+
+  it "saves generated matches", :js => true do
+    prev = Match.all.count
+    manage
+    click_link "set schedule"
+    click_on "create matches"
+    expect(Match.all.count).to eq(prev+3)
+    expect(page).to have_content("matches successfully created!")
+  end
+
 
 end
 

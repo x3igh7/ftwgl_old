@@ -62,7 +62,7 @@ describe TournamentTeam do
     let!(:match) { FactoryGirl.create(:match, home_team_id: tournament_team.id, away_team_id: tournament_team2.id, tournament_id: tournament1.id) }
 
     it "has_played? method checks if a tournament team has already played a specified tournament team" do
-      check = tournament_team.has_played?(team2)
+      check = tournament_team.has_played?(tournament_team2)
       expect(check).to be_true
     end
 
