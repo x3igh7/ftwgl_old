@@ -48,6 +48,8 @@ describe "generate schedule" do
     click_on "create matches"
     expect(Match.all.count).to eq(prev+3)
     expect(page).to have_content("matches successfully created!")
+    tournament_with_week = Tournament.find(tournament1.id)
+    expect(tournament_with_week.current_week_num).to eq(1)
   end
 
 
