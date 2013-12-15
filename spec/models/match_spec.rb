@@ -33,4 +33,46 @@ describe Match do
 
   end
 
+  # describe "schedule saver", :focus => true do
+  #   let!(:tournament1) {FactoryGirl.create(:tournament)}
+  #   let!(:team) { FactoryGirl.create(:team) }
+  #   let!(:team2) { FactoryGirl.create(:team) }
+  #   let!(:team3) { FactoryGirl.create(:team) }
+  #   let!(:team4) { FactoryGirl.create(:team) }
+  #   let!(:team5) { FactoryGirl.create(:team) }
+  #   let!(:team6) { FactoryGirl.create(:team) }
+  #   let!(:tournament_team) {FactoryGirl.create(:tournament_team, team: team, tournament: tournament1, rank: 6)}
+  #   let!(:tournament_team2) {FactoryGirl.create(:tournament_team, team: team2, tournament: tournament1, rank: 5)}
+  #   let!(:tournament_team3) {FactoryGirl.create(:tournament_team, team: team3, tournament: tournament1, rank: 4)}
+  #   let!(:tournament_team4) {FactoryGirl.create(:tournament_team, team: team4, tournament: tournament1, rank: 3)}
+  #   let!(:tournament_team5) {FactoryGirl.create(:tournament_team, team: team5, tournament: tournament1, rank: 2)}
+  #   let!(:tournament_team6) {FactoryGirl.create(:tournament_team, team: team6, tournament: tournament1, rank: 1)}
+
+  #   it "saves multiple matches" do
+  #   prev = Match.all.count
+
+  #   matches = [
+  #     {"home_team_id"=>"3", "away_team_id"=>"2"},
+  #     {"home_team_id"=>"6", "away_team_id"=>"5"},
+  #     {"home_team_id"=>"4", "away_team_id"=>"1"}
+  #   ]
+
+  #   params = {"week"=>"1",
+  #     "match_date"=>
+  #       {"date(1i)"=>"2013",
+  #        "date(2i)"=>"12",
+  #        "date(3i)"=>"14",
+  #        "date(4i)"=>"22",
+  #        "date(5i)"=>"47"},
+  #     "matches"=>
+  #       [{"home_team_id"=>"3", "away_team_id"=>"2"},
+  #        {"home_team_id"=>"6", "away_team_id"=>"5"},
+  #        {"home_team_id"=>"4", "away_team_id"=>"1"}],
+  #     "tournament_id"=>"1"}
+
+  #     matches.save_schedule(params)
+  #     expect(Match.all.count).to eq(prev+3)
+  #   end
+  # end
+
 end

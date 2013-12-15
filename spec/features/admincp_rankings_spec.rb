@@ -21,12 +21,12 @@ describe "admincp tournament rankings" do
     visit admin_root_path
     manage
     click_link "set ranks"
-    expect(page).to have_content("rankings")
+    expect(page).to have_content("set ranks")
     expect(page).to have_content(team.name)
     expect(page).to have_content(team2.name)
   end
 
-  it "updates all the ranks", :js => true, :focus => true do
+  it "updates all the ranks", :js => true do
     visit admin_root_path
     manage
     click_link "set ranks"

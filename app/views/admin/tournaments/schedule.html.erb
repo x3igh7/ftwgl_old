@@ -1,0 +1,28 @@
+<h1>set schedule</h1>
+<%= form_tag create_schedule_admin_tournaments_path, method: :post do %>
+  <p>tournament: <%= @tournament.name %></p>
+  <p>week: <%= select_tag :week, options_for_select(1..8) %></p>
+  <p>date: <%= datetime_select :match_date, "date", default: DateTime.now %></p>
+  <table>
+    <tr>
+      <th>Home Team</th>
+      <th></th>
+      <th>Away Team</th>
+    </tr>
+  <% @matchups.each do |matches| %>
+    <% matches.each do |k, match| %>
+    <%= fields_for "matches[]", @match do |f| %>
+      <tr>
+        <td><%= f.select :home_team_id, options_for_select(@team_names, [@teams.where(id:match["home"]).name,match["home"]]), {},{:id => "#{match["home"]}"} %></td>
+        <td>vs</td>
+        <td><%= f.select :away_team_id, options_for_select(@team_names, [@teams.where(id:match["away"]).name,match["away"]]), {},{:id => "#{match["away"]}"}%></td>
+      </tr>
+    <% end %>
+    <% end %>
+  <% end %>
+  </table>
+  <%= hidden_field_tag :tournament_id, @tournament.id %>
+  <%= submit_tag "create matches" %>
+
+<% end %>
+

@@ -39,4 +39,45 @@ describe Tournament do
     it { should have_valid(:active).when(false)}
     it { should_not have_valid(:active).when(nil)}
   end
+
+  describe "generate matches" do
+    DatabaseCleaner.clean
+
+    let!(:tournament1) {FactoryGirl.create(:tournament)}
+    let!(:team) { FactoryGirl.create(:team) }
+    let!(:team2) { FactoryGirl.create(:team) }
+    let!(:team3) { FactoryGirl.create(:team) }
+    let!(:team4) { FactoryGirl.create(:team) }
+    let!(:team5) { FactoryGirl.create(:team) }
+    let!(:team6) { FactoryGirl.create(:team) }
+    let!(:tournament_team) {FactoryGirl.create(:tournament_team, team: team, tournament: tournament1, rank: 6)}
+    let!(:tournament_team2) {FactoryGirl.create(:tournament_team, team: team2, tournament: tournament1, rank: 5)}
+    let!(:tournament_team3) {FactoryGirl.create(:tournament_team, team: team3, tournament: tournament1, rank: 4)}
+    let!(:tournament_team4) {FactoryGirl.create(:tournament_team, team: team4, tournament: tournament1, rank: 3)}
+    let!(:tournament_team5) {FactoryGirl.create(:tournament_team, team: team5, tournament: tournament1, rank: 2)}
+    let!(:tournament_team6) {FactoryGirl.create(:tournament_team, team: team6, tournament: tournament1, rank: 1)}
+
+    it "suggests a match between the correct teams" do
+      matches = tournament1.scheduler
+      expect(matches[0]["match1"]["home"]).to eq(tournament_team6.id)
+      expect(matches[0]["match1"]["away"]).to eq(tournament_team5.id)
+    end
+
+    it "won't suggest a match between 2 teams if they have already played against eachother" do
+      FactoryGirl.create(:match, home_team_id: tournament_team2.id, away_team_id: tournament_team.id, tournament_id: tournament1.id)
+      FactoryGirl.create(:match, home_team_id: tournament_team4.id, away_team_id: tournament_team3.id, tournament_id: tournament1.id)
+      FactoryGirl.create(:match, home_team_id: tournament_team6.id, away_team_id: tournament_team5.id, tournament_id: tournament1.id)
+
+      matches = tournament1.scheduler
+      expect(matches[0]["match3"]["home"]).to eq(tournament_team3.id)
+      expect(matches[0]["match3"]["away"]).to eq(tournament_team2.id)
+      expect(matches[1]["match1"]["home"]).to eq(tournament_team6.id)
+      expect(matches[1]["match1"]["away"]).to eq(tournament_team4.id)
+      expect(matches[2]["match2"]["home"]).to eq(tournament_team5.id)
+      expect(matches[2]["match2"]["away"]).to eq(tournament_team.id)
+    end
+
+  end
+
 end
+

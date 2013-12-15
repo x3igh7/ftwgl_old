@@ -48,4 +48,15 @@ class TournamentTeam < ActiveRecord::Base
 		return false
 	end
 
+  def has_not_played(teams)
+    has_not_played = []
+    teams.each do |team|
+      if self.has_played?(team) == false
+        has_not_played << team
+      end
+    end
+    has_not_played.delete(self)
+    has_not_played.sort!{|a,b| a.rank <=> b.rank}
+  end
+
 end

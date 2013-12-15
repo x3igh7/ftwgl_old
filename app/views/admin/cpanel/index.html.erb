@@ -22,7 +22,7 @@
             <td><%= link_to "tournament teams", admin_tournament_teams_path(:tournament_id => tourny.id) %></td>
             <td><%= link_to "matches", admin_matches_path(:tournament_id => tourny.id) %></td>
             <td><%= link_to "set ranks", rankings_admin_tournaments_path(:tournament_id => tourny.id) %></td>
-            <td>schedule</td>
+            <td><%= link_to "set schedule", schedule_admin_tournaments_path(:tournament_id => tourny.id) %></td>
           </tr>
         <% end %>
       </table>
