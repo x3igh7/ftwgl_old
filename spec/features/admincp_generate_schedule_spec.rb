@@ -1,6 +1,8 @@
 require 'spec_helper'
+DatabaseCleaner.clean
 
 describe "generate schedule" do
+
   let!(:tournament1) {FactoryGirl.create(:tournament)}
   let!(:tournament2) {FactoryGirl.create(:tournament, active: false)}
   let!(:admin) {FactoryGirl.create(:user)}
@@ -23,6 +25,7 @@ describe "generate schedule" do
     admin.save
     sign_in_as(admin)
   end
+
   context "generate matchups" do
 
     it "is linked to from the cpanel", :js => true do

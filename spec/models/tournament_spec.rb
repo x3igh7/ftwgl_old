@@ -41,6 +41,8 @@ describe Tournament do
   end
 
   describe "generate matches" do
+    DatabaseCleaner.clean
+
     let!(:tournament1) {FactoryGirl.create(:tournament)}
     let!(:team) { FactoryGirl.create(:team) }
     let!(:team2) { FactoryGirl.create(:team) }
