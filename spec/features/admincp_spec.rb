@@ -37,7 +37,7 @@ describe "Admin CP" do
 
     it "shows rankings" do
       visit admin_root_path
-      expect(page).to have_content("rankings")
+      expect(page).to have_content("set ranks")
     end
 
     it "shows create schedule" do

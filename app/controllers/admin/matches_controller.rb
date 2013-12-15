@@ -17,7 +17,6 @@ class Admin::MatchesController < AdminController
   def create
     @tournament = Tournament.find(params[:match][:tournament_id])
     @match = @tournament.matches.new(params[:match])
-
     if @match.save
       flash[:notice] = "Match created"
       redirect_to admin_matches_path(:tournament_id => @tournament.id)
