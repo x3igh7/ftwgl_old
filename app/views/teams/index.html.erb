@@ -2,9 +2,10 @@
 
 <table class="center" cellspacing="0">
   <%= render :partial => "heading_teams" %>
-  <% @team.each do |team| %>
+  <% @teams.each do |team| %>
     <%= render :partial => "row_teams", :locals => { :team => team } %>
   <% end %>
+  <%= paginate @teams %>
 </table>
 <% if user_signed_in? %>
     <%= link_to "Create a team", new_team_path, :class => "button" %>

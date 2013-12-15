@@ -41,6 +41,8 @@ describe "Admin CP" do
     end
 
     it "shows create schedule" do
+      visit admin_root_path
+      expect(page).to have_content("set schedule")
     end
 
   end

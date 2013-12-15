@@ -1,7 +1,7 @@
 class TournamentsController < ApplicationController
 
   def index
-    @tournament = Tournament.order("name")
+    @tournaments = Tournament.order("name").where(active: true)
   end
 
   def show

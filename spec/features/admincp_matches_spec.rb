@@ -53,6 +53,7 @@ describe "admincp tournament matches" do
   end
 
   it "properly adjusts the results when updating a match" do
+    pending
   end
 
   it "allows you to remove a match", :js => true do

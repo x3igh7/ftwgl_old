@@ -6,7 +6,7 @@
 		<th>Teams</th>
     <th>Joined</th>
   </tr>
-  <% @user.each do |user| %>
+  <% @users.each do |user| %>
     <tr>
       <td>
         <%= link_to user.username, user_path(user) %>
@@ -27,5 +27,6 @@
 			</td>
     </tr>
   <% end %>
+  <%= paginate @users %>
 </table>
 </div>

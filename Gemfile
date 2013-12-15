@@ -12,6 +12,7 @@ gem 'cancan'
 gem 'role_model'
 gem 'gon'
 gem 'bootstrap-datepicker-rails'
+gem 'kaminari'
 
 
 # Gems used only for assets and not required

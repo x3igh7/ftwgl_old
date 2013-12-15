@@ -1,0 +1,34 @@
+<div class="content-inner-inner">
+  <h1>manage users</h1>
+  <div id="users_panel" class="content-inner-inner">
+    <table>
+      <tr>
+        <th>username</th>
+        <th>email</th>
+        <th>date joined</th>
+        <th>last seen</th>
+        <th></th>
+        <th></th>
+      </tr>
+      <% @users.each do |user| %>
+      <tr>
+        <td><%= link_to user.username, user_path(user) %></td>
+        <td><%= user.email%></td>
+        <td><%= user.created_at.strftime("%B %d,%Y") %></td>
+        <% unless user.last_sign_in_at == nil %>
+          <td><%= user.last_sign_in_at.strftime("%B %d,%Y") %></td>
+        <% else %>
+          <td></td>
+        <% end %>
+        <% if user.banned? %>
+          <td>banned</td>
+        <% else %>
+          <td>active</td>
+        <% end %>
+        <td><%= link_to "manage", edit_admin_user_path(user) %></td>
+      </tr>
+      <% end %>
+      <% paginate @users, :remote => true %>
+    </table>
+  </div>
+</div>

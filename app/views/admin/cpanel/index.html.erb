@@ -1,58 +1,29 @@
 <h1>admin</h1>
 <div class="content-inner">
-  <div class="content-inner-inner">
-    <h1>manage users</h1>
-    <div id="users_panel" class="content-inner-inner">
-    </div>
-  </div>
+<%= render 'admincp_manage_users' %>
 
-  <div class="content-inner-inner">
-    <h1>manage tournaments</h1>
-    <div id="tournaments_panel" class="content-inner-inner">
-
-      <table>
-        <% @active_tournaments.each do |tourny| %>
-          <tr cellspacing="0">
-            <td><%= tourny.name %></td>
-            <td class="show-management" style="float:right;"><button>manage</button></td>
-            <td class="hide-management"><button>hide</button></td>
-          </tr>
-          <tr class="management">
-            <td><%= link_to "edit", edit_admin_tournament_path(tourny) %></td>
-            <td><%= link_to "tournament teams", admin_tournament_teams_path(:tournament_id => tourny.id) %></td>
-            <td><%= link_to "matches", admin_matches_path(:tournament_id => tourny.id) %></td>
-            <td><%= link_to "set ranks", rankings_admin_tournaments_path(:tournament_id => tourny.id) %></td>
-            <td><%= link_to "set schedule", schedule_admin_tournaments_path(:tournament_id => tourny.id) %></td>
-          </tr>
-        <% end %>
-      </table>
-      <div><%= link_to "create new tournament", new_admin_tournament_path, :class => "button" %></div>
-    </div>
-
-  </div>
+  <%= render 'admincp_manage_tournaments' %>
 
   <div class="content-inner-inner">
     <h1>manage teams</h1>
-    <div id="teams_panel" class="content-inner-inner">
+    <div class="content-inner-inner">
+      <table>
+        <tr>
+          <th>team</th>
+          <th>date created</th>
+          <th></th>
+        </tr>
+        <% @teams.each do |team| %>
+        <tr>
+          <td><%= link_to "#{team.name} #{team.tag}", team_path(team) %></td>
+          <td><%= team.created_at.strftime("%B %d,%Y") %></td>
+          <td><%= link_to "manage", edit_admin_team_path(team) %></td>
+        </tr>
+        <% end %>
+        <%= paginate @teams, :remote => true %>
+      </table>
     </div>
 
   </div>
 </div>
-
- <script>
-  $(document).ready(function(){
-    $(".management").hide();
-    $(".hide-management").hide();
-    $(document).on("click", ".show-management", function(){
-      $(this).parent('tr').next(".management").show("slow");
-      $(this).closest(".show-management").hide();
-      $(this).next(".hide-management").show();
-    });
-    $(document).on("click", ".hide-management", function(){
-      $(this).parent('tr').next('.management').hide();
-      $(this).prev('.show-management').show();
-      $(this).closest(".hide-management").hide();
-    });
-  });
- </script>
 

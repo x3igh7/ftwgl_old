@@ -41,8 +41,6 @@ describe "generate schedule" do
     expect(page).to have_select("#{tournament_team5.id}", selected: tournament_team5.team.name)
   end
 
-
-
   it "saves generated matches", :js => true do
     prev = Match.all.count
     manage
