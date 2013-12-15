@@ -9,6 +9,7 @@ class TournamentsController < ApplicationController
 		@teams = @tournament.tournament_teams.ranking
     @active_tournament_team = nil
     @tournament_team = TournamentTeam.new
+    @matches = Match.current_week_matches(@tournament)
     @current_user_teams = []
     if user_signed_in?
       current_user.teams.each do |team|
@@ -24,14 +25,6 @@ class TournamentsController < ApplicationController
       end
     end
 
-
-		@matches = {}
-		Tournament.find(params[:id]).matches.each do |match|
-			if @matches[match.week_num].nil?
-				@matches[match.week_num] = []
-			end
-			@matches[match.week_num] << match
-		end
   end
 
   def rankings

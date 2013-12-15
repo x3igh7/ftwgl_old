@@ -1,10 +1,14 @@
-	<% home_team = TournamentTeam.find(match.home_team_id).team %>
-	<% away_team = TournamentTeam.find(match.away_team_id).team %>
-	<tr class="match" id="match_<%= match.id %>" >
-		<td <%= match.home_score > match.away_score ? 'style="background:#556655;"'.html_safe : '' %>><%= link_to home_team.tag, team_path(home_team.id) %></td>
-		<td <%= match.away_score > match.home_score ? 'style="background:#556655;"'.html_safe : '' %>><%= link_to away_team.tag, team_path(away_team.id) %></td>
+<% @matches.each do |match| %>
+	<tr class="match" >
+		<td <%= match.home_score > match.away_score ? 'style="background:#556655;"'.html_safe : '' %>><%= link_to match.home_team.team.tag, team_path(match.home_team.team.id) %></td>
+		<td <%= match.away_score > match.home_score ? 'style="background:#556655;"'.html_safe : '' %>><%= link_to match.away_team.team.tag, team_path(match.away_team.team.id) %></td>
 		<td><%= match.home_score %></td>
 		<td><%= match.away_score %></td>
 		<td><%= match.standard_date %></td>
-		<td><a href="<%= tournament_match_path(match.tournament_id, match.id) %>"> View</a></td>
+		<% if DateTime.now > match.match_date && match.winner_id == nil && current_user.is_team_owner?(match.home_team.team) || current_user.is_team_owner?(match.away_team.team) %>
+		<td><%= link_to "Report Results", edit_tournament_match_path(match.tournament_id, match.id) %></td>
+		<% else %>
+		<td><%= link_to "View", tournament_match_path(match.tournament_id, match.id) %></td>
+		<% end %>
 	</tr>
+<% end %>
