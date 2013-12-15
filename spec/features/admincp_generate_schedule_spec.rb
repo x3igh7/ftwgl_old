@@ -35,7 +35,8 @@ describe "generate schedule" do
   it "generates matches based on rank and previous matchups", :js => true, :focus => true do
     manage
     click_link "set schedule"
-    expect(page).to have_content("Home: #{team6.name} vs Away: #{team5.name}")
+    expect(page).to have_select("#{team6.id}", selected: team6.name)
+    expect(page).to have_select("#{team5.id}", selected: team5.name)
   end
 
   it "saves generated matches" do

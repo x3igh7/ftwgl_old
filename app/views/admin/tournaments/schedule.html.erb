@@ -5,22 +5,22 @@
   <p>date: <%= select_date Date.today, prefix: :match_date %></p>
   <table>
     <tr>
-      <td>Home Team</td>
-      <td></td>
-      <td>Away Team</td>
+      <th>Home Team</th>
+      <th></th>
+      <th>Away Team</th>
     </tr>
-  </table>
-  <% @matches.each do |matches| %>
+  <% @matchups.each do |matches| %>
     <% matches.each do |k, match| %>
-    <%= fields_for "matches[]", match do |f| %>
+    <%= fields_for "matches[]", @match do |f| %>
       <tr>
-        <td><%= f.select :home_team_id, options_for_select(@team_names, @teams.where(id:match["home"]).name) %></td>
+        <td><%= f.select :home_team_id, options_for_select(@team_names, [@teams.where(id:match["home"]).name,match["home"]]), {},{:id => "#{match["home"]}"} %></td>
         <td>vs</td>
-        <td><%= f.select :away_team_id, options_for_select(@team_names, @teams.where(id:match["away"]).name) %></td>
+        <td><%= f.select :away_team_id, options_for_select(@team_names, [@teams.where(id:match["away"]).name,match["away"]]), {},{:id => "#{match["away"]}"}%></td>
       </tr>
     <% end %>
     <% end %>
   <% end %>
+  </table>
 
 <% end %>
 
