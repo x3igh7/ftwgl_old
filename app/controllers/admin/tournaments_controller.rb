@@ -46,8 +46,8 @@ class Admin::TournamentsController < AdminController
     @tournament = Tournament.find(params[:tournament_id])
 
     if TournamentTeam.update(params[:teams].keys, params[:teams].values)
-      redirect_to :back
-      flash[:notice] = "ranks successfully updated"
+      redirect_to schedule_admin_tournaments_path(:tournament_id => @tournament.id)
+      flash[:notice] = "ranks successfully updated."
     else
       render "rankings"
       flash[:alert] = "unable to update ranks"
@@ -70,8 +70,11 @@ class Admin::TournamentsController < AdminController
     @matches = params[:matches]
     match_date = date_converter(params)
     if schedule_creater(@matches, params, match_date)
-      flash[:notice] = "matches successfully created!"
-      redirect_to admin_root_path
+      @tournament.current_week_num = params[:week].to_i
+      if @tournament.save
+        flash[:notice] = "matches successfully created!"
+        redirect_to admin_root_path
+      end
     else
       flash[:alert] = "failed to save schedule"
       redirect_to :back

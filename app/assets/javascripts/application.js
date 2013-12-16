@@ -13,3 +13,19 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap-datepicker
+
+
+$(document).ready(function(){
+  $(".management").hide();
+  $(".hide-management").hide();
+  $(document).on("click", ".show-management", function(){
+    $(this).parent('tr').next(".management").show("slow");
+    $(this).closest(".show-management").hide();
+    $(this).next(".hide-management").show();
+  });
+  $(document).on("click", ".hide-management", function(){
+    $(this).parent('tr').next('.management').hide();
+    $(this).prev('.show-management').show();
+    $(this).closest(".hide-management").hide();
+  });
+});

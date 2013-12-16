@@ -3,50 +3,53 @@
 <%= "Week #{@match.week_num}" %><br /><span class="faded"><%= "#{@match.standard_date}"%></span><br />
 
 <div class="content-inner">
-  <div class="span4 home-team">
-    <dl>
-      <dt class="home-team-tag"><%= @home_team.tag %></dt>
-      <dd class="home-team-score"><%= @match.home_score %></dd>
-    </dl>
-    <% if user_signed_in? && current_user.is_team_owner?(@home_team) %>
-      <% if @match.winner_id.nil? %>
-        <p class="text_center"><%= link_to "Enter Results",edit_tournament_match_path(@tournament.id, @match) %></p>
+  <table>
+    <tr>
+      <th>Home Teams</th>
+      <th>Home Score</th>
+      <th></th>
+      <th>Away Team</th>
+      <th>Away Score</th>
+    </tr>
+    <tr>
+      <td <%= @match.home_score > @match.away_score ? 'style="background:#556655;"'.html_safe : '' %>><%= link_to @match.home_team.team.tag, team_path(@match.home_team.team.id) %></td>
+      <td <%= @match.home_score > @match.away_score ? 'style="background:#556655;"'.html_safe : '' %>><%= @match.home_score %></td>
+      <% if @match.winner_id == nil %>
+      <% if user_signed_in? && current_user.is_team_owner?(@home_team) || current_user.is_team_owner?(@away_team) %>
+        <td><%= link_to "Enter Results", edit_tournament_match_path(@tournament.id, @match) %></td>
       <% end %>
-    <% end %>
-  </div>
-  <div>
-    <dl>
-      <dt class="away-team-tag"><%= @away_team.tag %></dt>
-      <dd class="away-team-score"><%= @match.away_score %></dd>
-    </dl>
-    <% if user_signed_in? &&current_user.is_team_owner?(@away_team) %>
-      <% if @match.winner_id.nil? %>
-        <p class="text_center"><%= link_to "Enter Results", edit_tournament_match_path(@tournament.id, @match) %></p>
+      <% else %>
+      <td>vs.</td>
       <% end %>
-    <% end %>
-  </div>
-	<div class="content-outer comments" style="width:500px;">
-		<div class="content-inner-inner" id="comments">
-			<h1>comments</h1>
-			<% @comments = @match.comments %>
-			<% if @comments.any? %>
-				<% @comments.each do |comment| %>
-					<%= render :partial => "comment", :locals => { :comment => comment } %>
-				<% end %>
-			<% else %>
-				No comments yet.
-			<% end %>
-		</div>
-	</div>
-	
-	<div class="content-outer comments" style="width:500px;">
-		<div class="content-inner-inner">
-			<h1>submit comment</h1>
-			<%= simple_form_for [ @tournament, @match, Comment.new ], :id => :comment do |f| %>
-				<%= f.input :content, :label => false, :as => :text, :input_html => { :cols => 50, :rows => 5 } %>
-				<%= f.submit "Submit" %>
-			<% end %>
-			
-		</div>
-	</div>
+      <td <%= @match.away_score > @match.home_score ? 'style="background:#556655;"'.html_safe : '' %>><%= link_to @match.away_team.team.tag, team_path(@match.away_team.team.id) %></td>
+      <td <%= @match.away_score > @match.home_score ? 'style="background:#556655;"'.html_safe : '' %>><%= @match.away_score %>
+      </td>
+
+    </tr>
+  </table>
+
+  <div class="content-outer comments" style="width:500px;">
+    <div class="content-inner-inner" id="comments">
+     <h1>comments</h1>
+     <% @comments = @match.comments %>
+     <% if @comments.any? %>
+     <% @comments.each do |comment| %>
+     <%= render :partial => "comment", :locals => { :comment => comment } %>
+     <% end %>
+     <% else %>
+     No comments yet.
+     <% end %>
+   </div>
+ </div>
+
+ <div class="content-outer comments" style="width:500px;">
+  <div class="content-inner-inner">
+   <h1>submit comment</h1>
+   <%= simple_form_for [ @tournament, @match, Comment.new ], :id => :comment do |f| %>
+   <%= f.input :content, :label => false, :as => :text, :input_html => { :cols => 50, :rows => 5 } %>
+   <%= f.submit "Submit" %>
+   <% end %>
+
+ </div>
+</div>
 </div>

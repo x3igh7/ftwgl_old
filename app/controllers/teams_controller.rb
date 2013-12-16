@@ -1,17 +1,17 @@
 class TeamsController < ApplicationController
 load_and_authorize_resource
 
-  def index 
-    @team = Team.order("name")
+  def index
+    @teams = Team.order("name").page params[:page]
   end
 
   def new
-    @team = Team.new    
+    @team = Team.new
   end
 
   def create
     @team = Team.new(params[:team])
-    
+
     if @team.save_with_owner(current_user)
       redirect_to team_path(@team)
       flash[:notice] = "Successfully created team"

@@ -2,7 +2,7 @@
 <div class="content-inner">
 	<span class="outer-heading"><%= @tournament.description %></span><br />
 	<span class="faded"><%= "#{@tournament.rules}"%></span><br />
-	<% if user_signed_in? %>  
+	<% if user_signed_in? %>
 		<% if @active_tournament_team %>
 			<% @active_team = Team.find(@active_tournament_team.team_id) %>
 			You are participating in this tournament with <%= link_to @active_team.name, team_path(@active_team) %>.
@@ -42,42 +42,24 @@
 			No teams have joined this tournament yet.
 		<% end %>
 	</div>
-	
+
 	<div class="content-inner-inner">
 		<h1>schedule</h1>
 		<% if @matches.empty? %>
 			This tournament has not started.
 		<% else %>
-			<div id="matches_<%= @tournament.id %>" class="content-inner-inner">
+			<div class="content-inner-inner">
 				<div class="weeks">
-					<span class="week-label">Week </span>
-					<% @matches.keys.sort.each do |week| %>
-						<a href="javascript:void(0);" class="week-button" id="week_<%= week %>"><%= week %></a>
-					<% end %>
+					<span class="week-label"><%= "Week #{@tournament.current_week_num}" %>
 				</div>
-				<% @matches.each_key do |week| %>
-					<table class="matches_table center" id="matches_table_<%= week %>" style="display:none;" cellspacing="0" class="center">
-						<%= render :partial => "heading_matches" %>
-						<% @matches[week].each do |match| %>
-							<%= render :partial => "row_matches", :locals => { :match => match } %>
-						<% end %>
-					</table>
-				<% end %>
-			</div>
 		<% end %>
+				<table class="matches_table center" cellspacing="0">
+					<%= render "heading_matches" %>
+
+					<%= render "row_matches" %>
+				</table>
+				<div style="margin-top:30px"><%= link_to "All Matches", tournament_matches_path(@tournament.id), :class => "button" %></div>
+			</div>
 	</div>
 </div>
-
-<%= content_for :js do %>
-	<script type="text/javascript">	
-		$(".week-button").click(function(){
-			$(".week-button").removeClass("week-button-selected");
-			$(this).addClass("week-button-selected");
-			$(".matches_table").hide();
-			$("#" + "matches_table_" + $(this).attr("id").split("_")[1]).show();
-		});
-		
-		$(".week-button").last().click();
-	</script>
-<% end %>
 

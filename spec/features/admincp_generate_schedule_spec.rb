@@ -41,8 +41,6 @@ describe "generate schedule" do
     expect(page).to have_select("#{tournament_team5.id}", selected: tournament_team5.team.name)
   end
 
-
-
   it "saves generated matches", :js => true do
     prev = Match.all.count
     manage
@@ -50,6 +48,8 @@ describe "generate schedule" do
     click_on "create matches"
     expect(Match.all.count).to eq(prev+3)
     expect(page).to have_content("matches successfully created!")
+    tournament_with_week = Tournament.find(tournament1.id)
+    expect(tournament_with_week.current_week_num).to eq(1)
   end
 
 

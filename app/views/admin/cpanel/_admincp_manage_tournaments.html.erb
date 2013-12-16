@@ -1,0 +1,24 @@
+<div class="content-inner-inner">
+  <h1>manage tournaments</h1>
+  <div id="tournaments_panel" class="content-inner-inner">
+
+    <table>
+      <% @active_tournaments.each do |tourny| %>
+        <tr cellspacing="0">
+          <td><%= link_to tourny.name, tournament_path(tourny) %></td>
+          <td class="show-management" style="float:right;"><button>manage</button></td>
+          <td class="hide-management"><button>hide</button></td>
+        </tr>
+        <tr class="management">
+          <td><%= link_to "edit", edit_admin_tournament_path(tourny) %></td>
+          <td><%= link_to "tournament teams", admin_tournament_teams_path(:tournament_id => tourny.id) %></td>
+          <td><%= link_to "matches", admin_matches_path(:tournament_id => tourny.id) %></td>
+          <td><%= link_to "set ranks", rankings_admin_tournaments_path(:tournament_id => tourny.id) %></td>
+          <td><%= link_to "set schedule", schedule_admin_tournaments_path(:tournament_id => tourny.id) %></td>
+        </tr>
+      <% end %>
+    </table>
+    <div><%= link_to "create new tournament", new_admin_tournament_path, :class => "button" %></div>
+  </div>
+
+</div>

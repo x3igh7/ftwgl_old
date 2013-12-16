@@ -1,0 +1,19 @@
+<div class="content-inner-inner">
+  <h1>manage teams</h1>
+  <div class="content-inner-inner">
+    <table>
+      <tr>
+        <th>team</th>
+        <th>date created</th>
+        <th></th>
+      </tr>
+      <% @teams.each do |team| %>
+      <tr>
+        <td><%= link_to "#{team.name} #{team.tag}", team_path(team) %></td>
+        <td><%= team.created_at.strftime("%B %d,%Y") %></td>
+        <td><%= link_to "manage", edit_admin_team_path(team) %></td>
+      </tr>
+      <% end %>
+      <%= paginate @teams, :remote => true %>
+    </table>
+  </div>

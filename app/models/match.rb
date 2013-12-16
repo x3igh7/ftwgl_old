@@ -47,4 +47,8 @@ class Match < ActiveRecord::Base
     where(tournament_id: tournament.id)
   end
 
+  def self.current_week_matches(tournament)
+    where(week_num: tournament.current_week_num)
+  end
+
 end

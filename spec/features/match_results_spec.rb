@@ -47,8 +47,10 @@ describe "match results" do
 
 
       click_on "Save Results"
-      expect(Match.last.home_score).to eq(10)
-      expect(Match.last.away_score).to eq(8)
+      updated_match = Match.find(match.id)
+      expect(updated_match.home_score).to eq(10)
+      expect(updated_match.away_score).to eq(8)
+      expect(updated_match.winner_id).to eq(home.id)
     end
 
     it "will not save without proper info" do
@@ -80,7 +82,7 @@ describe "match results" do
       fill_in "Away Team Score", with: 8
 
       click_on "Save Results"
-      expect(page).to_not have_content("Enter Results")
+      expect(page).to have_content("vs.")
     end
 
   end
