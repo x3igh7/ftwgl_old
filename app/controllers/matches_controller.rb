@@ -40,6 +40,13 @@ class MatchesController < ApplicationController
     end
 
     if @match.update_attributes(params[:match]) && @match.update_tourny_teams_scores
+      if @match.home_score > @match.away_score
+        @match.winner_id = @home_team.id
+        @match.save
+      elsif @match.home_score < @match.away_score
+        @match.winner_id = @away_team.id
+        @match.save
+      end
       flash[:notice] = "Match results updated."
       redirect_to tournament_match_path(@tournament.id, @match.id)
     else
