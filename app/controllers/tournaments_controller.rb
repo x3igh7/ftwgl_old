@@ -5,6 +5,7 @@ class TournamentsController < ApplicationController
   end
 
   def show
+    @user = current_user
     @tournament = Tournament.find(params[:id])
 		@teams = @tournament.tournament_teams.ranking
     @active_tournament_team = nil

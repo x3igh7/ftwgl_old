@@ -35,7 +35,7 @@ class MatchesController < ApplicationController
 
     if @match.home_score > @match.away_score
       @match.winner_id = @home_team.id
-    else
+    elsif @match.home_score < @match.away_score
       @match.winner_id = @away_team.id
     end
 

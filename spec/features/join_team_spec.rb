@@ -25,7 +25,7 @@ describe "Team roster" do
       expect(page).to have_content("#{team_owner.username}")
 
       click_on "Apply to team"
-      expect(page).to have_content("Pending")
+      expect(page).to have_content("pending")
     end
 
   end
@@ -50,7 +50,7 @@ describe "Team roster" do
       click_on "Approve"
 
       expect(user.memberships.last.active).to be_true
-      expect(page).to_not have_content("Pending")
+      expect(page).to_not have_content("pending")
     end
 
     it "can be removed by a team owner" do

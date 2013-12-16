@@ -80,7 +80,7 @@ describe "match results" do
       fill_in "Away Team Score", with: 8
 
       click_on "Save Results"
-      expect(page).to_not have_content("Enter Results")
+      expect(page).to have_content("vs.")
     end
 
   end

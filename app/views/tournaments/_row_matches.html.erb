@@ -5,8 +5,12 @@
 		<td><%= match.home_score %></td>
 		<td><%= match.away_score %></td>
 		<td><%= match.standard_date %></td>
+		<% if user_signed_in? %>
 		<% if DateTime.now > match.match_date && match.winner_id == nil && current_user.is_team_owner?(match.home_team.team) || current_user.is_team_owner?(match.away_team.team) %>
 		<td><%= link_to "Report Results", edit_tournament_match_path(match.tournament_id, match.id) %></td>
+		<% else %>
+		<td><%= link_to "View", tournament_match_path(match.tournament_id, match.id) %></td>
+		<% end %>
 		<% else %>
 		<td><%= link_to "View", tournament_match_path(match.tournament_id, match.id) %></td>
 		<% end %>

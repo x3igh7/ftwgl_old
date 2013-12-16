@@ -74,12 +74,14 @@
 						<% @team_tournaments.each do |tournament| %>
 							<div class="content-inner-inner">
 						  <h1><%= link_to tournament.name, tournament_path(tournament) %></h1>
-							<% if @team_tournament_matches[tournament.id].empty? %>
+							<% if @team_tournament_matches.empty? %>
 							  No upcoming matches
 							<% else %>
-								<% @team_tournament_matches[tournament.id].each do |match| %>
+								<% @team_tournament_matches.each do |match| %>
+									<% if match.tournament_id == tournament.id %>
 									<%= link_to "#{match.home_team.team.name} vs. #{match.away_team.team.name}", tournament_match_path(tournament.id, match.id) %>
 									<div class="faded" style="font-size:16px;"><%= match.standard_date %></div>
+									<%end%>
 								<% end %>
 							<% end %>
 							</div>

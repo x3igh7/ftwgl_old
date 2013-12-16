@@ -5,20 +5,26 @@ class ApplicationController < ActionController::Base
 
   def load_sidebar
     if user_signed_in?
-      @team_tournaments = current_user.tournaments
-      @team_tournament_matches = {}
-			current_user.teams.each do |team|
-				team.tournament_teams.each do |tournament_team|
-					@team_tournament_matches[tournament_team.tournament_id] = tournament_team.matches
-				end
+      @user = current_user
+      @team_tournaments = []
+      @team_tournament_matches = []
+      @user.teams.each do |team|
+        team.tournament_teams.each do |tournament_team|
+          @team_tournaments << tournament_team.tournament
+          tournament_team.matches.each do |match|
+            if match.winner_id == nil
+              @team_tournament_matches << match
+            end
+          end
+        end
 			end
     end
   end
-  
+
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to root_url, :alert => exception.message
   end
-  
+
 	def enforce_ban
 		if user_signed_in? and current_user.banned?
 			sign_out current_user
