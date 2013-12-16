@@ -47,9 +47,10 @@ describe "match results" do
 
 
       click_on "Save Results"
-      expect(Match.last.home_score).to eq(10)
-      expect(Match.last.away_score).to eq(8)
-      expect(Match.last.winner_id).to eq(team1.id)
+      updated_match = Match.find(match.id)
+      expect(updated_match.home_score).to eq(10)
+      expect(updated_match.away_score).to eq(8)
+      expect(updated_match.winner_id).to eq(home.id)
     end
 
     it "will not save without proper info" do
