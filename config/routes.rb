@@ -13,8 +13,8 @@ Ftwgl::Application.routes.draw do
 	namespace :admin do
     root :to => 'cpanel#index'
     resources :users, :only => [:edit, :update, :destroy] do
-      get "users/ban(/:id)" => "users#ban"
-      get "users/unban(/:id)" => "users#unban"
+      put "ban"
+      put "unban"
     end
     resources :teams, :only => [:edit, :update, :destroy]
     resources :tournaments do

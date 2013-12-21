@@ -29,3 +29,10 @@ $(document).ready(function(){
     $(this).closest(".hide-management").hide();
   });
 });
+
+$(function() {
+  $(document).on("click", "#users_panel .pagination a, #teams_panel .pagination a", function() {
+    $.getScript(this.href);
+    return false;
+  });
+});
