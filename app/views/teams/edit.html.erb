@@ -1,9 +1,17 @@
 <h1>edit team profile</h1>
-<%= simple_form_for(@team) do |f| %>
-  <%= f.error_notification %>
-  
-  <%= f.input :name %>
-  <%= f.input :tag %>
-  <%= f.submit "Update Team" %>
-<% end %>
+<div class="content-inner">
+  <div style="float:right;width:50%">
+    <%= render 'team_roster_values' %>
+  </div>
+  <div class="float:right;height:100%;width:50%">
+    <div class="content-inner-inner">
+      <%= simple_form_for(@team) do |f| %>
+        <%= f.error_notification %>
 
+        <%= f.input :name %>
+        <%= f.input :tag %>
+        <%= f.submit "Update Team" %>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -16,7 +16,7 @@ Ftwgl::Application.routes.draw do
       put "ban"
       put "unban"
     end
-    resources :teams, :only => [:edit, :update, :destroy]
+    resources :teams, :only => [:destroy]
     resources :tournaments do
       collection do
         get "rankings"

@@ -32,7 +32,9 @@ load_and_authorize_resource
 
   def edit
     @team = Team.find(params[:id])
-    if current_user.is_team_owner?(@team)
+    @membership = @team.memberships
+
+    if current_user.is_team_owner?(@team) || current_user.has_role?(:admin)
       true
     else
       redirect_to team_path(@team)

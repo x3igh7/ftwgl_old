@@ -6,7 +6,7 @@ describe "show" do
   let!(:membership) { FactoryGirl.create(:membership, team: team, user: owner, role: 'owner') }
   let!(:tournament) { FactoryGirl.create(:tournament) }
   let!(:tournament_team) { FactoryGirl.create(:tournament_team, team: team, tournament: tournament, wins: 15, losses: 5) }
-  
+
   context "team stats" do
     before do
       sign_in_as owner
@@ -27,5 +27,15 @@ describe "show" do
       expect(page.find("#winning_perc")).to have_content("75.0%")
     end
 
+  end
+
+  context "Team roster" do
+    it "can change membership status" do
+      pending
+    end
+
+    it "can change member role" do
+      pending
+    end
   end
 end

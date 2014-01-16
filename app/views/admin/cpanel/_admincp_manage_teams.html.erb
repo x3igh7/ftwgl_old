@@ -6,12 +6,14 @@
         <th>team</th>
         <th>date created</th>
         <th></th>
+        <th></th>
       </tr>
       <% @teams.each do |team| %>
       <tr>
         <td><%= link_to "#{team.name} #{team.tag}", team_path(team) %></td>
         <td><%= team.created_at.strftime("%B %d,%Y") %></td>
-        <td><%= link_to "manage", edit_admin_team_path(team) %></td>
+        <td><%= link_to "manage", edit_team_path(team) %></td>
+        <td><%= link_to "delete", admin_team_path(team), method: :delete, :class => "button", data: { confirm: "Are you sure?" } %></td>
       </tr>
       <% end %>
       <%= paginate @teams, :remote => true %>
