@@ -5,7 +5,6 @@ gem 'rails', '3.2.13'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'pg'
 gem 'simple_form'
 gem 'devise'
 gem 'cancan'
@@ -35,6 +34,10 @@ group :test, :development do
   gem 'launchy'
   gem 'pry'
 	gem 'database_cleaner'
+end
+
+group :test, :development, :production do
+  gem 'pg'
 end
 
 group :test do
