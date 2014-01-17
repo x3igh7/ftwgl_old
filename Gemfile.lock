@@ -217,5 +217,5 @@ DEPENDENCIES
   sextant
   shoulda-matchers
   simple_form
-  uglifier (>= 1.0.3)
+  uglifier (>= 1.3.0)
   valid_attribute
