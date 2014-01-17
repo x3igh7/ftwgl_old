@@ -33,12 +33,6 @@ class MatchesController < ApplicationController
     @home_team = @match.home_team.team
     @away_team = @match.away_team.team
 
-    if @match.home_score > @match.away_score
-      @match.winner_id = @home_team.id
-    elsif @match.home_score < @match.away_score
-      @match.winner_id = @away_team.id
-    end
-
     if @match.update_attributes(params[:match]) && @match.update_tourny_teams_scores
       if @match.home_score > @match.away_score
         @match.winner_id = @home_team.id

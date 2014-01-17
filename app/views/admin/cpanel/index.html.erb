@@ -1,12 +1,17 @@
 <h1>admin</h1>
 <div class="content-inner">
 
-  <%= render 'admincp_manage_users' %>
+    <div id="tournaments_panel">
+      <%= render 'admincp_manage_tournaments' %>
+    </div>
 
-  <%= render 'admincp_manage_tournaments' %>
+    <div id="users_panel">
+      <%= render 'admincp_manage_users' %>
+    </div>
 
-  <%= render 'admincp_manage_teams' %>
-
+    <div id="teams_panel">
+      <%= render 'admincp_manage_teams' %>
+    </div>
   </div>
 </div>
 

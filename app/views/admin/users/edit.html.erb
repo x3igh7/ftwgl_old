@@ -1,0 +1,19 @@
+<h1>manage user</h1>
+<div class="content-inner">
+<p>
+  <% unless @user.roles.include?(:banned) %>
+    <%= link_to "ban", admin_user_ban_path(@user), method: :put, :class => "button" %>
+  <% else %>
+    <%= link_to "unban", admin_user_unban_path(@user), method: :put, :class => "button" %>
+  <% end %>
+  <%= link_to "delete", admin_user_path(@user), method: :delete, :class => "button", data: { confirm: "Are you sure?" } %>
+</p>
+<%= simple_form_for [:admin, @user] do |f| %>
+  <%= f.input :username %>
+  <%= f.input :email, as: :email %>
+  <%= f.input :password, as: :password %>
+  <%= f.input :password_confirmation, as: :password %>
+  <%= f.input :roles, collection: [:user, :admin], include_blank: false %>
+  <%= f.submit "Save" %>
+<% end %>
+</div>
