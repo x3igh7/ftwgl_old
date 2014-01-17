@@ -47,6 +47,10 @@ group :development do
   gem 'sextant'
 end
 
+group :production do
+  gem 'rails_12factor'
+end
+
 gem 'poltergeist'
 
 # To use ActiveModel has_secure_password
