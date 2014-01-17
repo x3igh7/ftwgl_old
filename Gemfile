@@ -36,9 +36,8 @@ group :test, :development do
 	gem 'database_cleaner'
 end
 
-group :test, :development, :production do
-  gem 'pg'
-end
+gem 'pg'
+
 
 group :test do
   gem 'factory_girl_rails'
