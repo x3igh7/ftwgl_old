@@ -31,7 +31,7 @@ $(document).ready(function(){
 });
 
 $(function() {
-  $(document).on("click", "#users_panel .pagination a, #teams_panel .pagination a", function() {
+  $(document).on("click", "#users_panel .pagination a, #teams_panel .pagination a, #news_panel .pagination a", function() {
     $.getScript(this.href);
     return false;
   });
