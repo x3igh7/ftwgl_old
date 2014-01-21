@@ -10,7 +10,7 @@ describe "News" do
     sign_in_as(admin)
   end
 
-  it "can be created by an admin", :focus => true do
+  it "can be created by an admin" do
     prev = News.all.count
     news = FactoryGirl.build(:news)
     visit admin_root_path
@@ -21,6 +21,7 @@ describe "News" do
     fill_in "Content", with: news.content
     click_on "Save"
     expect(News.all.count).to eq(prev + 1)
+    expect(page).to have_content(news.content)
   end
 
 end

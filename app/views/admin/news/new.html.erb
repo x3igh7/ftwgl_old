@@ -1,0 +1,8 @@
+<h1>add news</h1>
+<%= simple_form_for([:admin, @news]) do |f| %>
+    <%= f.input :newsable_id, collection: @sources, label: "Source" %>
+    <%= f.input :headline %>
+    <%= f.input :description %>
+    <%= f.input :content, as: :text, :input_html => { :rows => "15", :class =>"span5"} %>
+    <%= f.submit "Save" %>
+<% end %>
