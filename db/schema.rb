@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130928170105) do
+ActiveRecord::Schema.define(:version => 20140121222126) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id",          :null => false
@@ -51,6 +51,17 @@ ActiveRecord::Schema.define(:version => 20130928170105) do
   add_index "memberships", ["team_id"], :name => "index_memberships_on_team_id"
   add_index "memberships", ["user_id", "team_id"], :name => "index_memberships_on_user_id_and_team_id", :unique => true
   add_index "memberships", ["user_id"], :name => "index_memberships_on_user_id"
+
+  create_table "news", :force => true do |t|
+    t.integer  "user_id",       :null => false
+    t.string   "headline"
+    t.string   "description"
+    t.text     "content"
+    t.integer  "newsable_id"
+    t.string   "newsable_type"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
 
   create_table "teams", :force => true do |t|
     t.string   "name",       :null => false

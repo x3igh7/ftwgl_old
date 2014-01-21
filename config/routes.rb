@@ -1,5 +1,6 @@
 Ftwgl::Application.routes.draw do
   devise_for :users
+  resources :news, :only => [:show]
   resources :user, :only => [:show, :index]
   resources :teams, :only => [:new, :create, :show, :edit, :update, :index]
   resources :memberships, :only => [:create, :update, :destroy, :index]
@@ -16,6 +17,7 @@ Ftwgl::Application.routes.draw do
       put "ban"
       put "unban"
     end
+    resources :news, :only => [:new, :create, :edit, :update, :destroy]
     resources :memberships, :only => [:destroy]
     resources :teams, :only => [:edit, :update, :destroy]
     resources :tournaments do

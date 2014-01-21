@@ -1,5 +1,11 @@
 FactoryGirl.define do
 
+  factory :news do
+    headline "Breaking News"
+    description "Welcome to FTWGL's new website!"
+    content "FTWGL is making a comeback. Welcome to the new website. Seasons starting soon in your favorite games!"
+  end
+
   factory :team do
     sequence(:name) {|n| "foo#{n}"}
     tag '[bar]'
