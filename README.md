@@ -20,5 +20,5 @@ Urban Terror
 ### Log on with admin credentials:
 user: x8  pw: administrator
 
-#### Disclaimer:
+##### Disclaimer:
 Since this is an open source project, you are welcome to use the code. If you make add any improvements and / or beneficial changes to the code, please put in a pull request so that everyone may benefit. Thanks!
