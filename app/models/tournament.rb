@@ -1,5 +1,5 @@
 class Tournament < ActiveRecord::Base
-  attr_accessible :description, :name, :rules, :current_week_num
+  attr_accessible :description, :name, :rules, :current_week_num, :news
 
   validates_presence_of :name
   validates_inclusion_of :active, :in => [true, false]
@@ -8,6 +8,7 @@ class Tournament < ActiveRecord::Base
   has_many :tournament_teams, :dependent => :destroy
   has_many :teams, through: :tournament_teams
   has_many :matches, :dependent => :destroy
+  has_many :news, :as => :newsable, :dependent => :destroy
 
   def scheduler
     teams = TournamentTeam.where(tournament_id: self.id).order(:rank)

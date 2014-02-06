@@ -5,6 +5,7 @@ class MatchesController < ApplicationController
     @match = Match.find(params[:id])
     @home_team = @match.home_team.team
     @away_team = @match.away_team.team
+    @comments = @match.comments
   end
 
   def edit

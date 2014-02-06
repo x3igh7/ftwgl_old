@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
   has_many :memberships
   has_many :teams, through: :memberships
   has_many :tournaments, through: :teams
+  has_many :news
 
   roles_attribute :roles_mask
   roles :admin, :user, :banned

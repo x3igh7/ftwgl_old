@@ -1,7 +1,6 @@
  <div class="content-outer comments" style="width:500px;">
    <div class="content-inner-inner" id="comments">
     <h1>comments</h1>
-    <% @comments = @match.comments %>
     <% if @comments.any? %>
     <% @comments.each do |comment| %>
     <%= render :partial => "comment", :locals => { :comment => comment } %>

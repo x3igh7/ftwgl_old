@@ -24,6 +24,12 @@ describe "News" do
     expect(page).to have_content(news.content)
   end
 
+  it "can be editted by an admin" do
+  end
+
+  it "can be deleted by an admin" do
+  end
+
 end
 
 def manage

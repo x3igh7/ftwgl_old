@@ -30,4 +30,7 @@ class Admin::NewsController < AdminController
 
   end
 
+  def destroy
+  end
+
 end
