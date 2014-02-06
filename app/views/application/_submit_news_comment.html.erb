@@ -1,8 +1,9 @@
 <div class="content-outer comments" style="width:500px;">
  <div class="content-inner-inner">
   <h1>submit comment</h1>
-  <%= simple_form_for [ @tournament, @match, Comment.new ], :id => :comment do |f| %>
+  <%= simple_form_for [ @news, Comment.new ], :id => :comment do |f| %>
   <%= f.input :content, :label => false, :as => :text, :input_html => { :cols => 50, :rows => 5 } %>
   <%= f.submit "Submit" %>
   <% end %>
+</div>
 </div>

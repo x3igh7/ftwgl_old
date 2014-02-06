@@ -4,5 +4,9 @@
   <div class="content-inner-inner">
     <p><%=raw @news.content %></p>
   </div>
+  <%= render('show_comments') %>
+  <% if user_signed_in? %>
+    <%= render('submit_news_comment') %>
+  <% end %>
 </div>
 

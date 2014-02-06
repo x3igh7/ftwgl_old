@@ -1,6 +1,8 @@
 Ftwgl::Application.routes.draw do
   devise_for :users
-  resources :news, :only => [:show]
+  resources :news, :only => [:show] do
+    resources :comments, :only => [ :create ]
+  end
   resources :user, :only => [:show, :index]
   resources :teams, :only => [:new, :create, :show, :edit, :update, :index]
   resources :memberships, :only => [:create, :update, :destroy, :index]

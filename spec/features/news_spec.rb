@@ -17,7 +17,12 @@ describe "News" do
   end
 
   it "can be commented on" do
-    pending
+    prev = news.comments.count
+    sign_in_as(user)
+    visit news_path(news)
+    fill_in "comment_content", with: "This is a comment!"
+    click_on "Submit"
+    expect(news.comments.count).to eq(prev + 1)
   end
 
 end
