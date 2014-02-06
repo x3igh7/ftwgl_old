@@ -1,13 +1,12 @@
  <div class="content-outer comments" style="width:500px;">
    <div class="content-inner-inner" id="comments">
     <h1>comments</h1>
-    <% @comments = @match.comments %>
     <% if @comments.any? %>
-    <% @comments.each do |comment| %>
-    <%= render :partial => "comment", :locals => { :comment => comment } %>
-    <% end %>
+        <% @comments.each do |comment| %>
+            <%= render :partial => "comment", :locals => { :comment => comment } %>
+         <% end %>
     <% else %>
-    No comments yet.
-    <% end %>
+        No comments yet.
+     <% end %>
   </div>
 </div>

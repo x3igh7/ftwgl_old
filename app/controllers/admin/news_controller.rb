@@ -13,8 +13,8 @@ class Admin::NewsController < AdminController
       @news.newsable_id = 0
       @news.newsable_type = "General"
     else
-      tournament = Tournament.where("name = #{@source}")
-      @news.newsable_id = tournament.id
+      @tournament = Tournament.where(name: "#{@source}")
+      @news.newsable_id = @tournament.last.id
       @news.newsable_type = "Tournament"
     end
 
@@ -28,6 +28,36 @@ class Admin::NewsController < AdminController
       render :new
     end
 
+  end
+
+  def edit
+    @news = News.find(params[:id])
+    @sources = ["General"]
+    @tournaments = Tournament.where("active = true").each { |tourny| @sources << tourny.name }
+  end
+
+  def update
+    @news = News.find(params[:id])
+    if @news.update_attributes(params[:news])
+      flash[:notice] = "News successfully added!"
+      redirect_to news_path(@news.id)
+    else
+      flash[:alert] = "Failed to add news."
+      render :edit
+    end
+
+  end
+
+  def destroy
+    @news = News.find(params[:id])
+
+    if @news.delete
+      flash[:notice] = "News deleted."
+      redirect_to admin_root_path
+    else
+      flash[:alert] = "Unable to delete News."
+      redirect_to admin_root_path
+    end
   end
 
 end

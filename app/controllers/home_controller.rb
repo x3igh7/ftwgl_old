@@ -1,9 +1,11 @@
 class HomeController < ApplicationController
 
   def home
+    @news = News.where(newsable_id: 0)
     if user_signed_in?
-      @teams = current_user.teams
-			@tournaments = current_user.tournaments
+      @user = current_user
+      @teams = @user.teams
+			@tournaments = @user.tournaments
     end
   end
 end

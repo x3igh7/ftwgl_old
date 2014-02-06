@@ -1,7 +1,6 @@
-<% @user = User.find(comment.user_id) %>
 <div class="comments-inner">
 	<div>
-		<span class="important"><%= link_to @user.username, user_path(@user) %></span>
+		<span class="important"><%= link_to comment.user.username, user_path(comment.user) %></span>
 		<div style="float:right;" class="faded">
 			<%= comment.updated_at %>
 		</div>

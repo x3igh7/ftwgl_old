@@ -8,7 +8,9 @@
 
 <%= render 'show_comments' %>
 
-<%= render 'submit_comment' %>
+<% if user_signed_in? %>
+  <%= render 'submit_match_comment' %>
+<% end %>
 
 </div>
 </div>
