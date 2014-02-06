@@ -1,0 +1,9 @@
+<%= simple_form_for([:admin, @news]) do |f| %>
+  <% if @news.newsable_type.nil? %>
+    <%= f.input :newsable_id, collection: @sources, label: "Source", include_blank: true %>
+  <% end %>
+    <%= f.input :headline %>
+    <%= f.input :description %>
+    <%= f.input :content, as: :text, :input_html => { :rows => "15", :class =>"span5"} %>
+    <%= f.submit "Save" %>
+<% end %>

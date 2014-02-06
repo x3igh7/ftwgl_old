@@ -16,8 +16,8 @@
         <td><%= news.newsable_type %></td>
         <td><%= news.user.username %></td>
         <td><%= news.created_at.strftime("%B %d,%Y") %></td>
-        <td><%= link_to "edit", edit_admin_news_path(news), :id => "edit-#{news.id}" %></td>
-        <td><%= link_to "delete", admin_news_path(news), method: :delete, data: { confirm: "Are you sure?" }%></td>
+        <td><%= link_to "edit", edit_admin_news_path(news), :id => "edit-news-#{news.id}" %></td>
+        <td><%= link_to "delete", admin_news_path(news), method: :delete, id: "delete-news-#{news.id}", data: { confirm: "Are you sure?" }%></td>
       </tr>
       <% end %>
       <% paginate @news, :remote => true %>

@@ -30,7 +30,34 @@ class Admin::NewsController < AdminController
 
   end
 
+  def edit
+    @news = News.find(params[:id])
+    @sources = ["General"]
+    @tournaments = Tournament.where("active = true").each { |tourny| @sources << tourny.name }
+  end
+
+  def update
+    @news = News.find(params[:id])
+    if @news.update_attributes(params[:news])
+      flash[:notice] = "News successfully added!"
+      redirect_to news_path(@news.id)
+    else
+      flash[:alert] = "Failed to add news."
+      render :edit
+    end
+
+  end
+
   def destroy
+    @news = News.find(params[:id])
+
+    if @news.delete
+      flash[:notice] = "News deleted."
+      redirect_to admin_root_path
+    else
+      flash[:alert] = "Unable to delete News."
+      redirect_to admin_root_path
+    end
   end
 
 end
