@@ -1,7 +1,7 @@
 <% if @news.any? %>
   <% @news.each do |news| %>
   <div class="content-inner-inner">
-    <h1><%= news.headline %></h1>
+    <p class="headline"><%= news.headline %></p>
 
       <p style="font-size:10px">Created at <%= news.created_at %> by <%= news.user.username %></p>
 

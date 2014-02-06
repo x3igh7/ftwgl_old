@@ -13,8 +13,8 @@ class Admin::NewsController < AdminController
       @news.newsable_id = 0
       @news.newsable_type = "General"
     else
-      tournament = Tournament.where("name = #{@source}")
-      @news.newsable_id = tournament.id
+      @tournament = Tournament.where(name: "#{@source}")
+      @news.newsable_id = @tournament.last.id
       @news.newsable_type = "Tournament"
     end
 
