@@ -5,7 +5,12 @@ class HomeController < ApplicationController
     if user_signed_in?
       @user = current_user
       @teams = @user.teams
-			@tournaments = @user.tournaments
+      @tournaments = []
+      @user.tournaments.each do |tournament|
+        if tournament.active == true
+          @tournaments << tournament
+        end
+      end
     end
   end
 end

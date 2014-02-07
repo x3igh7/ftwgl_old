@@ -10,7 +10,7 @@ class Tournament < ActiveRecord::Base
   validates :bracket_size, numericality: { only_integer: true }
 
   TYPES = ["Season", "Bracket"]
-  BRACKET_TYPES = ["Singles", "Teams"]
+  BRACKET_TYPES = ["Teams"] #singles not currently supported
   ELIMINATION_TYPES = ["Single", "Double"]
 
   has_many :tournament_teams, :dependent => :destroy

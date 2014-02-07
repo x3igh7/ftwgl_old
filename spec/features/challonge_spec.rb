@@ -33,6 +33,16 @@ describe "Challonge integration" do
     expect(page).to_not have_content("rankings")
   end
 
+  it "admin can reload and start challonge tournament (settings needed to be manually changed)"
+    pending
+  end
+
+  it "matches are created when tournament is started based on bracket" do
+    pending
+  end
+
+
+
 end
 
 def manage
