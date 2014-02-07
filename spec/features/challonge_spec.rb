@@ -33,6 +33,10 @@ describe "Challonge integration" do
     expect(page).to have_content(new_tournament.name)
   end
 
+  it "if tournament is a bracket, rankings are replaced by bracket" do
+
+  end
+
 end
 
 def manage

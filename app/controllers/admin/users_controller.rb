@@ -6,7 +6,7 @@ class Admin::UsersController < AdminController
 
   def update
     @user = User.find(params[:id])
-    if params[:user][:password].blank? #so that devise will validate
+    if params[:user][:password].blank? #so that devise will validate and we dont set a blank password
       params[:user].delete(:password)
       params[:user].delete(:password_confirmation)
     end
