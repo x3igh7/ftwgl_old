@@ -36,9 +36,6 @@ group :test, :development do
 	gem 'database_cleaner'
 end
 
-gem 'pg'
-
-
 group :test do
   gem 'factory_girl_rails'
   gem 'valid_attribute'
@@ -49,11 +46,17 @@ group :development do
   gem 'sextant'
 end
 
-group :production do
-  gem 'rails_12factor'
+group :test, :development do
+  gem 'pg'
+  gem 'poltergeist'
 end
 
-gem 'poltergeist'
+group :production do
+  gem 'rails_12factor'
+  gem 'mysql'
+end
+
+
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

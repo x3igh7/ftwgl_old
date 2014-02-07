@@ -56,7 +56,7 @@ describe "Admin CP" do
       sign_in_as admin
     end
 
-    it "has a name, description, and rules" do
+    it "create a season tournament" do
       prev = Tournament.count
 
       visit admin_root_path
@@ -65,6 +65,7 @@ describe "Admin CP" do
       fill_in "Name", :with => new_tournament.name
       fill_in "Description", :with => new_tournament.description
       fill_in "Rules", :with => new_tournament.rules
+      select "Season", from: "Type"
 
       click_on "Create Tournament"
 

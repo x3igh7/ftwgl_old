@@ -2,9 +2,13 @@ require 'spec_helper'
 
 describe Tournament do
   it { should validate_presence_of(:name) }
+  it { should validate_presence_of(:type) }
   it { should have_many(:tournament_teams) }
   it { should have_many(:teams) }
   it { should have_many(:matches) }
+  it { should ensure_inclusion_of(:type).in_array(%w(Season Bracket)) }
+  it { should ensure_inclusion_of(:bracket_type).in_array(%w(Singles Teams)) }
+  it { should ensure_inclusion_of(:role).in_array(%w(Single Double)) }
 
   describe "rank" do
     let!(:team) { FactoryGirl.create(:team) }
