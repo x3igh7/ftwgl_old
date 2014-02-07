@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140121222126) do
+ActiveRecord::Schema.define(:version => 20140207020945) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id",          :null => false
@@ -94,6 +94,9 @@ ActiveRecord::Schema.define(:version => 20140121222126) do
     t.datetime "updated_at",                         :null => false
     t.integer  "current_week_num"
     t.boolean  "active",           :default => true, :null => false
+    t.string   "type",             :default => "",   :null => false
+    t.string   "bracket_type"
+    t.string   "elmination_type"
   end
 
   create_table "users", :force => true do |t|
