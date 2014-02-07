@@ -8,7 +8,7 @@
       <p><%= news.description %></p>
       <p><%= link_to "read more...", news_path(news)%></a></p>
   </div>
-
-
   <% end %>
+  <%= paginate @news %>
 <% end %>
+

@@ -9,5 +9,13 @@
   <%= f.input :rules %>
   <%= f.submit "update tournament"%>
 <% end %>
+<div class="spacer" style="margin-bottom:25px"></div>
+<div class="content-inner-inner">
+<% if @tournament.active %>
+<%= button_to "deactivate tournament", admin_tournament_deactivate_path(@tournament), method: :put %>
+<% else %>
+  <%= button_to "activate tournament", admin_tournament_activate_path(@tournament), method: :put %>
+<% end %>
+</div>
 
 </div>

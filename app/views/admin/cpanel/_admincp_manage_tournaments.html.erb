@@ -10,7 +10,7 @@
           <td class="hide-management"><button>hide</button></td>
         </tr>
         <tr class="management">
-          <td><%= link_to "edit", edit_admin_tournament_path(tourny) %></td>
+          <td><%= link_to "edit", edit_admin_tournament_path(tourny), id: "edit-tourny-#{tourny.id}" %></td>
           <td><%= link_to "tournament teams", admin_tournament_teams_path(:tournament_id => tourny.id) %></td>
           <td><%= link_to "matches", admin_matches_path(:tournament_id => tourny.id) %></td>
           <td><%= link_to "set ranks", rankings_admin_tournaments_path(:tournament_id => tourny.id) %></td>
@@ -18,7 +18,16 @@
         </tr>
       <% end %>
     </table>
-    <div><%= link_to "create new tournament", new_admin_tournament_path, :class => "button" %></div>
+    <div>
+      <ul style="list-style-type:none">
+        <li style="display:inline-block">
+          <%= link_to "create new tournament", new_admin_tournament_path, :class => "button" %>
+        </li>
+        <li style="display:inline-block">
+          <%= link_to "view all tournaments", admin_tournaments_path, :class => "button" %>
+        </li>
+      </ul>
+    </div>
   </div>
 
 </div>

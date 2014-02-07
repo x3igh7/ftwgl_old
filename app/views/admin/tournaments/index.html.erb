@@ -1,0 +1,33 @@
+<h1>tournaments</h1>
+
+<div class="content-inner">
+  <% if not @tournaments.any? %>
+  There are currently no tournaments.
+  <% else %>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Active</th>
+      <th></th>
+    </tr>
+    <% @tournaments.each do |tournament| %>
+    <tr>
+      <td><%= tournament.name %></td>
+      <td><%= tournament.description %></td>
+      <td><%= tournament.active.to_s.capitalize %></td>
+      <td class="show-management" style="float:right;"><button id=<%= "manage-tourny-#{tournament.id}" %>>manage</button></td>
+      <td class="hide-management"><button>hide</button></td>
+    </tr>
+    <tr class="management">
+      <td><%= link_to "edit", edit_admin_tournament_path(tournament), id: "edit-tourny-#{tournament.id}" %></td>
+      <td><%= link_to "tournament teams", admin_tournament_teams_path(:tournament_id => tournament.id) %></td>
+      <td><%= link_to "matches", admin_matches_path(:tournament_id => tournament.id) %></td>
+      <td><%= link_to "set ranks", rankings_admin_tournaments_path(:tournament_id => tournament.id) %></td>
+      <td><%= link_to "set schedule", schedule_admin_tournaments_path(:tournament_id => tournament.id) %></td>
+    </tr>
+    <% end %>
+  </table>
+  <% end %>
+
+</div>
