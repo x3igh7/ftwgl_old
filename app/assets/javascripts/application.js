@@ -14,7 +14,6 @@
 //= require jquery_ujs
 //= require bootstrap-datepicker
 
-
 $(document).ready(function(){
   $(".management").hide();
   $(".hide-management").hide();

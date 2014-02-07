@@ -65,7 +65,7 @@ describe "Admin CP" do
       fill_in "Name", :with => new_tournament.name
       fill_in "Description", :with => new_tournament.description
       fill_in "Rules", :with => new_tournament.rules
-      select "Season", from: "Type"
+      select "Season", from: "Tournament type"
 
       click_on "Create Tournament"
 

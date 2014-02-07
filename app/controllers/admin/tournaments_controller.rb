@@ -6,6 +6,9 @@ class Admin::TournamentsController < AdminController
 
   def new
     @tournament = Tournament.new
+    @types = Tournament::TYPES
+    @bracket_types = Tournament::BRACKET_TYPES
+    @elimination_types = Tournament::ELIMINATION_TYPES
   end
 
   def create

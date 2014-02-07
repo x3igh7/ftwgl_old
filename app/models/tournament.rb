@@ -1,18 +1,24 @@
 class Tournament < ActiveRecord::Base
-  attr_accessible :description, :name, :rules, :current_week_num, :news
+  attr_accessible :description, :name, :bracket_size, :rules, :current_week_num, :news, :elimination_type, :tournament_type, :bracket_type
 
-  validates_presence_of :name, :type
+  validates_presence_of :name, :tournament_type
+
   validates_inclusion_of :active, :in => [true, false]
+  validates_inclusion_of :tournament_type, :in => ["", "Season", "Bracket"]
+  validates_inclusion_of :bracket_type, :in => ["", "Singles", "Teams"]
+  validates_inclusion_of :elimination_type, :in => ["", "Single", "Double"]
+  validates :bracket_size, numericality: { only_integer: true }
 
+  TYPES = ["Season", "Bracket"]
+  BRACKET_TYPES = ["Singles", "Teams"]
+  ELIMINATION_TYPES = ["Single", "Double"]
 
   has_many :tournament_teams, :dependent => :destroy
   has_many :teams, through: :tournament_teams
   has_many :matches, :dependent => :destroy
   has_many :news, :as => :newsable, :dependent => :destroy
 
-  TYPES = ["Season", "Bracket"]
-  BRACKET_TYPES = ["Singles", "Teams"]
-  ELIMINATION_TYPES = ["Single", "Double"]
+
 
   def scheduler
     teams = TournamentTeam.where(tournament_id: self.id).order(:rank)

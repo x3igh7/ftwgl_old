@@ -1,10 +1,13 @@
 <h1>New Tournament</h1>
 <%= simple_form_for([:admin, @tournament]) do |f| %>
-    <%= f.input :name %>
+    <%= f.input :name, :required => true %>
     <%= f.input :description %>
-    <%= f.input :type, collection: @types %>
-    <%= f.input :bracket_type: @bracket_types %>
-    <%= f.input :elimination_type: @elimination_type %>
+    <%= f.input :tournament_type, collection: @types, :required => true %>
+    <%= f.input :bracket_type, collection: @bracket_types, include_blank: true%>
+    <%= f.input :elimination_type, collection: @elimination_types, include_blank: true %>
+    <%= f.input :bracket_size %>
     <%= f.input :rules, as: :text, :input_html => { :rows => "6" } %>
     <%= f.submit "Create Tournament" %>
 <% end %>
+
+<%= javascript_include_tag "new_tournament" %>

@@ -94,9 +94,10 @@ ActiveRecord::Schema.define(:version => 20140207020945) do
     t.datetime "updated_at",                         :null => false
     t.integer  "current_week_num"
     t.boolean  "active",           :default => true, :null => false
-    t.string   "type",             :default => "",   :null => false
-    t.string   "bracket_type"
-    t.string   "elmination_type"
+    t.string   "tournament_type",  :default => "",   :null => false
+    t.string   "bracket_type",     :default => ""
+    t.string   "elimination_type", :default => ""
+    t.integer  "bracket_size",     :default => 0
   end
 
   create_table "users", :force => true do |t|
