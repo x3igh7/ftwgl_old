@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap-datepicker
+//= require jquery.challonge.js
 
 $(document).ready(function(){
   $(".management").hide();

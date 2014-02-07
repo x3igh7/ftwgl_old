@@ -12,6 +12,7 @@ gem 'role_model'
 gem 'gon'
 gem 'bootstrap-datepicker-rails'
 gem 'kaminari'
+gem 'challonge-api'
 
 
 # Gems used only for assets and not required
@@ -40,6 +41,8 @@ group :test do
   gem 'factory_girl_rails'
   gem 'valid_attribute'
   gem 'shoulda-matchers'
+  gem 'vcr'
+  gem 'webmock'
 end
 
 group :development do

@@ -7,6 +7,8 @@ require 'valid_attribute'
 require 'capybara/rails'
 require 'capybara/rspec'
 require 'database_cleaner'
+require 'webmock/rspec'
+require 'vcr'
 
 require 'capybara/poltergeist'
 Capybara.javascript_driver = :poltergeist
@@ -62,6 +64,16 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = "random"
+
+  #vcr helper
+  config.treat_symbols_as_metadata_keys_with_true_values = true
+end
+
+VCR.configure do |c|
+  c.cassette_library_dir = 'spec/cassettes'
+  c.hook_into :webmock
+  c.allow_http_connections_when_no_cassette = true
+  c.configure_rspec_metadata!
 end
 
 class ActiveRecord::Base

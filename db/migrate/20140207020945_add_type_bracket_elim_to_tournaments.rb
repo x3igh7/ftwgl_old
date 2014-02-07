@@ -4,5 +4,7 @@ class AddTypeBracketElimToTournaments < ActiveRecord::Migration
     add_column :tournaments, :bracket_type, :string, :default => ""
     add_column :tournaments, :elimination_type, :string, :default => ""
     add_column :tournaments, :bracket_size, :integer, :default => 0
+    add_column :tournaments, :challonge_url, :string, :default => ""
+    add_column :tournaments, :challonge_img, :string, :default => ""
   end
 end

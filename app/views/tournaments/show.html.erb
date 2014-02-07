@@ -7,7 +7,7 @@
 			<% @active_team = Team.find(@active_tournament_team.team_id) %>
 			You are participating in this tournament with <%= link_to @active_team.name, team_path(@active_team) %>.
 		<% elsif not @current_user_teams.any? %>
-			You can join a team from the rankings below, or <%= link_to "create", new_team_path %> your own team.
+			You can join a team shown below, or <%= link_to "create", new_team_path %> your own team.
 		<% else %>
 			<div style="float:right;">
 				<%=render 'tournament_team/join_tournament_form' %>
@@ -21,30 +21,12 @@
 		<%= render('index_news')%>
 	</div>
 	<div class="content-inner-inner clear">
-		<h1>rankings</h1>
-		<% if @teams.any? %>
-			<table class="center" cellspacing="0">
-					<tr>
-						<th>Rank</th>
-						<th>Team</th>
-						<th>Points</th>
-						<th>Wins</th>
-						<th>Losses</th>
-						<th>Differential</th>
-					</tr>
-					<% @teams.each_with_index do |team, x| %>
-						<tr id=<%= "rank#{x+1}" %>>
-							<td class="rank"><%= x+1 %></td>
-							<td class="name"><%= link_to "#{team.team.name} #{team.team.tag}", team_path(team.team) %></td>
-							<td class="points"><%= team.total_points %></td>
-							<td class="wins"><%= team.wins %></td>
-							<td class="losses"><%= team.losses %></td>
-							<td class="diff"><%= team.total_diff %></td>
-						</tr>
-					<% end %>
-			</table>
-		<% else %>
-			No teams have joined this tournament yet.
+		<% if @tournament.tournament_type == "Season" %>
+			<%= render 'tournament_rankings' %>
+		<% elsif @tournament.tournament_type == "Bracket" %>
+			<div id="challongeBracket">
+				<iframe src=<%= "http://challonge.com/#{@tournament.challonge_url}/module" %> width="95%" height="500" frameborder="0" scrolling="auto" allowtransparency="true"></iframe>
+			</div>
 		<% end %>
 	</div>
 
@@ -67,4 +49,6 @@
 			</div>
 	</div>
 </div>
+
+<%= javascript_include_tag "show_tournament" %>
 

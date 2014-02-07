@@ -13,6 +13,9 @@ class TournamentsController < ApplicationController
     @matches = Match.current_week_matches(@tournament)
     @news = @tournament.news.page params[:page]
     @current_user_teams = []
+    if @tournament.tournament_type == "Bracket"
+      gon.challonge_url = @tournament.challonge_url
+    end
     if user_signed_in?
       current_user.teams.each do |team|
         if current_user.is_team_owner?(team)

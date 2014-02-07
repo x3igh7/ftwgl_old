@@ -10,13 +10,11 @@ describe "Challonge integration" do
     sign_in_as(admin)
   end
 
-  it "tournaments can be created as brackets", :js => true do
-    new_tournament = FactoryGirl.build(:tournament)
-    visit admin_root_path
+  it "if tournament is a bracket, challonge bracket is created, and rankings are replaced", :vcr => {:record => :new_episodes}, :js => true do
     prev = Tournament.count
-
     visit admin_root_path
     click_on "create new tournament"
+    new_tournament = FactoryGirl.build(:tournament)
 
     select "Bracket", from: "Tournament type"
     fill_in "Name", :with => new_tournament.name
@@ -27,14 +25,12 @@ describe "Challonge integration" do
     fill_in "Bracket size", with: 16
 
     click_on "Create Tournament"
-
     expect(Tournament.count).to eq(prev + 1)
     expect(Tournament.last.tournament_type).to eq("Bracket")
     expect(page).to have_content(new_tournament.name)
-  end
-
-  it "if tournament is a bracket, rankings are replaced by bracket" do
-
+    expect(Tournament.last.challonge_url.blank?).to be_false
+    expect(Tournament.last.challonge_url).to eq("newtestingabc123klj")
+    expect(page).to_not have_content("rankings")
   end
 
 end

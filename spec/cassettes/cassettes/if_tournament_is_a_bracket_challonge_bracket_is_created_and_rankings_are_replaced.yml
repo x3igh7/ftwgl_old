@@ -1,0 +1,62 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://x8:5BJHSMjZnMoJO8Mq7Qmq7QxR87ZJmgPiPNLK6QCm@challonge.com/api/tournaments.json
+    body:
+      encoding: US-ASCII
+      string: ! '{"tournament":{"name":"FTW Team Survivor2","tournament_type":"single
+        elimination","url":"newtestingabc123klj","description":null}}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 422
+      message: Unprocessable Entity
+    headers:
+      Server:
+      - nginx/1.2.7
+      Date:
+      - Fri, 07 Feb 2014 22:35:56 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Status:
+      - 422 Unprocessable Entity
+      Pragma:
+      - no-store
+      Cache-Control:
+      - no-store
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      X-Request-Id:
+      - c9ed00579ba6e77491b5b721f75ea8b9
+      X-Runtime:
+      - '0.035096'
+      Set-Cookie:
+      - ! "___utmvaoFuNmpZ=DPJ\x01wFqt; path=/; Max-Age=900"
+      - ! '___utmvboFuNmpZ=QZO XoGOBali: htv; path=/; Max-Age=900'
+      - ___utmvmoFuNmpZ=VvZTOcpJGOm; path=/; Max-Age=900
+      - incap_ses_144_94794=2sDAfUBnSBa7h6sMgKr/Acxf9VIAAAAAaV0oVikYXz5lKOsa+3q4jQ==;
+        path=/; Domain=.challonge.com
+      - visid_incap_94794=et2eRIugRF6mB26kQRgVt8xf9VIAAAAAQUIPAAAAAAAkjq2tqTi9xOu2zlGl0EGQ;
+        expires=Sun, 07 Feb 2016 08:48:03 GMT; path=/; Domain=.challonge.com
+      X-Iinfo:
+      - 6-16399509-16399523 NNNN CT(7 9 0) RT(1391812555977 87) q(0 0 0 -1) r(0 1)
+        U5
+      X-Cdn:
+      - Incapsula
+    body:
+      encoding: US-ASCII
+      string: ! '{"errors":["URL has already been taken"]}'
+    http_version: 
+  recorded_at: Fri, 07 Feb 2014 22:35:57 GMT
+recorded_with: VCR 2.8.0

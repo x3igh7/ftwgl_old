@@ -13,13 +13,41 @@ class Admin::TournamentsController < AdminController
 
   def create
     @tournament = Tournament.new(params[:tournament])
+    if @tournament.tournament_type == "Bracket"
+      t = Challonge::Tournament.new
+      t.name = @tournament.name
+      t.subdomain = "ftwgamingleague"
+      if @tournament.elimination_type == "Single"
+        t.tournament_type = "single elimination"
+      elsif @tournament.elimination_type == "Double"
+        t.tournament_type = "double elimination"
+      end
+      if Rails.env == "production" || Rails.env == "development" #For testing purposes
+        t.url = Devise.friendly_token.first(5)
+      else
+        t.url = "newtestingabc123klj"
+      end
+      if t.save
+        t.reload
 
-    if @tournament.save
-      redirect_to tournament_path(@tournament)
-      flash[:notice] = "Successfully created tournament"
+        @tournament.challonge_url = t.url
+        @tournament.challonge_img = t.live_image_url
+        if @tournament.save
+          redirect_to tournament_path(@tournament)
+          flash[:notice] = "Successfully created tournament"
+        end
+      else
+        flash[:alert] = t.errors.full_messages
+        redirect_to :back
+      end
     else
-      flash[:alert] = "Failed to create tournament"
-      render :new
+      if @tournament.save
+        redirect_to tournament_path(@tournament)
+        flash[:notice] = "Successfully created tournament"
+      else
+        flash[:alert] = "Failed to create tournament"
+        render :new
+      end
     end
   end
 

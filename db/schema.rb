@@ -98,6 +98,8 @@ ActiveRecord::Schema.define(:version => 20140207020945) do
     t.string   "bracket_type",     :default => ""
     t.string   "elimination_type", :default => ""
     t.integer  "bracket_size",     :default => 0
+    t.string   "challonge_url",    :default => ""
+    t.string   "challonge_img",    :default => ""
   end
 
   create_table "users", :force => true do |t|
