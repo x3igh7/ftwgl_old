@@ -1,5 +1,9 @@
 class Admin::TournamentsController < AdminController
 
+  def index
+    @tournaments = Tournament.all
+  end
+
   def new
     @tournament = Tournament.new
   end
@@ -80,6 +84,30 @@ class Admin::TournamentsController < AdminController
       redirect_to :back
     end
 
+  end
+
+  def deactivate
+    @tournament = Tournament.find(params[:tournament_id])
+    @tournament.active = false
+    if @tournament.save
+      flash[:notice] = "Tournament deactivated"
+      redirect_to admin_root_path
+    else
+      flash[:alert] = "Failed to deactivate tournament"
+      render :edit
+    end
+  end
+
+  def activate
+    @tournament = Tournament.find(params[:tournament_id])
+    @tournament.active = true
+    if @tournament.save
+      flash[:notice] = "Tournament activated"
+      redirect_to admin_root_path
+    else
+      flash[:alert] = "Failed to activate tournament"
+      render :edit
+    end
   end
 
   private

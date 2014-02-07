@@ -45,6 +45,10 @@ describe "Admin CP" do
       expect(page).to have_content("set schedule")
     end
 
+    it "can edit a tournament" do
+
+    end
+
   end
 
   context "creating a tournament" do

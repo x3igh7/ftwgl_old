@@ -23,6 +23,8 @@ Ftwgl::Application.routes.draw do
     resources :memberships, :only => [:destroy]
     resources :teams, :only => [:edit, :update, :destroy]
     resources :tournaments do
+      put "deactivate"
+      put "activate"
       collection do
         get "rankings"
         put "update_rankings"

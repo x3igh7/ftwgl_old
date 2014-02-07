@@ -11,7 +11,7 @@ class TournamentsController < ApplicationController
     @active_tournament_team = nil
     @tournament_team = TournamentTeam.new
     @matches = Match.current_week_matches(@tournament)
-    @news = @tournament.news
+    @news = @tournament.news.page params[:page]
     @current_user_teams = []
     if user_signed_in?
       current_user.teams.each do |team|

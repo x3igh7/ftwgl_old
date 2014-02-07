@@ -6,5 +6,6 @@ describe "Comments" do
   end
 
   it "can be deleted by admins" do
+    pending
   end
 end
