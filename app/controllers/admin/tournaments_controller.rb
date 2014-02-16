@@ -158,7 +158,7 @@ class Admin::TournamentsController < AdminController
       @tournament.challonge_state = t.state
       if @tournament.save
         flash[:notice] = "Bracket started! Now generate matches."
-        redirect_to admin_tournament_generate_bracket_matches_path(:tournament_id => @tournament.id)
+        redirect_to admin_tournament_bracket_matches_path(:tournament_id => @tournament.id)
       else
         flash[:alert] = "Tournament failed to properly update."
         redirect_to admin_root_path
@@ -166,6 +166,15 @@ class Admin::TournamentsController < AdminController
     else
       flash[:alert] = "Failed to start bracket."
       redirect_to admin_root_path
+    end
+  end
+
+  def bracket_matches
+    @match = Match.new
+    @tournament = Tournament.find(params[:tournament_id])
+    @teams = TournamentTeam.in_tournament(@tournament)
+    @team_names = @teams.map do |tourny_team|
+      [tourny_team.team.name, tourny_team.id]
     end
   end
 
