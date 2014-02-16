@@ -32,6 +32,7 @@ class Admin::TournamentsController < AdminController
 
         @tournament.challonge_url = t.url
         @tournament.challonge_img = t.live_image_url
+        @tournament.challonge_id = t.id
         if @tournament.save
           redirect_to tournament_path(@tournament)
           flash[:notice] = "Successfully created tournament"
@@ -138,6 +139,33 @@ class Admin::TournamentsController < AdminController
     else
       flash[:alert] = "Failed to activate tournament"
       render :edit
+    end
+  end
+
+  def start_bracket
+    @tournament = Tournament.find(params[:tournament_id])
+    t = Challonge::Tournament.find(@tournament.challonge_id)
+    @tournament.tournament_teams.each do |team|
+      x = Challonge::Participant.create(:name => team.team.name + team.team.tag, :tournament => t)
+      team.challonge_id = x.id
+      if not team.save
+        flash[:alert] = "Could not create tournament partipants..."
+        redirect_to admin_root_path
+      end
+    end
+    if t.start!
+      t.reload
+      @tournament.challonge_state = t.state
+      if @tournament.save
+        flash[:notice] = "Bracket started! Now generate matches."
+        redirect_to admin_tournament_generate_bracket_matches_path(:tournament_id => @tournament.id)
+      else
+        flash[:alert] = "Tournament failed to properly update."
+        redirect_to admin_root_path
+      end
+    else
+      flash[:alert] = "Failed to start bracket."
+      redirect_to admin_root_path
     end
   end
 

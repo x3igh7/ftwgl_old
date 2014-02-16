@@ -13,8 +13,25 @@
           <td><%= link_to "edit", edit_admin_tournament_path(tourny), id: "edit-tourny-#{tourny.id}" %></td>
           <td><%= link_to "tournament teams", admin_tournament_teams_path(:tournament_id => tourny.id) %></td>
           <td><%= link_to "matches", admin_matches_path(:tournament_id => tourny.id) %></td>
-          <td><%= link_to "set ranks", rankings_admin_tournaments_path(:tournament_id => tourny.id) %></td>
-          <td><%= link_to "set schedule", schedule_admin_tournaments_path(:tournament_id => tourny.id) %></td>
+          <% if tourny.tournament_type == "Season" %>
+
+            <td><%= link_to "set ranks", rankings_admin_tournaments_path(:tournament_id => tourny.id) %></td>
+
+          <% elsif tourny.tournament_type == "Bracket" && tourny.challonge_state == "" %>
+
+            <td><%= link_to "start", admin_tournament_start_bracket_path(:tournament_id => tourny.id) %></td>
+
+          <% elsif tourny.tournament_type == "Bracket" && tourny.challonge_state == "underway" %>
+
+            <td><%= link_to "update results", admin_tournament_update_bracket_results_path(:tournament_id => tourny.id) %></td>
+
+          <% end %>
+
+          <% if tourny.tournament_type == "Season" %>
+            <td><%= link_to "set schedule", schedule_admin_tournaments_path(:tournament_id => tourny.id) %></td>
+          <% elsif tourny.tournament_type == "Bracket" && tourny.challonge_state == "underway" %>
+            <td><%= link_to "generate matches", admin_tournament_generate_bracket_matches_path(:tournament_id => tourny.id) %></td>
+          <% end %>
         </tr>
       <% end %>
     </table>

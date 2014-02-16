@@ -1,5 +1,5 @@
 class TournamentTeam < ActiveRecord::Base
-  attr_accessible :team, :tournament, :rank
+  attr_accessible :team, :tournament, :rank, :challonge_id
   attr_protected :total_points, :total_diff, :wins, :losses
 
   validates_presence_of :team, :tournament, :total_points, :total_diff, :wins, :losses

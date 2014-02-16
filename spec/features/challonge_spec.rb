@@ -33,11 +33,19 @@ describe "Challonge integration" do
     expect(page).to_not have_content("rankings")
   end
 
-  it "admin can reload and start challonge tournament (settings needed to be manually changed)"
+  it "admin can reload and start challonge tournament (settings needed to be manually changed)", :js => true, :focus => true do
+    tournament = FactoryGirl.create(:tournament, tournament_type: "Bracket", bracket_type: "Teams", elimination_type: "Single", bracket_size: 16, challonge_id: 815394)
+    manage
+    click_on "start"
+    started_tournament = Tournament.last
+    expect(tournament.challonge_state).to eq("underway")
+  end
+
+  it "matches can be created after tournament is started based on bracket" do
     pending
   end
 
-  it "matches are created when tournament is started based on bracket" do
+  it "match results can be updated for bracket" do
     pending
   end
 

@@ -23,7 +23,7 @@
 	<div class="content-inner-inner clear">
 		<% if @tournament.tournament_type == "Season" %>
 			<%= render 'tournament_rankings' %>
-		<% elsif @tournament.tournament_type == "Bracket" %>
+		<% elsif @tournament.tournament_type == "Bracket" && @tournament.challonge_state == "underway" %>
 			<div id="challongeBracket">
 				<iframe src=<%= "http://challonge.com/#{@tournament.challonge_url}/module" %> width="95%" height="500" frameborder="0" scrolling="auto" allowtransparency="true"></iframe>
 			</div>

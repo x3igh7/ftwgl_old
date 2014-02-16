@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140207020945) do
+ActiveRecord::Schema.define(:version => 20140216202814) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id",          :null => false
@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(:version => 20140207020945) do
     t.integer  "rank"
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
+    t.integer  "challonge_id",  :default => 0
   end
 
   add_index "tournament_teams", ["team_id", "tournament_id"], :name => "index_tournament_teams_on_team_id_and_tournament_id", :unique => true
@@ -100,6 +101,8 @@ ActiveRecord::Schema.define(:version => 20140207020945) do
     t.integer  "bracket_size",     :default => 0
     t.string   "challonge_url",    :default => ""
     t.string   "challonge_img",    :default => ""
+    t.string   "challonge_state",  :default => ""
+    t.integer  "challonge_id",     :default => 0
   end
 
   create_table "users", :force => true do |t|
