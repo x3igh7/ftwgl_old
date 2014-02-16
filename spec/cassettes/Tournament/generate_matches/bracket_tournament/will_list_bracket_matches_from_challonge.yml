@@ -1,0 +1,119 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://x8:5BJHSMjZnMoJO8Mq7Qmq7QxR87ZJmgPiPNLK6QCm@challonge.com/api/tournaments/830806.json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.2.7
+      Date:
+      - Sun, 16 Feb 2014 22:54:32 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Status:
+      - 200 OK
+      Pragma:
+      - no-store
+      Cache-Control:
+      - no-store
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - "\"14b71806c563aa2da407be1084a38578\""
+      X-Request-Id:
+      - af0dff462e4f2dfce2771352d497f700
+      X-Runtime:
+      - '0.024027'
+      Set-Cookie:
+      - incap_ses_156_94794=zFxMNeIQ/lGADylj1jkqAqdBAVMAAAAAkKUm047Oykzy2R3+cIw5Fw==;
+        path=/; Domain=.challonge.com
+      - visid_incap_94794=HWDAPUOiTKuGdQ/qid96M6dBAVMAAAAAQUIPAAAAAADxpM8MZ6RM/pJqmxA7n9mX;
+        expires=Tue, 16 Feb 2016 02:10:27 GMT; path=/; Domain=.challonge.com
+      X-Iinfo:
+      - 10-26688192-26688249 NNNN CT(2 3 0) RT(1392591271563 117) q(0 0 0 -1) r(0
+        1) U5
+      X-Cdn:
+      - Incapsula
+    body:
+      encoding: UTF-8
+      string: "{\"tournament\":{\"accept_attachments\":false,\"allow_participant_match_reporting\":true,\"anonymous_voting\":false,\"category\":null,\"check_in_at\":null,\"completed_at\":null,\"created_at\":\"2014-02-16T15:39:33-05:00\",\"created_by_api\":true,\"credit_capped\":false,\"description\":\"\",\"enable_group_stage\":false,\"game_id\":null,\"hide_forum\":false,\"hide_seeds\":false,\"hold_third_place_match\":false,\"id\":830806,\"max_predictions_per_user\":1,\"name\":\"FTW
+        Test Start\",\"notify_users_when_matches_open\":true,\"notify_users_when_the_tournament_ends\":true,\"open_signup\":false,\"participant_count_to_advance_per_group\":null,\"participants_count\":2,\"prediction_method\":0,\"predictions_opened_at\":null,\"private\":false,\"progress_meter\":0,\"pts_for_bye\":\"1.0\",\"pts_for_game_tie\":\"0.0\",\"pts_for_game_win\":\"0.0\",\"pts_for_match_tie\":\"0.5\",\"pts_for_match_win\":\"1.0\",\"quick_advance\":false,\"ranked_by\":null,\"require_score_agreement\":false,\"rr_pts_for_game_tie\":\"0.0\",\"rr_pts_for_game_win\":\"0.0\",\"rr_pts_for_match_tie\":\"0.5\",\"rr_pts_for_match_win\":\"1.0\",\"sequential_pairings\":false,\"show_rounds\":false,\"signup_cap\":null,\"signup_requires_account\":false,\"started_at\":\"2014-02-16T15:41:20-05:00\",\"state\":\"underway\",\"swiss_rounds\":0,\"tournament_type\":\"single
+        elimination\",\"updated_at\":\"2014-02-16T15:41:20-05:00\",\"url\":\"r3MFK\",\"description_source\":\"\",\"subdomain\":null,\"full_challonge_url\":\"http://challonge.com/r3MFK\",\"live_image_url\":\"http://images.challonge.com/r3MFK.png\",\"sign_up_url\":null,\"review_before_finalizing\":true,\"accepting_predictions\":false,\"participants_locked\":true}}"
+    http_version: 
+  recorded_at: Sun, 16 Feb 2014 22:54:32 GMT
+- request:
+    method: get
+    uri: https://x8:5BJHSMjZnMoJO8Mq7Qmq7QxR87ZJmgPiPNLK6QCm@challonge.com/api/tournaments/830806/matches.json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.2.7
+      Date:
+      - Sun, 16 Feb 2014 22:54:32 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Status:
+      - 200 OK
+      Pragma:
+      - no-store
+      Cache-Control:
+      - no-store
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - "\"2bc1c32d6ed83c1e7165da0c91901529\""
+      X-Request-Id:
+      - d8e3519264f7feecaacef13cff97b581
+      X-Runtime:
+      - '0.022468'
+      Set-Cookie:
+      - incap_ses_163_94794=Z7KiRIID/XXm6nCiJxhDAqdBAVMAAAAATMmEJ3CBWkppo7akjU+ycg==;
+        path=/; Domain=.challonge.com
+      - visid_incap_94794=e04k2V5OT3S6ZdTh3M5Cm6dBAVMAAAAAQUIPAAAAAADA4fDpsuGr5sVq7BLdk3k2;
+        expires=Tue, 16 Feb 2016 02:44:20 GMT; path=/; Domain=.challonge.com
+      X-Iinfo:
+      - 4-3121848-3121853 NNNN CT(2 3 0) RT(1392591271637 148) q(0 0 0 -1) r(0 1)
+        U5
+      X-Cdn:
+      - Incapsula
+    body:
+      encoding: UTF-8
+      string: "[{\"match\":{\"attachment_count\":null,\"created_at\":\"2014-02-16T15:41:20-05:00\",\"group_id\":null,\"has_attachment\":false,\"id\":18023350,\"identifier\":\"A\",\"loser_id\":null,\"player1_id\":12607421,\"player1_is_prereq_match_loser\":false,\"player1_prereq_match_id\":null,\"player1_votes\":null,\"player2_id\":12607422,\"player2_is_prereq_match_loser\":false,\"player2_prereq_match_id\":null,\"player2_votes\":null,\"round\":1,\"started_at\":\"2014-02-16T15:41:20-05:00\",\"state\":\"open\",\"tournament_id\":830806,\"updated_at\":\"2014-02-16T15:41:20-05:00\",\"winner_id\":null,\"prerequisite_match_ids_csv\":\"\",\"scores_csv\":\"\"}}]"
+    http_version: 
+  recorded_at: Sun, 16 Feb 2014 22:54:33 GMT
+recorded_with: VCR 2.8.0

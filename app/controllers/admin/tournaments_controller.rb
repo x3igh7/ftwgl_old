@@ -176,6 +176,23 @@ class Admin::TournamentsController < AdminController
     @team_names = @teams.map do |tourny_team|
       [tourny_team.team.name, tourny_team.id]
     end
+    @matchups = @tournament.get_challonge_matches
+  end
+
+  def generate_bracket_matches
+    @tournament = Tournament.find(params[:tournament_id])
+    @matches = params[:matches]
+    match_date = date_converter(params)
+    if schedule_creater(@matches, params, match_date)
+      @tournament.current_week_num = params[:week].to_i
+      if @tournament.save
+        flash[:notice] = "bracket matches successfully created!"
+        redirect_to admin_root_path
+      end
+    else
+      flash[:alert] = "failed to generate bracket matches"
+      redirect_to :back
+    end
   end
 
   private
@@ -196,7 +213,8 @@ class Admin::TournamentsController < AdminController
           away_team_id: match["away_team_id"].to_i,
           tournament_id: params[:tournament_id].to_i,
           week_num: params[:week].to_i,
-          match_date: match_date)
+          match_date: match_date,
+          challonge_id: match["challonge_id"].to_i)
       end
     end
   end

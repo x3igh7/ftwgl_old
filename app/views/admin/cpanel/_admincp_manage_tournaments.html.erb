@@ -30,7 +30,7 @@
           <% if tourny.tournament_type == "Season" %>
             <td><%= link_to "set schedule", schedule_admin_tournaments_path(:tournament_id => tourny.id) %></td>
           <% elsif tourny.tournament_type == "Bracket" && tourny.challonge_state == "underway" %>
-            <td><%= link_to "generate matches", admin_tournament_generate_bracket_matches_path(:tournament_id => tourny.id) %></td>
+            <td><%= link_to "generate matches", admin_tournament_bracket_matches_path(:tournament_id => tourny.id) %></td>
           <% end %>
         </tr>
       <% end %>

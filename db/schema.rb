@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140216202814) do
+ActiveRecord::Schema.define(:version => 20140216213034) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id",          :null => false
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(:version => 20140216202814) do
     t.datetime "created_at",                   :null => false
     t.datetime "updated_at",                   :null => false
     t.integer  "tournament_id",                :null => false
+    t.integer  "challonge_id",  :default => 0
   end
 
   add_index "matches", ["away_team_id"], :name => "index_matches_on_away_team_id"

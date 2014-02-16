@@ -1,7 +1,8 @@
 <h1>bracket matches</h1>
-<div class="content-inner">
-<%= form_tag admin_tournaments_generate_bracket_matches_path, method: :post do %>
+<% unless @matchups.empty? %>
+<%= form_tag admin_tournament_generate_bracket_matches_path, method: :post do %>
   <p>tournament: <%= @tournament.name %></p>
+  <p>current tournament week: <%= @tournament.current_week_num %></p>
   <p>week: <%= select_tag :week, options_for_select(1..8) %></p>
   <p>date: <%= datetime_select :match_date, "date", default: DateTime.now %></p>
   <table>
@@ -17,6 +18,7 @@
         <td><%= f.select :home_team_id, options_for_select(@team_names, [@teams.where(id:match["home"]).name,match["home"]]), {},{:id => "#{match["home"]}"} %></td>
         <td>vs</td>
         <td><%= f.select :away_team_id, options_for_select(@team_names, [@teams.where(id:match["away"]).name,match["away"]]), {},{:id => "#{match["away"]}"}%></td>
+        <%= f.hidden_field :challonge_id, :value => match["match_id"] %>
       </tr>
     <% end %>
     <% end %>
@@ -24,5 +26,7 @@
   </table>
   <%= hidden_field_tag :tournament_id, @tournament.id %>
   <%= submit_tag "create matches" %>
-
+<% end %>
+<% else %>
+  <p>No teams currently participating.</p>
 <% end %>
