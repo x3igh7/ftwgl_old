@@ -26,7 +26,8 @@ Ftwgl::Application.routes.draw do
       put "deactivate"
       put "activate"
       put "start_bracket"
-      put "update_bracket_results"
+      get "bracket_results"
+      put "update_bracket"
       get "bracket_matches"
       post "generate_bracket_matches"
       collection do

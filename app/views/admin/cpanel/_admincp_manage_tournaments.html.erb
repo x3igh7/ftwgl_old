@@ -23,7 +23,7 @@
 
           <% elsif tourny.tournament_type == "Bracket" && tourny.challonge_state == "underway" %>
 
-            <td><%= link_to "update results", admin_tournament_update_bracket_results_path(:tournament_id => tourny.id) %></td>
+            <td><%= link_to "update bracket", admin_tournament_bracket_results_path(:tournament_id => tourny.id) %></td>
 
           <% end %>
 

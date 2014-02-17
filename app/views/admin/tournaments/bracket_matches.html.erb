@@ -3,7 +3,6 @@
 <%= form_tag admin_tournament_generate_bracket_matches_path, method: :post do %>
   <p>tournament: <%= @tournament.name %></p>
   <p>current tournament week: <%= @tournament.current_week_num %></p>
-  <p>week: <%= select_tag :week, options_for_select(1..8) %></p>
   <p>date: <%= datetime_select :match_date, "date", default: DateTime.now %></p>
   <table>
     <tr>

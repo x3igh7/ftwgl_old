@@ -1,0 +1,15 @@
+<h1>update bracket</h1>
+<div class="content-inner">
+  <p>Review the following completed matches before updating the bracket:</p>
+  <% unless @matches.empty? %>
+  <ul class="bracket_match">
+    <% @matches.each do |match| %>
+    <li class="content-inner-inner">
+      <p><%= link_to "#{match.home_team.team.name + match.home_team.team.tag} vs #{match.away_team.team.name + match.away_team.team.tag}", edit_admin_match_path(match) %></p>
+      <p><%= match.home_score %> - <%= match.away_score %></p>
+    </li>
+    <% end %>
+  </ul>
+  <% end %>
+  <%= link_to "update", admin_tournament_update_bracket_path(@tournament), :method => :put, :class => "button"%>
+</div>

@@ -145,7 +145,7 @@ class Admin::TournamentsController < AdminController
   def start_bracket
     @tournament = Tournament.find(params[:tournament_id])
     t = Challonge::Tournament.find(@tournament.challonge_id)
-    @tournament.tournament_teams.each do |team|
+    @tournament.tournament_teams.shuffle.each do |team|
       x = Challonge::Participant.create(:name => team.team.name + team.team.tag, :tournament => t)
       team.challonge_id = x.id
       if not team.save
@@ -184,15 +184,42 @@ class Admin::TournamentsController < AdminController
     @matches = params[:matches]
     match_date = date_converter(params)
     if schedule_creater(@matches, params, match_date)
-      @tournament.current_week_num = params[:week].to_i
-      if @tournament.save
-        flash[:notice] = "bracket matches successfully created!"
-        redirect_to admin_root_path
-      end
+      flash[:notice] = "bracket matches successfully created!"
+      redirect_to admin_root_path
     else
       flash[:alert] = "failed to generate bracket matches"
       redirect_to :back
     end
+  end
+
+  def bracket_results
+    @tournament = Tournament.find(params[:tournament_id])
+    @matches = @tournament.matches.where(challonge_updated: false)
+  end
+
+  def update_bracket
+    @tournament = Tournament.find(params[:tournament_id])
+    @matches = @tournament.matches.where(challonge_updated: false)
+    @challonge_matches = Challonge::Tournament.find(@tournament.challonge_id).matches
+    @challonge_matches.each do |m|
+      match = @matches.where(challonge_id: m.id )
+      match = match[0]
+      binding.pry
+      m.scores_csv = "#{match.home_score}-#{match.away_score}"
+      if match.home_team_id == match.winner_id
+        m.winner_id = match.home_team.challonge_id
+      elsif match.away_team_id == match.winner_id
+        m.winner_id = match.away_team.challonge_id
+      end
+      match.challonge_updated = true
+      if not m.save
+        flash[:alert] = m.errors.full_messages
+      else
+        match.save
+      end
+    end
+    flash[:notice] = "Bracket updated! New matches may be available to generate."
+    redirect_to root_path
   end
 
   private

@@ -23,17 +23,18 @@ ActiveRecord::Schema.define(:version => 20140216213034) do
   end
 
   create_table "matches", :force => true do |t|
-    t.integer  "home_team_id",                 :null => false
-    t.integer  "away_team_id",                 :null => false
-    t.integer  "week_num",                     :null => false
-    t.datetime "match_date",                   :null => false
-    t.integer  "home_score",    :default => 0
-    t.integer  "away_score",    :default => 0
+    t.integer  "home_team_id",                         :null => false
+    t.integer  "away_team_id",                         :null => false
+    t.integer  "week_num",                             :null => false
+    t.datetime "match_date",                           :null => false
+    t.integer  "home_score",        :default => 0
+    t.integer  "away_score",        :default => 0
     t.integer  "winner_id"
-    t.datetime "created_at",                   :null => false
-    t.datetime "updated_at",                   :null => false
-    t.integer  "tournament_id",                :null => false
-    t.integer  "challonge_id",  :default => 0
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
+    t.integer  "tournament_id",                        :null => false
+    t.integer  "challonge_id",      :default => 0
+    t.boolean  "challonge_updated", :default => false
   end
 
   add_index "matches", ["away_team_id"], :name => "index_matches_on_away_team_id"
