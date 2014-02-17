@@ -13,6 +13,7 @@ gem 'gon'
 gem 'bootstrap-datepicker-rails'
 gem 'kaminari'
 gem 'challonge-api'
+gem 'sendgrid'
 
 
 # Gems used only for assets and not required

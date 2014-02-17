@@ -93,8 +93,6 @@ GEM
     mime-types (1.25)
     mini_portile (0.5.1)
     multi_json (1.8.0)
-    mysql (2.9.1)
-    mysql (2.9.1-x86-mingw32)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
     nokogiri (1.6.0-x86-mingw32)
@@ -165,6 +163,8 @@ GEM
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
+    sendgrid (1.2.0)
+      json
     sextant (0.2.4)
       rails (>= 3.2)
     shoulda-matchers (2.4.0)
@@ -218,7 +218,6 @@ DEPENDENCIES
   jquery-rails
   kaminari
   launchy
-  mysql
   pg
   poltergeist
   pry
@@ -227,6 +226,7 @@ DEPENDENCIES
   role_model
   rspec-rails
   sass-rails (~> 3.2.3)
+  sendgrid
   sextant
   shoulda-matchers
   simple_form
