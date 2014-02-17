@@ -37,4 +37,5 @@ Ftwgl::Application.configure do
 
   # Sets up action mailer for development
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  config.action_mailer.delivery_method = :test
 end
