@@ -49,14 +49,14 @@ group :development do
   gem 'sextant'
 end
 
+gem 'pg'
+
 group :test, :development do
-  gem 'pg'
   gem 'poltergeist'
 end
 
 group :production do
   gem 'rails_12factor'
-  gem 'mysql'
 end
 
 
