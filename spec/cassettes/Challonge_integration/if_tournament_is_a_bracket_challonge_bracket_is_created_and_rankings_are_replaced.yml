@@ -1,0 +1,586 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://127.0.0.1:55571/__identify__
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ! 'OK '
+    headers:
+      Server:
+      - WEBrick/1.3.1 (Ruby/1.9.3/2013-06-27)
+      Date:
+      - Fri, 07 Feb 2014 21:27:36 GMT
+      Content-Length:
+      - '8'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: US-ASCII
+      string: '35109800'
+    http_version: 
+  recorded_at: Fri, 07 Feb 2014 21:27:36 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:38245/__identify__
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ! 'OK '
+    headers:
+      Server:
+      - WEBrick/1.3.1 (Ruby/1.9.3/2013-06-27)
+      Date:
+      - Fri, 07 Feb 2014 21:28:07 GMT
+      Content-Length:
+      - '8'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: US-ASCII
+      string: '38495040'
+    http_version: 
+  recorded_at: Fri, 07 Feb 2014 21:28:07 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:48845/__identify__
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ! 'OK '
+    headers:
+      Server:
+      - WEBrick/1.3.1 (Ruby/1.9.3/2013-06-27)
+      Date:
+      - Fri, 07 Feb 2014 21:28:57 GMT
+      Content-Length:
+      - '8'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: US-ASCII
+      string: '39278080'
+    http_version: 
+  recorded_at: Fri, 07 Feb 2014 21:28:57 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:33642/__identify__
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ! 'OK '
+    headers:
+      Server:
+      - WEBrick/1.3.1 (Ruby/1.9.3/2013-06-27)
+      Date:
+      - Fri, 07 Feb 2014 21:29:29 GMT
+      Content-Length:
+      - '8'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: US-ASCII
+      string: '32780100'
+    http_version: 
+  recorded_at: Fri, 07 Feb 2014 21:29:29 GMT
+- request:
+    method: post
+    uri: https://x8:5BJHSMjZnMoJO8Mq7Qmq7QxR87ZJmgPiPNLK6QCm@challonge.com/api/tournaments.json
+    body:
+      encoding: US-ASCII
+      string: ! '{"tournament":{"name":"FTW Team Survivor3","tournament_type":"single
+        elimination","url":"newtestingabc123klj","description":null}}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.2.7
+      Date:
+      - Fri, 07 Feb 2014 21:29:31 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Status:
+      - 200 OK
+      Pragma:
+      - no-store
+      Cache-Control:
+      - no-store
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - ! '"4f76dc56adfc996fac3ab62811f0d549"'
+      X-Request-Id:
+      - f473fb6796ffe4ab2e0811823c9ebb2d
+      X-Runtime:
+      - '0.154194'
+      Set-Cookie:
+      - incap_ses_156_94794=U17CFwiFKBNuLbJnzzkqAjpQ9VIAAAAAPQnldLMfzGxlDtaAqZW/Zw==;
+        path=/; Domain=.challonge.com
+      - visid_incap_94794=rtR7DdYnSuy9Cu2peksTTzpQ9VIAAAAAQUIPAAAAAABNX9TDsMylbeXuh6ccTNT/;
+        expires=Sun, 07 Feb 2016 11:36:04 GMT; path=/; Domain=.challonge.com
+      X-Iinfo:
+      - 9-39340523-39333941 PNNN RT(1391808570456 88) q(0 0 0 9) r(2 2) U5
+      X-Cdn:
+      - Incapsula
+    body:
+      encoding: US-ASCII
+      string: ! '{"tournament":{"accept_attachments":false,"allow_participant_match_reporting":true,"anonymous_voting":false,"category":null,"check_in_at":null,"completed_at":null,"created_at":"2014-02-07T16:29:30-05:00","created_by_api":true,"credit_capped":false,"description":"","enable_group_stage":false,"game_id":null,"hide_forum":false,"hide_seeds":false,"hold_third_place_match":false,"id":815327,"max_predictions_per_user":1,"name":"FTW
+        Team Survivor3","notify_users_when_matches_open":true,"notify_users_when_the_tournament_ends":true,"open_signup":false,"participant_count_to_advance_per_group":null,"participants_count":0,"prediction_method":0,"predictions_opened_at":null,"private":false,"progress_meter":0,"pts_for_bye":"1.0","pts_for_game_tie":"0.0","pts_for_game_win":"0.0","pts_for_match_tie":"0.5","pts_for_match_win":"1.0","quick_advance":false,"ranked_by":null,"require_score_agreement":false,"rr_pts_for_game_tie":"0.0","rr_pts_for_game_win":"0.0","rr_pts_for_match_tie":"0.5","rr_pts_for_match_win":"1.0","sequential_pairings":false,"show_rounds":false,"signup_cap":null,"signup_requires_account":false,"started_at":null,"state":"pending","swiss_rounds":0,"tournament_type":"single
+        elimination","updated_at":"2014-02-07T16:29:30-05:00","url":"newtestingabc123klj","description_source":"","subdomain":null,"full_challonge_url":"http://challonge.com/newtestingabc123klj","live_image_url":"http://images.challonge.com/newtestingabc123klj.png","sign_up_url":null,"review_before_finalizing":true,"accepting_predictions":false,"participants_locked":false}}'
+    http_version: 
+  recorded_at: Fri, 07 Feb 2014 21:29:31 GMT
+- request:
+    method: get
+    uri: https://x8:5BJHSMjZnMoJO8Mq7Qmq7QxR87ZJmgPiPNLK6QCm@challonge.com/api/tournaments/815327.json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.2.7
+      Date:
+      - Fri, 07 Feb 2014 21:29:31 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Status:
+      - 200 OK
+      Pragma:
+      - no-store
+      Cache-Control:
+      - no-store
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - ! '"4f76dc56adfc996fac3ab62811f0d549"'
+      X-Request-Id:
+      - 6ecd49a8f12c533d00587dd8367466b7
+      X-Runtime:
+      - '0.029002'
+      Set-Cookie:
+      - incap_ses_144_94794=WFSRLpJsoEm71ZYMgKr/ATtQ9VIAAAAA+kJDxrrmLHeATu+RbmaLWg==;
+        path=/; Domain=.challonge.com
+      - visid_incap_94794=Eq9ayrbyTbayq0wTNTp0WTtQ9VIAAAAAQUIPAAAAAAA7i0nIKDUQRXMvdzxsIUa+;
+        expires=Sun, 07 Feb 2016 08:48:03 GMT; path=/; Domain=.challonge.com
+      X-Iinfo:
+      - 6-15797430-15797457 NNNN CT(8 8 0) RT(1391808570989 86) q(0 0 0 -1) r(0 1)
+        U5
+      X-Cdn:
+      - Incapsula
+    body:
+      encoding: US-ASCII
+      string: ! '{"tournament":{"accept_attachments":false,"allow_participant_match_reporting":true,"anonymous_voting":false,"category":null,"check_in_at":null,"completed_at":null,"created_at":"2014-02-07T16:29:30-05:00","created_by_api":true,"credit_capped":false,"description":"","enable_group_stage":false,"game_id":null,"hide_forum":false,"hide_seeds":false,"hold_third_place_match":false,"id":815327,"max_predictions_per_user":1,"name":"FTW
+        Team Survivor3","notify_users_when_matches_open":true,"notify_users_when_the_tournament_ends":true,"open_signup":false,"participant_count_to_advance_per_group":null,"participants_count":0,"prediction_method":0,"predictions_opened_at":null,"private":false,"progress_meter":0,"pts_for_bye":"1.0","pts_for_game_tie":"0.0","pts_for_game_win":"0.0","pts_for_match_tie":"0.5","pts_for_match_win":"1.0","quick_advance":false,"ranked_by":null,"require_score_agreement":false,"rr_pts_for_game_tie":"0.0","rr_pts_for_game_win":"0.0","rr_pts_for_match_tie":"0.5","rr_pts_for_match_win":"1.0","sequential_pairings":false,"show_rounds":false,"signup_cap":null,"signup_requires_account":false,"started_at":null,"state":"pending","swiss_rounds":0,"tournament_type":"single
+        elimination","updated_at":"2014-02-07T16:29:30-05:00","url":"newtestingabc123klj","description_source":"","subdomain":null,"full_challonge_url":"http://challonge.com/newtestingabc123klj","live_image_url":"http://images.challonge.com/newtestingabc123klj.png","sign_up_url":null,"review_before_finalizing":true,"accepting_predictions":false,"participants_locked":false}}'
+    http_version: 
+  recorded_at: Fri, 07 Feb 2014 21:29:32 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:56134/__identify__
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ! 'OK '
+    headers:
+      Server:
+      - WEBrick/1.3.1 (Ruby/1.9.3/2013-06-27)
+      Date:
+      - Fri, 07 Feb 2014 21:40:20 GMT
+      Content-Length:
+      - '8'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: US-ASCII
+      string: '30019300'
+    http_version: 
+  recorded_at: Fri, 07 Feb 2014 21:40:20 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:42255/__identify__
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ! 'OK '
+    headers:
+      Server:
+      - WEBrick/1.3.1 (Ruby/1.9.3/2013-06-27)
+      Date:
+      - Fri, 07 Feb 2014 21:41:24 GMT
+      Content-Length:
+      - '8'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: US-ASCII
+      string: '32448260'
+    http_version: 
+  recorded_at: Fri, 07 Feb 2014 21:41:24 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:36035/__identify__
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ! 'OK '
+    headers:
+      Server:
+      - WEBrick/1.3.1 (Ruby/1.9.3/2013-06-27)
+      Date:
+      - Fri, 07 Feb 2014 21:43:24 GMT
+      Content-Length:
+      - '8'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: US-ASCII
+      string: '37382180'
+    http_version: 
+  recorded_at: Fri, 07 Feb 2014 21:43:24 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:42882/__identify__
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ! 'OK '
+    headers:
+      Server:
+      - WEBrick/1.3.1 (Ruby/1.9.3/2013-06-27)
+      Date:
+      - Fri, 07 Feb 2014 21:44:31 GMT
+      Content-Length:
+      - '8'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: US-ASCII
+      string: '39521820'
+    http_version: 
+  recorded_at: Fri, 07 Feb 2014 21:44:31 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:48745/__identify__
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ! 'OK '
+    headers:
+      Server:
+      - WEBrick/1.3.1 (Ruby/1.9.3/2013-06-27)
+      Date:
+      - Fri, 07 Feb 2014 21:45:42 GMT
+      Content-Length:
+      - '8'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: US-ASCII
+      string: '30787260'
+    http_version: 
+  recorded_at: Fri, 07 Feb 2014 21:45:42 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:34803/__identify__
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ! 'OK '
+    headers:
+      Server:
+      - WEBrick/1.3.1 (Ruby/1.9.3/2013-06-27)
+      Date:
+      - Fri, 07 Feb 2014 21:46:52 GMT
+      Content-Length:
+      - '8'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: US-ASCII
+      string: '32261340'
+    http_version: 
+  recorded_at: Fri, 07 Feb 2014 21:46:52 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:33761/__identify__
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ! 'OK '
+    headers:
+      Server:
+      - WEBrick/1.3.1 (Ruby/1.9.3/2013-06-27)
+      Date:
+      - Fri, 07 Feb 2014 21:53:06 GMT
+      Content-Length:
+      - '8'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: US-ASCII
+      string: '39314000'
+    http_version: 
+  recorded_at: Fri, 07 Feb 2014 21:53:06 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:39681/__identify__
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ! 'OK '
+    headers:
+      Server:
+      - WEBrick/1.3.1 (Ruby/1.9.3/2013-06-27)
+      Date:
+      - Fri, 07 Feb 2014 21:53:55 GMT
+      Content-Length:
+      - '8'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: US-ASCII
+      string: '39923840'
+    http_version: 
+  recorded_at: Fri, 07 Feb 2014 21:53:55 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:60925/__identify__
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ! 'OK '
+    headers:
+      Server:
+      - WEBrick/1.3.1 (Ruby/1.9.3/2013-06-27)
+      Date:
+      - Fri, 07 Feb 2014 21:54:44 GMT
+      Content-Length:
+      - '8'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: US-ASCII
+      string: '39717340'
+    http_version: 
+  recorded_at: Fri, 07 Feb 2014 21:54:44 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:34575/__identify__
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ! 'OK '
+    headers:
+      Server:
+      - WEBrick/1.3.1 (Ruby/1.9.3/2013-06-27)
+      Date:
+      - Fri, 07 Feb 2014 21:55:06 GMT
+      Content-Length:
+      - '8'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: US-ASCII
+      string: '35661860'
+    http_version: 
+  recorded_at: Fri, 07 Feb 2014 21:55:06 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:50489/__identify__
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ! 'OK '
+    headers:
+      Server:
+      - WEBrick/1.3.1 (Ruby/1.9.3/2013-06-27)
+      Date:
+      - Fri, 07 Feb 2014 21:56:03 GMT
+      Content-Length:
+      - '8'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: US-ASCII
+      string: '29950360'
+    http_version: 
+  recorded_at: Fri, 07 Feb 2014 21:56:03 GMT
+recorded_with: VCR 2.8.0

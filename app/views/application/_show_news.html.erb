@@ -1,8 +1,8 @@
-<h1><%= @news.headline %></h1>
-<p style="font-size:10px">Created at <%= @news.created_at %> by <%= @news.user.username %></p>
+<p class="headline"><%= @news.headline %></p>
+<p class="news-subline" style="font-size:10px">Created at <%= @news.created_at %> by <%= @news.user.username %></p>
 <div class="content-inner">
   <div class="content-inner-inner">
-    <p><%=raw @news.content %></p>
+    <p class="news-subline"><%=raw @news.content %></p>
   </div>
   <%= render('show_comments') %>
   <% if user_signed_in? %>

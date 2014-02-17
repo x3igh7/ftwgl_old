@@ -12,6 +12,7 @@ gem 'role_model'
 gem 'gon'
 gem 'bootstrap-datepicker-rails'
 gem 'kaminari'
+gem 'challonge-api'
 
 
 # Gems used only for assets and not required
@@ -36,24 +37,29 @@ group :test, :development do
 	gem 'database_cleaner'
 end
 
-gem 'pg'
-
-
 group :test do
   gem 'factory_girl_rails'
   gem 'valid_attribute'
   gem 'shoulda-matchers'
+  gem 'vcr'
+  gem 'webmock'
 end
 
 group :development do
   gem 'sextant'
 end
 
+gem 'pg'
+
+group :test, :development do
+  gem 'poltergeist'
+end
+
 group :production do
   gem 'rails_12factor'
 end
 
-gem 'poltergeist'
+
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

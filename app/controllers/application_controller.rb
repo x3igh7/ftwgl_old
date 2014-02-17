@@ -10,7 +10,9 @@ class ApplicationController < ActionController::Base
       @team_tournament_matches = []
       @user.teams.each do |team|
         team.tournament_teams.each do |tournament_team|
-          @team_tournaments << tournament_team.tournament
+          if tournament_team.tournament.active == true
+            @team_tournaments << tournament_team.tournament
+          end
           tournament_team.matches.each do |match|
             if match.winner_id == nil
               @team_tournament_matches << match

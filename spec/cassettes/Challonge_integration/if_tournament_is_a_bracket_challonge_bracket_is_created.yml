@@ -1,0 +1,364 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://127.0.0.1:51841/__identify__
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ! 'OK '
+    headers:
+      Server:
+      - WEBrick/1.3.1 (Ruby/1.9.3/2013-06-27)
+      Date:
+      - Fri, 07 Feb 2014 21:01:38 GMT
+      Content-Length:
+      - '8'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: US-ASCII
+      string: '32845820'
+    http_version: 
+  recorded_at: Fri, 07 Feb 2014 21:01:38 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:37830/__identify__
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ! 'OK '
+    headers:
+      Server:
+      - WEBrick/1.3.1 (Ruby/1.9.3/2013-06-27)
+      Date:
+      - Fri, 07 Feb 2014 21:04:18 GMT
+      Content-Length:
+      - '8'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: US-ASCII
+      string: '41696980'
+    http_version: 
+  recorded_at: Fri, 07 Feb 2014 21:04:18 GMT
+- request:
+    method: get
+    uri: https://x8:5BJHSMjZnMoJO8Mq7Qmq7QxR87ZJmgPiPNLK6QCm@challonge.com/api/tournaments/815288.json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.2.7
+      Date:
+      - Fri, 07 Feb 2014 21:04:19 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Status:
+      - 200 OK
+      Pragma:
+      - no-store
+      Cache-Control:
+      - no-store
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - ! '"5161ed637bb535164f433cddbb5cb615"'
+      X-Request-Id:
+      - ffd1bca3be94293f25b1f341d9dc9647
+      X-Runtime:
+      - '0.039764'
+      Set-Cookie:
+      - incap_ses_156_94794=YHzJfj7V8TZBv6ZnzzkqAlNK9VIAAAAAxKHgIfLtN8C4mtcE7unkiQ==;
+        path=/; Domain=.challonge.com
+      - visid_incap_94794=Glw3zzlXSj6tsXRYivtjf1NK9VIAAAAAQUIPAAAAAAC6YiVclbVu3CkhPP8AfTAR;
+        expires=Sun, 07 Feb 2016 11:36:04 GMT; path=/; Domain=.challonge.com
+      X-Iinfo:
+      - 6-15175455-15174667 PNNN RT(1391807059264 81) q(0 0 0 0) r(0 0) U5
+      X-Cdn:
+      - Incapsula
+    body:
+      encoding: US-ASCII
+      string: ! '{"tournament":{"accept_attachments":false,"allow_participant_match_reporting":true,"anonymous_voting":false,"category":null,"check_in_at":null,"completed_at":null,"created_at":"2014-02-07T16:04:19-05:00","created_by_api":true,"credit_capped":false,"description":"","enable_group_stage":false,"game_id":null,"hide_forum":false,"hide_seeds":false,"hold_third_place_match":false,"id":815288,"max_predictions_per_user":1,"name":"FTW
+        Team Survivor3","notify_users_when_matches_open":true,"notify_users_when_the_tournament_ends":true,"open_signup":false,"participant_count_to_advance_per_group":null,"participants_count":0,"prediction_method":0,"predictions_opened_at":null,"private":false,"progress_meter":0,"pts_for_bye":"1.0","pts_for_game_tie":"0.0","pts_for_game_win":"0.0","pts_for_match_tie":"0.5","pts_for_match_win":"1.0","quick_advance":false,"ranked_by":null,"require_score_agreement":false,"rr_pts_for_game_tie":"0.0","rr_pts_for_game_win":"0.0","rr_pts_for_match_tie":"0.5","rr_pts_for_match_win":"1.0","sequential_pairings":false,"show_rounds":false,"signup_cap":null,"signup_requires_account":false,"started_at":null,"state":"pending","swiss_rounds":0,"tournament_type":"single
+        elimination","updated_at":"2014-02-07T16:04:19-05:00","url":"RH5sb","description_source":"","subdomain":null,"full_challonge_url":"http://challonge.com/RH5sb","live_image_url":"http://images.challonge.com/RH5sb.png","sign_up_url":null,"review_before_finalizing":true,"accepting_predictions":false,"participants_locked":false}}'
+    http_version: 
+  recorded_at: Fri, 07 Feb 2014 21:04:20 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:48869/__identify__
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ! 'OK '
+    headers:
+      Server:
+      - WEBrick/1.3.1 (Ruby/1.9.3/2013-06-27)
+      Date:
+      - Fri, 07 Feb 2014 21:06:14 GMT
+      Content-Length:
+      - '8'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: US-ASCII
+      string: '39914920'
+    http_version: 
+  recorded_at: Fri, 07 Feb 2014 21:06:14 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:36916/__identify__
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ! 'OK '
+    headers:
+      Server:
+      - WEBrick/1.3.1 (Ruby/1.9.3/2013-06-27)
+      Date:
+      - Fri, 07 Feb 2014 21:11:33 GMT
+      Content-Length:
+      - '8'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: US-ASCII
+      string: '34631560'
+    http_version: 
+  recorded_at: Fri, 07 Feb 2014 21:11:33 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:49773/__identify__
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ! 'OK '
+    headers:
+      Server:
+      - WEBrick/1.3.1 (Ruby/1.9.3/2013-06-27)
+      Date:
+      - Fri, 07 Feb 2014 21:12:24 GMT
+      Content-Length:
+      - '8'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: US-ASCII
+      string: '38235840'
+    http_version: 
+  recorded_at: Fri, 07 Feb 2014 21:12:24 GMT
+- request:
+    method: post
+    uri: https://x8:5BJHSMjZnMoJO8Mq7Qmq7QxR87ZJmgPiPNLK6QCm@challonge.com/api/tournaments.json
+    body:
+      encoding: US-ASCII
+      string: ! '{"tournament":{"name":"FTW Team Survivor3","tournament_type":"single
+        elimination","url":"testingabc123klj","description":null}}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.2.7
+      Date:
+      - Fri, 07 Feb 2014 21:12:25 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Status:
+      - 200 OK
+      Pragma:
+      - no-store
+      Cache-Control:
+      - no-store
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - ! '"4448cae55838c0f3de3bc19946e2ac13"'
+      X-Request-Id:
+      - c84f16043ed951532462eececc79d99d
+      X-Runtime:
+      - '0.185363'
+      Set-Cookie:
+      - incap_ses_156_94794=xkWEEvBlv3BubKpnzzkqAjlM9VIAAAAAu0RJCWXU7CDMWiB8+SVsow==;
+        path=/; Domain=.challonge.com
+      - visid_incap_94794=Bc0HB8LZRZakh/9kMxVqxjlM9VIAAAAAQUIPAAAAAADOY94tSX/hvnPbRaoTxJa9;
+        expires=Sun, 07 Feb 2016 11:36:04 GMT; path=/; Domain=.challonge.com
+      X-Iinfo:
+      - 9-38982062-38981167 PNNN RT(1391807545089 164) q(0 0 0 -1) r(3 3) U5
+      X-Cdn:
+      - Incapsula
+    body:
+      encoding: US-ASCII
+      string: ! '{"tournament":{"accept_attachments":false,"allow_participant_match_reporting":true,"anonymous_voting":false,"category":null,"check_in_at":null,"completed_at":null,"created_at":"2014-02-07T16:12:25-05:00","created_by_api":true,"credit_capped":false,"description":"","enable_group_stage":false,"game_id":null,"hide_forum":false,"hide_seeds":false,"hold_third_place_match":false,"id":815298,"max_predictions_per_user":1,"name":"FTW
+        Team Survivor3","notify_users_when_matches_open":true,"notify_users_when_the_tournament_ends":true,"open_signup":false,"participant_count_to_advance_per_group":null,"participants_count":0,"prediction_method":0,"predictions_opened_at":null,"private":false,"progress_meter":0,"pts_for_bye":"1.0","pts_for_game_tie":"0.0","pts_for_game_win":"0.0","pts_for_match_tie":"0.5","pts_for_match_win":"1.0","quick_advance":false,"ranked_by":null,"require_score_agreement":false,"rr_pts_for_game_tie":"0.0","rr_pts_for_game_win":"0.0","rr_pts_for_match_tie":"0.5","rr_pts_for_match_win":"1.0","sequential_pairings":false,"show_rounds":false,"signup_cap":null,"signup_requires_account":false,"started_at":null,"state":"pending","swiss_rounds":0,"tournament_type":"single
+        elimination","updated_at":"2014-02-07T16:12:25-05:00","url":"testingabc123klj","description_source":"","subdomain":null,"full_challonge_url":"http://challonge.com/testingabc123klj","live_image_url":"http://images.challonge.com/testingabc123klj.png","sign_up_url":null,"review_before_finalizing":true,"accepting_predictions":false,"participants_locked":false}}'
+    http_version: 
+  recorded_at: Fri, 07 Feb 2014 21:12:26 GMT
+- request:
+    method: get
+    uri: https://x8:5BJHSMjZnMoJO8Mq7Qmq7QxR87ZJmgPiPNLK6QCm@challonge.com/api/tournaments/815298.json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.2.7
+      Date:
+      - Fri, 07 Feb 2014 21:12:26 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Status:
+      - 200 OK
+      Pragma:
+      - no-store
+      Cache-Control:
+      - no-store
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - ! '"4448cae55838c0f3de3bc19946e2ac13"'
+      X-Request-Id:
+      - d1cdc5c7ec55809258f6ab7292f4f032
+      X-Runtime:
+      - '0.039224'
+      Set-Cookie:
+      - incap_ses_144_94794=iNYAWthbfHcYEJEMgKr/ATlM9VIAAAAAaKI1boZJ7BaM7TK7f6BjDA==;
+        path=/; Domain=.challonge.com
+      - visid_incap_94794=xygkV5I9QJ2hOjoxa8WCQzlM9VIAAAAAQUIPAAAAAAAcnZko+nfhlD39ZpiDsOYj;
+        expires=Sun, 07 Feb 2016 08:47:11 GMT; path=/; Domain=.challonge.com
+      X-Iinfo:
+      - 9-35952108-35950418 PNNN RT(1391807545744 90) q(0 0 0 -1) r(0 0) U5
+      X-Cdn:
+      - Incapsula
+    body:
+      encoding: US-ASCII
+      string: ! '{"tournament":{"accept_attachments":false,"allow_participant_match_reporting":true,"anonymous_voting":false,"category":null,"check_in_at":null,"completed_at":null,"created_at":"2014-02-07T16:12:25-05:00","created_by_api":true,"credit_capped":false,"description":"","enable_group_stage":false,"game_id":null,"hide_forum":false,"hide_seeds":false,"hold_third_place_match":false,"id":815298,"max_predictions_per_user":1,"name":"FTW
+        Team Survivor3","notify_users_when_matches_open":true,"notify_users_when_the_tournament_ends":true,"open_signup":false,"participant_count_to_advance_per_group":null,"participants_count":0,"prediction_method":0,"predictions_opened_at":null,"private":false,"progress_meter":0,"pts_for_bye":"1.0","pts_for_game_tie":"0.0","pts_for_game_win":"0.0","pts_for_match_tie":"0.5","pts_for_match_win":"1.0","quick_advance":false,"ranked_by":null,"require_score_agreement":false,"rr_pts_for_game_tie":"0.0","rr_pts_for_game_win":"0.0","rr_pts_for_match_tie":"0.5","rr_pts_for_match_win":"1.0","sequential_pairings":false,"show_rounds":false,"signup_cap":null,"signup_requires_account":false,"started_at":null,"state":"pending","swiss_rounds":0,"tournament_type":"single
+        elimination","updated_at":"2014-02-07T16:12:25-05:00","url":"testingabc123klj","description_source":"","subdomain":null,"full_challonge_url":"http://challonge.com/testingabc123klj","live_image_url":"http://images.challonge.com/testingabc123klj.png","sign_up_url":null,"review_before_finalizing":true,"accepting_predictions":false,"participants_locked":false}}'
+    http_version: 
+  recorded_at: Fri, 07 Feb 2014 21:12:26 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:54254/__identify__
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ! 'OK '
+    headers:
+      Server:
+      - WEBrick/1.3.1 (Ruby/1.9.3/2013-06-27)
+      Date:
+      - Fri, 07 Feb 2014 21:15:23 GMT
+      Content-Length:
+      - '8'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: US-ASCII
+      string: '31628320'
+    http_version: 
+  recorded_at: Fri, 07 Feb 2014 21:15:23 GMT
+recorded_with: VCR 2.8.0

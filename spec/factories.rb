@@ -23,6 +23,7 @@ FactoryGirl.define do
     sequence(:description) {|n| "Season 1#{n}"}
     rules "Don't cheat"
     active true
+    tournament_type "Season"
   end
 
   factory :tournament_team do

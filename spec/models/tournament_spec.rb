@@ -2,9 +2,14 @@ require 'spec_helper'
 
 describe Tournament do
   it { should validate_presence_of(:name) }
+  it { should validate_presence_of(:tournament_type) }
   it { should have_many(:tournament_teams) }
   it { should have_many(:teams) }
   it { should have_many(:matches) }
+  it { should ensure_inclusion_of(:tournament_type).in_array(%w(Season Bracket)) }
+  it { should ensure_inclusion_of(:bracket_type).in_array(%w(Singles Teams)) }
+  it { should ensure_inclusion_of(:elimination_type).in_array(%w(Single Double)) }
+  it { should validate_numericality_of :bracket_size }
 
   describe "rank" do
     let!(:team) { FactoryGirl.create(:team) }
@@ -42,7 +47,7 @@ describe Tournament do
 
   describe "generate matches" do
     DatabaseCleaner.clean
-
+    let!(:bracket_tournament) {FactoryGirl.create(:tournament, tournament_type: "Bracket", challonge_id: 830806)}
     let!(:tournament1) {FactoryGirl.create(:tournament)}
     let!(:team) { FactoryGirl.create(:team) }
     let!(:team2) { FactoryGirl.create(:team) }
@@ -75,6 +80,21 @@ describe Tournament do
       expect(matches[1]["match1"]["away"]).to eq(tournament_team4.id)
       expect(matches[2]["match2"]["home"]).to eq(tournament_team5.id)
       expect(matches[2]["match2"]["away"]).to eq(tournament_team.id)
+    end
+
+    context "bracket tournament" do
+      let!(:bracket_tournament) {FactoryGirl.create(:tournament, tournament_type: "Bracket", challonge_state: "underway", challonge_id: 830806)}
+      let!(:team) { FactoryGirl.create(:team) }
+      let!(:team2) { FactoryGirl.create(:team) }
+      let!(:tournament_team) {FactoryGirl.create(:tournament_team, team: team, tournament: bracket_tournament, challonge_id: 12607421)}
+      let!(:tournament_team2) {FactoryGirl.create(:tournament_team, team: team2, tournament: bracket_tournament, challonge_id: 12607422)}
+
+
+      it "will list bracket matches from challonge", :vcr do
+        matches = bracket_tournament.get_challonge_matches
+        expect(matches.count).to eq(1)
+      end
+
     end
 
   end

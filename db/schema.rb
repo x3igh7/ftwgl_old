@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140121222126) do
+ActiveRecord::Schema.define(:version => 20140216213034) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id",          :null => false
@@ -23,16 +23,18 @@ ActiveRecord::Schema.define(:version => 20140121222126) do
   end
 
   create_table "matches", :force => true do |t|
-    t.integer  "home_team_id",                 :null => false
-    t.integer  "away_team_id",                 :null => false
-    t.integer  "week_num",                     :null => false
-    t.datetime "match_date",                   :null => false
-    t.integer  "home_score",    :default => 0
-    t.integer  "away_score",    :default => 0
+    t.integer  "home_team_id",                         :null => false
+    t.integer  "away_team_id",                         :null => false
+    t.integer  "week_num",                             :null => false
+    t.datetime "match_date",                           :null => false
+    t.integer  "home_score",        :default => 0
+    t.integer  "away_score",        :default => 0
     t.integer  "winner_id"
-    t.datetime "created_at",                   :null => false
-    t.datetime "updated_at",                   :null => false
-    t.integer  "tournament_id",                :null => false
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
+    t.integer  "tournament_id",                        :null => false
+    t.integer  "challonge_id",      :default => 0
+    t.boolean  "challonge_updated", :default => false
   end
 
   add_index "matches", ["away_team_id"], :name => "index_matches_on_away_team_id"
@@ -80,6 +82,7 @@ ActiveRecord::Schema.define(:version => 20140121222126) do
     t.integer  "rank"
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
+    t.integer  "challonge_id",  :default => 0
   end
 
   add_index "tournament_teams", ["team_id", "tournament_id"], :name => "index_tournament_teams_on_team_id_and_tournament_id", :unique => true
@@ -94,6 +97,14 @@ ActiveRecord::Schema.define(:version => 20140121222126) do
     t.datetime "updated_at",                         :null => false
     t.integer  "current_week_num"
     t.boolean  "active",           :default => true, :null => false
+    t.string   "tournament_type",  :default => "",   :null => false
+    t.string   "bracket_type",     :default => ""
+    t.string   "elimination_type", :default => ""
+    t.integer  "bracket_size",     :default => 0
+    t.string   "challonge_url",    :default => ""
+    t.string   "challonge_img",    :default => ""
+    t.string   "challonge_state",  :default => ""
+    t.integer  "challonge_id",     :default => 0
   end
 
   create_table "users", :force => true do |t|

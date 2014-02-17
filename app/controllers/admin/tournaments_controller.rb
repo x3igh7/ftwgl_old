@@ -6,17 +6,49 @@ class Admin::TournamentsController < AdminController
 
   def new
     @tournament = Tournament.new
+    @types = Tournament::TYPES
+    @bracket_types = Tournament::BRACKET_TYPES
+    @elimination_types = Tournament::ELIMINATION_TYPES
   end
 
   def create
     @tournament = Tournament.new(params[:tournament])
+    if @tournament.tournament_type == "Bracket"
+      t = Challonge::Tournament.new
+      t.name = @tournament.name
+      t.subdomain = "ftwgamingleague"
+      if @tournament.elimination_type == "Single"
+        t.tournament_type = "single elimination"
+      elsif @tournament.elimination_type == "Double"
+        t.tournament_type = "double elimination"
+      end
+      if Rails.env == "production" || Rails.env == "development" #For testing purposes
+        t.url = Devise.friendly_token.first(5)
+      else
+        t.url = "newtestingabc123klj"
+      end
+      if t.save
+        t.reload
 
-    if @tournament.save
-      redirect_to tournament_path(@tournament)
-      flash[:notice] = "Successfully created tournament"
+        @tournament.challonge_url = t.url
+        @tournament.challonge_img = t.live_image_url
+        @tournament.challonge_id = t.id
+        if @tournament.save
+          redirect_to tournament_path(@tournament)
+          flash[:notice] = "Successfully created tournament"
+        end
+      else
+        flash[:alert] = t.errors.full_messages
+        redirect_to :back
+      end
     else
-      flash[:alert] = "Failed to create tournament"
-      render :new
+      if @tournament.save
+        redirect_to tournament_path(@tournament)
+        flash[:notice] = "Successfully created tournament"
+      else
+        flash[:alert] = "Failed to create tournament"
+        render :new
+      end
     end
   end
 
@@ -110,6 +142,87 @@ class Admin::TournamentsController < AdminController
     end
   end
 
+  def start_bracket
+    @tournament = Tournament.find(params[:tournament_id])
+    t = Challonge::Tournament.find(@tournament.challonge_id)
+    @tournament.tournament_teams.shuffle.each do |team|
+      x = Challonge::Participant.create(:name => team.team.name + team.team.tag, :tournament => t)
+      team.challonge_id = x.id
+      if not team.save
+        flash[:alert] = "Could not create tournament partipants..."
+        redirect_to admin_root_path
+      end
+    end
+    if t.start!
+      t.reload
+      @tournament.challonge_state = t.state
+      if @tournament.save
+        flash[:notice] = "Bracket started! Now generate matches."
+        redirect_to admin_tournament_bracket_matches_path(:tournament_id => @tournament.id)
+      else
+        flash[:alert] = "Tournament failed to properly update."
+        redirect_to admin_root_path
+      end
+    else
+      flash[:alert] = "Failed to start bracket."
+      redirect_to admin_root_path
+    end
+  end
+
+  def bracket_matches
+    @match = Match.new
+    @tournament = Tournament.find(params[:tournament_id])
+    @teams = TournamentTeam.in_tournament(@tournament)
+    @team_names = @teams.map do |tourny_team|
+      [tourny_team.team.name, tourny_team.id]
+    end
+    @matchups = @tournament.get_challonge_matches
+  end
+
+  def generate_bracket_matches
+    @tournament = Tournament.find(params[:tournament_id])
+    @matches = params[:matches]
+    match_date = date_converter(params)
+    if schedule_creater(@matches, params, match_date)
+      flash[:notice] = "bracket matches successfully created!"
+      redirect_to admin_root_path
+    else
+      flash[:alert] = "failed to generate bracket matches"
+      redirect_to :back
+    end
+  end
+
+  def bracket_results
+    @tournament = Tournament.find(params[:tournament_id])
+    @matches = @tournament.matches.where(challonge_updated: false)
+  end
+
+  def update_bracket
+    @tournament = Tournament.find(params[:tournament_id])
+    @matches = @tournament.matches.where(challonge_updated: false)
+    @challonge_matches = Challonge::Tournament.find(@tournament.challonge_id).matches
+    @challonge_matches.each do |m|
+      match = @matches.where(challonge_id: m.id )
+      unless match.empty?
+        match = match[0]
+        m.scores_csv = "#{match.home_score}-#{match.away_score}"
+        if match.home_team_id == match.winner_id
+          m.winner_id = match.home_team.challonge_id
+        elsif match.away_team_id == match.winner_id
+          m.winner_id = match.away_team.challonge_id
+        end
+        match.challonge_updated = true
+        if not m.save
+          flash[:alert] = m.errors.full_messages
+        else
+          match.save
+        end
+      end
+    end
+    flash[:notice] = "Bracket updated! New matches may be available to generate."
+    redirect_to root_path
+  end
+
   private
 
   def date_converter(params)
@@ -128,7 +241,8 @@ class Admin::TournamentsController < AdminController
           away_team_id: match["away_team_id"].to_i,
           tournament_id: params[:tournament_id].to_i,
           week_num: params[:week].to_i,
-          match_date: match_date)
+          match_date: match_date,
+          challonge_id: match["challonge_id"].to_i)
       end
     end
   end

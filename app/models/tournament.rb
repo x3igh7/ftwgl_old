@@ -1,14 +1,24 @@
 class Tournament < ActiveRecord::Base
-  attr_accessible :description, :name, :rules, :current_week_num, :news
+  attr_accessible :description, :name, :bracket_size, :rules, :current_week_num, :news, :elimination_type, :tournament_type, :bracket_type
+  attr_accessible :challonge_url, :challonge_img, :challonge_id
+  validates_presence_of :name, :tournament_type
 
-  validates_presence_of :name
   validates_inclusion_of :active, :in => [true, false]
+  validates_inclusion_of :tournament_type, :in => ["", "Season", "Bracket"]
+  validates_inclusion_of :bracket_type, :in => ["", "Singles", "Teams"]
+  validates_inclusion_of :elimination_type, :in => ["", "Single", "Double"]
+  validates :bracket_size, numericality: { only_integer: true }
 
+  TYPES = ["Season", "Bracket"]
+  BRACKET_TYPES = ["Teams"] #singles not currently supported
+  ELIMINATION_TYPES = ["Single", "Double"]
 
   has_many :tournament_teams, :dependent => :destroy
   has_many :teams, through: :tournament_teams
   has_many :matches, :dependent => :destroy
   has_many :news, :as => :newsable, :dependent => :destroy
+
+
 
   def scheduler
     teams = TournamentTeam.where(tournament_id: self.id).order(:rank)
@@ -47,6 +57,22 @@ class Tournament < ActiveRecord::Base
     @matches
   end
 
+  def get_challonge_matches
+    t = Challonge::Tournament.find(self.challonge_id)
+    @matches = t.matches
+    @match_counter = 1
+    @matchups = []
+    @matches.each do |match|
+      unless match.player1_id == nil || match.winner_id != nil
+        player1 = TournamentTeam.where(challonge_id: match.player1_id)
+        player2 = TournamentTeam.where(challonge_id: match.player2_id)
+        @matchups << {"match#{@match_counter}" => {"home" => player1[0].id, "away" => player2[0].id, "match_id" => match.id}}
+        @match_counter += 1
+      end
+    end
+    return @matchups
+  end
+
   private
 
   def potential_teams_calc(already_scheduled, all_teams, team)
@@ -65,21 +91,3 @@ class Tournament < ActiveRecord::Base
 
 
 end
-
-
-# shevling this for later... might use it with scheduling
-# def rank
-#   prev_teams = []
-#   teams = self.order("total_points DESC", "total_diff DESC")
-#   teams.each_with_index do |team, x|
-#     prev_teams << team
-#     #checks to see if have the same points and diff
-#     #if they do, they have the same rank
-#     if prev_teams.last.total_points == team.total_points && prev_teams.last.total_diff == team.total_diff
-#       team.rank = prev_teams.last.rank
-#     else
-#       team.rank = x + 1
-#     end
-#   end
-#   teams
-# end

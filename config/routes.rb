@@ -25,6 +25,11 @@ Ftwgl::Application.routes.draw do
     resources :tournaments do
       put "deactivate"
       put "activate"
+      put "start_bracket"
+      get "bracket_results"
+      put "update_bracket"
+      get "bracket_matches"
+      post "generate_bracket_matches"
       collection do
         get "rankings"
         put "update_rankings"

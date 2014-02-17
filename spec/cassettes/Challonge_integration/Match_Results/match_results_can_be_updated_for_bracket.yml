@@ -1,0 +1,904 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://127.0.0.1:44673/__identify__
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: 'OK '
+    headers:
+      Server:
+      - WEBrick/1.3.1 (Ruby/2.1.0/2013-12-25)
+      Date:
+      - Mon, 17 Feb 2014 00:07:33 GMT
+      Content-Length:
+      - '8'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: UTF-8
+      string: '44611560'
+    http_version: 
+  recorded_at: Mon, 17 Feb 2014 00:07:33 GMT
+- request:
+    method: get
+    uri: https://x8:5BJHSMjZnMoJO8Mq7Qmq7QxR87ZJmgPiPNLK6QCm@challonge.com/api/tournaments/830806.json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.2.7
+      Date:
+      - Mon, 17 Feb 2014 00:07:41 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Status:
+      - 200 OK
+      Pragma:
+      - no-store
+      Cache-Control:
+      - no-store
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - "\"14b71806c563aa2da407be1084a38578\""
+      X-Request-Id:
+      - e6b74bd22d98b0cbf2cb7b50a3482a6b
+      X-Runtime:
+      - '0.022906'
+      Set-Cookie:
+      - incap_ses_163_94794=5J9wIkkQ4mFgUoiiJxhDAs1SAVMAAAAAAsLb/P0tFVhd2eswaPPKQg==;
+        path=/; Domain=.challonge.com
+      - visid_incap_94794=Vo8tjagcRjaqOLMcIP1qsc1SAVMAAAAAQUIPAAAAAAAJ05noyni3gDr699WdrlH8;
+        expires=Tue, 16 Feb 2016 02:44:49 GMT; path=/; Domain=.challonge.com
+      X-Iinfo:
+      - 10-19282163-19282225 NNNN CT(2 3 0) RT(1392595661021 196) q(0 0 0 -1) r(0
+        0) U5
+      X-Cdn:
+      - Incapsula
+    body:
+      encoding: UTF-8
+      string: "{\"tournament\":{\"accept_attachments\":false,\"allow_participant_match_reporting\":true,\"anonymous_voting\":false,\"category\":null,\"check_in_at\":null,\"completed_at\":null,\"created_at\":\"2014-02-16T15:39:33-05:00\",\"created_by_api\":true,\"credit_capped\":false,\"description\":\"\",\"enable_group_stage\":false,\"game_id\":null,\"hide_forum\":false,\"hide_seeds\":false,\"hold_third_place_match\":false,\"id\":830806,\"max_predictions_per_user\":1,\"name\":\"FTW
+        Test Start\",\"notify_users_when_matches_open\":true,\"notify_users_when_the_tournament_ends\":true,\"open_signup\":false,\"participant_count_to_advance_per_group\":null,\"participants_count\":2,\"prediction_method\":0,\"predictions_opened_at\":null,\"private\":false,\"progress_meter\":0,\"pts_for_bye\":\"1.0\",\"pts_for_game_tie\":\"0.0\",\"pts_for_game_win\":\"0.0\",\"pts_for_match_tie\":\"0.5\",\"pts_for_match_win\":\"1.0\",\"quick_advance\":false,\"ranked_by\":null,\"require_score_agreement\":false,\"rr_pts_for_game_tie\":\"0.0\",\"rr_pts_for_game_win\":\"0.0\",\"rr_pts_for_match_tie\":\"0.5\",\"rr_pts_for_match_win\":\"1.0\",\"sequential_pairings\":false,\"show_rounds\":false,\"signup_cap\":null,\"signup_requires_account\":false,\"started_at\":\"2014-02-16T15:41:20-05:00\",\"state\":\"underway\",\"swiss_rounds\":0,\"tournament_type\":\"single
+        elimination\",\"updated_at\":\"2014-02-16T15:41:20-05:00\",\"url\":\"r3MFK\",\"description_source\":\"\",\"subdomain\":null,\"full_challonge_url\":\"http://challonge.com/r3MFK\",\"live_image_url\":\"http://images.challonge.com/r3MFK.png\",\"sign_up_url\":null,\"review_before_finalizing\":true,\"accepting_predictions\":false,\"participants_locked\":true}}"
+    http_version: 
+  recorded_at: Mon, 17 Feb 2014 00:07:42 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:51730/__identify__
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: 'OK '
+    headers:
+      Server:
+      - WEBrick/1.3.1 (Ruby/2.1.0/2013-12-25)
+      Date:
+      - Mon, 17 Feb 2014 00:08:48 GMT
+      Content-Length:
+      - '8'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: UTF-8
+      string: '44656480'
+    http_version: 
+  recorded_at: Mon, 17 Feb 2014 00:08:48 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:50726/__identify__
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: 'OK '
+    headers:
+      Server:
+      - WEBrick/1.3.1 (Ruby/2.1.0/2013-12-25)
+      Date:
+      - Mon, 17 Feb 2014 00:24:21 GMT
+      Content-Length:
+      - '8'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: UTF-8
+      string: '34497680'
+    http_version: 
+  recorded_at: Mon, 17 Feb 2014 00:24:21 GMT
+- request:
+    method: get
+    uri: https://x8:5BJHSMjZnMoJO8Mq7Qmq7QxR87ZJmgPiPNLK6QCm@challonge.com/api/tournaments/830806/matches.json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.2.7
+      Date:
+      - Mon, 17 Feb 2014 00:24:21 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Status:
+      - 200 OK
+      Pragma:
+      - no-store
+      Cache-Control:
+      - no-store
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - "\"2bc1c32d6ed83c1e7165da0c91901529\""
+      X-Request-Id:
+      - c65bab92d85066156d9d8cdafdc44d8a
+      X-Runtime:
+      - '0.033241'
+      Set-Cookie:
+      - incap_ses_156_94794=GH8iJxdLsnv/zGRj1jkqArVWAVMAAAAA2YmXpsoIc7E2zy4FAlh8cw==;
+        path=/; Domain=.challonge.com
+      - visid_incap_94794=z+/MGP2SRLG4QY9xrKNBR7VWAVMAAAAAQUIPAAAAAAAKTdV8/sdrFk8eV0KZVB7+;
+        expires=Tue, 16 Feb 2016 02:10:29 GMT; path=/; Domain=.challonge.com
+      X-Iinfo:
+      - 9-42894347-42894401 NNNN CT(4 3 0) RT(1392596661067 104) q(0 0 0 -1) r(0 1)
+        U5
+      X-Cdn:
+      - Incapsula
+    body:
+      encoding: UTF-8
+      string: "[{\"match\":{\"attachment_count\":null,\"created_at\":\"2014-02-16T15:41:20-05:00\",\"group_id\":null,\"has_attachment\":false,\"id\":18023350,\"identifier\":\"A\",\"loser_id\":null,\"player1_id\":12607421,\"player1_is_prereq_match_loser\":false,\"player1_prereq_match_id\":null,\"player1_votes\":null,\"player2_id\":12607422,\"player2_is_prereq_match_loser\":false,\"player2_prereq_match_id\":null,\"player2_votes\":null,\"round\":1,\"started_at\":\"2014-02-16T15:41:20-05:00\",\"state\":\"open\",\"tournament_id\":830806,\"updated_at\":\"2014-02-16T15:41:20-05:00\",\"winner_id\":null,\"prerequisite_match_ids_csv\":\"\",\"scores_csv\":\"\"}}]"
+    http_version: 
+  recorded_at: Mon, 17 Feb 2014 00:24:22 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:38713/__identify__
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: 'OK '
+    headers:
+      Server:
+      - WEBrick/1.3.1 (Ruby/2.1.0/2013-12-25)
+      Date:
+      - Mon, 17 Feb 2014 00:26:32 GMT
+      Content-Length:
+      - '8'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: UTF-8
+      string: '40669220'
+    http_version: 
+  recorded_at: Mon, 17 Feb 2014 00:26:32 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:46870/__identify__
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: 'OK '
+    headers:
+      Server:
+      - WEBrick/1.3.1 (Ruby/2.1.0/2013-12-25)
+      Date:
+      - Mon, 17 Feb 2014 00:27:55 GMT
+      Content-Length:
+      - '8'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: UTF-8
+      string: '40058320'
+    http_version: 
+  recorded_at: Mon, 17 Feb 2014 00:27:55 GMT
+- request:
+    method: get
+    uri: https://x8:5BJHSMjZnMoJO8Mq7Qmq7QxR87ZJmgPiPNLK6QCm@challonge.com/api/tournaments/830806.json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.2.7
+      Date:
+      - Mon, 17 Feb 2014 00:28:05 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Status:
+      - 200 OK
+      Pragma:
+      - no-store
+      Cache-Control:
+      - no-store
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - "\"14b71806c563aa2da407be1084a38578\""
+      X-Request-Id:
+      - a3c54ebe5abcb5b64afae3f0be536fd2
+      X-Runtime:
+      - '0.060469'
+      Set-Cookie:
+      - incap_ses_156_94794=xbO0Xn9A9zipUGdj1jkqApRXAVMAAAAAM87z/fiku94CZArpS0tJ4A==;
+        path=/; Domain=.challonge.com
+      - visid_incap_94794=dSiwRNheRKaSqDKfhrGrBpRXAVMAAAAAQUIPAAAAAABPscvFRLO0y7tQ0eFMNNU4;
+        expires=Tue, 16 Feb 2016 02:10:29 GMT; path=/; Domain=.challonge.com
+      X-Iinfo:
+      - 9-43014244-43014327 NNNN CT(2 3 0) RT(1392596884544 115) q(0 0 0 -1) r(0 1)
+        U5
+      X-Cdn:
+      - Incapsula
+    body:
+      encoding: UTF-8
+      string: "{\"tournament\":{\"accept_attachments\":false,\"allow_participant_match_reporting\":true,\"anonymous_voting\":false,\"category\":null,\"check_in_at\":null,\"completed_at\":null,\"created_at\":\"2014-02-16T15:39:33-05:00\",\"created_by_api\":true,\"credit_capped\":false,\"description\":\"\",\"enable_group_stage\":false,\"game_id\":null,\"hide_forum\":false,\"hide_seeds\":false,\"hold_third_place_match\":false,\"id\":830806,\"max_predictions_per_user\":1,\"name\":\"FTW
+        Test Start\",\"notify_users_when_matches_open\":true,\"notify_users_when_the_tournament_ends\":true,\"open_signup\":false,\"participant_count_to_advance_per_group\":null,\"participants_count\":2,\"prediction_method\":0,\"predictions_opened_at\":null,\"private\":false,\"progress_meter\":0,\"pts_for_bye\":\"1.0\",\"pts_for_game_tie\":\"0.0\",\"pts_for_game_win\":\"0.0\",\"pts_for_match_tie\":\"0.5\",\"pts_for_match_win\":\"1.0\",\"quick_advance\":false,\"ranked_by\":null,\"require_score_agreement\":false,\"rr_pts_for_game_tie\":\"0.0\",\"rr_pts_for_game_win\":\"0.0\",\"rr_pts_for_match_tie\":\"0.5\",\"rr_pts_for_match_win\":\"1.0\",\"sequential_pairings\":false,\"show_rounds\":false,\"signup_cap\":null,\"signup_requires_account\":false,\"started_at\":\"2014-02-16T15:41:20-05:00\",\"state\":\"underway\",\"swiss_rounds\":0,\"tournament_type\":\"single
+        elimination\",\"updated_at\":\"2014-02-16T15:41:20-05:00\",\"url\":\"r3MFK\",\"description_source\":\"\",\"subdomain\":null,\"full_challonge_url\":\"http://challonge.com/r3MFK\",\"live_image_url\":\"http://images.challonge.com/r3MFK.png\",\"sign_up_url\":null,\"review_before_finalizing\":true,\"accepting_predictions\":false,\"participants_locked\":true}}"
+    http_version: 
+  recorded_at: Mon, 17 Feb 2014 00:28:06 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:47977/__identify__
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: 'OK '
+    headers:
+      Server:
+      - WEBrick/1.3.1 (Ruby/2.1.0/2013-12-25)
+      Date:
+      - Mon, 17 Feb 2014 00:35:23 GMT
+      Content-Length:
+      - '8'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: UTF-8
+      string: '58116500'
+    http_version: 
+  recorded_at: Mon, 17 Feb 2014 00:35:23 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:36486/__identify__
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: 'OK '
+    headers:
+      Server:
+      - WEBrick/1.3.1 (Ruby/2.1.0/2013-12-25)
+      Date:
+      - Mon, 17 Feb 2014 00:35:41 GMT
+      Content-Length:
+      - '8'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: UTF-8
+      string: '43056000'
+    http_version: 
+  recorded_at: Mon, 17 Feb 2014 00:35:41 GMT
+- request:
+    method: get
+    uri: https://x8:5BJHSMjZnMoJO8Mq7Qmq7QxR87ZJmgPiPNLK6QCm@challonge.com/api/tournaments/831138.json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.2.7
+      Date:
+      - Mon, 17 Feb 2014 00:35:41 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Status:
+      - 200 OK
+      Pragma:
+      - no-store
+      Cache-Control:
+      - no-store
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - "\"0c94ede40eb4fae098c68b31b76d4d41\""
+      X-Request-Id:
+      - b527a33ab9de576bdeefd62fcce4c14c
+      X-Runtime:
+      - '0.027995'
+      Set-Cookie:
+      - incap_ses_156_94794=n/OoKSEfgRCnqmxj1jkqAl1ZAVMAAAAAB434E8B6Q96sO7BLnn2g4Q==;
+        path=/; Domain=.challonge.com
+      - visid_incap_94794=Tf+ygodRTMOctpXfWG0itV1ZAVMAAAAAQUIPAAAAAACt3UIXTCoh1itfarLXDtWP;
+        expires=Tue, 16 Feb 2016 02:10:29 GMT; path=/; Domain=.challonge.com
+      X-Iinfo:
+      - 5-28423176-28423291 NNNN CT(4 24 0) RT(1392597341315 188) q(0 0 0 -1) r(0
+        0) U5
+      X-Cdn:
+      - Incapsula
+    body:
+      encoding: UTF-8
+      string: "{\"tournament\":{\"accept_attachments\":false,\"allow_participant_match_reporting\":true,\"anonymous_voting\":false,\"category\":null,\"check_in_at\":null,\"completed_at\":null,\"created_at\":\"2014-02-16T18:24:36-05:00\",\"created_by_api\":false,\"credit_capped\":false,\"description\":\"\",\"enable_group_stage\":false,\"game_id\":null,\"hide_forum\":false,\"hide_seeds\":false,\"hold_third_place_match\":false,\"id\":831138,\"max_predictions_per_user\":1,\"name\":\"FTW
+        Test Matches\",\"notify_users_when_matches_open\":true,\"notify_users_when_the_tournament_ends\":true,\"open_signup\":false,\"participant_count_to_advance_per_group\":null,\"participants_count\":4,\"prediction_method\":0,\"predictions_opened_at\":null,\"private\":false,\"progress_meter\":0,\"pts_for_bye\":\"1.0\",\"pts_for_game_tie\":\"0.0\",\"pts_for_game_win\":\"0.0\",\"pts_for_match_tie\":\"0.5\",\"pts_for_match_win\":\"1.0\",\"quick_advance\":false,\"ranked_by\":\"match
+        wins\",\"require_score_agreement\":false,\"rr_pts_for_game_tie\":\"0.0\",\"rr_pts_for_game_win\":\"0.0\",\"rr_pts_for_match_tie\":\"0.5\",\"rr_pts_for_match_win\":\"1.0\",\"sequential_pairings\":false,\"show_rounds\":true,\"signup_cap\":null,\"signup_requires_account\":false,\"started_at\":\"2014-02-16T19:12:29-05:00\",\"state\":\"underway\",\"swiss_rounds\":0,\"tournament_type\":\"single
+        elimination\",\"updated_at\":\"2014-02-16T19:12:29-05:00\",\"url\":\"y5tyofdv\",\"description_source\":\"\",\"subdomain\":null,\"full_challonge_url\":\"http://challonge.com/y5tyofdv\",\"live_image_url\":\"http://images.challonge.com/y5tyofdv.png\",\"sign_up_url\":null,\"review_before_finalizing\":true,\"accepting_predictions\":false,\"participants_locked\":true}}"
+    http_version: 
+  recorded_at: Mon, 17 Feb 2014 00:35:42 GMT
+- request:
+    method: get
+    uri: https://x8:5BJHSMjZnMoJO8Mq7Qmq7QxR87ZJmgPiPNLK6QCm@challonge.com/api/tournaments/831138/matches.json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.2.7
+      Date:
+      - Mon, 17 Feb 2014 00:35:42 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Status:
+      - 200 OK
+      Pragma:
+      - no-store
+      Cache-Control:
+      - no-store
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - "\"2cd3ae352affceaf731cd1e13b0ec33d\""
+      X-Request-Id:
+      - 92f006a35bb166ab512c0d4293edb360
+      X-Runtime:
+      - '0.034919'
+      Set-Cookie:
+      - incap_ses_156_94794=zC+nBQGb/TZ8q2xj1jkqAl1ZAVMAAAAAnhd+/FapfpINUwQvgYXAKw==;
+        path=/; Domain=.challonge.com
+      - visid_incap_94794=BWNCVYyITxG3c7dasA7iVF1ZAVMAAAAAQUIPAAAAAADBViptwdGeSNAxCAbqPVwE;
+        expires=Tue, 16 Feb 2016 02:10:29 GMT; path=/; Domain=.challonge.com
+      X-Iinfo:
+      - 5-28423379-28423291 PNNN RT(1392597341721 102) q(0 0 0 -1) r(0 0) U5
+      X-Cdn:
+      - Incapsula
+    body:
+      encoding: UTF-8
+      string: "[{\"match\":{\"attachment_count\":null,\"created_at\":\"2014-02-16T19:12:29-05:00\",\"group_id\":null,\"has_attachment\":false,\"id\":18031473,\"identifier\":\"A\",\"loser_id\":null,\"player1_id\":12611718,\"player1_is_prereq_match_loser\":false,\"player1_prereq_match_id\":null,\"player1_votes\":null,\"player2_id\":12611728,\"player2_is_prereq_match_loser\":false,\"player2_prereq_match_id\":null,\"player2_votes\":null,\"round\":1,\"started_at\":\"2014-02-16T19:12:29-05:00\",\"state\":\"open\",\"tournament_id\":831138,\"updated_at\":\"2014-02-16T19:12:29-05:00\",\"winner_id\":null,\"prerequisite_match_ids_csv\":\"\",\"scores_csv\":\"\"}},{\"match\":{\"attachment_count\":null,\"created_at\":\"2014-02-16T19:12:29-05:00\",\"group_id\":null,\"has_attachment\":false,\"id\":18031474,\"identifier\":\"B\",\"loser_id\":null,\"player1_id\":12611723,\"player1_is_prereq_match_loser\":false,\"player1_prereq_match_id\":null,\"player1_votes\":null,\"player2_id\":12611725,\"player2_is_prereq_match_loser\":false,\"player2_prereq_match_id\":null,\"player2_votes\":null,\"round\":1,\"started_at\":\"2014-02-16T19:12:29-05:00\",\"state\":\"open\",\"tournament_id\":831138,\"updated_at\":\"2014-02-16T19:12:29-05:00\",\"winner_id\":null,\"prerequisite_match_ids_csv\":\"\",\"scores_csv\":\"\"}},{\"match\":{\"attachment_count\":null,\"created_at\":\"2014-02-16T19:12:29-05:00\",\"group_id\":null,\"has_attachment\":false,\"id\":18031475,\"identifier\":\"C\",\"loser_id\":null,\"player1_id\":null,\"player1_is_prereq_match_loser\":false,\"player1_prereq_match_id\":18031473,\"player1_votes\":null,\"player2_id\":null,\"player2_is_prereq_match_loser\":false,\"player2_prereq_match_id\":18031474,\"player2_votes\":null,\"round\":2,\"started_at\":null,\"state\":\"pending\",\"tournament_id\":831138,\"updated_at\":\"2014-02-16T19:12:29-05:00\",\"winner_id\":null,\"prerequisite_match_ids_csv\":\"18031473,18031474\",\"scores_csv\":\"\"}}]"
+    http_version: 
+  recorded_at: Mon, 17 Feb 2014 00:35:43 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:40100/__identify__
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: 'OK '
+    headers:
+      Server:
+      - WEBrick/1.3.1 (Ruby/2.1.0/2013-12-25)
+      Date:
+      - Mon, 17 Feb 2014 00:38:11 GMT
+      Content-Length:
+      - '8'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: UTF-8
+      string: '38638880'
+    http_version: 
+  recorded_at: Mon, 17 Feb 2014 00:38:11 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:34897/__identify__
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: 'OK '
+    headers:
+      Server:
+      - WEBrick/1.3.1 (Ruby/2.1.0/2013-12-25)
+      Date:
+      - Mon, 17 Feb 2014 00:38:39 GMT
+      Content-Length:
+      - '8'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: UTF-8
+      string: '39847400'
+    http_version: 
+  recorded_at: Mon, 17 Feb 2014 00:38:39 GMT
+- request:
+    method: put
+    uri: https://x8:5BJHSMjZnMoJO8Mq7Qmq7QxR87ZJmgPiPNLK6QCm@challonge.com/api/tournaments/831138/matches/18031473.json
+    body:
+      encoding: UTF-8
+      string: "{\"match\":{\"attachment_count\":null,\"created_at\":\"2014-02-16T19:12:29-05:00\",\"group_id\":null,\"has_attachment\":false,\"id\":18031473,\"identifier\":\"A\",\"loser_id\":null,\"player1_id\":12611718,\"player1_is_prereq_match_loser\":false,\"player1_prereq_match_id\":null,\"player1_votes\":null,\"player2_id\":12611728,\"player2_is_prereq_match_loser\":false,\"player2_prereq_match_id\":null,\"player2_votes\":null,\"round\":1,\"started_at\":\"2014-02-16T19:12:29-05:00\",\"state\":\"open\",\"tournament_id\":831138,\"updated_at\":\"2014-02-16T19:12:29-05:00\",\"winner_id\":null,\"scores_csv\":\"0-0\"}}"
+    headers:
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 422
+      message: Unprocessable Entity
+    headers:
+      Server:
+      - nginx/1.2.7
+      Date:
+      - Mon, 17 Feb 2014 00:38:44 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Status:
+      - 422 Unprocessable Entity
+      Pragma:
+      - no-store
+      Cache-Control:
+      - no-store
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      X-Request-Id:
+      - 149195d3486a079d3793f5d98ff25d1b
+      X-Runtime:
+      - '0.031941'
+      Set-Cookie:
+      - incap_ses_156_94794=KuTiKJR9l3F7nG5j1jkqAhRaAVMAAAAAmZuw0fuS8c0FpvOL7yn2Kw==;
+        path=/; Domain=.challonge.com
+      - visid_incap_94794=dbZx6XA0QRGxgQJiIjKO0RRaAVMAAAAAQUIPAAAAAADcQ1ZQCEvLAAofAJaa72AI;
+        expires=Tue, 16 Feb 2016 02:10:27 GMT; path=/; Domain=.challonge.com
+      X-Iinfo:
+      - 10-28378021-28378061 NNNN CT(2 4 0) RT(1392597523953 191) q(0 0 0 -1) r(0
+        0) U5
+      X-Cdn:
+      - Incapsula
+    body:
+      encoding: UTF-8
+      string: "{\"errors\":[\"Winner ID must be one of the player/participant IDs\"]}"
+    http_version: 
+  recorded_at: Mon, 17 Feb 2014 00:38:45 GMT
+- request:
+    method: put
+    uri: https://x8:5BJHSMjZnMoJO8Mq7Qmq7QxR87ZJmgPiPNLK6QCm@challonge.com/api/tournaments/831138/matches/18031474.json
+    body:
+      encoding: UTF-8
+      string: "{\"match\":{\"attachment_count\":null,\"created_at\":\"2014-02-16T19:12:29-05:00\",\"group_id\":null,\"has_attachment\":false,\"id\":18031474,\"identifier\":\"B\",\"loser_id\":null,\"player1_id\":12611723,\"player1_is_prereq_match_loser\":false,\"player1_prereq_match_id\":null,\"player1_votes\":null,\"player2_id\":12611725,\"player2_is_prereq_match_loser\":false,\"player2_prereq_match_id\":null,\"player2_votes\":null,\"round\":1,\"started_at\":\"2014-02-16T19:12:29-05:00\",\"state\":\"open\",\"tournament_id\":831138,\"updated_at\":\"2014-02-16T19:12:29-05:00\",\"winner_id\":null,\"scores_csv\":\"0-0\"}}"
+    headers:
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 422
+      message: Unprocessable Entity
+    headers:
+      Server:
+      - nginx/1.2.7
+      Date:
+      - Mon, 17 Feb 2014 00:38:48 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Status:
+      - 422 Unprocessable Entity
+      Pragma:
+      - no-store
+      Cache-Control:
+      - no-store
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      X-Request-Id:
+      - 927ee12a4135a34d32ae06bdc5087cf4
+      X-Runtime:
+      - '0.030427'
+      Set-Cookie:
+      - incap_ses_156_94794=RyPBarh5YxgvpW5j1jkqAhdaAVMAAAAA9F1h8Hn2BldBo5vb38DTgg==;
+        path=/; Domain=.challonge.com
+      - visid_incap_94794=kBOIpp9KQCSfjmCX4LrMZBdaAVMAAAAAQUIPAAAAAADMRCn5m8ijubhVsZTUm5mm;
+        expires=Tue, 16 Feb 2016 02:10:29 GMT; path=/; Domain=.challonge.com
+      X-Iinfo:
+      - 5-28502545-28502579 NNNN CT(2 3 0) RT(1392597527458 117) q(0 0 0 -1) r(0 1)
+        U5
+      X-Cdn:
+      - Incapsula
+    body:
+      encoding: UTF-8
+      string: "{\"errors\":[\"Winner ID must be one of the player/participant IDs\"]}"
+    http_version: 
+  recorded_at: Mon, 17 Feb 2014 00:38:48 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:40254/__identify__
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: 'OK '
+    headers:
+      Server:
+      - WEBrick/1.3.1 (Ruby/2.1.0/2013-12-25)
+      Date:
+      - Mon, 17 Feb 2014 00:40:08 GMT
+      Content-Length:
+      - '8'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: UTF-8
+      string: '38563900'
+    http_version: 
+  recorded_at: Mon, 17 Feb 2014 00:40:08 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:39393/__identify__
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: 'OK '
+    headers:
+      Server:
+      - WEBrick/1.3.1 (Ruby/2.1.0/2013-12-25)
+      Date:
+      - Mon, 17 Feb 2014 00:41:07 GMT
+      Content-Length:
+      - '8'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: UTF-8
+      string: '39363580'
+    http_version: 
+  recorded_at: Mon, 17 Feb 2014 00:41:07 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:44047/__identify__
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: 'OK '
+    headers:
+      Server:
+      - WEBrick/1.3.1 (Ruby/2.1.0/2013-12-25)
+      Date:
+      - Mon, 17 Feb 2014 00:41:29 GMT
+      Content-Length:
+      - '8'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: UTF-8
+      string: '40827480'
+    http_version: 
+  recorded_at: Mon, 17 Feb 2014 00:41:29 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:45729/__identify__
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: 'OK '
+    headers:
+      Server:
+      - WEBrick/1.3.1 (Ruby/2.1.0/2013-12-25)
+      Date:
+      - Mon, 17 Feb 2014 00:47:34 GMT
+      Content-Length:
+      - '8'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: UTF-8
+      string: '37466840'
+    http_version: 
+  recorded_at: Mon, 17 Feb 2014 00:47:34 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:59164/__identify__
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: 'OK '
+    headers:
+      Server:
+      - WEBrick/1.3.1 (Ruby/2.1.0/2013-12-25)
+      Date:
+      - Mon, 17 Feb 2014 00:48:25 GMT
+      Content-Length:
+      - '8'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: UTF-8
+      string: '26164380'
+    http_version: 
+  recorded_at: Mon, 17 Feb 2014 00:48:25 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:49442/__identify__
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: 'OK '
+    headers:
+      Server:
+      - WEBrick/1.3.1 (Ruby/2.1.0/2013-12-25)
+      Date:
+      - Mon, 17 Feb 2014 00:48:57 GMT
+      Content-Length:
+      - '8'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: UTF-8
+      string: '34695980'
+    http_version: 
+  recorded_at: Mon, 17 Feb 2014 00:48:57 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:38655/__identify__
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: 'OK '
+    headers:
+      Server:
+      - WEBrick/1.3.1 (Ruby/2.1.0/2013-12-25)
+      Date:
+      - Mon, 17 Feb 2014 00:49:36 GMT
+      Content-Length:
+      - '8'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: UTF-8
+      string: '42344040'
+    http_version: 
+  recorded_at: Mon, 17 Feb 2014 00:49:36 GMT
+recorded_with: VCR 2.8.0
