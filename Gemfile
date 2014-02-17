@@ -14,6 +14,7 @@ gem 'bootstrap-datepicker-rails'
 gem 'kaminari'
 gem 'challonge-api'
 gem 'newrelic_rpm'
+gem 'sendgrid'
 
 
 # Gems used only for assets and not required
