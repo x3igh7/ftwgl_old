@@ -63,10 +63,12 @@ class Tournament < ActiveRecord::Base
     @match_counter = 1
     @matchups = []
     @matches.each do |match|
-      player1 = TournamentTeam.where(challonge_id: match.player1_id)
-      player2 = TournamentTeam.where(challonge_id: match.player2_id)
-      @matchups << {"match#{@match_counter}" => {"home" => player1[0].id, "away" => player2[0].id, "match_id" => match.id}}
-      @match_counter += 1
+      unless match.player1_id == nil || match.winner_id != nil
+        player1 = TournamentTeam.where(challonge_id: match.player1_id)
+        player2 = TournamentTeam.where(challonge_id: match.player2_id)
+        @matchups << {"match#{@match_counter}" => {"home" => player1[0].id, "away" => player2[0].id, "match_id" => match.id}}
+        @match_counter += 1
+      end
     end
     return @matchups
   end

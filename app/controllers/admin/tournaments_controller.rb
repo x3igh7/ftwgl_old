@@ -203,19 +203,20 @@ class Admin::TournamentsController < AdminController
     @challonge_matches = Challonge::Tournament.find(@tournament.challonge_id).matches
     @challonge_matches.each do |m|
       match = @matches.where(challonge_id: m.id )
-      match = match[0]
-      binding.pry
-      m.scores_csv = "#{match.home_score}-#{match.away_score}"
-      if match.home_team_id == match.winner_id
-        m.winner_id = match.home_team.challonge_id
-      elsif match.away_team_id == match.winner_id
-        m.winner_id = match.away_team.challonge_id
-      end
-      match.challonge_updated = true
-      if not m.save
-        flash[:alert] = m.errors.full_messages
-      else
-        match.save
+      unless match.empty?
+        match = match[0]
+        m.scores_csv = "#{match.home_score}-#{match.away_score}"
+        if match.home_team_id == match.winner_id
+          m.winner_id = match.home_team.challonge_id
+        elsif match.away_team_id == match.winner_id
+          m.winner_id = match.away_team.challonge_id
+        end
+        match.challonge_updated = true
+        if not m.save
+          flash[:alert] = m.errors.full_messages
+        else
+          match.save
+        end
       end
     end
     flash[:notice] = "Bracket updated! New matches may be available to generate."
