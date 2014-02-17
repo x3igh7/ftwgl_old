@@ -13,7 +13,7 @@
       <td><%= team.team.name %></td>
       <td><%= team.team.tag %></td>
       <td><%= link_to "edit", edit_admin_tournament_team_path(team) %></td>
-      <td><%= link_to "delete", admin_tournament_team_path(team), :method => :delete, :class => 'action destroy', data: { confirm: 'Are you sure?' } %></td>
+      <td><%= link_to "remove", admin_tournament_team_path(team), :method => :delete, :class => 'action destroy', data: { confirm: 'Are you sure?' } %></td>
     </tr>
   <% end %>
 </table>

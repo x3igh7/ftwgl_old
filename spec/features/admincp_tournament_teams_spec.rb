@@ -41,14 +41,19 @@ describe "admincp tournament teams" do
     expect(current_path).to eq(edit_admin_tournament_team_path(TournamentTeam.last.id))
   end
 
-  it "allows you to add a tournament team" do
+  it "allows you to add a tournament team", :focus => true do
+    manage
+    click_link "tournament teams"
+    click_on "add tournament team"
+    fill_in "search", with: "foo"
+    click_on "add team"
   end
 
   it "allows you to remove a tournament team from the tournament", :js => true do
     manage
     prev_tourny_teams = TournamentTeam.count
     click_link "tournament teams"
-    first(:link, "delete").click
+    first(:link, "remove").click
     expect(TournamentTeam.count).to eq(prev_tourny_teams - 1)
     expect(current_path).to eq(admin_tournament_teams_path)
   end
