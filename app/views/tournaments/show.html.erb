@@ -20,17 +20,30 @@
 		<div class="spacer"></div>
 		<%= render('index_news')%>
 	</div>
+	<div class="spacer"></div>
+		<div class="content-inner-inner clear">
+			<h1>teams</h1>
+			<ul class="bracket_match">
+				<% @teams.each do |team| %>
+				<li style="width:18%">
+					<%= link_to team.team.name + team.team.tag, team_path(team.team) %>
+				</li>
+				<% end %>
+			</ul>
+		</div>
+	<div class="spacer"></div>
 	<div class="content-inner-inner clear">
 		<% if @tournament.tournament_type == "Season" %>
 			<%= render 'tournament_rankings' %>
 		<% elsif @tournament.tournament_type == "Bracket" && @tournament.challonge_state == "underway" %>
+			<h1>bracket</h1>
 			<div id="challongeBracket">
 				<iframe src=<%= "http://challonge.com/#{@tournament.challonge_url}/module" %> width="95%" height="500" frameborder="0" scrolling="auto" allowtransparency="true"></iframe>
 			</div>
 		<% end %>
 	</div>
-
-	<div class="content-inner-inner">
+	<div class="spacer"></div>
+	<div class="content-inner-inner clear">
 		<h1>schedule</h1>
 		<% if @matches.empty? %>
 			This tournament has not started.
