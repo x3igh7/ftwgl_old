@@ -50,7 +50,9 @@ group :development do
   gem 'sextant'
 end
 
-gem 'pg'
+group :test, :development, :production do
+  gem 'pg'
+end
 
 group :test, :development do
   gem 'poltergeist'
