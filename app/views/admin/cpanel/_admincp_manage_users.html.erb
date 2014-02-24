@@ -28,7 +28,9 @@
         <td><%= link_to "manage", edit_admin_user_path(user), :id => "manage-#{user.username}" %></td>
       </tr>
       <% end %>
-      <% paginate @users, :remote => true %>
     </table>
+  </div>
+  <div class="pagination">
+    <%= paginate @users, :remote => true %>
   </div>
 </div>

@@ -16,6 +16,8 @@
         <td><%= link_to "delete", admin_team_path(team), method: :delete, :id => "delete-#{team.name}", :class => "button", data: { confirm: "Are you sure?" } %></td>
       </tr>
       <% end %>
-      <%= paginate @teams, :remote => true %>
     </table>
+  </div>
+  <div class="pagination">
+    <%= paginate @teams, :remote => true %>
   </div>
