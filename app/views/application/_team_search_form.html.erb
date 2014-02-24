@@ -1,0 +1,8 @@
+<%= search_form_for @q, url: new_admin_tournament_team_path do |f| %>
+  <%= hidden_field_tag :tournament, @tournament.id %>
+  <%= f.label :name_cont %>
+  <%= f.text_field :name_cont %>
+  <%= f.label :tag_cont %>
+  <%= f.text_field :tag_cont %>
+  <%= f.submit %>
+<% end %>

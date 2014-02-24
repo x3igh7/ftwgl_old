@@ -17,4 +17,5 @@
     </tr>
   <% end %>
 </table>
-<%= link_to "add team to tournament" %>
+<%= render 'paginate_teams' %>
+<%= link_to "add tournament team", new_admin_tournament_team_path(tournament: @tournament), :class => "button" %>

@@ -2,8 +2,30 @@ class Admin::TournamentTeamsController < AdminController
 
   def index
     @tournament = Tournament.find(params[:tournament_id])
-    @teams_unsorted = TournamentTeam.in_tournament(@tournament)
-    @teams = @teams_unsorted.sort { |a,b| a.team.name <=> b.team.name }
+    @teams = TournamentTeam.in_tournament(@tournament).page params[:page]
+  end
+
+  def new
+    @tournament = Tournament.find(params[:tournament])
+    @q = Team.search(params[:q])
+    @teams = @q.result(distinct: true).page params[:page]
+  end
+
+  def create
+    @tournament = Tournament.find(params[:tournament])
+    @added_team = Team.find(params[:tournament_team])
+    @team = TournamentTeam.new()
+    @team.team_id = @added_team
+    @team.tournament_id = @tournament.id
+
+    if @team.save
+      flash[:notice] = "Team added to tournament."
+      redirect_to new_admin_tournament_team_path(tournament: @tournament)
+    else
+      flash[:alert] = "Failed to add team to tournament."
+      redirect_to new_admin_tournament_team_path(tournament: @tournament)
+    end
+
   end
 
   def edit

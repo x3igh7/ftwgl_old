@@ -1,0 +1,12 @@
+<div id="add_tourny_team">
+  <h1>add tournament team</h1>
+  <div id="team_search" class="content-inner">
+    <%= render 'team_search_form' %>
+  </div>
+  <div id="admin_add_tournament_team_table" class="content-inner-inner center">
+  <%= render 'admin_add_tournament_team_table' %>
+  </div>
+  <div class="pagination">
+    <%= paginate @teams, :remote => true %>
+  </div>
+</div>
