@@ -17,7 +17,7 @@ describe "Emails" do
     expect(ActionMailer::Base.deliveries.count).to eq(prev + 1)
   end
 
-  it "sends a password reset email to the user", :focus => true do
+  it "sends a password reset email to the user" do
     prev = ActionMailer::Base.deliveries.count
     visit root_path
     click_on "Forgot your password?"

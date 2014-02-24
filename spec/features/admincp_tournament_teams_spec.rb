@@ -41,7 +41,7 @@ describe "admincp tournament teams" do
     expect(current_path).to eq(edit_admin_tournament_team_path(TournamentTeam.last.id))
   end
 
-  it "allows you to add a team to a tournament", :focus => true do
+  it "allows you to add a team to a tournament", :js => true, :focus => true do
     manage
     click_link "tournament teams"
     click_on "add tournament team"
