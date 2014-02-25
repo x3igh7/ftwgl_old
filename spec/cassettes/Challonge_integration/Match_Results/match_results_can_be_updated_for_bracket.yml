@@ -959,4 +959,61 @@ http_interactions:
         HTTP Basic: Access denied.
     http_version: 
   recorded_at: Tue, 25 Feb 2014 17:01:39 GMT
+- request:
+    method: get
+    uri: https://challonge.com/api/tournaments/831138.json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      Server:
+      - nginx/1.2.7
+      Date:
+      - Tue, 25 Feb 2014 17:13:09 GMT
+      Content-Type:
+      - text/html; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Status:
+      - 401 Unauthorized
+      Pragma:
+      - no-store
+      Cache-Control:
+      - no-store
+      Www-Authenticate:
+      - Basic realm="Application"
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      X-Request-Id:
+      - 792660c80280df41590350bfdf518222
+      X-Runtime:
+      - '0.013940'
+      Set-Cookie:
+      - incap_ses_156_94794=VSgOaPEYcF/2vW5Z5DkqAiTPDFMAAAAAu5YnDNR1qP1p7ms5TT0wHQ==;
+        path=/; Domain=.challonge.com
+      - visid_incap_94794=hiyGw1q0RRC1bLjSI08a8iTPDFMAAAAAQUIPAAAAAADUIwkLiJ5zh38HYqHYe2H3;
+        expires=Thu, 25 Feb 2016 09:46:46 GMT; path=/; Domain=.challonge.com
+      X-Iinfo:
+      - 9-12176241-12159859 PNNN RT(1393348388380 83) q(0 0 0 -1) r(0 0) U5
+      X-Cdn:
+      - Incapsula
+    body:
+      encoding: UTF-8
+      string: |
+        HTTP Basic: Access denied.
+    http_version: 
+  recorded_at: Tue, 25 Feb 2014 17:13:09 GMT
 recorded_with: VCR 2.8.0

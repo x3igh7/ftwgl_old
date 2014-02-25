@@ -643,4 +643,65 @@ http_interactions:
         HTTP Basic: Access denied.
     http_version: 
   recorded_at: Tue, 25 Feb 2014 17:01:38 GMT
+- request:
+    method: post
+    uri: https://challonge.com/api/tournaments.json
+    body:
+      encoding: UTF-8
+      string: "{\"tournament\":{\"name\":\"FTW Team Survivor40\",\"tournament_type\":\"single
+        elimination\",\"url\":\"newtestingabc123klj\",\"description\":null}}"
+    headers:
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      Server:
+      - nginx/1.2.7
+      Date:
+      - Tue, 25 Feb 2014 17:13:08 GMT
+      Content-Type:
+      - text/html; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Status:
+      - 401 Unauthorized
+      Pragma:
+      - no-store
+      Cache-Control:
+      - no-store
+      Www-Authenticate:
+      - Basic realm="Application"
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      X-Request-Id:
+      - a093ff2b0ab7b3eced54bfb853572087
+      X-Runtime:
+      - '0.006888'
+      Set-Cookie:
+      - incap_ses_144_94794=Wp31BETXy0Wii8Gui6r/ASTPDFMAAAAAs/KbNvMt93ofP9k+2YqGdg==;
+        path=/; Domain=.challonge.com
+      - visid_incap_94794=xm9Kfi5yTZq4w8iHhDvL2STPDFMAAAAAQUIPAAAAAAC1dfq6zIBuRh+HwXNYcUTD;
+        expires=Thu, 25 Feb 2016 09:30:49 GMT; path=/; Domain=.challonge.com
+      X-Iinfo:
+      - 9-5527885-5527907 NNNN CT(8 9 0) RT(1393348388217 121) q(0 0 0 -1) r(0 0)
+        U5
+      X-Cdn:
+      - Incapsula
+    body:
+      encoding: UTF-8
+      string: |
+        HTTP Basic: Access denied.
+    http_version: 
+  recorded_at: Tue, 25 Feb 2014 17:13:08 GMT
 recorded_with: VCR 2.8.0

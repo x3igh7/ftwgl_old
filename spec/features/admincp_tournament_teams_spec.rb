@@ -4,7 +4,7 @@ describe "admincp tournament teams" do
   let!(:tournament1) {FactoryGirl.create(:tournament)}
   let!(:tournament2) {FactoryGirl.create(:tournament, active: false)}
   let!(:admin) {FactoryGirl.create(:user)}
-  let!(:team) { FactoryGirl.create(:team, name: "foo") }
+  let!(:team) { FactoryGirl.create(:team) }
   let!(:team2) { FactoryGirl.create(:team, name: "boo") }
   let!(:tournament_team) {FactoryGirl.create(:tournament_team, team: team, tournament: tournament1)}
 
@@ -43,14 +43,14 @@ describe "admincp tournament teams" do
   end
 
   it "allows you to add a team to a tournament", :js => true do
-    prev = TournamentTeam.where(tournament_id: tournament1.id).count
     manage
+    prev = TournamentTeam.count
     click_link "tournament teams"
     click_on "add tournament team"
     fill_in "Name contains", with: "boo"
     click_on "search"
     click_on "add team"
-    expect(TournamentTeam.where(tournament_id: tournament1.id).count).to eq(prev + 1)
+    expect(TournamentTeam.count).to eq(prev+1)
   end
 
   it "allows you to remove a tournament team from the tournament", :js => true do
