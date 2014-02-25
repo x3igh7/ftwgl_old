@@ -29,6 +29,6 @@
     </table>
   </div>
   <div class="pagination">
-    <%= paginate @users, :remote => true %>
+    <%= paginate @users, :remote => true, :param_name => 'page_1' %>
   </div>
 </div>

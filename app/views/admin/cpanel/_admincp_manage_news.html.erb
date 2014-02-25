@@ -20,7 +20,7 @@
         <td><%= link_to "delete", admin_news_path(news), method: :delete, id: "delete-news-#{news.id}", data: { confirm: "Are you sure?" }%></td>
       </tr>
       <% end %>
-      <% paginate @news, :remote => true %>
+      <% paginate @news, :remote => true, :param_name => "page_3" %>
     </table>
     <div><%= link_to "add news", new_admin_news_path, :class => "button" %></div>
   </div>
