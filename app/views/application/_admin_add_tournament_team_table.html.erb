@@ -8,7 +8,7 @@
   <% if team.in_tournament?(@tournament) == false %>
   <tr>
     <td><%= link_to team.name, team_path(team) %></td>
-    <td>team.tag</td>
+    <td><%= team.tag %></td>
     <%= form_tag admin_tournament_teams_path, method: :post do %>
     <%= hidden_field_tag :tournament_team, team.id %>
     <%= hidden_field_tag :tournament, @tournament.id %>

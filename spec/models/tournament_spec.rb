@@ -90,7 +90,7 @@ describe Tournament do
       let!(:tournament_team2) {FactoryGirl.create(:tournament_team, team: team2, tournament: bracket_tournament, challonge_id: 12607422)}
 
 
-      it "will list bracket matches from challonge", :vcr do
+      it "will list bracket matches from challonge", :vcr => {:record => :new_episodes} do
         matches = bracket_tournament.get_challonge_matches
         expect(matches.count).to eq(1)
       end

@@ -42,13 +42,13 @@ describe "admincp tournament teams" do
     expect(current_path).to eq(edit_admin_tournament_team_path(TournamentTeam.last.id))
   end
 
-  it "allows you to add a team to a tournament", :js => true, :focus => true do
+  it "allows you to add a team to a tournament", :js => true do
     prev = TournamentTeam.where(tournament_id: tournament1.id).count
     manage
     click_link "tournament teams"
     click_on "add tournament team"
     fill_in "Name contains", with: "boo"
-    click_on "Search"
+    click_on "search"
     click_on "add team"
     expect(TournamentTeam.where(tournament_id: tournament1.id).count).to eq(prev + 1)
   end

@@ -42,7 +42,7 @@ describe Team do
     let!(:team2) {FactoryGirl.create(:team)}
     let!(:tournament_team) {FactoryGirl.create(:tournament_team, tournament: tournament, team: team)}
 
-    it "only shows teams that are not already in the tournament", :focus => true do
+    it "only shows teams that are not already in the tournament" do
       expect(team.in_tournament?(tournament)).to be_true
       expect(team2.in_tournament?(tournament)).to be_false
     end
