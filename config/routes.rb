@@ -39,7 +39,6 @@ Ftwgl::Application.routes.draw do
     end
     resources :tournament_teams, :only => [:index, :new, :create, :edit, :update, :destroy]
     resources :matches
-
 	end
 
   root :to => 'home#home'

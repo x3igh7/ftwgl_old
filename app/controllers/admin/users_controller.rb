@@ -2,6 +2,11 @@ class Admin::UsersController < AdminController
 
   def edit
     @user = User.find(params[:id])
+    if @user.has_role?(:admin)
+      @user_role = "admin"
+    else
+      @user_role = "user"
+    end
   end
 
   def update

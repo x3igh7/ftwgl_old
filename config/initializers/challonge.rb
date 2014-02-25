@@ -1,3 +1,2 @@
-Challonge::API.key = "5BJHSMjZnMoJO8Mq7Qmq7QxR87ZJmgPiPNLK6QCm"
-
-Challonge::API.username = "x8"
+Challonge::API.key = ENV["CHALLONGE_KEY"]
+Challonge::API.username = ENV["CHALLONGE_USER"]
