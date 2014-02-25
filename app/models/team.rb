@@ -30,6 +30,14 @@ class Team < ActiveRecord::Base
 		applications.map { |application| application.user }
 	end
 
+  def in_tournament?(tournament)
+    if self.tournaments.where(id: tournament.id) != []
+      return true
+    else
+      return false
+    end
+  end
+
   def save_with_owner(user)
     Team.transaction do
       save and Membership.create(:team => self, :user => user, :role => 'owner', :active => true)

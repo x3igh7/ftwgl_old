@@ -9,6 +9,8 @@
       <p class="news-subline"><%= link_to "read more...", news_path(news)%></a></p>
   </div>
   <% end %>
-  <%= paginate @news %>
+  <div>
+    <%= paginate @news %>
+  </div>
 <% end %>
 

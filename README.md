@@ -1,4 +1,4 @@
-ftwgl
+[FTWGL](http://www.ftwgl.com)
 =====
 
 # For The Win Gaming League

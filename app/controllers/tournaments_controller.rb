@@ -1,7 +1,7 @@
 class TournamentsController < ApplicationController
 
   def index
-    @tournaments = Tournament.order("name").where(active: true)
+    @tournaments = Tournament.order("name").where(active: true).page params[:page]
   end
 
   def show

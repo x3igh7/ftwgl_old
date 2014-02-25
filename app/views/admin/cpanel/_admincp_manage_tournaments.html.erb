@@ -2,7 +2,7 @@
   <h1>manage tournaments</h1>
   <div class="content-inner-inner">
 
-    <table>
+    <table cellspacing="0">
       <% @active_tournaments.each do |tourny| %>
         <tr cellspacing="0">
           <td><%= link_to tourny.name, tournament_path(tourny) %></td>
