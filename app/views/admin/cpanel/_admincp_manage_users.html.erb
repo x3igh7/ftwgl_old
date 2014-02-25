@@ -5,7 +5,6 @@
       <tr>
         <th>username</th>
         <th>email</th>
-        <th>date joined</th>
         <th>last seen</th>
         <th></th>
         <th></th>
@@ -13,8 +12,7 @@
       <% @users.each do |user| %>
       <tr>
         <td><%= link_to user.username, user_path(user) %></td>
-        <td><%= user.email%></td>
-        <td><%= user.created_at.strftime("%B %d,%Y") %></td>
+        <td><%= user.email %></td>
         <% unless user.last_sign_in_at == nil %>
           <td><%= user.last_sign_in_at.strftime("%B %d,%Y") %></td>
         <% else %>
