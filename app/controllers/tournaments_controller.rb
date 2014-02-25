@@ -11,7 +11,7 @@ class TournamentsController < ApplicationController
     @active_tournament_team = nil
     @tournament_team = TournamentTeam.new
     @matches = Match.current_week_matches(@tournament)
-    @news = @tournament.news..order('created_at DESC').page params[:page]
+    @news = @tournament.news.order('created_at DESC').page params[:page]
     @current_user_teams = []
     if @tournament.tournament_type == "Bracket"
       gon.challonge_url = @tournament.challonge_url
