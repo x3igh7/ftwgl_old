@@ -12,11 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require bootstrap-datepicker
-//= require jquery.challonge.js
-//= require new_tournament.js
-//= require show_tournament.js
-//= require add_tournament_team.js
 
 $(document).ready(function(){
   $(".management").hide();
