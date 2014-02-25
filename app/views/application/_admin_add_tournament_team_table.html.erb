@@ -1,0 +1,20 @@
+<table id="add_tourny_team_table" cellspacing="0">
+  <tr>
+    <th>team name</th>
+    <th>team tag</th>
+    <th></th>
+  </tr>
+  <% @teams.each do |team| %>
+  <% if team.in_tournament?(@tournament) == false %>
+  <tr>
+    <td><%= link_to team.name, team_path(team) %></td>
+    <td><%= team.tag %></td>
+    <%= form_tag admin_tournament_teams_path, method: :post do %>
+    <%= hidden_field_tag :tournament_team, team.id %>
+    <%= hidden_field_tag :tournament, @tournament.id %>
+    <td><%= submit_tag "add team" %></td>
+    <% end %>
+  </tr>
+  <% end %>
+  <% end %>
+</table>

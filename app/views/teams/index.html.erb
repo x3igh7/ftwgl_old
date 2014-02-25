@@ -5,8 +5,10 @@
   <% @teams.each do |team| %>
     <%= render :partial => "row_teams", :locals => { :team => team } %>
   <% end %>
-  <%= paginate @teams %>
 </table>
+<div class="center">
+  <%= paginate @teams %>
+</div>
 <% if user_signed_in? %>
     <%= link_to "Create a team", new_team_path, :class => "button" %>
 <% end %>

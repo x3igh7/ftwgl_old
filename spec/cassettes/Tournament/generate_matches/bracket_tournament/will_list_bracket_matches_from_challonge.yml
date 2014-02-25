@@ -116,4 +116,62 @@ http_interactions:
       string: "[{\"match\":{\"attachment_count\":null,\"created_at\":\"2014-02-16T15:41:20-05:00\",\"group_id\":null,\"has_attachment\":false,\"id\":18023350,\"identifier\":\"A\",\"loser_id\":null,\"player1_id\":12607421,\"player1_is_prereq_match_loser\":false,\"player1_prereq_match_id\":null,\"player1_votes\":null,\"player2_id\":12607422,\"player2_is_prereq_match_loser\":false,\"player2_prereq_match_id\":null,\"player2_votes\":null,\"round\":1,\"started_at\":\"2014-02-16T15:41:20-05:00\",\"state\":\"open\",\"tournament_id\":830806,\"updated_at\":\"2014-02-16T15:41:20-05:00\",\"winner_id\":null,\"prerequisite_match_ids_csv\":\"\",\"scores_csv\":\"\"}}]"
     http_version: 
   recorded_at: Sun, 16 Feb 2014 22:54:33 GMT
+- request:
+    method: get
+    uri: https://your_challonge_username:your_challonge_api_key@challonge.com/api/tournaments/830806.json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      Server:
+      - nginx/1.2.7
+      Date:
+      - Tue, 25 Feb 2014 17:05:25 GMT
+      Content-Type:
+      - text/html; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Status:
+      - 401 Unauthorized
+      Pragma:
+      - no-store
+      Cache-Control:
+      - no-store
+      Www-Authenticate:
+      - Basic realm="Application"
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      X-Request-Id:
+      - 9a4c6f765aa607e21a4d6b94b7552442
+      X-Runtime:
+      - '0.023979'
+      Set-Cookie:
+      - incap_ses_144_94794=w5/gFBy8pCb3G76ui6r/AVXNDFMAAAAAZU3QdOezHV4Fup6cM5K5kg==;
+        path=/; Domain=.challonge.com
+      - visid_incap_94794=By+p2TlCSd6Ysjx6QECiPnLMDFMAAAAAQUIPAAAAAADXI6A5+iua7zJAc/q/reGh;
+        expires=Thu, 25 Feb 2016 09:30:49 GMT; path=/; Domain=.challonge.com
+      X-Iinfo:
+      - 10-5991345-5991365 NNNN CT(7 8 0) RT(1393347925239 113) q(0 0 0 0) r(0 1)
+        U5
+      X-Cdn:
+      - Incapsula
+    body:
+      encoding: UTF-8
+      string: |
+        HTTP Basic: Access denied.
+    http_version: 
+  recorded_at: Tue, 25 Feb 2014 17:05:25 GMT
 recorded_with: VCR 2.8.0
