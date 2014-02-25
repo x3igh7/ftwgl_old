@@ -6,8 +6,6 @@
   <%= stylesheet_link_tag "application" %>
   <%= favicon_link_tag 'ftwlogo.png', :rel => 'shortcut icon', :sizes => '32x32' %>
   <title>FTW Gaming League</title>
-  <%= javascript_include_tag "application" %>
-  <%= javascript_include_tag "jquery.challonge.js" %>
   <%= include_gon %>
   <%= csrf_meta_tags %>
 	<%= yield :head %>
@@ -111,4 +109,5 @@
 </div>
 
 </body>
+<%= javascript_include_tag "application" %>
 </html>

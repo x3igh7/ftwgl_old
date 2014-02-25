@@ -1,9 +1,0 @@
----
-ftwlogo.png: ftwlogo-aeab5654e9e16d9f043b414aa176e666.png
-ftwlogo/index.png: ftwlogo-aeab5654e9e16d9f043b414aa176e666.png
-application.js: application-ace93d2be3e3c9190545f9c725538a8b.js
-application/index.js: application-ace93d2be3e3c9190545f9c725538a8b.js
-application.css: application-0c79fed8362a5e6b9b16a7c040ca725d.css
-application/index.css: application-0c79fed8362a5e6b9b16a7c040ca725d.css
-jquery.min.map: jquery.min-6336c5bca4c709e809647cdfcb484d0a.map
-jquery/index.min.map: jquery.min-6336c5bca4c709e809647cdfcb484d0a.map
