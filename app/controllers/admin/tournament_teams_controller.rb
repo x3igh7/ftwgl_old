@@ -15,14 +15,14 @@ class Admin::TournamentTeamsController < AdminController
     @tournament = Tournament.find(params[:tournament])
     @added_team = Team.find(params[:tournament_team])
     @team = TournamentTeam.new()
-    @team.team_id = @added_team
+    @team.team_id = @added_team.id
     @team.tournament_id = @tournament.id
 
     if @team.save
       flash[:notice] = "Team added to tournament."
       redirect_to new_admin_tournament_team_path(tournament: @tournament)
     else
-      flash[:alert] = "Failed to add team to tournament."
+      flash[:alert] = "Failed to add team to tournament. Make sure the team has not already joined."
       redirect_to new_admin_tournament_team_path(tournament: @tournament)
     end
 

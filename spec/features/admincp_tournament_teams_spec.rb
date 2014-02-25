@@ -5,6 +5,7 @@ describe "admincp tournament teams" do
   let!(:tournament2) {FactoryGirl.create(:tournament, active: false)}
   let!(:admin) {FactoryGirl.create(:user)}
   let!(:team) { FactoryGirl.create(:team, name: "foo") }
+  let!(:team2) { FactoryGirl.create(:team, name: "boo") }
   let!(:tournament_team) {FactoryGirl.create(:tournament_team, team: team, tournament: tournament1)}
 
   before do
@@ -46,7 +47,7 @@ describe "admincp tournament teams" do
     manage
     click_link "tournament teams"
     click_on "add tournament team"
-    fill_in "Name contains", with: "foo"
+    fill_in "Name contains", with: "boo"
     click_on "Search"
     click_on "add team"
     expect(TournamentTeam.where(tournament_id: tournament1.id).count).to eq(prev + 1)

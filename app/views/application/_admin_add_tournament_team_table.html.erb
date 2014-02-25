@@ -5,6 +5,7 @@
     <th></th>
   </tr>
   <% @teams.each do |team| %>
+  <% if team.in_tournament?(@tournament) == false %>
   <tr>
     <td><%= link_to team.name, team_path(team) %></td>
     <td>team.tag</td>
@@ -14,5 +15,6 @@
     <td><%= submit_tag "add team" %></td>
     <% end %>
   </tr>
+  <% end %>
   <% end %>
 </table>
