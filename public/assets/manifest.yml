@@ -1,0 +1,11 @@
+---
+ftwlogo.png: ftwlogo-aeab5654e9e16d9f043b414aa176e666.png
+ftwlogo/index.png: ftwlogo-aeab5654e9e16d9f043b414aa176e666.png
+application.js: application-f6f1486e46542fb45d68b40d366d1f67.js
+application/index.js: application-f6f1486e46542fb45d68b40d366d1f67.js
+new_tournament.js: new_tournament-8b11d33b212c2845ac9eee1d9a634e65.js
+new_tournament/index.js: new_tournament-8b11d33b212c2845ac9eee1d9a634e65.js
+application.css: application-8864dc44648150589467ce4f421540fb.css
+application/index.css: application-8864dc44648150589467ce4f421540fb.css
+jquery.min.map: jquery.min-6336c5bca4c709e809647cdfcb484d0a.map
+jquery/index.min.map: jquery.min-6336c5bca4c709e809647cdfcb484d0a.map

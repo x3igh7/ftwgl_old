@@ -20,7 +20,7 @@ Ftwgl::Application.configure do
   # Generate digests for assets URLs
   config.assets.digest = true
   config.assets.js_compressor = :uglifier
-  config.assets.precompile += %w( '*.js', '*.css', new_tournament.js)
+  config.assets.precompile += %w( *.js, *.css, new_tournament.js)
   # Defaults to nil and saved in location specified by config.assets.prefix
   # config.assets.manifest = YOUR_PATH
 
