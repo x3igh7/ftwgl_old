@@ -225,6 +225,8 @@ class Admin::TournamentsController < AdminController
 
   def playoffs
     @tournament = Tournament.find(params[:tournament_id])
+    @teams = @tournament.get_tournament_team_names_by_rank
+    gon.teams = @teams
   end
 
   private

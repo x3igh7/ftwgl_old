@@ -1,2 +1,12 @@
 <h1>generate playoff bracket</h1>
-<p>Review the following information</p>
+<p>tournament: <%= @tournament.name %></p>
+<div id="bracket-size">
+  <label for="bracket-size">bracket size</label><input type="text">
+  <a class="button" href="">show playoff teams</a>
+</div>
+<div class="content-inner-inner">
+  <div id="playoff-teams">
+  </div>
+</div>
+
+<%= javascript_include_tag "filter_playoff_teams" %>

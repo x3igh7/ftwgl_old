@@ -73,6 +73,14 @@ class Tournament < ActiveRecord::Base
     return @matchups
   end
 
+  def get_tournament_team_names_by_rank
+    team_names = []
+    self.tournament_teams.ranking.each do |team|
+      team_names << team.team.name
+    end
+    team_names
+  end
+
   private
 
   def potential_teams_calc(already_scheduled, all_teams, team)
