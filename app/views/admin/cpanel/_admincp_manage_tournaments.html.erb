@@ -32,6 +32,10 @@
           <% elsif tourny.tournament_type == "Bracket" && tourny.challonge_state == "underway" %>
             <td><%= link_to "generate matches", admin_tournament_bracket_matches_path(:tournament_id => tourny.id) %></td>
           <% end %>
+
+          <% if tourny.tournament_type == "Season" %>
+            <td><%= link_to "start playoffs", playoffs_admin_tournament_path(:tournament_id => tourny.id), data: { confirm: "Are you sure that you want to start playoffs?" } %></td>
+          <% end %>
         </tr>
       <% end %>
     </table>
