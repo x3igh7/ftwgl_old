@@ -14,7 +14,7 @@
   <%= f.input :password, as: :password %>
   <%= f.input :password_confirmation, as: :password %>
   <p>Current Role: <%= @user_role %></p>
-  <%= f.input :roles, label: "Choose Role", collection: [:user, :admin], include_blank: false, selected: @user_role %>
+  <%= f.input :roles, label: "Choose Role", collection: [:user, :tournament_admin, :admin], include_blank: false, selected: @user_role %>
   <%= f.submit "Save" %>
 <% end %>
 </div>

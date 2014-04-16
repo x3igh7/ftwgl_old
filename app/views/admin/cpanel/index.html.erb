@@ -9,9 +9,11 @@
       <%= render 'admincp_manage_tournaments' %>
     </div>
 
-    <div id="users_panel">
-      <%= render 'admincp_manage_users' %>
-    </div>
+    <% if @user.has_role?(:admin) %>
+      <div id="users_panel">
+        <%= render 'admincp_manage_users' %>
+      </div>
+    <% end %>
 
     <div id="teams_panel">
       <%= render 'admincp_manage_teams' %>

@@ -1,9 +1,13 @@
 class Admin::UsersController < AdminController
 
+  before_filter :enforce_permissions
+
   def edit
     @user = User.find(params[:id])
     if @user.has_role?(:admin)
       @user_role = "admin"
+    elsif @user.has_role?(:tournament_admin)
+      @user_role = "tournament_admin"
     else
       @user_role = "user"
     end
@@ -60,4 +64,11 @@ class Admin::UsersController < AdminController
     end
   end
 
+end
+
+def enforce_permissions
+  if not current_user.has_role?(:admin)
+    flash[:alert] = "You don't have sufficient permissions to do that."
+    redirect_to admin_root_path
+  end
 end
