@@ -223,6 +223,10 @@ class Admin::TournamentsController < AdminController
     redirect_to root_path
   end
 
+  def playoffs
+    @tournament = Tournament.find(params[:tournament_id])
+  end
+
   private
 
   def date_converter(params)

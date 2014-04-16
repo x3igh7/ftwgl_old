@@ -17,7 +17,16 @@ describe "Playoffs creation" do
   it 'creates playoff bracket for a season tournament', :js => true, :focus => true do
     manage
     click_on 'start playoffs'
-    expect(current_page).to have_content('Generate Playoff Bracket')
+    expect(page).to have_content('generate playoff bracket')
+    fill_in "bracket size", with: 2
+    click_on 'show playoff teams'
+    expect(page).to have_content(team.name)
+    expect(page).to have_content(team2.name)
+    click_on 'create'
+    playoff_tournament = Tournament.find(tournament.id)
+    expect(playoff_tournament.bracket_size).to eq(2)
+    expect(playoff_tournament.matches.length).to eq(1)
+    expect(playoff_tournament.playoffs).to be_true
   end
 
 end

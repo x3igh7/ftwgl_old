@@ -34,7 +34,7 @@
           <% end %>
 
           <% if tourny.tournament_type == "Season" %>
-            <td><%= link_to "start playoffs", playoffs_admin_tournament_path(:tournament_id => tourny.id), data: { confirm: "Are you sure that you want to start playoffs?" } %></td>
+            <td><%= link_to "start playoffs", admin_tournament_playoffs_path(:tournament_id => tourny.id), data: { confirm: "Are you sure that you want to start playoffs?" } %></td>
           <% end %>
         </tr>
       <% end %>
