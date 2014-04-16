@@ -52,7 +52,7 @@ describe Tournament do
     let!(:tournament_team) {FactoryGirl.create(:tournament_team, team: team, tournament: tournament, rank: 1)}
     let!(:tournament_team2) {FactoryGirl.create(:tournament_team, team: team2, tournament: tournament, rank: 2)}
 
-    it "returns an array of tournament teams ordered by rank", :focus => true do
+    it "returns an array of tournament teams ordered by rank" do
       teams = tournament.get_tournament_team_names_by_rank
       expect(teams.length).to eq(2)
       expect(teams.first).to eq(team.name)

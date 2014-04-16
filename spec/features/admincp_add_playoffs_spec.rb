@@ -2,11 +2,11 @@ require 'spec_helper'
 
 describe "Playoffs creation" do
   let!(:admin) {FactoryGirl.create(:user) }
-  let!(:tournament1) {FactoryGirl.create(:tournament)}
+  let!(:tournament) {FactoryGirl.create(:tournament)}
   let!(:team) { FactoryGirl.create(:team) }
   let!(:team2) { FactoryGirl.create(:team) }
-  let!(:tournament_team) {FactoryGirl.create(:tournament_team, team: team, tournament: tournament1)}
-  let!(:tournament_team2) {FactoryGirl.create(:tournament_team, team: team2, tournament: tournament1)}
+  let!(:tournament_team) {FactoryGirl.create(:tournament_team, team: team, tournament: tournament)}
+  let!(:tournament_team2) {FactoryGirl.create(:tournament_team, team: team2, tournament: tournament)}
 
   before do
     admin.roles = :admin
@@ -18,7 +18,7 @@ describe "Playoffs creation" do
     manage
     click_on 'start playoffs'
     expect(page).to have_content('generate playoff bracket')
-    fill_in "bracket size", with: 2
+    fill_in "bracket-size", with: 2
     click_on 'show playoff teams'
     expect(page).to have_content(team.name)
     expect(page).to have_content(team2.name)
