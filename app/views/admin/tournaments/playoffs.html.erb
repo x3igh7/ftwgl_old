@@ -1,7 +1,7 @@
 <h1>generate playoff bracket</h1>
 <p>tournament: <%= @tournament.name %></p>
 <div class="bracket-calc">
-<%= form_tag admin_tournament_generate_playoff_matches_path, method: :post do %>
+<%= form_tag admin_tournament_generate_playoff_bracket_path, method: :post do %>
   <%= label_tag :bracket_size, "bracket size" %>
   <%= text_field_tag :bracket_size %>
   <a class="button" href="">show playoff teams</a>

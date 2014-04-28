@@ -1,0 +1,453 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://127.0.0.1:35299/__identify__
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: 'OK '
+    headers:
+      Server:
+      - WEBrick/1.3.1 (Ruby/2.1.0/2013-12-25)
+      Date:
+      - Mon, 28 Apr 2014 19:32:23 GMT
+      Content-Length:
+      - '8'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: UTF-8
+      string: '62242860'
+    http_version: 
+  recorded_at: Mon, 28 Apr 2014 19:32:23 GMT
+- request:
+    method: post
+    uri: https://x8:5BJHSMjZnMoJO8Mq7Qmq7QxR87ZJmgPiPNLK6QCm@challonge.com/api/tournaments.json
+    body:
+      encoding: UTF-8
+      string: "{\"tournament\":{\"name\":\"FTW Team Survivor2\",\"tournament_type\":\"single
+        elimination\",\"url\":\"Ze9UN\",\"description\":null}}"
+    headers:
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.2.7
+      Date:
+      - Mon, 28 Apr 2014 19:32:24 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Status:
+      - 200 OK
+      Pragma:
+      - no-store
+      Cache-Control:
+      - no-store
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - "\"92b9a581232f5828cb9288904443159d\""
+      X-Request-Id:
+      - df29c7f514c5e2d806022db5da19bbc4
+      X-Runtime:
+      - '0.154644'
+      Set-Cookie:
+      - incap_ses_143_94794=Hre7bf2Zv0KLdkIHEgv8AcisXlMAAAAAgBfNjhxHGVXDz1YEbBgT8g==;
+        path=/; Domain=.challonge.com
+      - visid_incap_94794=wIVKo+FDQ9GjZbi5V+LmZMisXlMAAAAAQUIPAAAAAAAXES92Y78tp7B6hZtCcczC;
+        expires=Wed, 27 Apr 2016 08:30:01 GMT; path=/; Domain=.challonge.com
+      X-Iinfo:
+      - 9-102111211-102110987 PNNN RT(1398713544420 105) q(0 0 0 1) r(1 1) U6
+      X-Cdn:
+      - Incapsula
+    body:
+      encoding: UTF-8
+      string: "{\"tournament\":{\"accept_attachments\":false,\"allow_participant_match_reporting\":true,\"anonymous_voting\":false,\"category\":null,\"check_in_at\":null,\"completed_at\":null,\"created_at\":\"2014-04-28T15:32:24-04:00\",\"created_by_api\":true,\"credit_capped\":false,\"description\":\"\",\"enable_group_stage\":false,\"game_id\":null,\"hide_forum\":false,\"hide_seeds\":false,\"hold_third_place_match\":false,\"id\":957189,\"max_predictions_per_user\":1,\"name\":\"FTW
+        Team Survivor2\",\"notify_users_when_matches_open\":true,\"notify_users_when_the_tournament_ends\":true,\"open_signup\":false,\"participant_count_to_advance_per_group\":null,\"participants_count\":0,\"prediction_method\":0,\"predictions_opened_at\":null,\"private\":false,\"progress_meter\":0,\"pts_for_bye\":\"1.0\",\"pts_for_game_tie\":\"0.0\",\"pts_for_game_win\":\"0.0\",\"pts_for_match_tie\":\"0.5\",\"pts_for_match_win\":\"1.0\",\"quick_advance\":false,\"ranked_by\":null,\"require_score_agreement\":false,\"rr_pts_for_game_tie\":\"0.0\",\"rr_pts_for_game_win\":\"0.0\",\"rr_pts_for_match_tie\":\"0.5\",\"rr_pts_for_match_win\":\"1.0\",\"sequential_pairings\":false,\"show_rounds\":false,\"signup_cap\":null,\"signup_requires_account\":false,\"started_at\":null,\"state\":\"pending\",\"swiss_rounds\":0,\"teams\":null,\"tournament_type\":\"single
+        elimination\",\"updated_at\":\"2014-04-28T15:32:24-04:00\",\"url\":\"Ze9UN\",\"description_source\":\"\",\"subdomain\":null,\"full_challonge_url\":\"http://challonge.com/Ze9UN\",\"live_image_url\":\"http://images.challonge.com/Ze9UN.png\",\"sign_up_url\":null,\"review_before_finalizing\":true,\"accepting_predictions\":false,\"participants_locked\":false}}"
+    http_version: 
+  recorded_at: Mon, 28 Apr 2014 19:32:25 GMT
+- request:
+    method: get
+    uri: https://x8:5BJHSMjZnMoJO8Mq7Qmq7QxR87ZJmgPiPNLK6QCm@challonge.com/api/tournaments/957189.json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.2.7
+      Date:
+      - Mon, 28 Apr 2014 19:32:25 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Status:
+      - 200 OK
+      Pragma:
+      - no-store
+      Cache-Control:
+      - no-store
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - "\"92b9a581232f5828cb9288904443159d\""
+      X-Request-Id:
+      - dab0aae12bf044da5814389073517fa4
+      X-Runtime:
+      - '0.030367'
+      Set-Cookie:
+      - incap_ses_143_94794=jwPBfN4R/HaLdkIHEgv8AcmsXlMAAAAA6pmP7O+7G1/nG9qbnVkSsg==;
+        path=/; Domain=.challonge.com
+      - visid_incap_94794=wIVKo+FDQ9GjZbi5V+LmZMisXlMAAAAAQUIPAAAAAAAXES92Y78tp7B6hZtCcczC;
+        expires=Wed, 27 Apr 2016 08:30:07 GMT; path=/; Domain=.challonge.com
+      X-Iinfo:
+      - 5-19838135-19838145 NNNN CT(8 8 0) RT(1398713544872 101) q(0 0 0 0) r(0 1)
+        U13
+      X-Cdn:
+      - Incapsula
+    body:
+      encoding: UTF-8
+      string: "{\"tournament\":{\"accept_attachments\":false,\"allow_participant_match_reporting\":true,\"anonymous_voting\":false,\"category\":null,\"check_in_at\":null,\"completed_at\":null,\"created_at\":\"2014-04-28T15:32:24-04:00\",\"created_by_api\":true,\"credit_capped\":false,\"description\":\"\",\"enable_group_stage\":false,\"game_id\":null,\"hide_forum\":false,\"hide_seeds\":false,\"hold_third_place_match\":false,\"id\":957189,\"max_predictions_per_user\":1,\"name\":\"FTW
+        Team Survivor2\",\"notify_users_when_matches_open\":true,\"notify_users_when_the_tournament_ends\":true,\"open_signup\":false,\"participant_count_to_advance_per_group\":null,\"participants_count\":0,\"prediction_method\":0,\"predictions_opened_at\":null,\"private\":false,\"progress_meter\":0,\"pts_for_bye\":\"1.0\",\"pts_for_game_tie\":\"0.0\",\"pts_for_game_win\":\"0.0\",\"pts_for_match_tie\":\"0.5\",\"pts_for_match_win\":\"1.0\",\"quick_advance\":false,\"ranked_by\":null,\"require_score_agreement\":false,\"rr_pts_for_game_tie\":\"0.0\",\"rr_pts_for_game_win\":\"0.0\",\"rr_pts_for_match_tie\":\"0.5\",\"rr_pts_for_match_win\":\"1.0\",\"sequential_pairings\":false,\"show_rounds\":false,\"signup_cap\":null,\"signup_requires_account\":false,\"started_at\":null,\"state\":\"pending\",\"swiss_rounds\":0,\"teams\":null,\"tournament_type\":\"single
+        elimination\",\"updated_at\":\"2014-04-28T15:32:24-04:00\",\"url\":\"Ze9UN\",\"description_source\":\"\",\"subdomain\":null,\"full_challonge_url\":\"http://challonge.com/Ze9UN\",\"live_image_url\":\"http://images.challonge.com/Ze9UN.png\",\"sign_up_url\":null,\"review_before_finalizing\":true,\"accepting_predictions\":false,\"participants_locked\":false}}"
+    http_version: 
+  recorded_at: Mon, 28 Apr 2014 19:32:25 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:47354/__identify__
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: 'OK '
+    headers:
+      Server:
+      - WEBrick/1.3.1 (Ruby/2.1.0/2013-12-25)
+      Date:
+      - Mon, 28 Apr 2014 19:34:12 GMT
+      Content-Length:
+      - '8'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: UTF-8
+      string: '69161200'
+    http_version: 
+  recorded_at: Mon, 28 Apr 2014 19:34:12 GMT
+- request:
+    method: get
+    uri: http://127.0.0.1:41328/__identify__
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: 'OK '
+    headers:
+      Server:
+      - WEBrick/1.3.1 (Ruby/2.1.0/2013-12-25)
+      Date:
+      - Mon, 28 Apr 2014 19:44:08 GMT
+      Content-Length:
+      - '8'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: UTF-8
+      string: '67424200'
+    http_version: 
+  recorded_at: Mon, 28 Apr 2014 19:44:08 GMT
+- request:
+    method: post
+    uri: https://x8:5BJHSMjZnMoJO8Mq7Qmq7QxR87ZJmgPiPNLK6QCm@challonge.com/api/tournaments/957189/participants.json
+    body:
+      encoding: UTF-8
+      string: "{\"participant\":{\"name\":\"foo2[bar]\"}}"
+    headers:
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.2.7
+      Date:
+      - Mon, 28 Apr 2014 19:44:09 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Status:
+      - 200 OK
+      Pragma:
+      - no-store
+      Cache-Control:
+      - no-store
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - "\"761602dc5821454de1da599b41d487c7\""
+      X-Request-Id:
+      - f56397a3f6a83644a2497142fbdf0755
+      X-Runtime:
+      - '0.076147'
+      Set-Cookie:
+      - incap_ses_208_94794=THPjEhz/N3efBmRP/fbiAomvXlMAAAAA3Rz4VSpHfJIuCS2Yy0i5zw==;
+        path=/; Domain=.challonge.com
+      - visid_incap_94794=Z4jq7dTQQEGGvPTlkZUCu4mvXlMAAAAAQUIPAAAAAACpRavSZ82DVhgSXab2+3hN;
+        expires=Wed, 27 Apr 2016 08:38:12 GMT; path=/; Domain=.challonge.com
+      X-Iinfo:
+      - 7-155220562-155208510 PNNN RT(1398714248834 110) q(0 0 0 -1) r(1 1) U6
+      X-Cdn:
+      - Incapsula
+    body:
+      encoding: UTF-8
+      string: "{\"participant\":{\"active\":true,\"checked_in\":false,\"created_at\":\"2014-04-28T15:44:09-04:00\",\"final_rank\":null,\"group_id\":null,\"icon\":null,\"id\":14590592,\"invitation_id\":null,\"invite_email\":null,\"misc\":null,\"name\":\"foo2[bar]\",\"on_waiting_list\":false,\"seed\":1,\"tournament_id\":957189,\"updated_at\":\"2014-04-28T15:44:09-04:00\",\"challonge_username\":null,\"challonge_email_address_verified\":null,\"removable\":true,\"participatable_or_invitation_attached\":false,\"confirm_remove\":false,\"invitation_pending\":false,\"display_name_with_invitation_email_address\":\"foo2[bar]\",\"email_hash\":null,\"username\":null,\"attached_participatable_portrait_url\":null}}"
+    http_version: 
+  recorded_at: Mon, 28 Apr 2014 19:44:09 GMT
+- request:
+    method: post
+    uri: https://x8:5BJHSMjZnMoJO8Mq7Qmq7QxR87ZJmgPiPNLK6QCm@challonge.com/api/tournaments/957189/participants.json
+    body:
+      encoding: UTF-8
+      string: "{\"participant\":{\"name\":\"foo3[bar]\"}}"
+    headers:
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.2.7
+      Date:
+      - Mon, 28 Apr 2014 19:44:10 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Status:
+      - 200 OK
+      Pragma:
+      - no-store
+      Cache-Control:
+      - no-store
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - "\"f344b51418dcb257be9e84178ed2be2a\""
+      X-Request-Id:
+      - 5525f3b890ada2e53b3b6fa4bb48622f
+      X-Runtime:
+      - '0.098552'
+      Set-Cookie:
+      - incap_ses_208_94794=JOuBVIG6TWF/B2RP/fbiAomvXlMAAAAAGNwFvWcRV3/7HR04QznwFA==;
+        path=/; Domain=.challonge.com
+      - visid_incap_94794=fWoEPlqFRryHlAFRQ6mb14mvXlMAAAAAQUIPAAAAAACKdoUXHOFCaJz6IwXpQ6iU;
+        expires=Wed, 27 Apr 2016 08:38:12 GMT; path=/; Domain=.challonge.com
+      X-Iinfo:
+      - 8-220701504-220701554 NNNN CT(38 40 0) RT(1398714249344 98) q(0 0 1 -1) r(1
+        2) U6
+      X-Cdn:
+      - Incapsula
+    body:
+      encoding: UTF-8
+      string: "{\"participant\":{\"active\":true,\"checked_in\":false,\"created_at\":\"2014-04-28T15:44:10-04:00\",\"final_rank\":null,\"group_id\":null,\"icon\":null,\"id\":14590593,\"invitation_id\":null,\"invite_email\":null,\"misc\":null,\"name\":\"foo3[bar]\",\"on_waiting_list\":false,\"seed\":2,\"tournament_id\":957189,\"updated_at\":\"2014-04-28T15:44:10-04:00\",\"challonge_username\":null,\"challonge_email_address_verified\":null,\"removable\":true,\"participatable_or_invitation_attached\":false,\"confirm_remove\":false,\"invitation_pending\":false,\"display_name_with_invitation_email_address\":\"foo3[bar]\",\"email_hash\":null,\"username\":null,\"attached_participatable_portrait_url\":null}}"
+    http_version: 
+  recorded_at: Mon, 28 Apr 2014 19:44:10 GMT
+- request:
+    method: post
+    uri: https://x8:5BJHSMjZnMoJO8Mq7Qmq7QxR87ZJmgPiPNLK6QCm@challonge.com/api/tournaments/957189/start.json
+    body:
+      encoding: UTF-8
+      string: "{\"tournament\":{\"name\":\"FTW Team Survivor2\",\"tournament_type\":\"single
+        elimination\",\"url\":\"Ze9UN\",\"id\":957189,\"accept_attachments\":false,\"allow_participant_match_reporting\":true,\"anonymous_voting\":false,\"category\":null,\"check_in_at\":null,\"completed_at\":null,\"created_at\":\"2014-04-28T15:32:24-04:00\",\"created_by_api\":true,\"credit_capped\":false,\"description\":\"\",\"enable_group_stage\":false,\"game_id\":null,\"hide_forum\":false,\"hide_seeds\":false,\"hold_third_place_match\":false,\"max_predictions_per_user\":1,\"notify_users_when_matches_open\":true,\"notify_users_when_the_tournament_ends\":true,\"open_signup\":false,\"participant_count_to_advance_per_group\":null,\"participants_count\":0,\"prediction_method\":0,\"predictions_opened_at\":null,\"private\":false,\"progress_meter\":0,\"pts_for_bye\":\"1.0\",\"pts_for_game_tie\":\"0.0\",\"pts_for_game_win\":\"0.0\",\"pts_for_match_tie\":\"0.5\",\"pts_for_match_win\":\"1.0\",\"quick_advance\":false,\"ranked_by\":null,\"require_score_agreement\":false,\"rr_pts_for_game_tie\":\"0.0\",\"rr_pts_for_game_win\":\"0.0\",\"rr_pts_for_match_tie\":\"0.5\",\"rr_pts_for_match_win\":\"1.0\",\"sequential_pairings\":false,\"show_rounds\":false,\"signup_cap\":null,\"signup_requires_account\":false,\"started_at\":null,\"state\":\"pending\",\"swiss_rounds\":0,\"teams\":null,\"updated_at\":\"2014-04-28T15:32:24-04:00\",\"review_before_finalizing\":true,\"accepting_predictions\":false,\"participants_locked\":false}}"
+    headers:
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.2.7
+      Date:
+      - Mon, 28 Apr 2014 19:44:10 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Status:
+      - 200 OK
+      Pragma:
+      - no-store
+      Cache-Control:
+      - no-store
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - "\"1f8e02fd46df04b1afdafa91b963b04b\""
+      X-Request-Id:
+      - 6249e1077774dfe818c4822dca0a0ae0
+      X-Runtime:
+      - '0.101458'
+      Set-Cookie:
+      - incap_ses_208_94794=9gUDSAm3XC2CCGRP/fbiAoqvXlMAAAAAADGoiPbBnMfwt7Dq8xxygw==;
+        path=/; Domain=.challonge.com
+      - visid_incap_94794=Jqp69mvlTLO6bBc+PIRUzoqvXlMAAAAAQUIPAAAAAAAoSLK3jzVdsCeBhRLfLRaa;
+        expires=Wed, 27 Apr 2016 08:38:14 GMT; path=/; Domain=.challonge.com
+      X-Iinfo:
+      - 3-58778187-58776254 PNNN RT(1398714249811 100) q(0 0 0 -1) r(1 1) U6
+      X-Cdn:
+      - Incapsula
+    body:
+      encoding: UTF-8
+      string: "{\"tournament\":{\"accept_attachments\":false,\"allow_participant_match_reporting\":true,\"anonymous_voting\":false,\"category\":null,\"check_in_at\":null,\"completed_at\":null,\"created_at\":\"2014-04-28T15:32:24-04:00\",\"created_by_api\":true,\"credit_capped\":false,\"description\":\"\",\"enable_group_stage\":false,\"game_id\":null,\"hide_forum\":false,\"hide_seeds\":false,\"hold_third_place_match\":false,\"id\":957189,\"max_predictions_per_user\":1,\"name\":\"FTW
+        Team Survivor2\",\"notify_users_when_matches_open\":true,\"notify_users_when_the_tournament_ends\":true,\"open_signup\":false,\"participant_count_to_advance_per_group\":null,\"participants_count\":2,\"prediction_method\":0,\"predictions_opened_at\":null,\"private\":false,\"progress_meter\":0,\"pts_for_bye\":\"1.0\",\"pts_for_game_tie\":\"0.0\",\"pts_for_game_win\":\"0.0\",\"pts_for_match_tie\":\"0.5\",\"pts_for_match_win\":\"1.0\",\"quick_advance\":false,\"ranked_by\":null,\"require_score_agreement\":false,\"rr_pts_for_game_tie\":\"0.0\",\"rr_pts_for_game_win\":\"0.0\",\"rr_pts_for_match_tie\":\"0.5\",\"rr_pts_for_match_win\":\"1.0\",\"sequential_pairings\":false,\"show_rounds\":false,\"signup_cap\":null,\"signup_requires_account\":false,\"started_at\":\"2014-04-28T15:44:10-04:00\",\"state\":\"underway\",\"swiss_rounds\":0,\"teams\":null,\"tournament_type\":\"single
+        elimination\",\"updated_at\":\"2014-04-28T15:44:10-04:00\",\"url\":\"Ze9UN\",\"description_source\":\"\",\"subdomain\":null,\"full_challonge_url\":\"http://challonge.com/Ze9UN\",\"live_image_url\":\"http://images.challonge.com/Ze9UN.png\",\"sign_up_url\":null,\"review_before_finalizing\":true,\"accepting_predictions\":false,\"participants_locked\":true}}"
+    http_version: 
+  recorded_at: Mon, 28 Apr 2014 19:44:10 GMT
+- request:
+    method: get
+    uri: https://x8:5BJHSMjZnMoJO8Mq7Qmq7QxR87ZJmgPiPNLK6QCm@challonge.com/api/tournaments/957189.json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.2.7
+      Date:
+      - Mon, 28 Apr 2014 19:44:11 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Status:
+      - 200 OK
+      Pragma:
+      - no-store
+      Cache-Control:
+      - no-store
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - "\"1f8e02fd46df04b1afdafa91b963b04b\""
+      X-Request-Id:
+      - 46147adc9656636ac822b0d5d78d91c9
+      X-Runtime:
+      - '0.079585'
+      Set-Cookie:
+      - incap_ses_208_94794=cN5ILT/1JEgxCWRP/fbiAoqvXlMAAAAAC5h0oTzoHT42iuCrh9wcVQ==;
+        path=/; Domain=.challonge.com
+      - visid_incap_94794=3abWVeI1Rvuu4d7zBZwg/oqvXlMAAAAAQUIPAAAAAACB5rLdvfxqHE0NIYQBvTH+;
+        expires=Wed, 27 Apr 2016 08:38:03 GMT; path=/; Domain=.challonge.com
+      X-Iinfo:
+      - 9-304551962-304551981 NNNN CT(38 41 0) RT(1398714250188 126) q(0 0 0 -1) r(0
+        2) U13
+      X-Cdn:
+      - Incapsula
+    body:
+      encoding: UTF-8
+      string: "{\"tournament\":{\"accept_attachments\":false,\"allow_participant_match_reporting\":true,\"anonymous_voting\":false,\"category\":null,\"check_in_at\":null,\"completed_at\":null,\"created_at\":\"2014-04-28T15:32:24-04:00\",\"created_by_api\":true,\"credit_capped\":false,\"description\":\"\",\"enable_group_stage\":false,\"game_id\":null,\"hide_forum\":false,\"hide_seeds\":false,\"hold_third_place_match\":false,\"id\":957189,\"max_predictions_per_user\":1,\"name\":\"FTW
+        Team Survivor2\",\"notify_users_when_matches_open\":true,\"notify_users_when_the_tournament_ends\":true,\"open_signup\":false,\"participant_count_to_advance_per_group\":null,\"participants_count\":2,\"prediction_method\":0,\"predictions_opened_at\":null,\"private\":false,\"progress_meter\":0,\"pts_for_bye\":\"1.0\",\"pts_for_game_tie\":\"0.0\",\"pts_for_game_win\":\"0.0\",\"pts_for_match_tie\":\"0.5\",\"pts_for_match_win\":\"1.0\",\"quick_advance\":false,\"ranked_by\":null,\"require_score_agreement\":false,\"rr_pts_for_game_tie\":\"0.0\",\"rr_pts_for_game_win\":\"0.0\",\"rr_pts_for_match_tie\":\"0.5\",\"rr_pts_for_match_win\":\"1.0\",\"sequential_pairings\":false,\"show_rounds\":false,\"signup_cap\":null,\"signup_requires_account\":false,\"started_at\":\"2014-04-28T15:44:10-04:00\",\"state\":\"underway\",\"swiss_rounds\":0,\"teams\":null,\"tournament_type\":\"single
+        elimination\",\"updated_at\":\"2014-04-28T15:44:10-04:00\",\"url\":\"Ze9UN\",\"description_source\":\"\",\"subdomain\":null,\"full_challonge_url\":\"http://challonge.com/Ze9UN\",\"live_image_url\":\"http://images.challonge.com/Ze9UN.png\",\"sign_up_url\":null,\"review_before_finalizing\":true,\"accepting_predictions\":false,\"participants_locked\":true}}"
+    http_version: 
+  recorded_at: Mon, 28 Apr 2014 19:44:11 GMT
+recorded_with: VCR 2.9.0
