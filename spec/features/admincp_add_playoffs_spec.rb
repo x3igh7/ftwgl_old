@@ -32,15 +32,6 @@ describe "Playoffs creation" do
     expect(playoff_tournament.playoffs).to be_true
   end
 
-  it 'generates playoff matches so that matches can be recorded', :vcr => {:record => :new_episodes}, :js => true, :focus => true do
-    prev = Match.count
-    manage
-    click_link "generate matches"
-    click_on 'generate playoff matches'
-    expect(Match.count).to eq(prev + 2)
-    expect(Match.last.challonge_id).to eq(18031474)
-  end
-
 end
 
 def manage

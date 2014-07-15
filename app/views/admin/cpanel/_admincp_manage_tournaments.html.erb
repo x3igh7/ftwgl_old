@@ -28,7 +28,7 @@
             <td><%= link_to "set schedule", schedule_admin_tournaments_path(:tournament_id => tourny.id) %></td>
           <% elsif tourny.tournament_type == "Bracket" && tourny.challonge_state == "underway" %>
             <td><%= link_to "generate matches", admin_tournament_bracket_matches_path(:tournament_id => tourny.id) %></td>
-          <% else tourny.playoffs %>
+          <% elsif tourny.playoffs %>
             <td><%= link_to "generate playoff matches", admin_tournament_bracket_matches_path(:tournament_id => tourny.id) %></td>
           <% end %>
 
