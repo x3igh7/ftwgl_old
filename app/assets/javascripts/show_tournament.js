@@ -7,6 +7,9 @@ $(document).ready(function(){
 
   $('#tournament_rules_dialog').dialog({
     autoOpen: false,
+    minWidth: 600,
+    maxWidth: 800,
+    maxHeight: 500,
     buttons: [{
       text: "Close",
       click: function(){
