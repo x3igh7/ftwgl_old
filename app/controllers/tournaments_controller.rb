@@ -13,6 +13,7 @@ class TournamentsController < ApplicationController
     @matches = Match.current_week_matches(@tournament)
     @news = @tournament.news.order('created_at DESC').page params[:page]
     @current_user_teams = []
+    gon.challonge_url = ""
     if @tournament.tournament_type == "Bracket"
       gon.challonge_url = @tournament.challonge_url
     end

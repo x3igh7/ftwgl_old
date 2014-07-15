@@ -27,6 +27,8 @@ Ftwgl::Application.routes.draw do
       put "activate"
       put "start_bracket"
       get "bracket_results"
+      get "playoffs"
+      post "generate_playoff_bracket"
       put "update_bracket"
       get "bracket_matches"
       post "generate_bracket_matches"

@@ -13,24 +13,27 @@
           <td><%= link_to "edit", edit_admin_tournament_path(tourny), id: "edit-tourny-#{tourny.id}" %></td>
           <td><%= link_to "tournament teams", admin_tournament_teams_path(:tournament_id => tourny.id) %></td>
           <td><%= link_to "matches", admin_matches_path(:tournament_id => tourny.id) %></td>
-          <% if tourny.tournament_type == "Season" %>
 
+          <% if tourny.tournament_type == "Season" and not tourny.playoffs %>
             <td><%= link_to "set ranks", rankings_admin_tournaments_path(:tournament_id => tourny.id) %></td>
-
           <% elsif tourny.tournament_type == "Bracket" && tourny.challonge_state == "" %>
-
             <td><%= link_to "start", admin_tournament_start_bracket_path(:tournament_id => tourny.id), :method => :put %></td>
-
-          <% elsif tourny.tournament_type == "Bracket" && tourny.challonge_state == "underway" %>
-
+          <% elsif tourny.tournament_type == "Bracket" && tourny.challonge_state == "underway" || tourny.playoffs == true %>
             <td><%= link_to "update bracket", admin_tournament_bracket_results_path(:tournament_id => tourny.id) %></td>
-
+          <% else tourny.playoffs == true %>
+            <td><%= link_to "update bracket", admin_tournament_bracket_results_path(:tournament_id => tourny.id) %></td>
           <% end %>
 
-          <% if tourny.tournament_type == "Season" %>
+          <% if tourny.tournament_type == "Season" and not tourny.playoffs %>
             <td><%= link_to "set schedule", schedule_admin_tournaments_path(:tournament_id => tourny.id) %></td>
           <% elsif tourny.tournament_type == "Bracket" && tourny.challonge_state == "underway" %>
             <td><%= link_to "generate matches", admin_tournament_bracket_matches_path(:tournament_id => tourny.id) %></td>
+          <% elsif tourny.playoffs %>
+            <td><%= link_to "generate playoff matches", admin_tournament_bracket_matches_path(:tournament_id => tourny.id) %></td>
+          <% end %>
+
+          <% if tourny.tournament_type == "Season" && tourny.playoffs == false %>
+            <td><%= link_to "start playoffs", admin_tournament_playoffs_path(:tournament_id => tourny.id), data: { confirm: "Are you sure that you want to start playoffs?" } %></td>
           <% end %>
         </tr>
       <% end %>

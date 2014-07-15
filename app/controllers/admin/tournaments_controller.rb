@@ -223,6 +223,71 @@ class Admin::TournamentsController < AdminController
     redirect_to root_path
   end
 
+  def playoffs
+    @tournament = Tournament.find(params[:tournament_id])
+    @teams = @tournament.get_tournament_team_names_by_rank
+    if @teams.empty?
+      flash[:alert] = "You can't start playoffs with no teams!"
+      redirect_to :back
+    end
+    gon.teams = @teams
+  end
+
+  def generate_playoff_bracket
+    @tournament = Tournament.find(params[:tournament_id])
+    @bracket_size = @tournament.bracket_size = params[:bracket_size].to_i
+    @teams = @tournament.tournament_teams.ranking
+
+    # if @teams.first(@bracket_size).include?(nil) || @teams.first(@bracket_size).include?('undefined')
+    #   flash[:alert] = "Invalid bracket size. Likely too large."
+    #   redirect_to :back
+    # end
+
+    #create the bracket
+    t = Challonge::Tournament.new
+    t.name = @tournament.name
+    t.subdomain = "ftwgamingleague"
+    t.tournament_type = "single elimination"
+    t.url = Devise.friendly_token.first(5)
+    if t.save
+      t.reload
+
+      @tournament.challonge_url = t.url
+      @tournament.challonge_img = t.live_image_url
+      @tournament.challonge_id = t.id
+      if @tournament.save
+        #create bracket participants and start the bracket, set tournament.playoffs to true
+        @teams.first(@bracket_size).each do |team|
+          x = Challonge::Participant.create(:name => team.team.name + team.team.tag, :tournament => t)
+          team.challonge_id = x.id
+          if not team.save
+            flash[:alert] = "Could not create tournament partipants..."
+            redirect_to :back
+          end
+        end
+
+        if t.start!
+          t.reload
+          @tournament.challonge_state = t.state
+          @tournament.playoffs = true
+          if @tournament.save
+            flash[:notice] = "Playoff bracket successfully created! Now go generate the matches..."
+            redirect_to admin_root_path
+          else
+            flash[:alert] = "Tournament failed to properly update."
+            redirect_to :back
+          end
+        else
+          flash[:alert] = "Failed to start bracket."
+          redirect_to :back
+        end
+      end
+    else
+      flash[:alert] = t.errors.full_messages
+      redirect_to :back
+    end
+  end
+
   private
 
   def date_converter(params)
