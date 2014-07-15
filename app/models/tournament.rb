@@ -1,6 +1,6 @@
 class Tournament < ActiveRecord::Base
   attr_accessible :description, :name, :bracket_size, :rules, :current_week_num, :news, :elimination_type, :tournament_type, :bracket_type
-  attr_accessible :challonge_url, :challonge_img, :challonge_id
+  attr_accessible :challonge_url, :challonge_img, :challonge_id, :playoffs
   validates_presence_of :name, :tournament_type
 
   validates_inclusion_of :active, :in => [true, false]
@@ -71,6 +71,14 @@ class Tournament < ActiveRecord::Base
       end
     end
     return @matchups
+  end
+
+  def get_tournament_team_names_by_rank
+    team_names = []
+    self.tournament_teams.ranking.each do |team|
+      team_names << team.team.name
+    end
+    team_names
   end
 
   private

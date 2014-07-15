@@ -1,0 +1,16 @@
+<h1>generate playoff bracket</h1>
+<p>tournament: <%= @tournament.name %></p>
+<div class="bracket-calc">
+<%= form_tag admin_tournament_generate_playoff_bracket_path, method: :post do %>
+  <%= label_tag :bracket_size, "bracket size" %>
+  <%= text_field_tag :bracket_size %>
+  <a class="button" href="">show playoff teams</a>
+</div>
+<div class="playoff-teams-table content-inner-inner">
+  <table id="playoff-teams" cellpadding="0">
+  </table>
+</div>
+  <%= submit_tag "start playoffs" %>
+<% end %>
+
+<%= javascript_include_tag "filter_playoff_teams" %>

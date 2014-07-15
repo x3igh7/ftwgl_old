@@ -18,6 +18,7 @@ class Admin::TeamsController < AdminController
   end
 
   def destroy
+    enforce_permissions
     @team = Team.find(params[:id])
 
     if @team.delete
@@ -29,4 +30,11 @@ class Admin::TeamsController < AdminController
     end
   end
 
+end
+
+def enforce_permissions
+  if not current_user.has_role?(:admin)
+    flash[:alert] = "You don't have sufficient permissions to do that."
+    redirect_to admin_root_path
+  end
 end

@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
   has_many :news
 
   roles_attribute :roles_mask
-  roles :admin, :user, :banned
+  roles :admin, :user, :banned, :tournament_admin
 
   before_save :default_roles
 

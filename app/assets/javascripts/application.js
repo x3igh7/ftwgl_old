@@ -15,5 +15,5 @@
 //= require new_tournament
 //= require admin_cp
 //= require challonge
-//= require show_tournament
 //= require add_tournament_team
+//= require bootstrap-datepicker
