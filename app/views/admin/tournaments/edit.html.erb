@@ -6,9 +6,11 @@
 
   <%= f.input :name %>
   <%= f.input :description %>
-  <%= f.input :rules %>
+  <%= f.input :rules, as: :text %>
   <%= f.submit "update tournament"%>
+
 <% end %>
+
 <div class="spacer" style="margin-bottom:25px"></div>
 <div class="content-inner-inner">
 <% if @tournament.active %>
