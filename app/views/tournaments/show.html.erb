@@ -1,7 +1,12 @@
 <h1><%= @tournament.name %></h1>
 <div class="content-inner">
-	<span class="outer-heading"><%= @tournament.description %></span><br />
-	<span class="faded"><%= "#{@tournament.rules}"%></span><br />
+
+	<span class="outer-heading"><%= @tournament.description %></span><br/>
+
+	<span class="faded"><a id="tournament_rules_link" href="#">Tournament Rules</a></span><br />
+
+<%= render 'tournament_rules_dialog' %>
+
 	<% if user_signed_in? %>
 		<% if @active_tournament_team %>
 			<% @active_team = Team.find(@active_tournament_team.team_id) %>

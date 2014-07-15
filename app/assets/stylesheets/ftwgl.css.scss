@@ -264,3 +264,16 @@ td{
 	margin-left: 10px;
 	width: 75px;
 }
+
+.ui-dialog-titlebar {
+	display:none
+}
+
+.ui-dialog .ui-dialog-content, .ui-widget-content {
+	background:#373737 !important;
+	color:#f6f6f6 !important;
+}
+
+.ui-widget-content h1{
+	background-color: #cc5500;
+}

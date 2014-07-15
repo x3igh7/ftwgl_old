@@ -18,3 +18,4 @@
 //= require add_tournament_team
 //= require bootstrap-datepicker
 //= require show_tournament
+//= require filter_playoff_teams
