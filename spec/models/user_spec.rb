@@ -4,7 +4,11 @@ describe User do
   it { should validate_presence_of(:email) }
   it { should validate_presence_of(:username) }
   it { should have_many(:teams) }
-  it { should have_many(:memberships) } 
+  it { should have_many(:memberships) }
+  it { should have_many(:tournaments) }
+  it { should have_many(:news) }
+  it { should have_many(:matches) }
+  it { should have_many(:comments) }
 end
 
 describe "is_team_owner?" do
@@ -25,3 +29,29 @@ describe "is_team_member?" do
   end
 end
 
+describe "user stats" do
+  let!(:user) {FactoryGirl.create(:user) }
+  let!(:home) { FactoryGirl.create(:team) }
+  let!(:member) {FactoryGirl.create(:membership, team: home, user: team_owner, role: 'owner', active: true)}
+  let!(:away) { FactoryGirl.create(:team) }
+  let!(:tournament) { FactoryGirl.create(:tournament) }
+  let!(:team1) { FactoryGirl.create(:tournament_team, team: home, tournament: tournament) }
+  let!(:team2) { FactoryGirl.create(:tournament_team, team: away, tournament: tournament) }
+  let!(:match) { FactoryGirl.create(:match, home_team_id: team1.id, away_team_id: team2.id, tournament_id: tournament.id, home_score: 10, away_score: 5, winner_id: team1.id) }
+  let!(:match2) { FactoryGirl.create(:match, home_team_id: team1.id, away_team_id: team2.id, tournament_id: tournament.id, home_score: 10, away_score: 5, winner_id: team1.id) }
+  let!(:match3) { FactoryGirl.create(:match, home_team_id: team1.id, away_team_id: team2.id, tournament_id: tournament.id, home_score: 5, away_score: 10, winner_id: team2.id) }
+
+
+  it "calculates a users total wins" do
+    expect(user.totals_wins).to eq(2)
+  end
+
+  it "calculates a users total losses" do
+    expect(user.total_losses).to eq(1)
+  end
+
+  it "calculates a a users winning perc" do
+    expect(user.total_losses).to eq(2/3)
+  end
+
+end

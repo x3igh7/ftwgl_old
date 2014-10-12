@@ -1,7 +1,16 @@
 <div class="content-inner-inner">
-  <h1>manage news</h1>
+  <div class="search-form">
+  <%= search_form_for @q_news, url: admin_root_path, remote: true, :method => :get do |f| %>
+    <%= f.search_field :headline_cont, :autocomplete => "off" %>
+    <a class="search_submit button" href="javascript:void(0);" onclick="$('#news_panel input:submit').click();">search</a>
+
+    <%= f.submit "search", class: "hide" %>
+
+  <% end %>
+  </div>
+
   <div class="content-inner-inner">
-    <table cellspacing="0">
+    <table>
       <tr>
         <th>title</th>
         <th>source</th>

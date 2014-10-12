@@ -4,13 +4,25 @@ body{
 	font-family: Calibri, Tahoma;
 	font-size:18px;
 }
+table {
+	border-spacing: 0px;
+	border-collapse: collapse;
+	width: 100%;
+}
+
 table th, table td{
 	padding: 5px;
 }
+
 .center{
 	margin-left:auto;
 	margin-right:auto;
 }
+
+.hide {
+	display: none;
+}
+
 input{
 	background:#f6f6f6;
 	border:solid 1px #ccc;
@@ -55,7 +67,9 @@ input[type=submit]:hover{
 }
 
 .body-container{
-	width:1172px;
+	width:100%;
+	max-width: 1280px;
+	padding: 40px;
 }
 
 a{
@@ -110,12 +124,21 @@ td{
 }
 
 #content-main{
-	width:800px;
-	float:left;
-	margin:0 0 0 30px;
+	width: 80%;
+	width: calc(100% - 20em);
+	min-width: 16.666%;
+	min-width: calc(17.5em);
+	float: left;
+}
+
+#content-side{
+	width: 16.666%;
+	width: calc(17.5em);
+	float: right;
 }
 
 .content-outer{
+	width: 100%;
 	background:#373737;
 	color:#f6f6f6;
 	padding:5px;
@@ -162,22 +185,16 @@ td{
 	background:#535353;
 }
 
-#content-side{
-	float:left;
-	width:275px;
-	margin:0 0 0 30px;
-}
-
 .important{
 	font-weight:bold;
 }
 
-.comments{
-	width:500px;
-	margin-left:auto;
-	margin-right:auto;
-	margin-top: 50px;
-	word-wrap:break-word;
+.pagination {
+	margin-top: 10px;
+}
+
+.search-form {
+	margin-bottom: 10px;
 }
 
 .tournament-name{
@@ -222,6 +239,14 @@ td{
 
 .clear{
 	clear:both;
+}
+
+.right {
+	float: right;
+}
+
+.left {
+	float: left;
 }
 
 .spacer{
@@ -277,3 +302,145 @@ td{
 .ui-widget-content h1{
 	background-color: #cc5500;
 }
+
+// Home Page
+.quick-links ul {
+	list-style: none;
+}
+
+.quick-links ul li {
+	display: inline-block;
+	width: 48%;
+	vertical-align: top;
+}
+
+// Users
+
+.users-table td {
+	width: 33%;
+}
+
+.user-profile div.half {
+	width: 48%;
+	margin-right: 1%;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.user-profile div dl {
+	display: inline-block;
+	width: 98%;
+}
+
+.user-info .profile-avatar {
+	float: left;
+	margin-right: 20px;
+}
+
+.user-profile .user-info dl {
+	display: block;
+	margin-left: 148px;
+}
+
+.user-profile .comments {
+	width: 90%;
+}
+
+.user-profile .comments-inner a {
+	margin-top: -10px;
+}
+// Teams
+
+.teams-table td {
+}
+
+// Comments
+
+.comments{
+	width: 80%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top: 50px;
+	word-wrap:break-word;
+}
+
+.comment {
+	min-height: 60px;
+	margin-bottom: 10px;
+}
+
+.comments textarea {
+	width: 95%;
+	height: 100px;
+}
+
+.comments-inner {
+	padding-bottom: 10px;
+}
+
+.comments-info div {
+	float: right;
+}
+
+.comments-image {
+	margin-left: 10px;
+	margin-right: 10px;
+	float: left;
+}
+
+// Admin CP
+
+#admin_panel .ui-accordion-header {
+	margin-top: 10px;
+}
+
+#admin_panel .ui-widget-content {
+	border: 0px;
+}
+
+#admin_panel .ui-widget-content table a {
+	color: #fb8800;
+}
+
+#admin_panel .ui-widget-content .button {
+	color: white;
+}
+
+#admin_panel .ui-accordion-content {
+	padding: 10px;
+}
+
+#admin_panel button {
+	font-size: 14px;
+}
+
+#admin_panel .search-form .button, #admin_panel .search-form input {
+	float: left;
+}
+
+#admin_panel .search-form input {
+	margin-top: 15px;
+}
+
+#admin_panel .search-form .button {
+	margin-left: 10px;
+}
+
+#admin_panel .management li {
+	display: inline-block;
+	list-style: none;
+	padding: 5px;
+	border: 1px solid #fb8800;
+	color: white;
+}
+
+#admin_panel .management a {
+	color: white;
+}
+
+#admin_panel .management a:hover {
+	color: #fb8800;
+	font-size: 24px;
+	text-decoration: underline;
+}
+

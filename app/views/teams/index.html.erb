@@ -1,14 +1,26 @@
 <h1>teams</h1>
 
-<table class="center" cellspacing="0">
-  <%= render :partial => "heading_teams" %>
+<div class="search-form">
+  <%= search_form_for @q do |f| %>
+    <%= f.search_field :name_or_tag_cont, :autocomplete => "off" %>
+
+    <%= f.submit "search" %>
+  <% end %>
+</div>
+
+<table class="teams-table">
+	<tr>
+  	<%= render :partial => "heading_teams" %>
+  </tr>
   <% @teams.each do |team| %>
     <%= render :partial => "row_teams", :locals => { :team => team } %>
   <% end %>
 </table>
-<div class="center">
+
+<div>
   <%= paginate @teams %>
 </div>
+
 <% if user_signed_in? %>
     <%= link_to "Create a team", new_team_path, :class => "button" %>
 <% end %>

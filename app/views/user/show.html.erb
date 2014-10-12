@@ -1,27 +1,75 @@
 <h1><%= "profile for #{@user.username}" %></h1>
-<div class="content-inner">
-  <div style="float:left;width:50%;vertical-align:top;">
-    <dl>
-      <dt>User Name:</dt>
-      <dd><%= @user.username%></dd>
-      <dt>Date Joined:</dt>
-      <dd><%= @user.created_at.strftime("%B %d,%Y") %></dd>
-      <dt>Last Seen:</dt>
-      <dd><%= @user.last_sign_in_at.strftime("%B %d,%Y") unless @user.last_sign_in_at.nil? %></dd>
-      <% if user_signed_in? && current_user == @user %>
-      <dd>
-        <%= link_to "Change Password", edit_user_registration_path(@user) %>
-      </dd>
-      <% end %>
+<div class="content-inner user-profile">
+  <div class="half">
+    <dl class="content-inner-inner user-info">
+      <h1>info</h1>
+      <p class="profile-avatar">
+        <%= image_tag big_avatar_url(@user)%>
+      </p>
+      <dl>
+        <dt>User Name:</dt>
+        <dd><%= @user.username%></dd>
+        <dt>Date Joined:</dt>
+        <dd><%= @user.created_at.strftime("%B %d,%Y") %></dd>
+        <dt>Last Seen:</dt>
+        <dd><%= @user.last_sign_in_at.strftime("%B %d,%Y") unless @user.last_sign_in_at.nil? %></dd>
+        <% if user_signed_in? && current_user == @user %>
+        <dt><%= link_to "Manage Account", edit_user_registration_path(@user) %></dt>
+        <% end %>
+      </dl>
+    </dl>
+
+    <dl class="content-inner-inner">
+      <h1>stats</h1>
+      <dt>Wins</dt>
+      <dd><%= @wins %></dd>
+      <dt>Losses</dt>
+      <dd><%= @losses %></dd>
+      <dt>Winning Percentage</dt>
+      <dd><%= @winning_perc %>%</dd>
     </dl>
   </div>
-  <div style="float:right;width:50%;height:100%">
+
+  <div class="half">
     <dl class="content-inner-inner">
-      <dt><h1>teams</h1></dt>
+      <h1>teams</h1>
       <% @user.teams.each do |team| %>
       <dd><%= link_to "#{team.name} #{team.tag}", team_path(team) %></dd>
       <% end %>
     </dl>
+
+    <dl class="content-inner-inner">
+      <h1>upcoming matches</h1>
+      <% @team_tournament_matches.each do |match| %>
+        <dt><%= match.tournament.name %></dt>
+        <dd><%= link_to match.home_team.team.name + " vs. " + match.away_team.team.name, tournament_match_path(:tournament_id => match.tournament.id, :id => match.id) %></dd>
+      <% end %>
+    </dl>
+
+    <dl class="content-inner-inner">
+      <h1>recent matches</h1>
+      <% @prev_matches.each do |match| %>
+      <dt><%= match.tournament.name %></dt>
+      <dd><%= link_to match.home_team.team.name + " vs. " + match.away_team.team.name, tournament_match_path(:tournament_id => match.tournament.id, :id => match.id) %></dd>
+      <% end %>
+    </dl>
+
   </div>
-  <div class="clear"></div>
+
+  <div class="content-inner-inner comments">
+    <div class="comments-inner">
+    <h1>recent comments</h1>
+      <% if @comments.any? %>
+        <% @comments.each do |comment| %>
+          <% if comment.commentable_type == "News" %>
+            <%= link_to comment.commentable.headline, news_path(comment.commentable.id) %>
+          <% else %>
+            <%= link_to "view match", news_path(comment.commentable.id) %>
+          <% end %>
+
+          <%= render :partial => "comment", :locals => { :comment => comment } %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
 </div>
