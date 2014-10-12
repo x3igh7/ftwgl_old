@@ -6,8 +6,22 @@ module ApplicationHelper
   end
 
   def big_avatar_url(user)
-    default_url = "#{root_url}images/guest.png"
+    if user.gravatar_email.nil?
+
+    default_url = "#{root_url}images/guest_big.png"
     gravatar_id = Digest::MD5::hexdigest(user.gravatar_email).downcase
     "http://gravatar.com/avatar/#{gravatar_id}.png?s=128&d=#{CGI.escape(default_url)}"
+  end
+
+  def team_avatar_url(team)
+    default_url = "#{root_url}images/default_team.jpg"
+
+
+    if team.gravatar_email.nil?
+      return "default_team.jpg"
+    else
+      gravatar_id = Digest::MD5::hexdigest(team.gravatar_email).downcase
+      return "http://gravatar.com/avatar/#{gravatar_id}.png?s=256&d=#{CGI.escape(default_url)}"
+    end
   end
 end

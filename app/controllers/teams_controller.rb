@@ -24,6 +24,7 @@ load_and_authorize_resource
 
   def show
     @team = Team.find(params[:id])
+    @current_tournaments = @team.tournaments.where(active: true)
     @user = current_user
     @membership = @team.memberships
     @total_wins = @team.total_wins
