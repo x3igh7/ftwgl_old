@@ -29,8 +29,4 @@ module ApplicationHelper
   def twitch_url(twitch_channel)
     "http://www.twitch.tv/#{twitch_channel}"
   end
-
-  def youtube_video(featured_video)
-    render :partial => 'youtube_video_embed', :locals => { :youtube_url => featured_video }
-  end
 end

@@ -3,7 +3,8 @@ class Team < ActiveRecord::Base
   validates_length_of :name, :maximum => 50, :message => "Team name is too long"
   validates_length_of :tag, :maximum => 8, :message => "Maximum tag length is 8"
 
-  attr_accessible :name, :tag
+  attr_accessible :name, :tag, :gravatar_email, :primary_contact, :secondary_contact,
+  :website, :irc_channel, :voip, :youtube_channel, :twitch_channel, :featured_video, :description
 
   has_many :memberships, :autosave => true, :dependent => :destroy
   has_many :users, through: :memberships
