@@ -16,6 +16,25 @@
 
 <div class="content-inner team-profile">
 	<div class="half">
+		<div>
+			<dl>
+				<dt class="faded">team name</dt>
+				<dd><%= @team.name %></dd>
+				<dt class="faded">team tag</dt>
+				<dd><%= @team.tag %></dd>
+				<% @team_info.each do |title, value| %>
+					<dt class="faded"><%= title %></dt>
+					<% if title == "youtube channel"%>
+						<dd><%= link_to value, youtube_url(value) %></dd>
+					<% elsif title == "twitch channel" %>
+						<dd><%= link_to value, twitch_url(value) %></dd>
+					<% else %>
+						<dd><%= value %></dd>
+					<% end %>
+				<% end %>
+			</dl>
+		</div>
+
 		<div class="content-inner-inner">
 			<h1>stats</h1>
       <div class="outer-heading">Total record</div>
@@ -56,6 +75,10 @@
 					<% end %>
 				<% end %>
 		</div>
+
+		<% if @featured_video %>
+			<%= youtube_video(@featured_video) %>
+		<% end %>
 	</div>
 	<div class="clear"></div>
 </div>

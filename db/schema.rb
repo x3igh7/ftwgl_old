@@ -66,11 +66,20 @@ ActiveRecord::Schema.define(:version => 20141012060415) do
   end
 
   create_table "teams", :force => true do |t|
-    t.string   "name",           :null => false
-    t.string   "tag",            :null => false
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.string   "name",              :null => false
+    t.string   "tag",               :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
     t.string   "gravatar_email"
+    t.string   "primary_contact"
+    t.string   "secondary_contact"
+    t.string   "website"
+    t.string   "irc_channel"
+    t.string   "voip"
+    t.string   "youtube_channel"
+    t.string   "twitch_channel"
+    t.string   "featured_video"
+    t.text     "description"
   end
 
   create_table "tournament_teams", :force => true do |t|

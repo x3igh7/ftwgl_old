@@ -1,0 +1,19 @@
+<%= simple_form_for(@team) do |f| %>
+  <%= f.error_notification %>
+
+  <%= f.input :name %>
+  <%= f.input :tag %>
+  <%= f.input :gravatar_email, label: "gravatar email" %>
+  <%= f.input :primary_contact %>
+  <%= f.input :secondary_contact %>
+  <%= f.input :website %>
+  <%= f.input :irc_channel %>
+  <%= f.input :voip, label: "VoIP info", placeholder: "ex. TS3 / 127.0.0.1" %>
+  <%= f.input :youtube_channel, label: "youtube user", placeholder: "YouTube username" %>
+  <%= f.input :twitch_channel, label: "twitch user", placeholder: "Twitch username" %>
+  <%= f.input :featured_video, label: "featured youtube video", placeholder: "Enter embed url" %>
+  <%= f.input :description, label: "team desription", as: :text %>
+
+
+  <%= f.submit "Save Team" %>
+<% end %>

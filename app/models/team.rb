@@ -72,6 +72,44 @@ class Team < ActiveRecord::Base
     winning_perc.round(1)
   end
 
+  def team_info
+    @team_info = Hash.new
+
+    if self.primary_contact
+      @team_info["primary contact"] = self.primary_contact
+    end
+
+    if self.secondary_contact
+      @team_info["secondary contact"] = self.secondary_contact
+    end
+
+    if self.website
+      @team_info["website"] = self.website
+    end
+
+    if self.irc_channel
+      @team_info["irc channel"] = self.irc_channel
+    end
+
+    if self.voip
+      @team_info["voip info"] = self.voip
+    end
+
+    if self.youtube_channel
+      @team_info["youtube channel"] = self.youtube_channel
+    end
+
+    if self.twitch_channel
+      @team_info["twitch channel"] = self.twitch_channel
+    end
+
+    if self.description
+      @team_info["description"] = self.description
+    end
+
+    @team_info
+  end
+
 end
 
 

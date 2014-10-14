@@ -249,6 +249,13 @@ td{
 	float: left;
 }
 
+.half {
+	width: 48%;
+	margin-right: 1%;
+	display: inline-block;
+	vertical-align: top;
+}
+
 .spacer{
 	clear:both;
 	height:10px;
@@ -320,13 +327,6 @@ td{
 	width: 33%;
 }
 
-.user-profile div.half {
-	width: 48%;
-	margin-right: 1%;
-	display: inline-block;
-	vertical-align: top;
-}
-
 .user-profile div dl {
 	display: inline-block;
 	width: 98%;
@@ -352,13 +352,6 @@ td{
 // Teams
 
 .teams-table td {
-}
-
-.team-profile div.half {
-	width: 48%;
-	margin-right: 1%;
-	display: inline-block;
-	vertical-align: top;
 }
 
 .team-profile .team-avatar {

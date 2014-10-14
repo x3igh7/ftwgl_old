@@ -30,6 +30,8 @@ load_and_authorize_resource
     @total_wins = @team.total_wins
     @total_losses = @team.total_losses
     @winning_perc = @team.winning_perc
+    @team_info = @team.team_info
+    @featured_video = @team.featured_video
   end
 
   def edit
