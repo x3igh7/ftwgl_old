@@ -1,23 +1,26 @@
+<div id="admin_panel" class="content-inner">
 <h1>admin</h1>
-<div class="content-inner">
 
-    <div id="news_panel">
-      <%= render 'admincp_manage_news' %>
+    <h3 id="manage-news">manage news</h3>
+    <div id="news_panel" class="collapse-header">
+      <%=  render 'admincp_manage_news' %>
     </div>
 
-    <div id="tournaments_panel">
+    <h3 id="manage-tournaments">manage tournaments</h3>
+    <div id="tournaments_panel" class="collapse-header">
       <%= render 'admincp_manage_tournaments' %>
     </div>
 
+    <h3 id="manage-users">manage users</h3>
     <% if @user.has_role?(:admin) %>
-      <div id="users_panel">
+      <div id="users_panel" class="collapse-header">
         <%= render 'admincp_manage_users' %>
       </div>
     <% end %>
 
-    <div id="teams_panel">
+    <h3 id="manage-teams">manage teams</h3>
+    <div id="teams_panel" class="collapse-header">
       <%= render 'admincp_manage_teams' %>
     </div>
   </div>
-</div>
 

@@ -1,8 +1,0 @@
-<%= simple_form_for(Team.new, :url => admin_team_path("{0}")) do |f| %>
-  <%= f.error_notification %>
-  
-  <%= f.input :name %>
-  <%= f.input :tag %>
-  <%= f.submit "Update team" %>
-<% end %>
-

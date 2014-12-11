@@ -1,44 +1,52 @@
-<% if @teams.length < 1 %>
-<div class="join-team">
-		<%= link_to "Create", new_team_path %> or
-		<%= link_to "join", teams_path %> a team.
+<div class="quick-links center">
+	<ul>
+		<li>
+			<table>
+				<thead>
+					<tr>
+						<th>your active tournaments</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% if @tournaments.any? %>
+					<% @tournaments.each do |tournament| %>
+					<tr>
+						<td><%= link_to tournament.name, tournament_path(tournament) %></td>
+					</tr>
+					<% end %>
+					<% else %>
+					<tr>
+						<td>You aren't participating in any active tournaments</td>
+					</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</li>
+
+		<li>
+			<table>
+				<thead>
+					<tr>
+						<th>your teams</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% if @teams.any? %>
+					<% @teams.each do |team| %>
+					<tr>
+						<td><%= link_to team.name + " " + team.tag, team_path(team) %></td>
+					</tr>
+					<% end %>
+					<% else %>
+					<tr>
+						<td>
+							<%= link_to "create new team", new_team_path %> or
+							<%= link_to "join an exisiting team", teams_path %>
+						</td>
+					</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</li>
+	</ul>
 </div>
-<% else %>
-<div class="tournaments-list">
-	<% if @tournaments.any? %>
-		You are participating in
-		<% num_tournaments = @tournaments.length %>
-		<% if num_tournaments == 1 %>
-			<% tournament = @tournaments.first %>
-			<%= link_to tournament.name, tournament_path(tournament) %>.
-		<% else %>
-			<% tournaments = [] %>
-			<% @tournaments.each_with_index do |tournament, i| %>
-				<% if i == num_tournaments - 1 %>
-					<% tournaments << 'and ' + link_to(tournament.name, tournament_path(tournament)) + '.' %>
-					<% next %>
-				<% end %>
-				<% tournaments << link_to(tournament.name, tournament_path(tournament)) %>
-			<% end %>
-			<%= tournaments.join(", ").html_safe %>
-		<% end %>
-	<% end %>
-</div>
-<p />
-You belong to
-  <% num_teams = @teams.length %>
-		<% if num_teams == 1 %>
-			<% team = @teams.first %>
-			<%= link_to team.name, team_path(team) %>.
-		<% else %>
-			<% teams = [] %>
-			<% @teams.each_with_index do |team, i| %>
-				<% if i == num_teams - 1 %>
-					<% teams << 'and ' + link_to(team.name, team_path(team)) + '.'%>
-					<% next %>
-				<% end %>
-				<% teams << link_to(team.name, team_path(team)) %>
-			<% end %>
-			<%= teams.join(", ").html_safe %>
-		<% end %>
-<% end %>

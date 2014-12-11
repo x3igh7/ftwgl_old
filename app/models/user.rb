@@ -18,7 +18,9 @@ class User < ActiveRecord::Base
   has_many :memberships
   has_many :teams, through: :memberships
   has_many :tournaments, through: :teams
-  has_many :news
+  has_many :news, through: :tournaments
+  has_many :matches, through: :tournaments
+  has_many :comments
 
   roles_attribute :roles_mask
   roles :admin, :user, :banned, :tournament_admin
@@ -29,6 +31,44 @@ class User < ActiveRecord::Base
     if self.roles_mask == nil
       self.roles = :user
     end
+  end
+
+  def total_wins
+    @wins = 0
+
+    self.teams.each do |team|
+      @wins += team.total_wins
+    end
+
+    return @wins
+  end
+
+  def total_losses
+    @losses = 0
+
+    self.teams.each do |team|
+      @losses += team.total_losses
+    end
+
+    return @losses
+  end
+
+  def total_matches
+    @matches = 0
+
+    @matches = self.total_wins + self.total_losses
+
+    return @matches
+  end
+
+  def winning_perc
+    @winning_perc = 100
+
+    if self.total_matches != 0
+      @winning_perc = (self.total_wins.to_f / self.total_matches.to_f)
+    end
+
+    return @winning_perc
   end
 
   def is_team_owner?(team)

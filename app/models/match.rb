@@ -40,7 +40,7 @@ class Match < ActiveRecord::Base
 	end
 
 	def standard_date
-		match_date.in_time_zone("EST").strftime("%a, %b %-d, %-r %Z")
+		match_date.strftime("%a, %b %-d, %I:%M%p %Z")
 	end
 
   def self.in_tournament(tournament)

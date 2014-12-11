@@ -1,5 +1,0 @@
-<%= simple_form_for Membership.new do |f| %>
-	<%= f.input :user_id, :as => :hidden, :input_html => { :value => "{0}" } %>
-	<%= f.input :team_id, :as => :select, :label => "Team", :default => 1, :collection => Team.find(:all), :required => true %>
-	<%= f.submit "Join team" %>
-<% end %>

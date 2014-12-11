@@ -1,6 +1,7 @@
 <h1>New Tournament</h1>
 <%= simple_form_for([:admin, @tournament]) do |f| %>
     <%= f.input :name, :required => true %>
+    <%= f.input :category, :required => true %>
     <%= f.input :description %>
     <%= f.input :tournament_type, collection: @types, :required => true %>
     <%= f.input :bracket_type, collection: @bracket_types, include_blank: true%>

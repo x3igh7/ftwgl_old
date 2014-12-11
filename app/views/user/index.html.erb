@@ -1,6 +1,15 @@
 <h1>members</h1>
 <div class="content-inner">
-<table class="center" cellspacing="0">
+
+<div class="search-form">
+  <%= search_form_for @q, url: user_index_path do |f| %>
+    <%= f.search_field :username_or_teams_name_or_teams_tag_cont, :autocomplete => "off" %>
+
+    <%= f.submit "search" %>
+  <% end %>
+</div>
+
+<table class="users-table">
   <tr>
     <th>Username</th>
 		<th>Teams</th>
@@ -15,7 +24,7 @@
 				<% if user.teams.any? %>
 					<% teams = [] %>
 					<% user.teams.each do |team| %>
-						<% teams << link_to(team.name, team_path(team)) %>
+						<% teams << link_to(team.name + " " + team.tag, team_path(team)) %>
 					<% end %>
 					<%= teams.join(", ").html_safe %>
 				<% else %>
@@ -28,7 +37,9 @@
     </tr>
   <% end %>
 </table>
-<div class="center">
+
+<div>
   <%= paginate @users %>
 </div>
+
 </div>

@@ -1,7 +1,15 @@
 <div class="content-inner-inner">
-  <h1>manage teams</h1>
+  <div class="search-form">
+  <%= search_form_for @q_teams, url: admin_root_path, remote: true, :method => :get do |f| %>
+    <%= f.search_field :name_or_tag_cont, :autocomplete => "off" %>
+
+    <%= f.submit "search", class: "hide" %>
+    <a class="search_submit button" href="javascript:void(0);" onclick="$('#teams_panel input:submit').click();">search</a>
+  <% end %>
+  </div>
+
   <div class="content-inner-inner">
-    <table cellspacing="0">
+    <table>
       <tr>
         <th>team</th>
         <th>date created</th>
@@ -14,7 +22,7 @@
         <td><%= team.created_at.strftime("%B %d,%Y") %></td>
         <td><%= link_to "manage", edit_admin_team_path(team), :id => "manage-#{team.name}" %></td>
         <% if @user.has_role?(:admin) %>
-          <td><%= link_to "delete", admin_team_path(team), method: :delete, :id => "delete-#{team.name}", :class => "button", data: { confirm: "Are you sure?" } %></td>
+          <td><%= link_to "delete", admin_team_path(team), method: :delete, :id => "delete-#{team.name}", data: { confirm: "Are you sure?" } %></td>
         <% else %>
           <td></td>
         <% end %>
@@ -25,3 +33,4 @@
   <div class="pagination">
     <%= paginate @teams, :remote => true, :param_name => "page_2" %>
   </div>
+</div>

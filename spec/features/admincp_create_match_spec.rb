@@ -39,8 +39,7 @@ describe "AdminCP Match Creation" do
     click_link "matches"
     click_on "create match"
     create_match
-    visit admin_root_path
-    click_button "manage"
+    manage
     click_link "matches"
     click_link "show"
     expect(page).to have_content("#{home.name} vs. #{away.name}")
@@ -68,5 +67,5 @@ end
 
 def manage
   visit admin_root_path
-  click_button "manage"
+  find('#manage-tournaments').click
 end
