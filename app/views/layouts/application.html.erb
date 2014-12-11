@@ -65,35 +65,98 @@
 			<% end %>
 		</ul>
 
+		<% if user_signed_in? %>
+		<div class="content-outer">
+			<h1>quick links</h1>
+			<div class="content-inner">
+				<div class="quick-links center">
+					<ul>
+						<li>
+							<table>
+								<thead>
+									<tr>
+										<th>tournaments</th>
+									</tr>
+								</thead>
+								<tbody>
+									<% unless @sidebar_tournaments.nil? %>
+									<% @sidebar_tournaments.each do |tournament| %>
+									<tr>
+										<td><%= link_to tournament.name, tournament_path(tournament) %></td>
+									</tr>
+									<% end %>
+									<% else %>
+									<tr>
+										<td>You aren't participating in any active tournaments</td>
+									</tr>
+									<% end %>
+								</tbody>
+							</table>
+						</li>
+
+						<li>
+							<table>
+								<thead>
+									<tr>
+										<th>teams</th>
+									</tr>
+								</thead>
+								<tbody>
+									<% unless @sidebar_teams.nil? %>
+									<% @sidebar_teams.each do |team| %>
+									<tr>
+										<td><%= link_to team.name + " " + team.tag, team_path(team) %></td>
+									</tr>
+									<% end %>
+									<% else %>
+									<tr>
+										<td>
+											<%= link_to "create new team", new_team_path %> or
+											<%= link_to "join an exisiting team", teams_path %>
+										</td>
+									</tr>
+									<% end %>
+								</tbody>
+							</table>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="spacer"></div>
+		<% end %>
+
+
 		<div class="content-outer">
 
 			  <% if user_signed_in? %>
+
 				<h1 class="text-center">your upcoming matches</h1>
 				<div class="content-inner">
-					<% if @team_tournaments.count == 0 %>
+					<% if @sidebar_tournaments.count == 0 %>
 						You're not participating in any tournaments.
 					<% else %>
 
-
-						<% @team_tournaments.each do |tournament| %>
+						<% unless @sidebar_tournaments.nil? %>
+						<% @sidebar_tournaments.each do |tournament| %>
 							<div class="content-inner-inner">
 						  <h1><%= link_to tournament.name, tournament_path(tournament) %></h1>
-							<% if @team_tournament_matches.empty? %>
+							<% if tournament.matches.nil? %>
 							  <p>No upcoming matches</p>
 							<% else %>
-								<% @team_tournament_matches.each do |match| %>
-									<% if match.tournament_id == tournament.id %>
+								<% tournament.matches.each do |match| %>
 									<%= link_to "#{match.home_team.team.name} vs. #{match.away_team.team.name}", tournament_match_path(tournament.id, match.id) %>
 									<div class="faded" style="font-size:16px;"><%= match.standard_date %></div>
-									<%end%>
 								<% end %>
 							<% end %>
 							</div>
+						<% end %>
 						<% end %>
 
 					<% end %>
 
 					</div>
+
 			  <% else %>
 					<h1>sign in</h1>
 					<div class="content-inner">
