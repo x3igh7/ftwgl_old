@@ -1,33 +1,41 @@
 <h1>tournaments</h1>
 
 <div class="content-inner">
-  <% if not @tournaments.any? %>
+  <% if @tournaments.nil? %>
   There are currently no tournaments.
   <% else %>
-  <table>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Active</th>
-      <th></th>
-    </tr>
-    <% @tournaments.each do |tournament| %>
-    <tr>
-      <td><%= tournament.name %></td>
-      <td><%= tournament.description %></td>
-      <td><%= tournament.active.to_s.capitalize %></td>
-      <td class="show-management" style="float:right;"><button id=<%= "manage-tourny-#{tournament.id}" %>>manage</button></td>
-      <td class="hide-management"><button>hide</button></td>
-    </tr>
-    <tr class="management">
-      <td><%= link_to "edit", edit_admin_tournament_path(tournament), id: "edit-tourny-#{tournament.id}" %></td>
-      <td><%= link_to "tournament teams", admin_tournament_teams_path(:tournament_id => tournament.id) %></td>
-      <td><%= link_to "matches", admin_matches_path(:tournament_id => tournament.id) %></td>
-      <td><%= link_to "set ranks", rankings_admin_tournaments_path(:tournament_id => tournament.id) %></td>
-      <td><%= link_to "set schedule", schedule_admin_tournaments_path(:tournament_id => tournament.id) %></td>
-    </tr>
+    <% @tournaments.each do |tourny| %>
+    <div class="content-inner-inner">
+      <h1><%= tourny.name + " - Active: " + tourny.active.to_s %></h1>
+    </div>
+    <ul class="management">
+      <li><%= link_to "edit", edit_admin_tournament_path(tourny), id: "edit-tourny-#{tourny.id}" %></li>
+      <li><%= link_to "tournament teams", admin_tournament_teams_path(:tournament_id => tourny.id) %></li>
+      <li><%= link_to "matches", admin_matches_path(:tournament_id => tourny.id) %></li>
+
+      <% if tourny.tournament_type == "Season" and not tourny.playoffs %>
+      <li><%= link_to "set ranks", rankings_admin_tournaments_path(:tournament_id => tourny.id) %></li>
+      <% elsif tourny.tournament_type == "Bracket" && tourny.challonge_state == "" %>
+      <li><%= link_to "start", admin_tournament_start_bracket_path(:tournament_id => tourny.id), :method => :put %></li>
+      <% elsif tourny.tournament_type == "Bracket" && tourny.challonge_state == "underway" || tourny.playoffs == true %>
+      <li><%= link_to "update bracket", admin_tournament_bracket_results_path(:tournament_id => tourny.id) %></li>
+      <% else tourny.playoffs == true %>
+      <li><%= link_to "update bracket", admin_tournament_bracket_results_path(:tournament_id => tourny.id) %></li>
+      <% end %>
+
+      <% if tourny.tournament_type == "Season" and not tourny.playoffs %>
+      <li><%= link_to "set schedule", schedule_admin_tournaments_path(:tournament_id => tourny.id) %></li>
+      <% elsif tourny.tournament_type == "Bracket" && tourny.challonge_state == "underway" %>
+      <li><%= link_to "generate matches", admin_tournament_bracket_matches_path(:tournament_id => tourny.id) %></li>
+      <% elsif tourny.playoffs %>
+      <li><%= link_to "generate playoff matches", admin_tournament_bracket_matches_path(:tournament_id => tourny.id) %></li>
+      <% end %>
+
+      <% if tourny.tournament_type == "Season" && tourny.playoffs == false %>
+      <li><%= link_to "start playoffs", admin_tournament_playoffs_path(:tournament_id => tourny.id), data: { confirm: "Are you sure that you want to start playoffs?" } %></li>
+      <% end %>
+    </ul>
     <% end %>
-  </table>
   <% end %>
 
 </div>
