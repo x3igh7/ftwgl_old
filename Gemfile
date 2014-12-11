@@ -18,6 +18,8 @@ gem 'sendgrid'
 gem 'ransack'
 gem 'browser-timezone-rails'
 
+gem 'rake', '10.3.2'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -61,7 +63,6 @@ group :test, :development do
 end
 
 group :production do
-  gem 'rails_12factor'
 end
 
 
