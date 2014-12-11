@@ -7,6 +7,7 @@ body{
 table {
 	border-spacing: 0px;
 	border-collapse: collapse;
+	text-align: center;
 	width: 100%;
 }
 
@@ -313,6 +314,7 @@ td{
 // Home Page
 .quick-links ul {
 	list-style: none;
+	padding-left: 0px;
 }
 
 .quick-links ul li {
@@ -440,7 +442,7 @@ td{
 	margin-left: 10px;
 }
 
-#admin_panel .management li {
+.management li {
 	display: inline-block;
 	list-style: none;
 	padding: 5px;
@@ -448,11 +450,11 @@ td{
 	color: white;
 }
 
-#admin_panel .management a {
-	color: white;
+.management a {
+	color: white !important;
 }
 
-#admin_panel .management a:hover {
+.management a:hover {
 	color: #fb8800;
 	font-size: 24px;
 	text-decoration: underline;
@@ -467,8 +469,4 @@ td{
 
 .tournament-teams-list a, .tournament-teams-list img {
 	vertical-align: middle;
-}
-
-table {
-	text-align: center;
 }

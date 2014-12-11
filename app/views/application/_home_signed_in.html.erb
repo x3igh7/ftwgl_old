@@ -4,11 +4,11 @@
 			<table>
 				<thead>
 					<tr>
-						<th>your active tournaments</th>
+						<th>your tournaments</th>
 					</tr>
 				</thead>
 				<tbody>
-					<% if @tournaments.any? %>
+					<% if @tournaments.nil? %>
 					<% @tournaments.each do |tournament| %>
 					<tr>
 						<td><%= link_to tournament.name, tournament_path(tournament) %></td>
@@ -31,7 +31,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<% if @teams.any? %>
+					<% if @teams.nil? %>
 					<% @teams.each do |team| %>
 					<tr>
 						<td><%= link_to team.name + " " + team.tag, team_path(team) %></td>

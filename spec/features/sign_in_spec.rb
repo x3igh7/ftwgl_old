@@ -11,7 +11,7 @@ describe "A User" do
     it "can register with the site" do
       prev_user = User.count
       visit root_path
-      click_on "Register"
+      click_on "register"
       expect(current_path).to eq(new_user_registration_path)
 
       within("#new_user") do #exclude the sign in form from scope
@@ -28,7 +28,7 @@ describe "A User" do
     it "cannot register using invalid details" do
       prev_user = User.count
       visit root_path
-      click_on "Register"
+      click_on "register"
       expect(current_path).to eq(new_user_registration_path)
       click_button "Create New Account"
       expect(User.count).to eq(prev_user)

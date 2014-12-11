@@ -38,7 +38,7 @@ class Admin::MatchesController < AdminController
     @match.winner_id = params[:match][:winner_id]
     @match.match_date = params[:match][:match_date]
 
-    if @match.save
+    if @match.save && @match.update_tourny_teams_scores
       redirect_to admin_matches_path(:tournament_id => @match.tournament_id)
       flash[:notice] = "Tournament Successfully Updated"
     else
