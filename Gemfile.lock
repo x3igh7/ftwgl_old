@@ -233,6 +233,7 @@ DEPENDENCIES
   poltergeist
   pry
   rails (= 3.2.14)
+  rake (= 10.3.2)
   ransack
   role_model
   rspec-rails
