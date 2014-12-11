@@ -1,4 +1,0 @@
-	<%= simple_form_for([ Tournament.new, Match.new ], :url => CGI::unescape(admin_tournament_match_path("{0}", "{1}"))) do |f| %>
-		You are about to destroy this match. Are you sure? <br />
-		<%= f.submit "Destroy" %>
-	<% end %>

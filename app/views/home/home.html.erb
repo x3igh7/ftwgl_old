@@ -1,6 +1,5 @@
-<h1>home</h1>
+<h1>quick links</h1>
 <div class="content-inner">
-	<span class="outer-heading">Welcome to FTWGL.</span><p />
 	<div class="content-inner">
 		<% if user_signed_in? %>
 			<%= render 'home_signed_in' %>
@@ -13,6 +12,6 @@
 <div class="spacer"></div>
 <div class="content-outer">
 <h1>general news</h1>
-  <div class="content-inner">
+  <div id="home-news" class="content-inner">
     <%= render 'index_news' %>
   </div>

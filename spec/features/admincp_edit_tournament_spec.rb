@@ -33,16 +33,15 @@ describe "Tournament Edit" do
   end
 
   it "deactivated (all) tournaments can be viewed" do
-    visit admin_root_path
+    manage
     click_on "view all tournaments"
     expect(page).to have_content(tournament2.name)
   end
 
   it "a non-active tournament can be activated", :js => true do
-    visit admin_root_path
+    manage
     click_on "view all tournaments"
-    click_on "manage-tourny-#{tournament2.id}"
-    click_on "edit-tourny-#{tournament2.id}"
+    find("#edit-tourny-#{tournament2.id}").click
     click_on "activate tournament"
     expect(Tournament.find(tournament2.id).active).to be_true
     expect(current_path).to eq(admin_root_path)
@@ -52,5 +51,5 @@ end
 
 def manage
   visit admin_root_path
-  click_button "manage"
+  find('#manage-tournaments').click
 end

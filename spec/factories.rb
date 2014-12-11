@@ -21,6 +21,7 @@ FactoryGirl.define do
   factory :tournament do
     sequence(:name) {|n| "FTW Team Survivor#{n}"}
     sequence(:description) {|n| "Season 1#{n}"}
+    category "Urban Terror"
     rules "Don't cheat"
     active true
     tournament_type "Season"

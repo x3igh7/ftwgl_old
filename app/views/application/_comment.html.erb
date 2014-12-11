@@ -1,11 +1,17 @@
-<div class="comments-inner">
-	<div>
-		<span class="important"><%= link_to comment.user.username, user_path(comment.user) %></span>
-		<div style="float:right;" class="faded">
-			<%= comment.updated_at %>
-		</div>
+<div class="comment">
+	<div class="comments-image">
+		<%= image_tag avatar_url(comment.user) %>
 	</div>
-	<div>
-		<%= comment.content %>
+	<div class="comments-inner-inner">
+
+		<div class="comments-info">
+			<span class="important"><%= link_to comment.user.username, user_path(comment.user) %></span>
+			<div class="timezone faded">
+				<%= comment.updated_at.strftime("%b %d %Y %I:%M%p %Z") %>
+			</div>
+		</div>
+		<div>
+			<%= comment.content %>
+		</div>
 	</div>
 </div>

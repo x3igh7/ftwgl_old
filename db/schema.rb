@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140416182811) do
+ActiveRecord::Schema.define(:version => 20141012060415) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id",          :null => false
@@ -66,10 +66,20 @@ ActiveRecord::Schema.define(:version => 20140416182811) do
   end
 
   create_table "teams", :force => true do |t|
-    t.string   "name",       :null => false
-    t.string   "tag",        :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "name",              :null => false
+    t.string   "tag",               :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.string   "gravatar_email"
+    t.string   "primary_contact"
+    t.string   "secondary_contact"
+    t.string   "website"
+    t.string   "irc_channel"
+    t.string   "voip"
+    t.string   "youtube_channel"
+    t.string   "twitch_channel"
+    t.string   "featured_video"
+    t.text     "description"
   end
 
   create_table "tournament_teams", :force => true do |t|
@@ -90,14 +100,14 @@ ActiveRecord::Schema.define(:version => 20140416182811) do
   add_index "tournament_teams", ["tournament_id"], :name => "index_tournament_teams_on_tournament_id"
 
   create_table "tournaments", :force => true do |t|
-    t.string   "name",                                :null => false
+    t.string   "name",                                 :null => false
     t.string   "description"
     t.text     "rules"
-    t.datetime "created_at",                          :null => false
-    t.datetime "updated_at",                          :null => false
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
     t.integer  "current_week_num"
-    t.boolean  "active",           :default => true,  :null => false
-    t.string   "tournament_type",  :default => "",    :null => false
+    t.boolean  "active",           :default => true,   :null => false
+    t.string   "tournament_type",  :default => "",     :null => false
     t.string   "bracket_type",     :default => ""
     t.string   "elimination_type", :default => ""
     t.integer  "bracket_size",     :default => 0
@@ -106,13 +116,13 @@ ActiveRecord::Schema.define(:version => 20140416182811) do
     t.string   "challonge_state",  :default => ""
     t.integer  "challonge_id",     :default => 0
     t.boolean  "playoffs",         :default => false
+    t.string   "category",         :default => "none", :null => false
   end
 
   create_table "users", :force => true do |t|
     t.string   "username",               :default => "", :null => false
     t.string   "email",                  :default => "", :null => false
     t.string   "encrypted_password",     :default => "", :null => false
-    t.string   "avatar_url"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -131,6 +141,7 @@ ActiveRecord::Schema.define(:version => 20140416182811) do
     t.integer  "failed_attempts",        :default => 0
     t.string   "unlock_token"
     t.datetime "locked_at"
+    t.string   "gravatar_email"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

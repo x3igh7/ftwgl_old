@@ -1,13 +1,26 @@
 <h1>tournaments</h1>
 
+<div class="search-form">
+  <%= search_form_for @q do |f| %>
+    <%= f.search_field :name_or_category_cont, :autocomplete => "off" %>
+
+    <%= f.submit "search" %>
+  <% end %>
+</div>
+
 <div class="content-inner">
 	<% if not @tournaments.any? %>
 		There are currently no tournaments.
 	<% else %>
 
-		<% @tournaments.each do |tournament| %>
+	<% @categories.each_pair do |category, tournaments| %>
+	<div class="content-inner-inner">
+		<h1><%= category %></h1>
+		<% tournaments.each do |tournament| %>
 			<%= render :partial => "tournament_listing", :locals => { :tournament => tournament } %>
 		<% end %>
+	</div>
+	<% end %>
 	<% end %>
 
 </div>

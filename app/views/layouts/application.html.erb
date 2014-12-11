@@ -79,7 +79,7 @@
 							<div class="content-inner-inner">
 						  <h1><%= link_to tournament.name, tournament_path(tournament) %></h1>
 							<% if @team_tournament_matches.empty? %>
-							  No upcoming matches
+							  <p>No upcoming matches</p>
 							<% else %>
 								<% @team_tournament_matches.each do |match| %>
 									<% if match.tournament_id == tournament.id %>

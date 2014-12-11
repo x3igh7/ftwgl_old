@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require browser_timezone_rails/application.js
 //= require new_tournament
 //= require admin_cp
 //= require challonge
@@ -19,3 +20,4 @@
 //= require bootstrap-datepicker
 //= require show_tournament
 //= require filter_playoff_teams
+//= require home

@@ -2,14 +2,15 @@
 <div class="content-inner">
   <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
 
-  
+
     <div class="form-inputs">
-      <%= f.input :username, :required => true, :autofocus => true%>
-      <%= f.input :email, :required => true %>
-      <%= f.input :password, :required => true %>
-      <%= f.input :password_confirmation, :required => true %>
+      <%= f.input :username, :required => true, :autofocus => true, :autocomplete => :off%>
+      <%= f.input :email, :required => true, :autocomplete => :off %>
+      <%= f.input :gravatar_email, :autocomplete => :off %>
+      <%= f.input :password, :required => true, :autocomplete => :off %>
+      <%= f.input :password_confirmation, :required => true, :autocomplete => :off %>
     </div><br />
-  
+
     <div class="form-actions">
       <%= f.button :submit, "Create New Account" %>
     </div>

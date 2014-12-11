@@ -1,5 +1,5 @@
 class Tournament < ActiveRecord::Base
-  attr_accessible :description, :name, :bracket_size, :rules, :current_week_num, :news, :elimination_type, :tournament_type, :bracket_type
+  attr_accessible :description, :name, :bracket_size, :rules, :current_week_num, :news, :elimination_type, :tournament_type, :bracket_type, :category
   attr_accessible :challonge_url, :challonge_img, :challonge_id, :playoffs
   validates_presence_of :name, :tournament_type
 

@@ -13,15 +13,16 @@ describe "A User" do
       visit root_path
       click_on "Register"
       expect(current_path).to eq(new_user_registration_path)
-	  within("#new_user") do #exclude the sign in form from scope
-		  fill_in "Username", :with => valid_user.username
-		  fill_in "Email", :with => valid_user.email
-		  fill_in "user_password", :with => valid_user.password
-		  fill_in "user_password_confirmation", :with => valid_user.password_confirmation
-		  click_on "Create New Account"
-		  expect(User.count).to eq(prev_user + 1)
-		  expect(User.last.email).to eq(valid_user.email)
-       end
+
+      within("#new_user") do #exclude the sign in form from scope
+  		  fill_in "Username", :with => valid_user.username
+  		  fill_in "Email", :with => valid_user.email
+  		  fill_in "user_password", :with => valid_user.password
+  		  fill_in "user_password_confirmation", :with => valid_user.password_confirmation
+  		  click_on "Create New Account"
+  		  expect(User.count).to eq(prev_user + 1)
+  		  expect(User.last.email).to eq(valid_user.email)
+      end
     end
 
     it "cannot register using invalid details" do
@@ -75,7 +76,7 @@ describe "User" do
     it 'can choose to change password' do
       sign_in_as registered
       visit user_path(registered)
-      click_on "Change Password"
+      click_on "Manage Account"
       expect(current_path).to include(edit_user_registration_path)
     end
 

@@ -1,5 +1,7 @@
 <h1>All Tournament Matches</h1>
 <div class="content-inner">
+  <div><%= link_to "back to tournament", tournament_path(@tournament), :class => "button" %></div>
+
   <table class="table">
     <tr>
       <th>Home Team</th>
@@ -20,5 +22,5 @@
     </tr>
     <% end %>
   </table>
-  <div style="margin-top:30px"><%= link_to "back to tournament", tournament_path(@tournament), :class => "button" %></div>
+
 </div>

@@ -13,17 +13,48 @@
 		<% end %>
 	<% end %>
 <% end %>
-<div class="content-inner">
-	<div style="float:left;width:50%">
+
+<div class="content-inner team-profile">
+	<div class="half">
+		<div>
+			<dl>
+				<dt class="faded">team name</dt>
+				<dd><%= @team.name %></dd>
+				<dt class="faded">team tag</dt>
+				<dd><%= @team.tag %></dd>
+				<% @team_info.each do |title, value| %>
+					<dt class="faded"><%= title %></dt>
+					<% if title == "youtube channel"%>
+						<dd><%= link_to value, youtube_url(value) %></dd>
+					<% elsif title == "twitch channel" %>
+						<dd><%= link_to value, twitch_url(value) %></dd>
+					<% else %>
+						<dd><%= value %></dd>
+					<% end %>
+				<% end %>
+			</dl>
+		</div>
+
+		<div class="content-inner-inner">
+			<h1>stats</h1>
+      <div class="outer-heading">Total record</div>
+					<span id="wins_count"><%= @total_wins %></span> - <span id="losses_count"><%= @total_losses %></span> <span id="winning_perc">(<%= "#{@winning_perc}%" %>)</span>
+      </dl>
+		</div>
+
 		<%= render 'team_roster_values' %>
 	</div>
-	<div style="float:right;height:100%;width:50%">
+	<div class="half">
+		<div class="team-avatar">
+			<%= image_tag team_avatar_url(@team) %>
+		</div>
+
 		<div class="content-inner-inner">
-			<h1>record</h1>
-				<% if not @team.tournaments.any? %>
+			<h1>current tournaments</h1>
+				<% if not @current_tournaments.any? %>
 					Not currently participating in any tournaments.
 				<% else %>
-					<% @team.tournaments.each do |tourny| %>
+					<% @current_tournaments.each do |tourny| %>
 						<% ranking = TournamentTeam.where('"tournament_id" = ' + String(tourny.id)).ranking %>
 						<% tournament_team =  @team.tournament_teams.find_by_tournament_id(tourny.id) %>
 						<% rank = 1 %>
@@ -44,12 +75,7 @@
 					<% end %>
 				<% end %>
 		</div>
-		<div class="content-inner-inner">
-			<h1>stats</h1>
-      <div class="outer-heading">Total record</div>
-					<span id="wins_count"><%= @total_wins %></span> - <span id="losses_count"><%= @total_losses %></span> <span id="winning_perc">(<%= "#{@winning_perc}%" %>)</span>
-      </dl>
-		</div>
+
 	</div>
 	<div class="clear"></div>
 </div>

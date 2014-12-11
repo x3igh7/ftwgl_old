@@ -1,7 +1,9 @@
 class TournamentsController < ApplicationController
 
   def index
-    @tournaments = Tournament.order("name").where(active: true).page params[:page]
+    @q = Tournament.search(params[:q])
+    @tournaments = @q.result.order("name").where(active: true).page params[:page]
+    @categories = @tournaments.group_by(&:category)
   end
 
   def show

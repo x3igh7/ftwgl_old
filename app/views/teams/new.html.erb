@@ -1,10 +1,4 @@
 <h1>create team</h1>
 <div class="content-inner">
-<%= simple_form_for @team do |f| %>
-  <%= f.error_notification %>
-  <%=f.input :name %>
-  <%=f.input :tag %>
-
-  <%=f.submit "Create Team" %>
-<% end %>
+	<%= render 'team_form' %>
 </div>

@@ -1,20 +1,43 @@
 module ApplicationHelper
-	def load_templates(*args)
-		types = nil
-		if args[0].is_a?(Array)
-			types = args[0]
-		end
-		templates = '';
-		Dir["app/views/application/js_templates/*"].each do |file|
-			name = File.basename(file, ".html.erb")
-			type = name.split("_")[2]
-			if (not types.nil?) and (not types.include? type)
-				next
-			end
-			templates = templates + '<script type="text/template" class="' + name.split("_").last.html_safe + '_template" id="' + name + '_template">' +
-				render(:file => Rails.root.join(file).to_s) +
-			'</script>'
-		end
-		templates.html_safe
-	end
+  def avatar_url(user)
+    default_url = "#{root_url}images/guest.png"
+    gravatar_id = Digest::MD5::hexdigest(user.gravatar_email).downcase
+    "http://gravatar.com/avatar/#{gravatar_id}.png?s=48&d=#{CGI.escape(default_url)}"
+  end
+
+  def big_avatar_url(user)
+    default_url = "#{root_url}images/guest_big.png"
+    gravatar_id = Digest::MD5::hexdigest(user.gravatar_email).downcase
+    "http://gravatar.com/avatar/#{gravatar_id}.png?s=128&d=#{CGI.escape(default_url)}"
+  end
+
+  def team_avatar_url(team)
+    default_url = "#{root_url}images/default_team.jpg"
+
+    if team.gravatar_email.nil?
+      return "default_team.jpg"
+    else
+      gravatar_id = Digest::MD5::hexdigest(team.gravatar_email).downcase
+      return "http://gravatar.com/avatar/#{gravatar_id}.png?s=256&d=#{CGI.escape(default_url)}"
+    end
+  end
+
+  def small_team_avatar_url(team)
+    default_url = "#{root_url}images/default_team_small.jpg"
+
+    if team.gravatar_email.nil?
+      return "default_team_small.jpg"
+    else
+      gravatar_id = Digest::MD5::hexdigest(team.gravatar_email).downcase
+      return "http://gravatar.com/avatar/#{gravatar_id}.png?s=32&d=#{CGI.escape(default_url)}"
+    end
+  end
+
+  def youtube_url(youtube_channel)
+    "https://www.youtube.com/user/#{youtube_channel}"
+  end
+
+  def twitch_url(twitch_channel)
+    "http://www.twitch.tv/#{twitch_channel}"
+  end
 end

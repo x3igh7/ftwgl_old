@@ -4,7 +4,9 @@
 	<td>
 		<% tournaments = [] %>
 		<% team.tournaments.each do |tournament| %>
-			<% tournaments << link_to(tournament.name, tournament_path(tournament)) %> 
+			<% if tournament.active %>
+				<% tournaments << link_to(tournament.name, tournament_path(tournament)) %>
+			<% end %>
 		<% end %>
 		<%= tournaments.join(", ").html_safe %>
 	</td>
