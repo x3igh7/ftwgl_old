@@ -5,7 +5,7 @@ describe 'Tournaments' do
   let!(:team) { FactoryGirl.create(:team) }
   let!(:membership) { FactoryGirl.create(:membership, team: team, user: owner, role: 'owner') }
   let!(:tournament) { FactoryGirl.create(:tournament) }
-  
+
   context 'can be joined by a team' do
     before :each do
       sign_in_as owner

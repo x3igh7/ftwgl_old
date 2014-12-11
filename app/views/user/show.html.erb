@@ -33,24 +33,30 @@
   <div class="half">
     <dl class="content-inner-inner">
       <h1>teams</h1>
+      <% unless @user.teams.empty? %>
       <% @user.teams.each do |team| %>
       <dd><%= link_to "#{team.name} #{team.tag}", team_path(team) %></dd>
+      <% end %>
       <% end %>
     </dl>
 
     <dl class="content-inner-inner">
       <h1>upcoming matches</h1>
-      <% @team_tournament_matches.each do |match| %>
+      <% unless @upcoming_matches.nil? %>
+      <% @upcoming_matches.each do |match| %>
         <dt><%= match.tournament.name %></dt>
         <dd><%= link_to match.home_team.team.name + " vs. " + match.away_team.team.name, tournament_match_path(:tournament_id => match.tournament.id, :id => match.id) %></dd>
+      <% end %>
       <% end %>
     </dl>
 
     <dl class="content-inner-inner">
       <h1>recent matches</h1>
+      <% unless @prev_matches.nil? %>
       <% @prev_matches.each do |match| %>
       <dt><%= match.tournament.name %></dt>
       <dd><%= link_to match.home_team.team.name + " vs. " + match.away_team.team.name, tournament_match_path(:tournament_id => match.tournament.id, :id => match.id) %></dd>
+      <% end %>
       <% end %>
     </dl>
 
