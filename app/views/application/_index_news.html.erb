@@ -6,7 +6,7 @@
       <p style="font-size:10px" class="news-subline">Created at <%= news.created_at.strftime("%B %d,%Y") %> by <%= news.user.username %></p>
 
       <p class="news-subline"><%= news.description %></p>
-      <p class="news-subline"><%= link_to "read more...", news_path(news)%></a></p>
+      <p class="news-subline"><%= link_to "read more...", news_path(news)%></p>
   </div>
   <% end %>
   <div>

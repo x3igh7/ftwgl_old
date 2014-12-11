@@ -71,14 +71,14 @@ ActiveRecord::Schema.define(:version => 20141211055444) do
     t.datetime "created_at",                        :null => false
     t.datetime "updated_at",                        :null => false
     t.string   "primary_contact"
-    t.string   "secondary_contact"
-    t.string   "website"
+    t.string   "secondary_contact", :default => ""
+    t.string   "website",           :default => ""
     t.string   "irc_channel"
-    t.string   "voip"
-    t.string   "youtube_channel"
-    t.string   "twitch_channel"
-    t.string   "featured_video"
-    t.text     "description"
+    t.string   "voip",              :default => ""
+    t.string   "youtube_channel",   :default => ""
+    t.string   "twitch_channel",    :default => ""
+    t.string   "featured_video",    :default => ""
+    t.text     "description",       :default => ""
     t.string   "gravatar_email",    :default => "", :null => false
   end
 
