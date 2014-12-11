@@ -9,7 +9,7 @@ describe "Editting a team profile" do
 
   it "requires you to be a team owner" do
     sign_in_as team_owner
-    
+
     visit team_path(team)
 
     click_on "Edit team profile"
@@ -32,10 +32,10 @@ describe "Editting a team profile" do
     visit team_path(team)
     click_on "Edit team profile"
 
-    fill_in "Name", :with => "bar"
-    fill_in "Tag", :with => "[foo]"
+    fill_in "name", :with => "bar"
+    fill_in "tag", :with => "[foo]"
 
-    click_on "Update Team"
+    click_on "Save Team"
 
     expect(page).to have_content("Team Updated Successfully!")
   end

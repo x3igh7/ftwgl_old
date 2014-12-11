@@ -53,11 +53,19 @@ class User < ActiveRecord::Base
     return @losses
   end
 
+  def total_matches
+    @matches = 0
+
+    @matches = self.total_wins + self.total_losses
+
+    return @matches
+  end
+
   def winning_perc
     @winning_perc = 100
 
-    if self.total_losses != 0
-      @winning_perc = (self.total_wins / self.total_losses)
+    if self.total_matches != 0
+      @winning_perc = (self.total_wins.to_f / self.total_matches.to_f)
     end
 
     return @winning_perc

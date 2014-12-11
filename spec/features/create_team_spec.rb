@@ -21,7 +21,7 @@ describe 'creating a team' do
     it "shows errors with an invalid team creation" do
       visit new_team_path
 
-      click_button "Create Team"
+      click_button "Save Team"
 
       expect(page).to have_content("can't be blank")
     end
@@ -47,8 +47,8 @@ describe 'creating a team' do
 
   def create_team
     visit new_team_path
-    fill_in 'Name', with: 'foobar'
-    fill_in 'Tag', with: '[TAG]'
-    click_button 'Create Team'
+    fill_in 'name', with: 'foobar'
+    fill_in 'tag', with: '[TAG]'
+    click_button 'Save Team'
   end
 end

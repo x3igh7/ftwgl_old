@@ -32,26 +32,30 @@ end
 describe "user stats" do
   let!(:user) {FactoryGirl.create(:user) }
   let!(:home) { FactoryGirl.create(:team) }
-  let!(:member) {FactoryGirl.create(:membership, team: home, user: team_owner, role: 'owner', active: true)}
+  let!(:member) {FactoryGirl.create(:membership, team: home, user: user, role: 'owner', active: true)}
   let!(:away) { FactoryGirl.create(:team) }
   let!(:tournament) { FactoryGirl.create(:tournament) }
-  let!(:team1) { FactoryGirl.create(:tournament_team, team: home, tournament: tournament) }
-  let!(:team2) { FactoryGirl.create(:tournament_team, team: away, tournament: tournament) }
+  let!(:team1) { FactoryGirl.create(:tournament_team, team: home, tournament: tournament, wins: 2, losses: 1) }
+  let!(:team2) { FactoryGirl.create(:tournament_team, team: away, tournament: tournament, wins: 1, losses: 2) }
   let!(:match) { FactoryGirl.create(:match, home_team_id: team1.id, away_team_id: team2.id, tournament_id: tournament.id, home_score: 10, away_score: 5, winner_id: team1.id) }
   let!(:match2) { FactoryGirl.create(:match, home_team_id: team1.id, away_team_id: team2.id, tournament_id: tournament.id, home_score: 10, away_score: 5, winner_id: team1.id) }
   let!(:match3) { FactoryGirl.create(:match, home_team_id: team1.id, away_team_id: team2.id, tournament_id: tournament.id, home_score: 5, away_score: 10, winner_id: team2.id) }
 
 
   it "calculates a users total wins" do
-    expect(user.totals_wins).to eq(2)
+    expect(user.total_wins).to eq(2)
   end
 
   it "calculates a users total losses" do
     expect(user.total_losses).to eq(1)
   end
 
+  it "calulates total matches" do
+    expect(user.total_matches).to eq(3)
+  end
+
   it "calculates a a users winning perc" do
-    expect(user.total_losses).to eq(2/3)
+    expect(user.winning_perc).to eq(2.0/3.0)
   end
 
 end

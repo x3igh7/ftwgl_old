@@ -20,25 +20,33 @@
 		<% end %>
 	<% end %>
 	<div class="spacer"></div>
+
+	<% if not @news.empty? %>
 	<div class="content-inner-inner clear">
 		<h1>news</h1>
 		<div class="spacer"></div>
 		<%= render('index_news')%>
 	</div>
+	<% end %>
+
+
 	<div class="spacer"></div>
 		<div class="content-inner-inner clear">
 			<h1>teams</h1>
 			<ul class="bracket_match">
 				<% @teams.each do |team| %>
-				<li style="width:18%">
+				<li class="tournament-teams-list">
+					<%= image_tag small_team_avatar_url(team.team) %>
 					<%= link_to team.team.name + team.team.tag, team_path(team.team) %>
 				</li>
 				<% end %>
 			</ul>
 		</div>
 	<div class="spacer"></div>
+
 	<div class="content-inner-inner clear">
 		<% if @tournament.tournament_type == "Season" %>
+			<h1>rankings</h1>
 			<%= render 'tournament_rankings' %>
 		<% elsif @tournament.tournament_type == "Bracket" && @tournament.challonge_state == "underway" %>
 			<h1>bracket</h1>
@@ -57,7 +65,7 @@
 				<div class="weeks">
 					<span class="week-label"><%= "Week #{@tournament.current_week_num}" %>
 				</div>
-		<% end %>
+
 				<table class="matches_table center" cellspacing="0">
 					<%= render "heading_matches" %>
 
@@ -65,6 +73,7 @@
 				</table>
 				<div style="margin-top:30px"><%= link_to "All Matches", tournament_matches_path(@tournament.id), :class => "button" %></div>
 			</div>
+		<% end %>
 	</div>
 </div>
 

@@ -57,5 +57,5 @@ end
 
 def manage
   visit admin_root_path
-  click_button "manage"
+  find('#manage-tournaments').click
 end

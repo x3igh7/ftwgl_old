@@ -12,10 +12,9 @@ describe "Challonge integration" do
 
   it "if tournament is a bracket, challonge bracket is created, and rankings are replaced", :vcr => {:record => :new_episodes}, :js => true do
     prev = Tournament.count
-    visit admin_root_path
+    manage
     click_on "create new tournament"
     new_tournament = FactoryGirl.build(:tournament)
-
     select "Bracket", from: "Tournament type"
     fill_in "Name", :with => new_tournament.name
     fill_in "Description", :with => new_tournament.description
@@ -80,5 +79,5 @@ end
 
 def manage
   visit admin_root_path
-  click_button "manage"
+  find('#manage-tournaments').click
 end

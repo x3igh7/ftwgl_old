@@ -362,8 +362,10 @@ td{
 }
 
 .team-profile .team-avatar img {
+	display: block;
 	max-width: 100%;
 	max-height: 256px;
+	margin:0 auto;
 }
 
 // Comments
@@ -456,3 +458,17 @@ td{
 	text-decoration: underline;
 }
 
+// Tournaments
+
+.tournament-teams-list {
+	max-width: 18%;
+	padding: 10px;
+}
+
+.tournament-teams-list a, .tournament-teams-list img {
+	vertical-align: middle;
+}
+
+table {
+	text-align: center;
+}

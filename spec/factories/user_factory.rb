@@ -5,6 +5,7 @@ FactoryGirl.define do
     sequence(:username) {|n| "user#{n}"}
     password "12345678"
     password_confirmation "12345678"
+    gravatar_email "connerpsmith@gmail.com"
   end
 
 end
