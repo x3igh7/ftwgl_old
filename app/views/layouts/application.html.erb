@@ -79,7 +79,7 @@
 									</tr>
 								</thead>
 								<tbody>
-									<% unless @sidebar_tournaments.nil? %>
+									<% unless @sidebar_tournaments.count == 0 %>
 									<% @sidebar_tournaments.each do |tournament| %>
 									<tr>
 										<td><%= link_to tournament.name, tournament_path(tournament) %></td>
@@ -102,7 +102,7 @@
 									</tr>
 								</thead>
 								<tbody>
-									<% unless @sidebar_teams.nil? %>
+									<% unless @sidebar_teams.count == 0 %>
 									<% @sidebar_teams.each do |team| %>
 									<tr>
 										<td><%= link_to team.name + " " + team.tag, team_path(team) %></td>
