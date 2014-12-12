@@ -30,7 +30,12 @@ class Match < ActiveRecord::Base
       away_team.winner_points
       home_team.loser_points
     end
-    home_team.save && away_team.save
+
+    if home_team.save && away_team.save
+      return true
+    else
+      return false
+    end
   end
 
 	def team_cannot_play_against_itself
@@ -38,6 +43,13 @@ class Match < ActiveRecord::Base
 			errors.add(:home_team_id, "is the same as away_team_id")
 		end
 	end
+
+  def save_with_team_update
+    Match.transaction do
+      save and self.update_tourny_teams_scores
+    end
+  end
+
 
 	def standard_date
 		match_date.strftime("%a, %b %-d, %I:%M%p %Z")
