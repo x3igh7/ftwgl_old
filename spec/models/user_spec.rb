@@ -30,6 +30,20 @@ describe "is_team_member?" do
   end
 end
 
+describe "update_and_remove_tournament_admins" do
+  let!(:user) {FactoryGirl.create(:user) }
+  let!(:tournament) { FactoryGirl.create(:tournament) }
+  let!(:tournament_admin) { FactoryGirl.create(:tournament_admin, user: user, tournament: tournament) }
+
+  it "removes associated tournament_admins" do
+    params = {:id => user.id, :username => 'testing'}
+    user.update_and_remove_tournament_admins(params)
+    @changed_user = User.find(user.id)
+    expect(@changed_user.tournament_admins.count).to eq(0)
+  end
+end
+
+
 describe "user stats" do
   let!(:user) {FactoryGirl.create(:user) }
   let!(:home) { FactoryGirl.create(:team) }

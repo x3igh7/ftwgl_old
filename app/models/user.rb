@@ -34,6 +34,12 @@ class User < ActiveRecord::Base
     end
   end
 
+  def update_and_remove_tournament_admins(user)
+    User.transaction do
+      self.update_attributes(user) and TournamentAdmin.where(:user_id => user[:id]).delete_all
+    end
+  end
+
   def total_wins
     @wins = 0
 

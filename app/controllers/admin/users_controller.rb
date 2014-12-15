@@ -15,16 +15,26 @@ class Admin::UsersController < AdminController
 
   def update
     @user = User.find(params[:id])
+
     if params[:user][:password].blank? #so that devise will validate and we dont set a blank password
       params[:user].delete(:password)
       params[:user].delete(:password_confirmation)
     end
 
-    if @user.update_attributes(params[:user])
-      redirect_to admin_root_path
+    if @user.has_role?(:tournament_admin) && (params[:user][:roles] != :tournament_admin)
+      if @user.update_and_remove_tournament_admins(params[:user])
+        redirect_to admin_root_path
+      else
+        flash[:alert] = "Unable to update user."
+        render :edit
+      end
     else
-      flash[:alert] = "Unable to update user."
-      render :edit
+      if @user.update_attributes(params[:user])
+        redirect_to admin_root_path
+      else
+        flash[:alert] = "Unable to update user."
+        render :edit
+      end
     end
   end
 

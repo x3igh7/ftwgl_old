@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe TournamentAdmin, :focus => true do
+describe TournamentAdmin do
 	it { should belong_to :tournament }
 	it { should belong_to :user }
 	it { should validate_presence_of :tournament }
