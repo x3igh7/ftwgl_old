@@ -9,6 +9,7 @@ describe User do
   it { should have_many(:news) }
   it { should have_many(:matches) }
   it { should have_many(:comments) }
+  it { should have_many(:tournament_admins) }
 end
 
 describe "is_team_owner?" do

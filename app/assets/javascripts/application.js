@@ -21,3 +21,4 @@
 //= require show_tournament
 //= require filter_playoff_teams
 //= require home
+//= require select2
