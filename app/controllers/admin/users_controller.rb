@@ -21,8 +21,8 @@ class Admin::UsersController < AdminController
       params[:user].delete(:password_confirmation)
     end
 
-    if @user.has_role?(:tournament_admin) && (params[:user][:roles] != :tournament_admin)
-      if @user.update_and_remove_tournament_admins(params[:user])
+    if (@user.has_role?(:tournament_admin)) && (params[:user][:roles] != 'tournament_admin')
+      if @user.update_and_remove_tournament_admins(params[:user], params[:id])
         redirect_to admin_root_path
       else
         flash[:alert] = "Unable to update user."

@@ -36,10 +36,11 @@ describe "update_and_remove_tournament_admins" do
   let!(:tournament_admin) { FactoryGirl.create(:tournament_admin, user: user, tournament: tournament) }
 
   it "removes associated tournament_admins" do
-    params = {:id => user.id, :username => 'testing'}
-    user.update_and_remove_tournament_admins(params)
+    prev_count = user.tournament_admins.count
+    params = {:user => {:username => 'testing'}}
+    user.update_and_remove_tournament_admins(params[:user], user.id)
     @changed_user = User.find(user.id)
-    expect(@changed_user.tournament_admins.count).to eq(0)
+    expect(@changed_user.tournament_admins.count).to eq(prev_count - 1)
   end
 end
 
