@@ -1,0 +1,7 @@
+<%= form_tag admin_tournament_path, method: :put, id: "tournament_admins", remote: true do %>
+<%= select_tag 'admins', options_for_select(@users, @admins),{id: "tournament-admins", multiple: true} %>
+<%= submit_tag "update", :class => "button" %>
+<% end %>
+
+
+

@@ -22,3 +22,4 @@
 //= require filter_playoff_teams
 //= require home
 //= require select2
+//= require edit_tournaments

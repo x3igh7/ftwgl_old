@@ -54,17 +54,53 @@ class Admin::TournamentsController < AdminController
 
   def edit
     @tournament = Tournament.find(params[:id])
+    @admins = @tournament.tournament_admins
+    @users = User.all
+    # @success = false
+
+    @admins = @admins.map { |admin| admin.user_id.to_s }
+    @users = @users.map { |user| [user.username, user.id] }
   end
 
   def update
     @tournament = Tournament.find(params[:id])
+    @admins = @tournament.tournament_admins.map { |admin| admin.id }
+    @create_admins = []
 
-    if @tournament.update_attributes(params[:tournament])
-      redirect_to admin_root_path
-      flash[:notice] = "Tournament Successfully Updated"
+    if params.include? 'admins'
+    	@param_admins = params[:admins].map { |admin| admin.to_i }
+      @new_admins = @param_admins - @admins
+      @old_admins = @admins - @param_admins
+
+      @new_admins.each do |admin|
+        user = User.find(admin)
+        @create_admins << {:user => user, :tournament => @tournament}
+      end
+
+      if @old_admins.count > 0
+        @old_admins.each do |admin|
+        	user = User.find(admin)
+          TournamentAdmin.where(user_id: user, tournament_id: @tournament).destroy_all
+        end
+      end
+
+      if TournamentAdmin.create(@create_admins)
+      	# @success = true
+
+				respond_to do |format|
+	     		format.html { redirect_to root_path }
+	      	format.js
+	    	end
+      end
+
     else
-      redirect_to admin_edit_tournament_path(@tournament)
-      flash[:error] = "Failed to Update Tournament"
+			if @tournament.update_attributes(params[:tournament])
+      	redirect_to admin_root_path
+      	flash[:notice] = "Tournament Successfully Updated"
+    	else
+      	redirect_to admin_edit_tournament_path(@tournament)
+      	flash[:error] = "Failed to Update Tournament"
+    	end
     end
   end
 

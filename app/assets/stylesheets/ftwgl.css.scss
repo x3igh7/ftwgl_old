@@ -460,6 +460,10 @@ td{
 	text-decoration: underline;
 }
 
+.select2-container-multi .select2-choices .select2-search-field input {
+	min-width: 100px;
+}
+
 // Tournaments
 
 .tournament-teams-list {
