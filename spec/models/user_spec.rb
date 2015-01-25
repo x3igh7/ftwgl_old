@@ -12,6 +12,16 @@ describe User do
   it { should have_many(:tournament_admins) }
 end
 
+describe "is_tournament_admin?" do
+  let!(:admin) {FactoryGirl.create(:user)}
+  let!(:tournament) {FactoryGirl.create(:tournament)}
+  let!(:tournament_admin) {FactoryGirl.create(:tournament_admin, user: admin, tournament: tournament)}
+
+  it "returns true if is a tournament admin" do
+    expect(admin.is_tournament_admin?).to be_true
+  end
+end
+
 describe "is_team_owner?" do
   let!(:team_owner) {FactoryGirl.create(:user) }
   let!(:team) { FactoryGirl.create(:team) }

@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
   has_many :tournament_admins, :dependent => :destroy
 
   roles_attribute :roles_mask
-  roles :admin, :user, :banned, :tournament_admin
+  roles :admin, :user, :banned
 
   before_save :default_roles
 
@@ -76,6 +76,10 @@ class User < ActiveRecord::Base
     end
 
     return @winning_perc
+  end
+
+  def is_tournament_admin?
+    self.tournament_admins.length > 0
   end
 
   def is_team_owner?(team)
