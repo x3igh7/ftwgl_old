@@ -64,7 +64,7 @@ class Admin::TournamentsController < AdminController
 
   def update
     @tournament = Tournament.find(params[:id])
-    @admins = @tournament.tournament_admins.map { |admin| admin.id }
+    @admins = @tournament.tournament_admins.map { |admin| admin.user.id }
     @create_admins = []
 
     if params.include? 'admins'
@@ -85,23 +85,25 @@ class Admin::TournamentsController < AdminController
       end
 
       if TournamentAdmin.create(@create_admins)
+     		redirect_to admin_root_path
+     		flash[:notice] = "Tournament Admins Successfully Updated"
+      else
       	# @success = true
-
-				respond_to do |format|
-	     		format.html { redirect_to root_path }
-	      	format.js
-	    	end
+        admin_edit_tournament_path(@tournament)
+				flash[:notice] = "Failed to Update Tournament Admins"
       end
 
     else
+
 			if @tournament.update_attributes(params[:tournament])
-      	redirect_to admin_root_path
-      	flash[:notice] = "Tournament Successfully Updated"
-    	else
-      	redirect_to admin_edit_tournament_path(@tournament)
-      	flash[:error] = "Failed to Update Tournament"
-    	end
-    end
+	     	redirect_to admin_root_path
+	     	flash[:notice] = "Tournament Successfully Updated"
+	    else
+	      	redirect_to admin_edit_tournament_path(@tournament)
+	      	flash[:error] = "Failed to Update Tournament"
+	    end
+
+	  end
   end
 
   def rankings
