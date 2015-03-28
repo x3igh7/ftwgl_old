@@ -41,4 +41,9 @@ FactoryGirl.define do
     week_num 1
     match_date Time.now
   end
+
+  factory :tournament_admin do
+    user
+    tournament
+  end
 end
