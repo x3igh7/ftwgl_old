@@ -9,6 +9,17 @@ describe User do
   it { should have_many(:news) }
   it { should have_many(:matches) }
   it { should have_many(:comments) }
+  it { should have_many(:tournament_admins) }
+end
+
+describe "is_tournament_admin?" do
+  let!(:admin) {FactoryGirl.create(:user)}
+  let!(:tournament) {FactoryGirl.create(:tournament)}
+  let!(:tournament_admin) {FactoryGirl.create(:tournament_admin, user: admin, tournament: tournament)}
+
+  it "returns true if is a tournament admin" do
+    expect(admin.is_tournament_admin?).to be_true
+  end
 end
 
 describe "is_team_owner?" do
@@ -28,6 +39,21 @@ describe "is_team_member?" do
     expect(user.is_team_member?(team)).to be_true
   end
 end
+
+describe "update_and_remove_tournament_admins" do
+  let!(:user) {FactoryGirl.create(:user) }
+  let!(:tournament) { FactoryGirl.create(:tournament) }
+  let!(:tournament_admin) { FactoryGirl.create(:tournament_admin, user: user, tournament: tournament) }
+
+  it "removes associated tournament_admins" do
+    prev_count = user.tournament_admins.count
+    params = {:user => {:username => 'testing'}}
+    user.update_and_remove_tournament_admins(params[:user], user.id)
+    @changed_user = User.find(user.id)
+    expect(@changed_user.tournament_admins.count).to eq(prev_count - 1)
+  end
+end
+
 
 describe "user stats" do
   let!(:user) {FactoryGirl.create(:user) }

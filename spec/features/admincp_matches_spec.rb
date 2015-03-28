@@ -39,6 +39,8 @@ describe "admincp tournament matches" do
     edit_match = Match.last
     expect(edit_match.home_score).to eq(5)
     expect(edit_match.away_score).to eq(4)
+    expect(edit_match.home_team.wins).to eq(1)
+    expect(edit_match.away_team.losses).to eq(1)
     expect(edit_match.week_num).to eq(2)
   end
 
