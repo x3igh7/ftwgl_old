@@ -3,7 +3,7 @@ $(function() {
     $.getScript(this.href);
     return false;
   });
-  $('#team_search').submit(function() {
+  $('#add_tourny_team #team_search').submit(function() {
     $.get(this.action, $(this).serialize(), null, "script");
     return false;
   });

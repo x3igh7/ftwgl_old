@@ -1,9 +1,8 @@
 class TeamsController < ApplicationController
-load_and_authorize_resource
 
   def index
-    @q = Team.search(params[:q])
-    @teams = @q.result.order("name").page params[:page]
+    @q_teams = Team.search(params[:q])
+    @teams = @q_teams.result.order("name").page params[:page]
   end
 
   def new
