@@ -14,11 +14,34 @@ end
 
 describe "is_tournament_admin?" do
   let!(:admin) {FactoryGirl.create(:user)}
+  let!(:non_admin) {FactoryGirl.create(:user)}
   let!(:tournament) {FactoryGirl.create(:tournament)}
   let!(:tournament_admin) {FactoryGirl.create(:tournament_admin, user: admin, tournament: tournament)}
 
   it "returns true if is a tournament admin" do
     expect(admin.is_tournament_admin?).to be_true
+  end
+
+  it "returns false if not a tournament admin" do
+    expect(non_admin.is_tournament_admin?).to be_false
+  end
+end
+
+describe "admin_tournaments", :focus => true do
+  let!(:admin) {FactoryGirl.create(:user)}
+  let!(:tournament) {FactoryGirl.create(:tournament)}
+  let!(:tournament2) {FactoryGirl.create(:tournament)}
+  let!(:tournament3) {FactoryGirl.create(:tournament)}
+  let!(:tournament_admin) {FactoryGirl.create(:tournament_admin, user: admin, tournament: tournament)}
+  let!(:tournament_admin2) {FactoryGirl.create(:tournament_admin, user: admin, tournament: tournament2)}
+
+  it "returns array of tournaments they are admin of" do
+    expect(admin.admin_tournaments).to include(tournament)
+    expect(admin.admin_tournaments).to include(tournament2)
+  end
+
+  it "does not return tournaments they arent admin of" do
+    expect(admin.admin_tournaments).to_not include(tournament3)
   end
 end
 

@@ -4,6 +4,10 @@ class Admin::CpanelController < AdminController
     @user = current_user
     @active_tournaments = Tournament.where("active = true")
 
+    if @user.is_tournament_admin?
+    	@active_tournaments = @user.admin_tournaments
+    end
+
     @q_users = User.search(params[:q])
 	  @q_teams = Team.search(params[:q])
 	  @q_news = News.search(params[:q])

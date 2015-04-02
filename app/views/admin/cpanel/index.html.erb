@@ -11,8 +11,8 @@
       <%= render 'admincp_manage_tournaments' %>
     </div>
 
-    <h3 id="manage-users">manage users</h3>
     <% if @user.has_role?(:admin) %>
+    <h3 id="manage-users">manage users</h3>
       <div id="users_panel" class="collapse-header">
         <%= render 'admincp_manage_users' %>
       </div>
