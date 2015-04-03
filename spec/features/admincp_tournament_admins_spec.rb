@@ -5,7 +5,8 @@ describe "tournament admins" do
   let!(:tournament2) {FactoryGirl.create(:tournament)}
   let!(:admin) {FactoryGirl.create(:user)}
   let!(:user) {FactoryGirl.create(:user)}
-  let!(:tourny_admin) {FactoryGirl.create(:tournament_admin, user: user, tournament: tournament1)}
+  let!(:user2) {FactoryGirl.create(:user)}
+  let!(:tourny_admin) {FactoryGirl.create(:tournament_admin, user: user2, tournament: tournament1)}
 
   before do
     admin.roles = :admin
@@ -25,31 +26,24 @@ describe "tournament admins" do
 	end
 
 	it 'can see tournaments they are assigned to', :js => true do
-		sign_in_as tourny_admin
+		sign_in_as user2
 		manage
 		expect(page).to have_content(tournament1.name)
 		expect(page).to_not have_content(tournament2.name)
 	end
 
 	it 'can access tournaments they are assigned to', :js => true do
-		sign_in_as tourny_admin
+		sign_in_as user2
 		manage
 		click_on "edit-tourny-#{tournament1.id}"
-		expect(page).to have_content(tournament1.name)
-	end
-
-	it 'can post news to tournaments they are assigned to', :js => true do
-		sign_in_as tourny_admin
-		manage
-		click_on "news stuff"
-		pending "rest of the stuff"
+		expect(page).to have_content('edit tournament')
 	end
 
 	it 'can edit teams that participate in tournament they are assigned to', :js => true do
-		sign_in_as tourny_admin
-		manage
-		click_on "teams stuff"
-		pending "rest of the stuff"
+		sign_in_as user2
+		visit admin_root_path
+		click_on "manage-#{team.name}"
+		expect(page).to have_content()
 	end
 end
 
