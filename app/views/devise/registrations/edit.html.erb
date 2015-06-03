@@ -12,14 +12,17 @@
     <%= f.input :username, :required => true, :autofocus => true%>
     <%= f.input :email, as: :email, :required => true %>
     <%= f.input :gravatar_email, as: :email %>
+    <%= f.input :current_password, :required => true %>
 
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
       <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
     <% end %>
 
-    <%= f.input :password, :autocomplete => "off", :label => "New password", :required => false %>
-    <%= f.input :password_confirmation, :required => false, :label => "New password confirmation" %>
-    <%= f.input :current_password, :required => true %>
+    <a id="user-change-password" href="#">Change Password</a>
+    <div id="user-profile-change-password">
+      <%= f.input :password, :autocomplete => "off", :label => "New password", :required => false %>
+      <%= f.input :password_confirmation, :required => false, :label => "New password confirmation" %>
+    </div>
   </div>
 
   <div class="form-actions">

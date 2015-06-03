@@ -54,6 +54,7 @@ class Admin::TournamentsController < AdminController
 
   def edit
     @tournament = Tournament.find(params[:id])
+    enforce_tournament_admin_tournament(@tournament)
     @admins = @tournament.tournament_admins
     @users = User.all
     # @success = false
@@ -108,6 +109,7 @@ class Admin::TournamentsController < AdminController
 
   def rankings
     @tournament = Tournament.find(params[:tournament_id])
+    enforce_tournament_admin_tournament(@tournament)
     @teams = TournamentTeam.in_tournament(@tournament).ranking
     @ranks = []
 
@@ -118,6 +120,7 @@ class Admin::TournamentsController < AdminController
 
   def update_rankings
     @tournament = Tournament.find(params[:tournament_id])
+    enforce_tournament_admin_tournament(@tournament)
 
     if TournamentTeam.update(params[:teams].keys, params[:teams].values)
       redirect_to schedule_admin_tournaments_path(:tournament_id => @tournament.id)
@@ -131,6 +134,7 @@ class Admin::TournamentsController < AdminController
   def schedule
     @match = Match.new
     @tournament = Tournament.find(params[:tournament_id])
+    enforce_tournament_admin_tournament(@tournament)
     @teams = TournamentTeam.in_tournament(@tournament).order(:rank)
     @team_names = @teams.map do |tourny_team|
       [tourny_team.team.name, tourny_team.id]
@@ -141,6 +145,7 @@ class Admin::TournamentsController < AdminController
 
   def create_schedule
     @tournament = Tournament.find(params[:tournament_id])
+    enforce_tournament_admin_tournament(@tournament)
     @matches = params[:matches]
     match_date = date_converter(params)
     if schedule_creater(@matches, params, match_date)
@@ -158,6 +163,7 @@ class Admin::TournamentsController < AdminController
 
   def deactivate
     @tournament = Tournament.find(params[:tournament_id])
+    enforce_tournament_admin_tournament(@tournament)
     @tournament.active = false
     if @tournament.save
       flash[:notice] = "Tournament deactivated"
@@ -170,6 +176,7 @@ class Admin::TournamentsController < AdminController
 
   def activate
     @tournament = Tournament.find(params[:tournament_id])
+    enforce_tournament_admin_tournament(@tournament)
     @tournament.active = true
     if @tournament.save
       flash[:notice] = "Tournament activated"
@@ -182,6 +189,7 @@ class Admin::TournamentsController < AdminController
 
   def start_bracket
     @tournament = Tournament.find(params[:tournament_id])
+    enforce_tournament_admin_tournament(@tournament)
     t = Challonge::Tournament.find(@tournament.challonge_id)
     @tournament.tournament_teams.shuffle.each do |team|
       x = Challonge::Participant.create(:name => team.team.name + team.team.tag, :tournament => t)
@@ -210,6 +218,7 @@ class Admin::TournamentsController < AdminController
   def bracket_matches
     @match = Match.new
     @tournament = Tournament.find(params[:tournament_id])
+    enforce_tournament_admin_tournament(@tournament)
     @teams = TournamentTeam.in_tournament(@tournament)
     @team_names = @teams.map do |tourny_team|
       [tourny_team.team.name, tourny_team.id]
@@ -219,6 +228,7 @@ class Admin::TournamentsController < AdminController
 
   def generate_bracket_matches
     @tournament = Tournament.find(params[:tournament_id])
+    enforce_tournament_admin_tournament(@tournament)
     @matches = params[:matches]
     match_date = date_converter(params)
     if schedule_creater(@matches, params, match_date)
@@ -232,11 +242,13 @@ class Admin::TournamentsController < AdminController
 
   def bracket_results
     @tournament = Tournament.find(params[:tournament_id])
+    enforce_tournament_admin_tournament(@tournament)
     @matches = @tournament.matches.where(challonge_updated: false)
   end
 
   def update_bracket
     @tournament = Tournament.find(params[:tournament_id])
+    enforce_tournament_admin_tournament(@tournament)
     @matches = @tournament.matches.where(challonge_updated: false)
     @challonge_matches = Challonge::Tournament.find(@tournament.challonge_id).matches
     @challonge_matches.each do |m|
@@ -263,6 +275,7 @@ class Admin::TournamentsController < AdminController
 
   def playoffs
     @tournament = Tournament.find(params[:tournament_id])
+    enforce_tournament_admin_tournament(@tournament)
     @teams = @tournament.get_tournament_team_names_by_rank
     if @teams.empty?
       flash[:alert] = "You can't start playoffs with no teams!"
@@ -273,6 +286,7 @@ class Admin::TournamentsController < AdminController
 
   def generate_playoff_bracket
     @tournament = Tournament.find(params[:tournament_id])
+    enforce_tournament_admin_tournament(@tournament)
     @bracket_size = @tournament.bracket_size = params[:bracket_size].to_i
     @teams = @tournament.tournament_teams.ranking
 
@@ -346,6 +360,16 @@ class Admin::TournamentsController < AdminController
           week_num: params[:week].to_i,
           match_date: match_date,
           challonge_id: match["challonge_id"].to_i)
+      end
+    end
+  end
+
+  def enforce_tournament_admin_tournament(tourny)
+    if current_user.is_tournament_admin? && !current_user.has_role?(:admin)
+      tournaments = current_user.admin_tournaments
+      if !tournaments.include?(tourny)
+        flash[:alert] = "You don't have sufficient permissions to do that."
+        redirect_to admin_root_path
       end
     end
   end

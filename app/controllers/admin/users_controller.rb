@@ -1,5 +1,4 @@
 class Admin::UsersController < AdminController
-
   before_filter :enforce_permissions
 
   def edit
