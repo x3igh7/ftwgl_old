@@ -6,6 +6,7 @@ describe Tournament do
   it { should have_many(:tournament_teams) }
   it { should have_many(:teams) }
   it { should have_many(:matches) }
+  it { should have_many(:tournament_admins) }
   it { should ensure_inclusion_of(:tournament_type).in_array(%w(Season Bracket)) }
   it { should ensure_inclusion_of(:bracket_type).in_array(%w(Singles Teams)) }
   it { should ensure_inclusion_of(:elimination_type).in_array(%w(Single Double)) }

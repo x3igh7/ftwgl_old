@@ -17,8 +17,7 @@ class Tournament < ActiveRecord::Base
   has_many :teams, through: :tournament_teams
   has_many :matches, :dependent => :destroy
   has_many :news, :as => :newsable, :dependent => :destroy
-
-
+  has_many :tournament_admins, :dependent => :destroy
 
   def scheduler
     teams = TournamentTeam.where(tournament_id: self.id).order(:rank)

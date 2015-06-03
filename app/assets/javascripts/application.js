@@ -21,3 +21,6 @@
 //= require show_tournament
 //= require filter_playoff_teams
 //= require home
+//= require select2
+//= require edit_tournaments
+//= require user_profile_management

@@ -1,24 +1,33 @@
 <h1>edit tournament</h1>
 <div class="content-inner">
 
-<%= simple_form_for([:admin, @tournament]) do |f| %>
-  <%= f.error_notification %>
+<div class="half">
+	<%= simple_form_for([:admin, @tournament]) do |f| %>
+	  <%= f.error_notification %>
 
-  <%= f.input :name %>
-  <%= f.input :category %>
-  <%= f.input :description %>
-  <%= f.input :rules, as: :text %>
-  <%= f.submit "update tournament"%>
+	  <%= f.input :name %>
+	  <%= f.input :category %>
+	  <%= f.input :description %>
+	  <%= f.input :rules, as: :text %>
+	  <%= f.submit "update tournament"%>
 
-<% end %>
+	<% end %>
 
-<div class="spacer" style="margin-bottom:25px"></div>
-<div class="content-inner-inner">
-<% if @tournament.active %>
-<%= button_to "deactivate tournament", admin_tournament_deactivate_path(@tournament), method: :put %>
-<% else %>
-  <%= button_to "activate tournament", admin_tournament_activate_path(@tournament), method: :put %>
-<% end %>
+	<div class="spacer" style="margin-bottom:25px"></div>
+	<div class="content-inner-inner">
+	<% if @tournament.active %>
+	<%= button_to "deactivate tournament", admin_tournament_deactivate_path(@tournament), method: :put %>
+	<% else %>
+	  <%= button_to "activate tournament", admin_tournament_activate_path(@tournament), method: :put %>
+	<% end %>
+	</div>
+</div>
+
+<div class="half content-inner-inner">
+<h1>tournament admins</h1>
+	<div id="tournament-admins-form">
+		<%= render 'tournament_admins_form' %>
+	</div>
 </div>
 
 </div>

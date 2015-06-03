@@ -351,6 +351,10 @@ td{
 .user-profile .comments-inner a {
 	margin-top: -10px;
 }
+
+#user-profile-change-password, #user-change-password {
+	padding-top: 25px;
+}
 // Teams
 
 .teams-table td {
@@ -458,6 +462,10 @@ td{
 	color: #fb8800;
 	font-size: 24px;
 	text-decoration: underline;
+}
+
+.select2-container-multi .select2-choices .select2-search-field input {
+	min-width: 100px;
 }
 
 // Tournaments
