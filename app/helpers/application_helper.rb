@@ -1,6 +1,6 @@
 module ApplicationHelper
   def avatar_url(user)
-    default_url = "#{root_url}images/guest.png"
+    default_url = image_path("guest.png")
     if user.gravatar_email == ""
       return "guest.png"
     else
@@ -10,7 +10,7 @@ module ApplicationHelper
   end
 
   def big_avatar_url(user)
-    default_url = "#{root_url}images/guest_big.png"
+    default_url = image_path("guest_big.png")
     if user.gravatar_email == ""
       return "guest_big.png"
     else
@@ -20,7 +20,7 @@ module ApplicationHelper
   end
 
   def team_avatar_url(team)
-    default_url = "#{root_url}images/default_team.jpg"
+    default_url = image_path("default_team.jpg")
 
     if team.gravatar_email == ""
       return "default_team.jpg"
@@ -31,7 +31,7 @@ module ApplicationHelper
   end
 
   def small_team_avatar_url(team)
-    default_url = "#{root_url}images/default_team_small.jpg"
+    default_url = image_path("default_team_small.jpg")
 
     if team.gravatar_email == ""
       return "default_team_small.jpg"
