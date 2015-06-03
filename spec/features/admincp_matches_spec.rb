@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "admincp tournament matches", :focus => true do
+describe "admincp tournament matches" do
 
   let!(:tournament1) {FactoryGirl.create(:tournament)}
   let!(:tournament2) {FactoryGirl.create(:tournament, active: false)}

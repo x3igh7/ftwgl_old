@@ -3,6 +3,8 @@ require 'spec_helper'
 describe "AdminCP Manage Users" do
   let!(:user) { FactoryGirl.create(:user) }
   let!(:admin) { FactoryGirl.create(:user) }
+  let!(:tournament) { FactoryGirl.create(:tournament) }
+  let!(:tournament_admin) { FactoryGirl.create(:tournament_admin, user: user, tournament: tournament) }
 
   before do
     admin.roles = :admin
@@ -18,6 +20,21 @@ describe "AdminCP Manage Users" do
     updated_user = User.find(user.id)
     expect(updated_user.username).to eq("sephy")
     expect(updated_user.roles).to eq(user.roles)
+  end
+
+  it "will remove tournament admins if role changes" do
+    prev_count = user.tournament_admins.count
+    user.roles = :tournament_admin
+    user.save
+    visit admin_root_path
+    click_on "manage-#{user.username}"
+    fill_in "Username", with: "testing"
+    select "user", from: "user_roles"
+    click_on "Save"
+    updated_user = User.find(user.id)
+    expect(updated_user.username).to eq("testing")
+    expect(updated_user.has_role?(:tournament_admin)).to be_false
+    expect(updated_user.tournament_admins.count).to eq(prev_count - 1)
   end
 
   it "can ban a User" do

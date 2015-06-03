@@ -32,6 +32,7 @@ class Admin::NewsController < AdminController
 
   def edit
     @news = News.find(params[:id])
+    enforce_tournament_admin_news(@news)
     @sources = ["General"]
     @tournaments = Tournament.where("active = true").each { |tourny| @sources << tourny.name }
   end
@@ -50,6 +51,7 @@ class Admin::NewsController < AdminController
 
   def destroy
     @news = News.find(params[:id])
+    enforce_tournament_admin_news(@news)
 
     if @news.delete
       flash[:notice] = "News deleted."
@@ -57,6 +59,18 @@ class Admin::NewsController < AdminController
     else
       flash[:alert] = "Unable to delete News."
       redirect_to admin_root_path
+    end
+  end
+
+  private
+
+  def enforce_tournament_admin_news(news)
+    if current_user.is_tournament_admin? && !current_user.has_role?(:admin)
+      news = current_user.admin_news
+      if !news.include?(news)
+        flash[:alert] = "You don't have sufficient permissions to do that."
+        redirect_to admin_root_path
+      end
     end
   end
 

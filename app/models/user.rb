@@ -21,15 +21,22 @@ class User < ActiveRecord::Base
   has_many :news, through: :tournaments
   has_many :matches, through: :tournaments
   has_many :comments
+  has_many :tournament_admins, :dependent => :destroy
 
   roles_attribute :roles_mask
-  roles :admin, :user, :banned, :tournament_admin
+  roles :admin, :user, :banned
 
   before_save :default_roles
 
   def default_roles
     if self.roles_mask == nil
       self.roles = :user
+    end
+  end
+
+  def update_and_remove_tournament_admins(user, id)
+    User.transaction do
+      self.update_attributes(user) and TournamentAdmin.where(:user_id => id).delete_all
     end
   end
 
@@ -69,6 +76,28 @@ class User < ActiveRecord::Base
     end
 
     return @winning_perc
+  end
+
+  def is_tournament_admin?
+    self.tournament_admins.length > 0
+  end
+
+  def admin_tournaments
+    self.tournament_admins.map { |t| t.tournament }
+  end
+
+  def admin_teams
+    tournaments = self.admin_tournaments
+    teams = []
+    tournaments.each { |t| teams << t.teams }
+    return teams.flatten
+  end
+
+  def admin_news
+    tournament = self.admin_tournaments
+    news = []
+    news = tournaments.each { |t| news << t.news }
+    return news.flatten
   end
 
   def is_team_owner?(team)

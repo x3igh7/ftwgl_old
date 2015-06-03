@@ -5,8 +5,8 @@
 <% end %>
 
 <div class="search-form">
-  <%= search_form_for @q do |f| %>
-    <%= f.search_field :name_cont, :autocomplete => "off" %>
+  <%= search_form_for @q_teams,url: teams_path do |f| %>
+    <%= f.search_field :name_or_tag_cont, :autocomplete => "off" %>
 
     <%= f.submit "search" %>
   <% end %>
