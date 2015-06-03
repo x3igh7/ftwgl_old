@@ -82,6 +82,24 @@ class User < ActiveRecord::Base
     self.tournament_admins.length > 0
   end
 
+  def admin_tournaments
+    self.tournament_admins.map { |t| t.tournament }
+  end
+
+  def admin_teams
+    tournaments = self.admin_tournaments
+    teams = []
+    tournaments.each { |t| teams << t.teams }
+    return teams.flatten
+  end
+
+  def admin_news
+    tournament = self.admin_tournaments
+    news = []
+    news = tournaments.each { |t| news << t.news }
+    return news.flatten
+  end
+
   def is_team_owner?(team)
     team.owners.include?(self)
   end

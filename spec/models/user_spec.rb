@@ -14,11 +14,59 @@ end
 
 describe "is_tournament_admin?" do
   let!(:admin) {FactoryGirl.create(:user)}
+  let!(:non_admin) {FactoryGirl.create(:user)}
   let!(:tournament) {FactoryGirl.create(:tournament)}
   let!(:tournament_admin) {FactoryGirl.create(:tournament_admin, user: admin, tournament: tournament)}
 
   it "returns true if is a tournament admin" do
     expect(admin.is_tournament_admin?).to be_true
+  end
+
+  it "returns false if not a tournament admin" do
+    expect(non_admin.is_tournament_admin?).to be_false
+  end
+end
+
+describe "admin_tournaments", :focus => true do
+  let!(:admin) {FactoryGirl.create(:user)}
+  let!(:tournament) {FactoryGirl.create(:tournament)}
+  let!(:tournament2) {FactoryGirl.create(:tournament)}
+  let!(:tournament3) {FactoryGirl.create(:tournament)}
+  let!(:tournament_admin) {FactoryGirl.create(:tournament_admin, user: admin, tournament: tournament)}
+  let!(:tournament_admin2) {FactoryGirl.create(:tournament_admin, user: admin, tournament: tournament2)}
+
+  it "returns array of tournaments they are admin of" do
+    expect(admin.admin_tournaments).to include(tournament)
+    expect(admin.admin_tournaments).to include(tournament2)
+  end
+
+  it "does not return tournaments they arent admin of" do
+    expect(admin.admin_tournaments).to_not include(tournament3)
+  end
+end
+
+describe "admin teams" do
+  let!(:admin) {FactoryGirl.create(:user)}
+  let!(:tournament) {FactoryGirl.create(:tournament)}
+  let!(:tournament2) {FactoryGirl.create(:tournament)}
+  let!(:tournament_admin) {FactoryGirl.create(:tournament_admin, user: admin, tournament: tournament)}
+  let!(:tournament_admin2) {FactoryGirl.create(:tournament_admin, user: admin, tournament: tournament2)}
+  let!(:team) { FactoryGirl.create(:team) }
+  let!(:team2) { FactoryGirl.create(:team) }
+  let!(:team3) { FactoryGirl.create(:team) }
+  let!(:team4) { FactoryGirl.create(:team) }
+  let!(:tournament_team) {FactoryGirl.create(:tournament_team, tournament: tournament, team: team)}
+  let!(:tournament_team2) {FactoryGirl.create(:tournament_team, tournament: tournament2, team: team2)}
+  let!(:tournament_team3) {FactoryGirl.create(:tournament_team, tournament: tournament, team: team3)}
+
+  it "returns array of teams in tournaments youre assigned to" do
+    expect(admin.admin_teams).to include(team)
+    expect(admin.admin_teams).to include(team2)
+    expect(admin.admin_teams).to include(team3)
+  end
+
+  it "does not return teams not in tournaments" do
+    expect(admin.admin_teams).to_not include(team4)
   end
 end
 
