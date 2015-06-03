@@ -1,12 +1,15 @@
 require 'spec_helper'
 
-describe "tournament admins" do
+describe "tournament admins", :focus => true do
   let!(:tournament1) {FactoryGirl.create(:tournament)}
   let!(:tournament2) {FactoryGirl.create(:tournament)}
   let!(:admin) {FactoryGirl.create(:user)}
   let!(:user) {FactoryGirl.create(:user)}
   let!(:user2) {FactoryGirl.create(:user)}
   let!(:tourny_admin) {FactoryGirl.create(:tournament_admin, user: user2, tournament: tournament1)}
+  let!(:team) {FactoryGirl.create(:team)}
+  let!(:tournament_team) { FactoryGirl.create(:tournament_team, team: team, tournament: tournament1, wins: 15, losses: 5) }
+  let!(:news) { FactoryGirl.create(:news, newsable_type: "Tournament", newsable_id: tournament1.id, user: admin) }
 
   before do
     admin.roles = :admin
@@ -42,8 +45,19 @@ describe "tournament admins" do
 	it 'can edit teams that participate in tournament they are assigned to', :js => true do
 		sign_in_as user2
 		visit admin_root_path
+	  find('#manage-teams').click
+
 		click_on "manage-#{team.name}"
-		expect(page).to have_content()
+		expect(page).to have_content('edit team profile')
+	end
+
+	it 'can edit news in tournaments they are assigned to', :js => true do
+		sign_in_as user2
+		visit admin_root_path
+	  find('#manage-news').click
+
+    click_on "edit-news-#{news.id}"
+		expect(page).to have_content("Headline")
 	end
 end
 
