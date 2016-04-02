@@ -4,6 +4,8 @@ class Users::SessionsController < Devise::SessionsController
 	require 'base64'
 
 	def sso
+		:authenticate_user!
+
 	  # authenticate
 	  self.resource = warden.authenticate(auth_options)
 	  resource_name = self.resource_name
