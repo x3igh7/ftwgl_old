@@ -1,7 +1,7 @@
 require 'single_sign_on'
 
 class DiscourseSsoController < ApplicationController
-  before_action :authenticate_user! # ensures user must login
+  before_filter :authenticate_user! # ensures user must login
 
   def sso
     sso = SingleSignOn.parse(request.query_string, ENV["SSO_SECRET"])
