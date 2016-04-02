@@ -23,7 +23,7 @@ class Users::SessionsController < Devise::SessionsController
 	    	redirect_to generate_url( FORUM_URL, return_params )
 	    end
 	  else
-	  	redirect_to root_path, alert: t('.sign_in')
+	  	redirect_to new_user_registration, alert: t('.sign_in')
 	  end
 	end
 
