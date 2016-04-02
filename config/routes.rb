@@ -1,8 +1,7 @@
 Ftwgl::Application.routes.draw do
-  devise_for :users, controllers: { sessions: "users/sessions" }
-  devise_scope :user do
-    get 'users/sso', to: 'users/sessions#sso'
-  end
+  devise_for :users
+
+  get 'discourse/sso' => 'discourse_sso#sso'
 
   resources :news, :only => [:show] do
     resources :comments, :only => [ :create ]
