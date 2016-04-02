@@ -3,5 +3,6 @@
 
 <p>You can confirm your account email through the link below:</p>
 
-<p><%= link_to 'Confirm my account', confirmation_url(@resource, :confirmation_token => @token) %></p>
+<p><%= link_to 'Click here to confirm your account', confirmation_url(@resource, :confirmation_token => @token) %></p>
+<p>or copy this link: <%= confirmation_url(@resource, :confirmation_token => @token) %></p>
 </div>
