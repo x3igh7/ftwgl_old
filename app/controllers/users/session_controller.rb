@@ -17,7 +17,7 @@ class Users::SessionsController < Devise::SessionsController
 	    	sso = Base64.encode64(nonce + '&username=' + resource.username + '&email=' + resource.email + '&external_id=' + resource.id.to_s)
 	    	sig = OpenSSL::HMAC.hexdigest('sha256', ENV["SSO_SECRET"], sso)
 	    	return_params = { sso: sso, sig: sig }
-	    	redirect_to generate_url( ENV["FORUM_URL"], return_params )
+	    	redirect_to generate_url( ENV["FORUM_URL"]+"/session/sso_login", return_params )
 	    end
 	  else
 	  	redirect_to new_user_registration, alert: t('.sign_in')
