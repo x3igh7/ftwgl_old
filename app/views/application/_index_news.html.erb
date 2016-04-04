@@ -1,4 +1,4 @@
-<% if @news.nil? %>
+<% if not @news.nil? %>
   <% @news.each do |news| %>
   <div class="content-inner-inner">
     <p class="headline"><%= news.headline %></p>
