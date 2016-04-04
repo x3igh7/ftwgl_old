@@ -12,25 +12,13 @@
 <table class="users-table">
   <tr>
     <th>Username</th>
-<!-- 		<th>Teams</th>
- -->    <th>Joined</th>
+    <th>Joined</th>
   </tr>
   <% @users.each do |user| %>
     <tr>
       <td>
         <%= link_to user.username, user_path(user) %>
       </td>
-<!--       <td>
-				<% if not user.teams.empty? %>
-					<% teams = [] %>
-					<% user.teams.each do |team| %>
-						<% teams << link_to(team.name + " " + team.tag, team_path(team)) %>
-					<% end %>
-					<%= teams.join(", ").html_safe %>
-				<% else %>
-					<span class="faded">None</span>
-				<% end %>
-      </td> -->
 			<td>
 				<%= user.created_at.strftime("%B %d, %Y") %>
 			</td>
