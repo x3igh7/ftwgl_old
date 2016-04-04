@@ -33,7 +33,7 @@
   <div class="half">
     <dl class="content-inner-inner">
       <h1>teams</h1>
-      <% unless @user.teams.empty? %>
+      <% unless @user.teams.nil? %>
       <% @user.teams.each do |team| %>
       <dd><%= link_to "#{team.name} #{team.tag}", team_path(team) %></dd>
       <% end %>
