@@ -21,14 +21,14 @@
         <%= link_to user.username, user_path(user) %>
       </td>
       <td>
-				<% unless user.teams.nil? %>
-					<% teams = [] %>
-					<% user.teams.each do |team| %>
-						<% teams << link_to(team.name + " " + team.tag, team_path(team)) %>
-					<% end %>
-					<%= teams.join(", ").html_safe %>
+				<% if user.teams.nil? %>
+          <span class="faded">None</span>
 				<% else %>
-					<span class="faded">None</span>
+          <% teams = [] %>
+          <% user.teams.each do |team| %>
+            <% teams << link_to(team.name + " " + team.tag, team_path(team)) %>
+          <% end %>
+          <%= teams.join(", ").html_safe %>
 				<% end %>
       </td>
 			<td>
