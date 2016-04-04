@@ -11,9 +11,9 @@
 <%= simple_form_for [:admin, @user] do |f| %>
   <%= f.input :username %>
   <%= f.input :email, as: :email %>
-  <%= f.input :gravatar_email, as: :email %>
-  <%= f.input :password, as: :password %>
-  <%= f.input :password_confirmation, as: :password %>
+  <%= f.input :gravatar_email, as: :email, :autocomplete => :off %>
+  <%= f.input :password, as: :password,:autocomplete => :off %>
+  <%= f.input :password_confirmation, as: :password, :autocomplete => :off %>
   <p>Current Role: <%= @user_role %></p>
   <%= f.input :roles, label: "Choose Role", collection: [:user, :tournament_admin, :admin], include_blank: false, selected: @user_role %>
   <%= f.submit "Save" %>

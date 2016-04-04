@@ -96,7 +96,6 @@ GEM
     mime-types (1.25.1)
     mini_portile (0.5.3)
     multi_json (1.10.1)
-    newrelic_rpm (3.7.3.204)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
     nokogiri (1.6.1-x86-mingw32)
@@ -157,6 +156,8 @@ GEM
       polyamorous (~> 1.1)
     rdoc (3.12.2)
       json (~> 1.4)
+    recaptcha (1.2.0)
+      json
     role_model (0.8.1)
     rspec-core (2.14.8)
     rspec-expectations (2.14.5)
@@ -235,13 +236,13 @@ DEPENDENCIES
   jquery-rails
   kaminari
   launchy
-  newrelic_rpm
   pg
   poltergeist
   pry
   rails (= 3.2.14)
   rails_12factor
   ransack
+  recaptcha
   role_model
   rspec-rails
   sass (~> 3.2.19)

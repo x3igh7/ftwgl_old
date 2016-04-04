@@ -10,7 +10,7 @@
       <%= f.input :password, :required => true, :autocomplete => :off %>
       <%= f.input :password_confirmation, :required => true, :autocomplete => :off %>
     </div><br />
-
+      <%= recaptcha_tags %>
     <div class="form-actions">
       <%= f.button :submit, "Create New Account" %>
     </div>

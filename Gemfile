@@ -13,11 +13,11 @@ gem 'gon'
 gem 'bootstrap-datepicker-rails'
 gem 'kaminari'
 gem 'challonge-api'
-gem 'newrelic_rpm'
 gem 'sendgrid'
 gem 'ransack'
 gem 'browser-timezone-rails'
 gem 'select2-rails', '~> 3.5.9.1'
+gem "recaptcha", require: "recaptcha/rails"
 
 gem 'sass', '~> 3.2.19'
 # Gems used only for assets and not required

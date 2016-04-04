@@ -1,5 +1,5 @@
 Ftwgl::Application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: { registrations: 'users/registrations' }
 
   get 'discourse/sso' => 'discourse_sso#sso'
 
