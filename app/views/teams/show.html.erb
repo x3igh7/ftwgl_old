@@ -51,7 +51,7 @@
 
 		<div class="content-inner-inner">
 			<h1>current tournaments</h1>
-				<% if @current_tournaments.nil? %>
+				<% if @current_tournaments.empty? %>
 					Not currently participating in any tournaments.
 				<% else %>
 					<% @current_tournaments.each do |tourny| %>

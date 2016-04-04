@@ -21,7 +21,7 @@
         <%= link_to user.username, user_path(user) %>
       </td>
       <td>
-				<% if not user.teams.nil? %>
+				<% if not user.teams.empty? %>
 					<% teams = [] %>
 					<% user.teams.each do |team| %>
 						<% teams << link_to(team.name + " " + team.tag, team_path(team)) %>
