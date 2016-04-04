@@ -11,7 +11,7 @@
 		<% if @active_tournament_team %>
 			<% @active_team = Team.find(@active_tournament_team.team_id) %>
 			You are participating in this tournament with <%= link_to @active_team.name, team_path(@active_team) %>.
-		<% elsif not @current_user_teams.nil? %>
+		<% elsif @current_user_teams.nil? %>
 			You can join a team shown below, or <%= link_to "create", new_team_path %> your own team.
 		<% else %>
 			<div style="float:right;">
