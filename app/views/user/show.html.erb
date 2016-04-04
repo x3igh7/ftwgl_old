@@ -65,7 +65,7 @@
   <div class="content-inner-inner comments">
     <div class="comments-inner">
     <h1>recent comments</h1>
-      <% if @comments.any? %>
+      <% if @comments.nil? %>
         <% @comments.each do |comment| %>
           <% if comment.commentable_type == "News" %>
             <%= link_to comment.commentable.headline, news_path(comment.commentable.id) %>
