@@ -36,8 +36,12 @@
 			<ul class="bracket_match">
 				<% @teams.each do |team| %>
 					<li class="tournament-teams-list">
-						<%= image_tag small_team_avatar_url(team.team) %>
-						<%= link_to team.team.name + ' ' + team.team.tag, team_path(team.team) %>
+						<% unless team.nil? %>
+							<%= image_tag small_team_avatar_url(team.team) %>
+							<% unless team.team.nil? %>
+								<%= link_to team.team.name + ' ' + team.team.tag, team_path(team.team) %>
+							<% end %>
+						<% end %>
 					</li>
 				<% end %>
 			</ul>
