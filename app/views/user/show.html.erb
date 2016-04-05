@@ -35,7 +35,9 @@
       <h1>teams</h1>
       <% if not @user.teams.empty? %>
       <% @user.teams.each do |team| %>
-      <dd><%= link_to "#{team.name} #{team.tag}", team_path(team) %></dd>
+        <% unless team.nil? %>
+          <dd><%= link_to "#{team.name} #{team.tag}", team_path(team) %></dd>
+        <% end %>
       <% end %>
       <% end %>
     </dl>
