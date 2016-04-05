@@ -10,7 +10,7 @@
 			</tr>
 			<% unless @teams.empty? %>
 				<% @teams.each_with_index do |team, x| %>
-					<% unless team.nil? %>
+					<% unless team.nil? || team.team.nil? %>
 						<tr id=<%= "rank#{x+1}" %>>
 							<td class="rank"><%= x+1 %></td>
 							<td class="name"><%= link_to "#{team.team.name} #{team.team.tag}", team_path(team.team) %></td>

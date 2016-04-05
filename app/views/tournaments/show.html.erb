@@ -37,7 +37,7 @@
 				<% unless @teams.empty? %>
 					<% @teams.each do |team| %>
 						<li class="tournament-teams-list">
-							<% unless team.team.nil? %>
+							<% unless team.nil? || team.team.nil? %>
 								<%= image_tag small_team_avatar_url(team.team) %>
 								<%= link_to team.team.name + ' ' + team.team.tag, team_path(team.team) %>
 							<% end %>
