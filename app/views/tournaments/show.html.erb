@@ -34,15 +34,15 @@
 		<div class="content-inner-inner clear">
 			<h1>teams</h1>
 			<ul class="bracket_match">
-				<% @teams.each do |team| %>
-					<li class="tournament-teams-list">
-						<% unless team.nil? %>
-							<%= image_tag small_team_avatar_url(team.team) %>
+				<% unless @teams.empty? %>
+					<% @teams.each do |team| %>
+						<li class="tournament-teams-list">
 							<% unless team.team.nil? %>
+								<%= image_tag small_team_avatar_url(team.team) %>
 								<%= link_to team.team.name + ' ' + team.team.tag, team_path(team.team) %>
 							<% end %>
-						<% end %>
-					</li>
+						</li>
+					<% end %>
 				<% end %>
 			</ul>
 		</div>
