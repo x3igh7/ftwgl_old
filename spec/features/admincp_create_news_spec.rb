@@ -18,7 +18,6 @@ describe "News" do
     click_on "add news"
     select "General", from: "Source"
     fill_in "Headline", with: news.headline
-    fill_in "Description", with: news.description
     fill_in "Content", with: news.content
     click_on "Save"
     expect(News.all.count).to eq(prev + 1)
