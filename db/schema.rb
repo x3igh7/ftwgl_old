@@ -57,7 +57,6 @@ ActiveRecord::Schema.define(:version => 20141215203251) do
   create_table "news", :force => true do |t|
     t.integer  "user_id",       :null => false
     t.string   "headline"
-    t.string   "description"
     t.text     "content"
     t.integer  "newsable_id"
     t.string   "newsable_type"

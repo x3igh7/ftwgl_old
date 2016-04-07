@@ -1,12 +1,11 @@
 <% if not @news.empty? %>
   <% @news.each do |news| %>
   <div class="content-inner-inner">
-    <p class="headline"><%= news.headline %></p>
+    <p class="headline"><%= link_to news.headline, news_path(news) %></p>
 
       <p style="font-size:10px" class="news-subline">Created at <%= news.created_at.strftime("%B %d,%Y") %> by <%= news.user.username %></p>
 
-      <p class="news-subline"><%= news.description %></p>
-      <p class="news-subline"><%= link_to "read more...", news_path(news)%></p>
+      <p class="news-subline"><%=raw news.content %></p>
   </div>
   <% end %>
   <div>

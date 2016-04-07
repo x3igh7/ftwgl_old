@@ -8,12 +8,12 @@ describe "News" do
 
   it "will appear on the main page if source is general" do
     visit root_path
-    expect(page).to have_content(news.description)
+    expect(page).to have_content(news.content)
   end
 
   it "will appear on tournament main page if source is tournament" do
     visit tournament_path(tournament)
-    expect(page).to have_content(news.description)
+    expect(page).to have_content(news.content)
   end
 
   it "can be commented on" do
