@@ -194,7 +194,6 @@ GEM
       thor (~> 0.14)
     sendgrid (1.2.4)
       json
-      json
     sextant (0.2.4)
       rails (>= 3.2)
     shoulda-matchers (2.8.0)
@@ -269,3 +268,6 @@ DEPENDENCIES
   valid_attribute
   vcr
   webmock
+
+BUNDLED WITH
+   1.11.2
