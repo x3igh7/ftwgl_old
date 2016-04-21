@@ -1,4 +1,5 @@
 class MembershipsController < ApplicationController
+  before_filter :authenticate_user!
 
   def create
     @team = Team.find(params[:team_id])
