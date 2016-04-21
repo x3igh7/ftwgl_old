@@ -10,6 +10,7 @@ class Team < ActiveRecord::Base
   has_many :users, through: :memberships
   has_many :tournament_teams, :dependent => :destroy
   has_many :tournaments, through: :tournament_teams
+  has_many :tournament_team_memberships, through: :tournament_teams, :dependent => :destroy
 
   def owners
     owners = memberships.where("role = 'owner'")
