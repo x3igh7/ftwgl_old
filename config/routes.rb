@@ -16,6 +16,7 @@ Ftwgl::Application.routes.draw do
 		end
   end
   resources :tournament_teams, :only => [:create]
+  resources :tournament_team_memberships, :only => [:create, :destroy]
 	namespace :admin do
     root :to => 'cpanel#index'
     resources :users, :only => [:edit, :update, :destroy] do
