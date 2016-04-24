@@ -7,5 +7,6 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 # user = User.create(username: 'x8', password: 'administrator', email: 'connerpsmith@gmail.com')
+# user.confirmed_at = DateTime.now
 # user.roles = :admin
 # user.save

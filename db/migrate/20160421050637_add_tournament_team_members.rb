@@ -1,6 +1,6 @@
 class AddTournamentTeamMembers < ActiveRecord::Migration
   def change
-  	create_table :tournament_team_membership do |t|
+  	create_table :tournament_team_memberships do |t|
   		t.integer :tournament_id, null: false
   		t.integer :tournament_team_id, null: false
   		t.integer :user_id, null: false
@@ -9,7 +9,7 @@ class AddTournamentTeamMembers < ActiveRecord::Migration
   		t.timestamps
   	end
 
-  	add_index :tournament_team_membership, [:tournament_id, :user_id], unique: true
-  	add_index :tournament_team_membership, [:tournament_team_id]
+  	add_index :tournament_team_memberships, [:tournament_id, :user_id], unique: true
+  	add_index :tournament_team_memberships, [:tournament_team_id]
   end
 end

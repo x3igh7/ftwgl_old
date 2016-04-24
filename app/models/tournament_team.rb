@@ -6,8 +6,8 @@ class TournamentTeam < ActiveRecord::Base
   validates_uniqueness_of :team_id, scope: :tournament_id
   belongs_to :team
   belongs_to :tournament
-  has_many  :home_matches, :foreign_key => 'away_team_id', :class_name => 'Match'
-  has_many  :away_matches, :foreign_key => 'home_team_id', :class_name => 'Match'
+  has_many :home_matches, foreign_key: 'away_team_id', class_name: 'Match'
+  has_many :away_matches, foreign_key: 'home_team_id', class_name: 'Match'
   has_many :tournament_team_memberships, dependent: :destroy
 
   def members
@@ -48,24 +48,24 @@ class TournamentTeam < ActiveRecord::Base
     self.total_points += 0
   end
 
-	def has_played?(tournament_team)
-		matches.each do |match|
-			if match.away_team_id == tournament_team.id or match.home_team_id == tournament_team.id
-				return true
-			end
-		end
-		return false
-	end
-
-  def has_not_played(teams)
-    has_not_played = []
-    teams.each do |team|
-      if self.has_played?(team) == false
-        has_not_played << team
-      end
+  def has_played?(tournament_team)
+    matches.each do |match|
+     if match.away_team_id == tournament_team.id or match.home_team_id == tournament_team.id
+      return true
     end
-    has_not_played.delete(self)
-    has_not_played.sort!{|a,b| a.rank <=> b.rank}
   end
+  return false
+end
+
+def has_not_played(teams)
+  has_not_played = []
+  teams.each do |team|
+    if self.has_played?(team) == false
+      has_not_played << team
+    end
+  end
+  has_not_played.delete(self)
+  has_not_played.sort!{|a,b| a.rank <=> b.rank}
+end
 
 end
