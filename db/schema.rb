@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141215203251) do
+ActiveRecord::Schema.define(:version => 20160421050637) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id",          :null => false
@@ -90,6 +90,18 @@ ActiveRecord::Schema.define(:version => 20141215203251) do
   end
 
   add_index "tournament_admins", ["tournament_id", "user_id"], :name => "index_tournament_admins_on_tournament_id_and_user_id", :unique => true
+
+  create_table "tournament_team_membership", :force => true do |t|
+    t.integer  "tournament_id",      :null => false
+    t.integer  "tournament_team_id", :null => false
+    t.integer  "user_id",            :null => false
+    t.string   "authorization_id"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
+  add_index "tournament_team_membership", ["tournament_id", "user_id"], :name => "index_tournament_team_membership_on_tournament_id_and_user_id", :unique => true
+  add_index "tournament_team_membership", ["tournament_team_id"], :name => "index_tournament_team_membership_on_tournament_team_id"
 
   create_table "tournament_teams", :force => true do |t|
     t.integer  "team_id",                        :null => false

@@ -8,7 +8,15 @@ class TournamentTeam < ActiveRecord::Base
   belongs_to :tournament
   has_many  :home_matches, :foreign_key => 'away_team_id', :class_name => 'Match'
   has_many  :away_matches, :foreign_key => 'home_team_id', :class_name => 'Match'
-  has_many :tournament_team_memberships, :dependent => :destory
+  has_many :tournament_team_memberships, dependent: :destroy
+
+  def members
+    if tournament_team_memberships.count < 1
+      return new Array
+    end
+
+    tournament_team_memberships
+  end
 
   def matches
     home_matches + away_matches

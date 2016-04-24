@@ -4,14 +4,18 @@ class TournamentTeamsController < ApplicationController
     @tournament_team = TournamentTeam.new()
     @tournament_team.team_id = params[:tournament_team][:team]
     @tournament_team.tournament_id = @tournament.id
-    
+
     if @tournament_team.save
-      flash[:notice] = "Added team to Tournament"
+      flash[:notice] = 'Added team to Tournament'
       redirect_to tournament_path(@tournament)
     else
-      flash[:alert] = "Failed to add team to Tournament"
+      flash[:alert] = 'Failed to add team to Tournament'
       redirect_to tournament_path(@tournament)
     end
+  end
 
+  def show
+    @tt = TournamentTeam.find(params[:id])
+    @members = @tt.members
   end
 end

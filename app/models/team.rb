@@ -6,11 +6,11 @@ class Team < ActiveRecord::Base
   attr_accessible :name, :tag, :gravatar_email, :primary_contact, :secondary_contact,
   :website, :irc_channel, :voip, :youtube_channel, :twitch_channel, :featured_video, :description
 
-  has_many :memberships, :autosave => true, :dependent => :destroy
+  has_many :memberships, :autosave => true, dependent: :destroy
   has_many :users, through: :memberships
-  has_many :tournament_teams, :dependent => :destroy
+  has_many :tournament_teams, dependent: :destroy
   has_many :tournaments, through: :tournament_teams
-  has_many :tournament_team_memberships, through: :tournament_teams, :dependent => :destroy
+  has_many :tournament_team_memberships, through: :tournament_teams, dependent: :destroy
 
   def owners
     owners = memberships.where("role = 'owner'")
