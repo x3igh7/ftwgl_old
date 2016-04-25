@@ -1,4 +1,4 @@
-<h1><%= @tt.team.name %></h1>
+<h1><%= "#{@tt.tournament.name} - #{@tt.team.tag}" %></h1>
 
 <div class="tournament-team-members">
   <% @members.each do |m| %>
@@ -6,4 +6,5 @@
       <div class="half"><%= "#{m.user.username} - #{m.created_at}" %></div>
       <div class="half"><%= "Authorization Id: #{m.authorization_id}" %></div>
   </div>
+  <% end %>
 </div>

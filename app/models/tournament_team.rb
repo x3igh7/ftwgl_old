@@ -12,7 +12,7 @@ class TournamentTeam < ActiveRecord::Base
 
   def members
     if tournament_team_memberships.count < 1
-      return new Array
+      return []
     end
 
     tournament_team_memberships
