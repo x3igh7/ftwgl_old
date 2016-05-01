@@ -1,6 +1,6 @@
 <h1><%= "#{@tt.tournament.name} - #{@tt.team.tag}" %></h1>
 
-<% if current_user.is_team_owner?(@tt.team) %>
+<% if current_user.is_team_owner?(@tt.team) || current_user.has_role?(:admin) || current_user.is_tournament_admin? %>
   <table class="add-tournament-team-members">
     <% @available_roster.each do |m| %>
     <tr>
