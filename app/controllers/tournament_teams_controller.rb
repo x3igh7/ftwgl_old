@@ -16,6 +16,8 @@ class TournamentTeamsController < ApplicationController
 
   def show
     @tt = TournamentTeam.find(params[:id])
+    @available_roster = @tt.available_roster
     @members = @tt.members
+    binding.pry
   end
 end

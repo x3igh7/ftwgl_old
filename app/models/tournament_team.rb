@@ -18,6 +18,25 @@ class TournamentTeam < ActiveRecord::Base
     tournament_team_memberships
   end
 
+  def available_roster
+    available_roster = []
+    self.team.memberships.each do |m|
+      exists = false
+
+      self.members.each do |tm|
+        if m.user_id == tm.user_id
+          exists = true
+        end
+      end
+
+      if !exists
+        available_roster.push(m)
+      end
+    end
+
+    return available_roster
+  end
+
   def matches
     home_matches + away_matches
   end
