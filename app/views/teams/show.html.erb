@@ -7,7 +7,7 @@
 	<% unless current_user.is_team_member?(@team)	%>
 		<% if not current_user.has_applied? @team %>
 			<%= simple_form_for @new_membership, url: memberships_path(@new_membership, team: @team), method: :post do |f| %>
-				<%= f.input :join_password, type: :password, autocomplete: :off %>
+				<%= f.input :join_password, type: :password, input_html: { autocomplete: 'off' } %>
 				<%= f.submit "apply to join" %>
 			<% end %>
 		<% else %>
