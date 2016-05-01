@@ -7,8 +7,12 @@
   <%= f.input :home_team_id, collection: @teams, as: :select, label: "home team" %>
   <%= f.input :away_team_id, collection: @teams, as: :select, label: "away team" %>
   <%= f.input :week_num, label: "Week" %>
-  <%= f.input :match_date, as: :date, label: "Match Date" %>
+  <%= f.input :match_date, as: :string, input_html: { class: "datepicker" }, label: "Match Date" %>
   <%= f.submit "Add New Match" %>
 <% end %>
 
 </div>
+
+<script>
+  $('.datepicker').datepicker({format: 'yyyy-mm-dd'});
+</script>
