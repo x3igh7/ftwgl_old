@@ -30,6 +30,17 @@ class User < ActiveRecord::Base
 
   before_save :default_roles
 
+  def tournament_memberships
+    memberships = []
+    self.tournament_team_memberships.each do |m|
+      if m.user.id == self.id
+        memberships.push(m)
+      end
+    end
+
+    return memberships
+  end
+
   def has_team_permissions?(team)
     if self.has_role?(:admin)
       return true

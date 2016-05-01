@@ -39,11 +39,12 @@
       <td>Category</td>
       <td>Authorization Id</td>
       <td></td>
+      <td></td>
     </tr>
   </thead>
   <tbody>
     <% unless resource.tournament_team_memberships.nil? %>
-    <% resource.tournament_team_memberships.each do |m| %>
+    <% resource.tournament_memberships.each do |m| %>
       <tr>
         <td><%= m.tournament.name %></td>
         <td><%= m.tournament.category %></td>
@@ -51,6 +52,7 @@
           <td><%= f.input :authorization_id %></td>
           <td><%= f.submit "Update" %></td>
         <% end %>
+        <td><%= link_to "Leave", tournament_team_membership_path(m), method: :delete %></td>
       </tr>
     <% end %>
     <% end %>
