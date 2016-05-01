@@ -31,8 +31,16 @@ class User < ActiveRecord::Base
   before_save :default_roles
 
   def has_team_permissions?(team)
+    if self.has_role?(:admin)
+      return true
+    end
+
+    if self.is_tournament_admin?
+      return true
+    end
+
     self.memberships.each do |m|
-      if m.team.id == team.id && m.has_role?(:owner) || m.has_role?(:captain)
+      if m.team.id == team.id && m.role == 'owner' || m.role == 'captain'
         return true
       end
     end
@@ -114,15 +122,19 @@ class User < ActiveRecord::Base
     team.owners.include?(self)
   end
 
+  def is_team_captain?(team)
+    team.captains.include?(self)
+  end
+
   def is_team_member?(team)
     team.members.include?(self)
   end
 
-	def has_applied?(team)
-		team.applications.include?(self)
-	end
+  def has_applied?(team)
+    team.applications.include?(self)
+  end
 
-	def banned?
-		self.has_role?(:banned)
-	end
+  def banned?
+    self.has_role?(:banned)
+  end
 end

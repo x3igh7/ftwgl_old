@@ -39,8 +39,8 @@
       <td><%= m.user.username %></td>
       <td><%= m.created_at.strftime('%m-%d-%Y') %></td>
       <%= simple_form_for m, method: :put do |f| %>
-        <td><%= f.input :authorization_id, disabled: !current_user.has_team_permissions?(@tt.team) || !current_user.has_role?(:admin) || current_user.is_tournament_admin?, label: false %></td>
-        <% if current_user.has_team_permissions?(@tt.team) || !current_user.has_role?(:admin) || current_user.is_tournament_admin? %>
+        <td><%= f.input :authorization_id, disabled: !current_user.has_team_permissions?(@tt.team), label: false %></td>
+        <% if current_user.has_team_permissions?(@tt.team) %>
           <td><%= f.submit "Update" %></td>
           <td><%= link_to "Delete", tournament_team_membership_path(m), method: :delete %></td>
         <% end %>

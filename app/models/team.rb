@@ -36,6 +36,11 @@ class Team < ActiveRecord::Base
     owners.map { |owner| owner.user }
   end
 
+  def captains
+    captains = memberships.where("role = 'captain'")
+    captains.map { |captain| captain.user }
+  end
+
   def actives
     actives = memberships.where("active = 'true'")
     actives.map { |active| active.user }
