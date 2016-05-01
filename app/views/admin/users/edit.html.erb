@@ -18,4 +18,26 @@
   <%= f.input :roles, label: "Choose Role", collection: [:user, :tournament_admin, :admin], include_blank: false, selected: @user_role %>
   <%= f.submit "Save" %>
 <% end %>
+
+<h3>tournament team memberships</h3>
+<table>
+  <thead>
+    <tr>
+      <td>Tournament</td>
+      <td>Team Name</td>
+      <td></td>
+    </tr>
+  </thead>
+  <tbody>
+    <% if !@user.tournament_team_memberships.nil? %>
+    <% @user.tournament_team_memberships.each do |tm| %>
+    <tr>
+      <td><%= tm.tournament.name %></td>
+      <td><%= tm.tournament_team.team.name %></td>
+      <td><%= "Delete", tournament_team_membership_path(tm), method: :delete %> %></td>
+    </tr>
+    <% end %>
+    <% end %>
+  </tbody>
+</table>
 </div>

@@ -1,6 +1,7 @@
 <h1>edit tournament teams</h1>
 <div class="content-inner">
 <p><%= "#{@team.team.name} #{@team.team.tag}" %></p>
+<%= link_to "Edit Roster", tournament_team_path(@team) %>
 
 <%= simple_form_for([:admin, @team]) do |f| %>
   <%= f.error_notification %>

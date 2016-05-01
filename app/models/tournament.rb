@@ -13,11 +13,11 @@ class Tournament < ActiveRecord::Base
   BRACKET_TYPES = ["Teams"] #singles not currently supported
   ELIMINATION_TYPES = ["Single", "Double"]
 
-  has_many :tournament_teams, :dependent => :destroy
+  has_many :tournament_teams, dependent: :destroy
   has_many :teams, through: :tournament_teams
-  has_many :matches, :dependent => :destroy
-  has_many :news, :as => :newsable, :dependent => :destroy
-  has_many :tournament_admins, :dependent => :destroy
+  has_many :matches, dependent: :destroy
+  has_many :news, :as => :newsable, dependent: :destroy
+  has_many :tournament_admins, dependent: :destroy
 
   def scheduler
     teams = TournamentTeam.where(tournament_id: self.id).order(:rank)

@@ -15,13 +15,15 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   # attr_accessible :title, :body
   validates_presence_of :email, :username
-  has_many :memberships, :dependent => :destroy
+  has_many :memberships, dependent: :destroy
   has_many :teams, through: :memberships
   has_many :tournaments, through: :teams
   has_many :news, through: :tournaments
   has_many :matches, through: :tournaments
-  has_many :comments, :dependent => :destroy
-  has_many :tournament_admins, :dependent => :destroy
+  has_many :comments, dependent: :destroy
+  has_many :tournament_admins, dependent: :destroy
+  has_many :tournament_teams, through: :teams
+  has_many :tournament_team_memberships, through: :tournament_teams, dependent: :destroy
 
   roles_attribute :roles_mask
   roles :admin, :user, :banned

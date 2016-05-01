@@ -6,35 +6,36 @@ Ftwgl::Application.routes.draw do
   resources :news, :only => [:show] do
     resources :comments, :only => [ :create ]
   end
-  resources :user, :only => [:show, :index]
-  resources :teams, :only => [:new, :create, :show, :edit, :update, :index]
-  resources :memberships, :only => [:create, :update, :destroy, :index]
-  resources :tournaments, :only => [:new, :create, :show, :index] do
-    get "/rankings" => "tournaments#rankings"
-    resources :matches, :only => [:index, :show, :edit, :update] do
-			resources :comments, :only => [ :create ]
-		end
+  resources :user, only: [:show, :index]
+  resources :teams, only: [:new, :create, :show, :edit, :update, :index]
+  resources :memberships, only: [:create, :update, :destroy, :index]
+  resources :tournaments, only: [:new, :create, :show, :index] do
+    get '/rankings' => 'tournaments#rankings'
+    resources :matches, only: [:index, :show, :edit, :update] do
+      resources :comments, only: [ :create ]
+    end
   end
-  resources :tournament_teams, :only => [:create]
-	namespace :admin do
+  resources :tournament_teams, only: [:show, :create]
+  resources :tournament_team_memberships, only: [:new, :create, :update, :destroy]
+  namespace :admin do
     root :to => 'cpanel#index'
     resources :users, :only => [:edit, :update, :destroy] do
-      put "ban"
-      put "unban"
+      put 'ban'
+      put 'unban'
     end
     resources :news, :only => [:new, :create, :edit, :update, :destroy]
     resources :memberships, :only => [:destroy]
     resources :teams, :only => [:edit, :update, :destroy]
     resources :tournaments do
-      put "deactivate"
-      put "activate"
-      put "start_bracket"
-      get "bracket_results"
-      get "playoffs"
-      post "generate_playoff_bracket"
-      put "update_bracket"
-      get "bracket_matches"
-      post "generate_bracket_matches"
+      put 'deactivate'
+      put 'activate'
+      put 'start_bracket'
+      get 'bracket_results'
+      get 'playoffs'
+      post 'generate_playoff_bracket'
+      put 'update_bracket'
+      get 'bracket_matches'
+      post 'generate_bracket_matches'
       collection do
         get "rankings"
         put "update_rankings"
@@ -44,7 +45,7 @@ Ftwgl::Application.routes.draw do
     end
     resources :tournament_teams, :only => [:index, :new, :create, :edit, :update, :destroy]
     resources :matches
-	end
+  end
 
   root :to => 'home#home'
 

@@ -1,0 +1,27 @@
+<h1><%= "#{@tt.tournament.name} - #{@tt.team.tag}" %></h1>
+
+<% if current_user.is_team_owner?(@tt.team) || current_user.has_role?(:admin) || current_user.is_tournament_admin? %>
+  <table class="add-tournament-team-members">
+    <% @available_roster.each do |m| %>
+    <tr>
+      <td><%= m.user.username %></td>
+      <td><%= link_to "Add", tournament_team_memberships_path(tournament_team: @tt, user: m.user), method: :post %></td>
+    </tr>
+    <% end %>
+  </table>
+<% end %>
+
+<table class="tournament-team-members">
+  <% @members.each do |m| %>
+  <tr>
+      <td><%= "#{m.user.username} - #{m.created_at.strftime('%a, %b %-d')}" %></td>
+      <%= simple_form_for m, method: :put do |f| %>
+        <td><%= f.input :authorization_id, disabled: !current_user.is_team_owner?(@tt.team) %></td>
+        <% if current_user.is_team_owner?(@tt.team) %>
+          <td><%= f.submit "Update" %></td>
+        <% end %>
+      <% end %>
+      <td><%= link_to "Delete", tournament_team_membership_path(m), method: :delete %></td>
+  </tr>
+  <% end %>
+</table>
