@@ -1,5 +1,4 @@
 class TeamsController < ApplicationController
-
   def index
     @q_teams = Team.search(params[:q])
     @teams = @q_teams.result.order("name").page params[:page]

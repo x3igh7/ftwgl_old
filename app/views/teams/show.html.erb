@@ -1,10 +1,10 @@
 <h1><%= "#{@team.name} (#{@team.tag})" %></h1>
-<% if user_signed_in? and current_user.is_team_owner?(@team) %>
+<% if user_signed_in? and current_user.has_team_permissions?(@team) %>
 	<%= link_to "Edit team profile", edit_team_path(@team) %>
 <% end %>
 
 <% if user_signed_in? %>
-	<% unless current_user.is_team_owner?(@team) || current_user.is_team_member?(@team)	%>
+	<% unless current_user.has_team_permissions?(@team) || current_user.is_team_member?(@team)	%>
 		<% if not current_user.has_applied? @team %>
 			<%= simple_form_for @new_membership, url: memberships_path(@new_membership, team: @team), method: :post do |f| %>
 				<%= f.input :join_password, type: :password, autocomplete: :off %>
