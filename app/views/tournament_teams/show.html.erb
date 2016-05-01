@@ -3,21 +3,43 @@
 
 <% if current_user.is_team_owner?(@tt.team) || current_user.has_role?(:admin) || current_user.is_tournament_admin? %>
   <table class="add-tournament-team-members">
+    <thead>
+      <tr>
+        <td>Available Players</td>
+        <td></td>
+      </tr>
+    </thead>
+    <tbody>
     <% @available_roster.each do |m| %>
     <tr>
       <td><%= m.user.username %></td>
       <td><%= link_to "Add", tournament_team_memberships_path(tournament_team: @tt, user: m.user), method: :post %></td>
     </tr>
     <% end %>
+    </tbody>
   </table>
 <% end %>
 
+<br/>
+<br/>
+
 <table class="tournament-team-members">
+  <thead>
+    <tr>
+      <td>Tournament Member</td>
+      <td>Join Date</td>
+      <td>Authorization Id</td>
+      <td></td>
+      <td></td>
+    </tr>
+  </thead>
+  <tbody>
   <% @members.each do |m| %>
   <tr>
-      <td><%= "#{m.user.username} - #{m.created_at.strftime('%a, %b %-d')}" %></td>
+      <td><%= m.user.username %></td>
+      <td><%= m.created_at.strftime('%m-%d-%Y') %></td>
       <%= simple_form_for m, method: :put do |f| %>
-        <td><%= f.input :authorization_id, disabled: !current_user.is_team_owner?(@tt.team) %></td>
+        <td><%= f.input :authorization_id, disabled: !current_user.is_team_owner?(@tt.team), label: false %></td>
         <% if current_user.is_team_owner?(@tt.team) %>
           <td><%= f.submit "Update" %></td>
         <% end %>
@@ -25,4 +47,5 @@
       <td><%= link_to "Delete", tournament_team_membership_path(m), method: :delete %></td>
   </tr>
   <% end %>
+  </tbody>
 </table>

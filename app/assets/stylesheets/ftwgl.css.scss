@@ -11,6 +11,11 @@ table {
 	width: 100%;
 }
 
+table thead tr td {
+	background-color: #cc5500;
+	color: #f6f6f6;
+}
+
 table th, table td{
 	padding: 5px;
 }
