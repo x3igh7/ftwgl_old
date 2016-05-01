@@ -23,7 +23,10 @@ class MembershipsController < ApplicationController
 
   def update
     @team = Team.find(params[:team_id])
-    binding.pry
+    if !current_user.has_team_permissions?(team)
+      flash[:alert] = 'No permissions'
+      redirect_to team_path(@team)
+    end
 
     if(params[:active])
       @status = params[:active]

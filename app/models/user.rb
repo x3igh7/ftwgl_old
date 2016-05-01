@@ -55,6 +55,8 @@ class User < ActiveRecord::Base
         return true
       end
     end
+
+    return false
   end
 
   def default_roles
