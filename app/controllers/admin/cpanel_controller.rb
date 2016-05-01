@@ -20,7 +20,7 @@ class Admin::CpanelController < AdminController
 
 	  if(params[:q] != nil)
 
-		  if(params[:q][:username_cont] != nil)
+		  if(params[:q][:username_or_email_cont] != nil)
 		  	@users = @q_users.result.order("username").page params[:page_1]
 			else
 				@users = User.order("username").page params[:page_1]

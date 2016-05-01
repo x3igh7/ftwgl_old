@@ -1,7 +1,7 @@
 <div class="content-inner-inner">
   <div class="search-form">
   <%= search_form_for @q_users, url: admin_root_path, remote: true, :method => :get do |f| %>
-    <%= f.search_field :username_cont, :autocomplete => "off" %>
+    <%= f.search_field :username_or_email_cont, :autocomplete => "off" %>
     <a class="search_submit button" href="javascript:void(0);" onclick="$('#users_panel input:submit').click();">search</a>
     <%= f.submit "search", class: "hide" %>
   <% end %>
