@@ -25,14 +25,9 @@
       <%= f.input :home_score %>
       <%= f.input :away_score %>
       <%= f.input :week_num, label: "Week" %>
-      <%= f.input :match_date, as: :string, input_html: { class: "datepicker" }%>
+      <%= f.input :match_date, as: :datetime %>
       <%= f.input :winner_id, collection: [0, @match.home_team.id, @match.away_team.id] %>
       <%= f.submit "update tournament match"%>
     <% end %>
   </div>
-
 </div>
-
-<script>
-  $('.datepicker').datepicker({format: 'yyyy-mm-dd'});
-</script>
