@@ -272,3 +272,6 @@ DEPENDENCIES
   valid_attribute
   vcr
   webmock
+
+BUNDLED WITH
+   1.11.2
