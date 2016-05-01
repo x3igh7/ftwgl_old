@@ -1,17 +1,22 @@
 class MembershipsController < ApplicationController
-
   def create
-    @team = Team.find(params[:team_id])
     @membership = Membership.new()
+    @join_password = params[:membership][:join_password]
+    @team = Team.find(params[:team])
     @membership.user = current_user
     @membership.team = @team
-    if @membership.save
-      flash[:notice] = "Application submitted."
-      redirect_to team_path(@team)
+
+    if Team.authenicate_join(@team, @join_password)
+      if @membership.save
+        flash[:notice] = 'Application submitted.'
+      else
+        flash[:alert] = 'Error submitting application.'
+      end
     else
-      flash[:alert] = "Error submitting application."
-      redirect_to team_path(@team)
+      flash[:alert] = 'Invaild join password.'
     end
+
+    redirect_to team_path(@team)
   end
 
   def update
@@ -23,7 +28,7 @@ class MembershipsController < ApplicationController
       flash[:notice] = 'Member status changed'
     else
       redirect_to team_path(@team)
-      flash[:alert] = "Unable to change member status"
+      flash[:alert] = 'Unable to change member status'
     end
   end
 
@@ -31,8 +36,7 @@ class MembershipsController < ApplicationController
     @team = Team.find(params[:team_id])
     @membership = users_current_team(params)
     destroyed = @membership[0].destroy
-		flash[:notice] = 'Removed ' + destroyed.user.username + ' from the team'
+    flash[:notice] = 'Removed ' + destroyed.user.username + ' from the team'
     redirect_to team_path(@team)
   end
-
 end

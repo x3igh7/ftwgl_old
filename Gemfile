@@ -17,7 +17,7 @@ gem 'sendgrid'
 gem 'ransack'
 gem 'browser-timezone-rails'
 gem 'select2-rails', '~> 3.5.9.1'
-gem "recaptcha", require: "recaptcha/rails"
+gem 'recaptcha', require: 'recaptcha/rails'
 gem 'test-unit'
 
 gem 'sass', '~> 3.2.19'
@@ -40,7 +40,7 @@ group :test, :development do
   gem 'capybara'
   gem 'launchy'
   gem 'pry'
-	gem 'database_cleaner'
+  gem 'database_cleaner'
 end
 
 group :test do
@@ -66,8 +66,6 @@ end
 group :production do
   gem 'rails_12factor'
 end
-
-
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

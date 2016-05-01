@@ -6,7 +6,10 @@
 <% if user_signed_in? %>
 	<% unless current_user.is_team_owner?(@team) || current_user.is_team_member?(@team)	%>
 		<% if not current_user.has_applied? @team %>
-			<%= button_to "Apply to team", memberships_path(:team_id => @team.id), :method => 'post' %>
+			<%= simple_form_for @new_membership, url: memberships_path(@new_membership, team: @team), method: :post do |f| %>
+				<%= f.input :join_password, type: :password, autocomplete: :off %>
+				<%= f.submit "apply to join" %>
+			<% end %>
 		<% else %>
 			<div class="spacer"></div>
 			You have applied to this team.

@@ -25,6 +25,9 @@ class TeamsController < ApplicationController
     @team = Team.find(params[:id])
     @current_tournaments = @team.tournaments.where(active: true)
     @user = current_user
+
+    @new_membership = Membership.new
+
     @membership = @team.memberships
     @total_wins = @team.total_wins
     @total_losses = @team.total_losses
@@ -49,10 +52,10 @@ class TeamsController < ApplicationController
 
     if @team.update_attributes(params[:team])
       redirect_to @team
-      flash[:notice] = "Team Updated Successfully!"
+      flash[:notice] = 'Team Updated Successfully!'
     else
       render 'edit'
-      flash[:alert] = "Update Unsuccessful."
+      flash[:alert] = 'Update Unsuccessful.'
     end
   end
 

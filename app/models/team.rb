@@ -1,16 +1,35 @@
 class Team < ActiveRecord::Base
+  attr_accessor :join_password
+  attr_accessible :name, :tag, :join_password, :gravatar_email, :primary_contact, :secondary_contact,
+  :website, :irc_channel, :voip, :youtube_channel, :twitch_channel, :featured_video, :description
+
+  before_save :encrypt_join_password
+
   validates_presence_of :name, :tag
   validates_length_of :name, :maximum => 50, :message => "Team name is too long"
   validates_length_of :tag, :maximum => 8, :message => "Maximum tag length is 8"
-
-  attr_accessible :name, :tag, :gravatar_email, :primary_contact, :secondary_contact,
-  :website, :irc_channel, :voip, :youtube_channel, :twitch_channel, :featured_video, :description
 
   has_many :memberships, :autosave => true, dependent: :destroy
   has_many :users, through: :memberships
   has_many :tournament_teams, dependent: :destroy
   has_many :tournaments, through: :tournament_teams
   has_many :tournament_team_memberships, through: :tournament_teams, dependent: :destroy
+
+  def encrypt_join_password
+    if join_password.present?
+      self.join_password_salt = BCrypt::Engine.generate_salt
+      self.join_password_hash = BCrypt::Engine.hash_secret(join_password, join_password_salt)
+    end
+  end
+
+  def self.authenicate_join(team, password)
+    team = Team.find(team.id)
+    if team && team.join_password_hash == BCrypt::Engine.hash_secret(password, team.join_password_salt)
+      true
+    else
+      false
+    end
+  end
 
   def owners
     owners = memberships.where("role = 'owner'")
@@ -27,10 +46,10 @@ class Team < ActiveRecord::Base
     actives.map { |active| active.user }
   end
 
-	def applications
-		applications = memberships.where("active = 'false'")
-		applications.map { |application| application.user }
-	end
+  def applications
+    applications = memberships.where("active = 'false'")
+    applications.map { |application| application.user }
+  end
 
   def in_tournament?(tournament)
     if self.tournaments.where(id: tournament.id) != []
