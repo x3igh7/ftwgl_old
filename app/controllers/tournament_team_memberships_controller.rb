@@ -16,7 +16,7 @@ class TournamentTeamMembershipsController < ApplicationController
       else
         f.html {
           redirect_to tournament_team_path(@tt),
-          alert: 'Failed to add member.'
+          alert: 'Failed to add member. May already be on a tournament roster.'
         }
       end
     end
