@@ -19,11 +19,13 @@
   <%= f.submit "Save" %>
 <% end %>
 
-<h3>tournament team memberships</h3>
+<br/>
+<br/>
+
 <table>
   <thead>
     <tr>
-      <td>Tournament</td>
+      <td>Tournament Membership</td>
       <td>Team Name</td>
       <td></td>
     </tr>
@@ -33,8 +35,8 @@
     <% @user.tournament_team_memberships.each do |tm| %>
     <tr>
       <td><%= tm.tournament.name %></td>
-      <td><%= tm.tournament_team.team.name %></td>
-      <td><%= "Delete", tournament_team_membership_path(tm), method: :delete %> %></td>
+      <td><%= link_to tm.tournament_team.team.name, tournament_team_path(tm.tournament_team) %></td>
+      <td><%= link_to "Delete", tournament_team_membership_path(tm), method: :delete %></td>
     </tr>
     <% end %>
     <% end %>
