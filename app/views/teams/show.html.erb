@@ -50,26 +50,20 @@
 		</div>
 
 		<div class="content-inner-inner">
+
+		</div>
+
+		<div class="content-inner-inner">
 			<h1>current tournaments</h1>
 				<% if @current_tournaments.empty? %>
 					Not currently participating in any tournaments.
 				<% else %>
-					<% @current_tournaments.each do |tourny| %>
-						<% ranking = TournamentTeam.where('"tournament_id" = ' + String(tourny.id)).ranking %>
-						<% tournament_team =  @team.tournament_teams.find_by_tournament_id(tourny.id) %>
-						<% rank = 1 %>
-						<% ranking.each do |ranked| %>
-							<% if tournament_team.id == ranked.id %>
-								<% break %>
-							<% end %>
-							<% rank = rank + 1 %>
-						<% end %>
+					<% @team.tournament_teams.each do |tt| %>
 						<div style="display:inline-block;margin-right:20px;">
-							<%=link_to tourny.name, tournament_path(tourny), :class => "outer-heading" %><br />
-							<span class="faded">Rank <%= rank %> of <%= ranking.count %></span>
+							<%=link_to tt.tournament.name, tournament_path(tt.tournament), :class => "outer-heading" %><br />
 
 							<div class="outer-heading">
-								<%= tournament_team.wins %> - <%= tournament_team.losses %>
+								<%= tt.wins %> - <%= tt.losses %>
 							</div>
 						</div>
 					<% end %>
