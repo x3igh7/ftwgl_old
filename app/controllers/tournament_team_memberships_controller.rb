@@ -23,17 +23,18 @@ class TournamentTeamMembershipsController < ApplicationController
   end
 
   def update
-    @member = params[:tournament_team_membership]
+    @member = TournamentTeamMembership.find(params[:id])
+    @member.authorization_id = params[:tournament_team_membership][:authorization_id]
     respond_to do |f|
       if @member.save
         f.html {
           redirect_to tournament_team_path(@member.tournament_team),
-          notice: 'Member was successfully added.'
+          notice: 'Member was successfully updated.'
         }
       else
         f.html {
           redirect_to tournament_team_path(@tt),
-          alert: 'Failed to add member.'
+          alert: 'Failed to update member.'
         }
       end
     end
