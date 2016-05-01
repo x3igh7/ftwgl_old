@@ -39,8 +39,8 @@
       <td><%= m.user.username %></td>
       <td><%= m.created_at.strftime('%m-%d-%Y') %></td>
       <%= simple_form_for m, method: :put do |f| %>
-        <td><%= f.input :authorization_id, disabled: !current_user.is_team_owner?(@tt.team), label: false %></td>
-        <% if current_user.is_team_owner?(@tt.team) %>
+        <td><%= f.input :authorization_id, disabled: !current_user.is_team_owner?(@tt.team) || !current_user.has_role?(:admin), label: false %></td>
+        <% if current_user.is_team_owner?(@tt.team) || !current_user.has_role?(:admin) %>
           <td><%= f.submit "Update" %></td>
         <% end %>
       <% end %>
