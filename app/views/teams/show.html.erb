@@ -64,7 +64,7 @@
 					<% @team.tournament_teams.each do |tt| %>
 						<div style="display:inline-block;margin-right:20px;">
 							<%=link_to tt.tournament.name, tournament_path(tt.tournament), :class => "outer-heading" %><br />
-
+							<%= link_to tt.team.name, tournament_team_path(tt) %>
 							<div class="outer-heading">
 								<%= tt.wins %> - <%= tt.losses %>
 							</div>

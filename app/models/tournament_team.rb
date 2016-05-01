@@ -29,7 +29,7 @@ class TournamentTeam < ActiveRecord::Base
         end
       end
 
-      if !exists
+      if !exists && m.active
         available_roster.push(m)
       end
     end

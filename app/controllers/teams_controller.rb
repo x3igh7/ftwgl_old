@@ -14,9 +14,9 @@ class TeamsController < ApplicationController
 
     if @team.save_with_owner(current_user)
       redirect_to team_path(@team)
-      flash[:notice] = "Successfully created team"
+      flash[:notice] = 'Successfully created team'
     else
-      flash[:alert] = "Failed to create team"
+      flash[:alert] = 'Failed to create team'
       render :new
     end
   end
