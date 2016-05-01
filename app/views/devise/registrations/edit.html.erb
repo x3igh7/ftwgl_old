@@ -1,4 +1,3 @@
-
 <h2>Edit <%= resource_name.to_s.humanize %></h2>
 
 <h4><%= link_to "Back", :back %></h4>
@@ -29,6 +28,34 @@
     <%= f.button :submit, "Update" %>
   </div>
 <% end %>
+
+<br/>
+<br/>
+
+<table>
+  <thead>
+    <tr>
+      <td>Tournament</td>
+      <td>Category</td>
+      <td>Authorization Id</td>
+      <td></td>
+    </tr>
+  </thead>
+  <tbody>
+    <% unless resource.tournament_team_memberships.nil? %>
+    <% resource.tournament_team_memberships.each do |m| %>
+      <tr>
+        <td><%= m.tournament.name %></td>
+        <td><%= m.tournament.category %></td>
+        <%= simple_form_for m, method: :put do |f| %>
+          <td><%= f.input :authorization_id %></td>
+          <td><%= f.submit "Update" %></td>
+        <% end %>
+      </tr>
+    <% end %>
+    <% end %>
+  </tbody>
+</table>
 
 <p><%= link_to "Delete my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %></p>
 

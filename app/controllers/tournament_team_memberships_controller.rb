@@ -10,12 +10,12 @@ class TournamentTeamMembershipsController < ApplicationController
     respond_to do |f|
       if @member.save
         f.html {
-          redirect_to tournament_team_path(@tt),
+          redirect_to :back,
           notice: 'Member was successfully added.'
         }
       else
         f.html {
-          redirect_to tournament_team_path(@tt),
+          redirect_to :back,
           alert: 'Failed to add member. May already be on a tournament roster.'
         }
       end
@@ -28,12 +28,12 @@ class TournamentTeamMembershipsController < ApplicationController
     respond_to do |f|
       if @member.save
         f.html {
-          redirect_to tournament_team_path(@member.tournament_team),
+          redirect_to :back,
           notice: 'Member was successfully updated.'
         }
       else
         f.html {
-          redirect_to tournament_team_path(@tt),
+          redirect_to :back,
           alert: 'Failed to update member.'
         }
       end
@@ -47,12 +47,12 @@ class TournamentTeamMembershipsController < ApplicationController
     respond_to do |f|
       if @member.destroy
         f.html {
-          redirect_to tournament_team_path(@tt),
+          redirect_to :back,
           notice: 'Member was successfully deleted.'
         }
       else
         f.html {
-          redirect_to tournament_team_path(@tt),
+          redirect_to :back,
           alert: 'Failed to delete member.'
         }
       end

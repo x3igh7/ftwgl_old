@@ -1,7 +1,7 @@
 <h1><%= "#{@tt.tournament.name} - #{@tt.team.tag}" %></h1>
 <%= link_to 'View Team Page', team_path(@tt.team) %>
 
-<% if current_user.is_team_owner?(@tt.team) || current_user.has_role?(:admin) || current_user.is_tournament_admin? %>
+<% if current_user.has_team_permissions?(@tt.team) %>
   <table class="add-tournament-team-members">
     <thead>
       <tr>
