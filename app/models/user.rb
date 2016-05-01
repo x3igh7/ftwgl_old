@@ -30,6 +30,14 @@ class User < ActiveRecord::Base
 
   before_save :default_roles
 
+  def has_team_permissions?(team)
+    self.memberships.each do |m|
+      if m.team.id == team.id && m.has_role?(:owner) || m.has_role?(:captain)
+        return true
+      end
+    end
+  end
+
   def default_roles
     if self.roles_mask == nil
       self.roles = :user
