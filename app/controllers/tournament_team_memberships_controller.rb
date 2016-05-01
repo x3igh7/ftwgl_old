@@ -41,12 +41,13 @@ class TournamentTeamMembershipsController < ApplicationController
   end
 
   def destroy
-    @member = params[:tournament_team_membership]
+    @member = TournamentTeamMembership.find(params[:id])
+    @tt = @member.tournament_team
 
     respond_to do |f|
       if @member.destroy
         f.html {
-          redirect_to tournament_team_path(@member.tournament_team),
+          redirect_to tournament_team_path(@tt),
           notice: 'Member was successfully deleted.'
         }
       else
