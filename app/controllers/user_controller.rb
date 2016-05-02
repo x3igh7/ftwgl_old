@@ -10,7 +10,7 @@ class UserController < ApplicationController
   end
 
   def index
-    @q = User.where('confirmation_token IS NOT NULL').search(params[:q])
+    @q = User.where('confirmed_at IS NOT NULL').search(params[:q])
     @users = @q.result.includes(:teams).order('username').page params[:page]
   end
 end
