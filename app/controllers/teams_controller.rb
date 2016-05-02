@@ -38,7 +38,7 @@ class TeamsController < ApplicationController
     @team = Team.find(params[:id])
     @membership = @team.memberships
 
-    if current_user.is_team_owner?(@team) || current_user.has_role?(:admin)
+    if current_user.has_team_permissions?(@team)
       true
     else
       redirect_to team_path(@team)

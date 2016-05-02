@@ -1,6 +1,8 @@
 <h1><%= "#{@team.name} (#{@team.tag})" %></h1>
-<% if user_signed_in? and current_user.has_team_permissions?(@team) %>
-	<%= link_to "Edit team profile", edit_team_path(@team) %>
+<% if user_signed_in? %>
+	<% if current_user.has_team_permissions?(@team) %>
+		<%= link_to "Edit team profile", edit_team_path(@team) %>
+	<% end %>
 <% end %>
 
 <% if user_signed_in? %>

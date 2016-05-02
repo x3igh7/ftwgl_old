@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
   def tournament_memberships
     memberships = []
     self.tournament_team_memberships.each do |m|
-      if m.user.id == self.id
+      if m.user == self
         memberships.push(m)
       end
     end
