@@ -31,8 +31,8 @@
     </tr>
   </thead>
   <tbody>
-    <% if !@user.tournament_team_memberships.nil? %>
-    <% @user.tournament_team_memberships.each do |tm| %>
+    <% if !@user.tournament_memberships.nil? %>
+    <% @user.tournament_memberships.each do |tm| %>
     <tr>
       <td><%= tm.tournament.name %></td>
       <td><%= link_to tm.tournament_team.team.name, tournament_team_path(tm.tournament_team) %></td>
