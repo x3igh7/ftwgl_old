@@ -42,6 +42,8 @@ class User < ActiveRecord::Base
   end
 
   def has_team_permissions?(team)
+    @team = team
+
     if self.has_role?(:admin)
       return true
     end
@@ -51,7 +53,7 @@ class User < ActiveRecord::Base
     end
 
     self.memberships.each do |m|
-      if m.team.id == team.id && m.role == 'owner' || m.role == 'captain'
+      if m.team == @team && m.role == 'owner' || m.role == 'captain'
         return true
       end
     end
