@@ -1,7 +1,7 @@
  <div class="content-outer comments">
    <div class="content-inner-inner comments-inner">
     <h1>comments</h1>
-    <% unless @comments.nil? %>
+    <% unless @comments.nil? || @comments.length < 1 %>
         <% @comments.each do |comment| %>
             <%= render :partial => "comment", :locals => { :comment => comment } %>
          <% end %>
