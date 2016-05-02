@@ -10,7 +10,7 @@
 	</div>
 	<!--Checking to see if the current user is a team owner and the member in question is not an owner, that is to say you cant remove or approve an owner-->
 	<% if user_signed_in? && current_user.has_team_permissions?(@team)%>
-		<% if member.active == false && !current_user.is_team_owner?(@team) %>
+		<% if member.active == false %>
 			<%= link_to 'Approve', membership_path(:user_id => member.user.id, :team_id => @team.id,:active => true), :method => 'put', :style => "font-size:12px;margin:0" %><br />
 		<% end %>
 		<% if member.role == 'member' && member.active == true %>
