@@ -8,13 +8,17 @@ class MembershipsController < ApplicationController
     @membership.user = current_user
     @membership.team = @team
 
-    if Team.authenicate_join(@team, @join_password)
-      if @membership.save
-        flash[:notice] = 'Application submitted.'
+    begin
+      if Team.authenticate_join(@team, @join_password)
+        if @membership.save
+          flash[:notice] = 'Application submitted.'
+        else
+          flash[:alert] = 'Error submitting application.'
+        end
       else
-        flash[:alert] = 'Error submitting application.'
+        flash[:alert] = 'Invaild join password.'
       end
-    else
+    rescue => ex
       flash[:alert] = 'Invaild join password.'
     end
 

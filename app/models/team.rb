@@ -22,7 +22,7 @@ class Team < ActiveRecord::Base
     end
   end
 
-  def self.authenicate_join(team, password)
+  def self.authenticate_join(team, password)
     team = Team.find(team.id)
     if team && team.join_password_hash == BCrypt::Engine.hash_secret(password, team.join_password_salt)
       true
