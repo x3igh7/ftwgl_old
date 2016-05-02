@@ -53,8 +53,10 @@ class User < ActiveRecord::Base
     end
 
     self.memberships.each do |m|
-      if m.team == @team && m.role == 'owner' || m.role == 'captain'
-        return true
+      if m.team == @team
+        if m.role == 'owner' || m.role == 'captain'
+          return true
+        end
       end
     end
 
