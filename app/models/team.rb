@@ -24,12 +24,15 @@ class Team < ActiveRecord::Base
 
   def self.authenticate_join(team, password)
     team = Team.find(team.id)
+
+    if team && (team.join_password_salt.empty? && team.join_password_hash.empty?)
+      return true
+    end
+
     if team && team.join_password_hash == BCrypt::Engine.hash_secret(password, team.join_password_salt)
-      true
-    elsif team && (team.join_password_salt.empty? && team.join_password_hash.empty?)
-      true
+      return true
     else
-      false
+      return false
     end
   end
 
