@@ -31,7 +31,7 @@
     </tr>
   </thead>
   <tbody>
-    <% if !@user.tournament_memberships.nil? %>
+    <% if !@user.tournament_team_memberships.nil? %>
     <% @user.tournament_memberships.each do |tm| %>
     <tr>
       <td><%= tm.tournament.name %></td>

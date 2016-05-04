@@ -23,23 +23,12 @@ class User < ActiveRecord::Base
   has_many :comments, dependent: :destroy
   has_many :tournament_admins, dependent: :destroy
   has_many :tournament_teams, through: :teams
-  has_many :tournament_team_memberships, through: :tournament_teams, dependent: :destroy
+  has_many :tournament_team_memberships, dependent: :destroy
 
   roles_attribute :roles_mask
   roles :admin, :user, :banned
 
   before_save :default_roles
-
-  def tournament_memberships
-    memberships = []
-    self.tournament_team_memberships.each do |m|
-      if m.user == self
-        memberships.push(m)
-      end
-    end
-
-    return memberships
-  end
 
   def has_team_permissions?(team)
     @team = team
