@@ -26,6 +26,8 @@ class Team < ActiveRecord::Base
     team = Team.find(team.id)
     if team && team.join_password_hash == BCrypt::Engine.hash_secret(password, team.join_password_salt)
       true
+    elsif team && (team.join_password_salt.empty? && team.join_password_hash.empty?)
+      true
     else
       false
     end
