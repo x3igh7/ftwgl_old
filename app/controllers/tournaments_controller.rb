@@ -9,7 +9,7 @@ class TournamentsController < ApplicationController
   def show
     @user = current_user
     @tournament = Tournament.find(params[:id])
-		@teams = @tournament.tournament_teams.ranking
+    @teams = @tournament.tournament_rankings
     @active_tournament_team = nil
     @tournament_team = TournamentTeam.new
     @matches = Match.current_week_matches(@tournament)
@@ -26,18 +26,16 @@ class TournamentsController < ApplicationController
         end
       end
       @current_user_teams.each do |x|
-				@active_tournament_team = x.tournament_teams.in_tournament(@tournament).first
+        @active_tournament_team = x.tournament_teams.in_tournament(@tournament).first
         if not @active_tournament_team.nil?
-					 break
-				end
+           break
+        end
       end
     end
-
   end
 
   def rankings
     @tournament = Tournament.find(params[:tournament_id])
-    @teams = @tournament.tournament_teams.ranking
+    @teams = @tournament.tournament_rankings
   end
-
 end

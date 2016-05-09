@@ -18,13 +18,15 @@ class UpdateMatchesTable < ActiveRecord::Migration
 
     add_column :matches, :is_draw, :boolean, default: false
 
-    rename_column :matches, :away_score, :away_points
-    rename_column :matches, :home_score, :home_points
+    rename_column :matches, :away_score, :away_points, null: false, default: 0
+    rename_column :matches, :home_score, :home_points, null: false, default: 0
 
     drop_column :tournament_teams, :wins, :string
     drop_column :tournament_teams, :losses, :string
     drop_column :tournament_teams, :total_points, :integer
     drop_column :tournament_teams, :total_diff, :float
     drop_column :tournament_teams, :rank, :integer
+
+    add_column :tournament, :can_join, :boolean, null: false, default: true
   end
 end

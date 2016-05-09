@@ -5,8 +5,8 @@ class Match < ActiveRecord::Base
   attr_accessible :away_team_round_one, :away_team_round_two, :away_team_round_three
   attr_protected :winner_id
   validates_presence_of :home_team, :away_team, :week_num, :match_date
-  validates_presence_of :tournament, :home_team_round_one, :home_team_round_two
-  validates_presence_of :away_team_round_one, :away_team_round_two
+  validates_presence_of :tournament, :home_team_round_one, :home_team_round_two, :home_points
+  validates_presence_of :away_team_round_one, :away_team_round_two, :away_points
   validates_numericality_of :home_points, :away_points, :week_num
   validates_numericality_of :home_team_round_one, :home_team_round_two, :home_team_round_three
   validates_numericality_of :away_team_round_one, :away_team_round_two, :away_team_round_three
@@ -22,10 +22,6 @@ class Match < ActiveRecord::Base
 
   has_many :match_screenshots
   has_many :comments, :as => :commentable, :dependent => :destroy
-
-  #TODO: add after_destroy callback to rollback changes to tourny team scores
-  #OR I would suggest writing a compute points function for tournament model so
-  #all points can be calculated at once and will always remain consistent
 
   def match_results_complete
     if home_team_round_one && home_team_round_two && away_team_round_one && away_team_round_two

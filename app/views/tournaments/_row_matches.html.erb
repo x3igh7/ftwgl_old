@@ -1,12 +1,12 @@
 <% @matches.each do |match| %>
 	<tr class="match" >
-		<td <%= match.home_score > match.away_score ? 'style="background:#556655;"'.html_safe : '' %>><%= link_to match.home_team.team.tag, tournament_match_path(match) %></td>
-		<td <%= match.away_score > match.home_score ? 'style="background:#556655;"'.html_safe : '' %>><%= link_to match.away_team.team.tag, tournament_match_path(match) %></td>
-		<td><%= match.home_score %></td>
-		<td><%= match.away_score %></td>
+		<td <%= match.home_points > match.away_points ? 'style="background:#556655;"'.html_safe : '' %>><%= link_to match.home_team.team.tag, tournament_match_path(match) %></td>
+		<td <%= match.home_points < match.away_points ? 'style="background:#556655;"'.html_safe : '' %>><%= link_to match.away_team.team.tag, tournament_match_path(match) %></td>
+		<td><%= match.home_points %></td>
+		<td><%= match.away_points %></td>
 		<td><%= match.standard_date %></td>
 		<% if user_signed_in? %>
-		<% if DateTime.now > match.match_date && match.winner_id == nil && current_user.is_team_owner?(match.home_team.team) || current_user.is_team_owner?(match.away_team.team) %>
+		<% if DateTime.now > match.match_date && match.reported_by == nil && current_user.has_team_permissions?(match.home_team.team) || current_user.has_team_permissions?(match.away_team.team) %>
 		<td><%= link_to "Report Results", edit_tournament_match_path(match.tournament_id, match.id) %></td>
 		<% else %>
 		<td><%= link_to "View", tournament_match_path(match.tournament_id, match.id) %></td>

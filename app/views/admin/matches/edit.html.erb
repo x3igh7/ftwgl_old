@@ -7,7 +7,7 @@
       <th>away team (id)</th>
       <th>week</th>
       <th>match date</th>
-      <th>winner_id</th>
+      <th>winning team</th>
     </tr>
     <tr>
       <td><%= @match.tournament.name %></td>
@@ -15,18 +15,31 @@
       <td><%= @match.away_team.team.name + " " + @match.away_team.team.tag + " " + "(#{@match.away_team.id})" %></td>
       <td><%= @match.week_num %></td>
       <td><%= @match.standard_date %></td>
-      <td><%= @match.winner_id%></td>
+      <td><%= @match.winning_team.team.name %></td>
     </tr>
   </table>
   <div>
     <%= simple_form_for([:admin, @match]) do |f| %>
       <%= f.error_notification %>
 
-      <%= f.input :home_score %>
-      <%= f.input :away_score %>
+      <%= f.input :home_points %>
+      <%= f.input :home_team_round_one %>
+      <%= f.input :home_team_round_two %>
+      <%= f.input :home_team_round_three %>
+      <br/>
+      <br/>
+      <%= f.input :away_points %>
+      <%= f.input :away_team_round_one %>
+      <%= f.input :away_team_round_two %>
+      <%= f.input :away_team_round_three %>
+
+      <%= f.input :is_draw %>
+
+      <%= f.input :map_name %>
       <%= f.input :week_num, label: "Week" %>
       <%= f.input :match_date, as: :datetime %>
-      <%= f.input :winner_id, collection: [0, @match.home_team.id, @match.away_team.id] %>
+      <%= f.association :winning_team, collection: [@match.home_team, @match.away_team], label_method: lambda { |c| "#{c.team.name}" }, value_method: :id, incude_blank: 'None' %>
+
       <%= f.submit "update tournament match"%>
     <% end %>
   </div>

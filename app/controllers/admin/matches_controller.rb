@@ -31,10 +31,6 @@ class Admin::MatchesController < AdminController
 
   def update
     @match = Match.find(params[:id])
-    @match.home_score = params[:match][:home_points]
-    @match.away_score = params[:match][:away_points]
-    @match.week_num = params[:match][:week_num]
-    @match.match_date = params[:match][:match_date]
 
     if @match.update_attributes(params[:match])
       redirect_to admin_matches_path(:tournament_id => @match.tournament_id)
