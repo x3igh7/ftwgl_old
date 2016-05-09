@@ -9,10 +9,8 @@
   <tr>
     <td <%= @match.home_score > @match.away_score ? 'style="background:#556655;"'.html_safe : '' %>><%= link_to @match.home_team.team.tag, team_path(@match.home_team.team.id) %></td>
     <td <%= @match.home_score > @match.away_score ? 'style="background:#556655;"'.html_safe : '' %>><%= @match.home_score %></td>
-    <% if @match.winner_id == nil %>
     <% if user_signed_in? && current_user.has_team_permissions?(@home_team) || current_user.has_team_permissions?(@away_team) %>
       <td><%= link_to "Enter Results", edit_tournament_match_path(@tournament.id, @match) %></td>
-    <% end %>
     <% else %>
     <td>vs.</td>
     <% end %>

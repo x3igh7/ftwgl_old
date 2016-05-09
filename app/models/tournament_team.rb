@@ -46,7 +46,7 @@ class TournamentTeam < ActiveRecord::Base
   end
 
   def self.ranking
-    order("total_points DESC", "total_diff DESC")
+    order('total_points DESC', 'total_diff DESC')
   end
 
   def calc_diff(match)
@@ -59,7 +59,7 @@ class TournamentTeam < ActiveRecord::Base
 
   def winner_points
     self.wins += 1
-    self.total_points += 3
+    self.total_points += 2
   end
 
   def loser_points

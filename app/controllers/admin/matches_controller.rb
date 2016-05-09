@@ -40,11 +40,11 @@ class Admin::MatchesController < AdminController
     if @match.save
       if params[:match][:winner_id] == ""
         if @match.home_score > @match.away_score
-          @match.winner_id = @match.home_team.id
+          @match.winning_team = @match.home_team
         elsif @match.home_score == @match.away_score
-          @match.winner_id = 0
+          @match.winning_team = nil
         else
-          @match.winner_id = @match.away_team.id
+          @match.winning_team = @match.away_team
         end
       end
 

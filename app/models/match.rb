@@ -1,5 +1,5 @@
 class Match < ActiveRecord::Base
-  attr_accessible :match_date, :home_score, :away_score, :screenshot, :demo
+  attr_accessible :match_date, :home_score, :away_score, :winning_team
   attr_accessible :home_team_id, :away_team_id, :week_num, :home_team, :away_team
   attr_protected :winner_id
   validates_presence_of :home_team, :away_team, :week_num, :match_date
@@ -7,8 +7,9 @@ class Match < ActiveRecord::Base
   validates_numericality_of :home_score, :away_score, :week_num
   validate :team_cannot_play_against_itself
 
-  belongs_to :home_team, :class_name => "TournamentTeam"
-  belongs_to :away_team, :class_name => "TournamentTeam"
+  belongs_to :home_team, :class_name => 'TournamentTeam'
+  belongs_to :away_team, :class_name => 'TournamentTeam'
+  belongs_to :winning_team, :class_name => 'TournamentTeam', :foreign_key => 'winner_id'
   belongs_to :tournament
 
   has_many :match_screenshots
@@ -23,6 +24,7 @@ class Match < ActiveRecord::Base
     away_team = self.away_team
     home_team.calc_diff(self)
     away_team.calc_diff(self)
+
     if self.home_score > self.away_score
       home_team.winner_points
       away_team.loser_points
@@ -45,6 +47,8 @@ class Match < ActiveRecord::Base
   end
 
   def save_with_team_update
+
+
     Match.transaction do
       save and self.update_tourny_teams_scores
     end
