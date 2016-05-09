@@ -1,7 +1,7 @@
 <div class="content-outer comments">
  <div class="content-inner-inner">
   <h1>submit comment</h1>
-  <%= simple_form_for [ @tournament, @match, Comment.new ], :id => :comment do |f| %>
+  <%= simple_form_for [@tournament, @match, Comment.new ], :id => :comment do |f| %>
   <%= f.input :content, :label => false, :as => :text %>
   <%= f.submit "Submit" %>
   <% end %>

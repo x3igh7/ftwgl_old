@@ -1,6 +1,9 @@
+<h1>match screenshots</h1>
 <div class="content-inner">
-  <h1>match screenshots</h1>
-
+  <div>
+    <%= link_to "Back", :back %>
+  </div>
+  <br/>
   <div id="match-screenshots">
     <% unless @match.match_screenshots.nil? %>
       <% @match.match_screenshots.each do |ss| %>
@@ -8,6 +11,7 @@
       <% end %>
     <% end %>
   </div>
+  <br/>
 
   <%= form_for @screenshot, url: match_screenshots_path(@screenshot, match_id: @match.id), method: :post do |s| %>
     <%= s.file_field :image, multiple: true, name: "match_screenshot[image]" %>

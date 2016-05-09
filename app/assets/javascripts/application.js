@@ -28,4 +28,4 @@
 //= require select2
 //= require edit_tournaments
 //= require user_profile_management
-//= require match_edit
+//= require match_screenshot_upload

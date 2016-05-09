@@ -1,5 +1,7 @@
 <h1>match results</h1>
 <div class="content-inner">
+<%= link_to "Back to match", tournament_match_path(@match) %>
+
 <%= simple_form_for([@tournament, @match], :html => {:class => 'form-horizontal' } ) do |f| %>
   <%= f.error_notification %>
 
