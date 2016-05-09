@@ -1,11 +1,12 @@
 class Match < ActiveRecord::Base
-  attr_accessible :match_date, :home_points, :away_points
-  attr_accessible :week_num, :home_team, :away_team, :winning_team, :map_name
+  attr_accessible :match_date, :home_points, :away_points, :map_name, :week_num
+  attr_accessible :home_team, :away_team, :winning_team
   attr_accessible :home_team_round_one, :home_team_round_two, :home_team_round_three
   attr_accessible :away_team_round_one, :away_team_round_two, :away_team_round_three
   attr_protected :winner_id
   validates_presence_of :home_team, :away_team, :week_num, :match_date
-  validates_presence_of :tournament
+  validates_presence_of :tournament, :home_team_round_one, :home_team_round_two
+  validates_presence_of :away_team_round_one, :away_team_round_two
   validates_numericality_of :home_points, :away_points, :week_num
   validates_numericality_of :home_team_round_one, :home_team_round_two, :home_team_round_three
   validates_numericality_of :away_team_round_one, :away_team_round_two, :away_team_round_three
@@ -44,19 +45,19 @@ class Match < ActiveRecord::Base
   end
 
   def update_tourny_teams_scores
-    home_team = self.home_team
-    away_team = self.away_team
-    home_team.calc_diff(self)
-    away_team.calc_diff(self)
+    @home_team = self.home_team
+    @away_team = self.away_team
+    @match = self
 
-    if self.home_score > self.away_score
-      home_team.winner_points
-      away_team.loser_points
-    elsif self.home_score < self.away_score
-      away_team.winner_points
-      home_team.loser_points
+    home_team.calcuate_results(@match)
+    away_team.calcuate_results(@match)
+
+    if self.home_points > self.away_points
+      @match.winning_team = home_team
+    elsif self.home_points < self.away_points
+      @match.winning_team = away_team
     else
-
+      @match.is_draw = true
     end
 
     if home_team.save && away_team.save
@@ -73,10 +74,29 @@ class Match < ActiveRecord::Base
   end
 
   def save_with_team_update
-
+    if !self.match_results_complete
+      flash[:error] = 'Match results incomplete.'
+      render :edit
+    end
 
     Match.transaction do
       save and self.update_tourny_teams_scores
+    end
+  end
+
+  def winner_points(team)
+    if team == home_team
+      self.home_points = 4
+    else
+      self.away_points = 4
+    end
+  end
+
+  def draw_points(team)
+    if team == home_team
+      self.home_points = 2
+    else
+      self.away_points = 2
     end
   end
 

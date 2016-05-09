@@ -49,17 +49,48 @@ class TournamentTeam < ActiveRecord::Base
     order('total_points DESC', 'total_diff DESC')
   end
 
-  def calc_diff(match)
-    if self.id == match.home_team.id
-      self.total_diff += (match.home_score - match.away_score)
+  def calcuate_results(match)
+    @team = self
+    @round_one = 0
+    @round_two = 0
+    @round_three = 0
+
+    if @team == match.home_team
+      @round_one = match.home_team_round_one - match.away_team_round_one
+      @round_two = match.home_team_round_two - match.away_team_round_two
+
+      unless match.home_team_round_three.nil?
+        @round_three = match.home_team_round_three - match.away_team_round_three
+      end
     else
-      self.total_diff += (match.away_score - match.home_score)
+      @round_one = match.away_team_round_one - match.home_team_round_one
+      @round_two = match.away_team_round_two - match.home_team_round_two
+
+      unless match.home_team_round_three.nil?
+        @round_three = match.home_team_round_three - match.away_team_round_three
+      end
     end
+
+    if @round_one > 0 && @round_two > 0
+      @team.winner_points
+      match.winner_points(@team)
+    elsif @round_one < 0 && @round_two < 0
+      @team.loser_points
+      match.loser_points(@team)
+    elsif !match.home_team_round_three.nil? && @round_three > 0
+      @team.winner_points
+      match.winner_points(@team)
+    else
+      @team.draw_points
+      match.draw_points(@team)
+    end
+
+    @team.total_diff += @round_one + @round_two + @round_three
   end
 
   def winner_points
     self.wins += 1
-    self.total_points += 2
+    self.total_points += 4
   end
 
   def loser_points
@@ -67,24 +98,30 @@ class TournamentTeam < ActiveRecord::Base
     self.total_points += 0
   end
 
+  def draw_points
+    self.draws += 1
+    self.total_points += 2
+  end
+
   def has_played?(tournament_team)
     matches.each do |match|
-     if match.away_team_id == tournament_team.id or match.home_team_id == tournament_team.id
-      return true
+      if match.away_team_id == tournament_team.id or match.home_team_id == tournament_team.id
+        return true
+      end
     end
-  end
-  return false
-end
 
-def has_not_played(teams)
-  has_not_played = []
-  teams.each do |team|
-    if self.has_played?(team) == false
-      has_not_played << team
-    end
+    return false
   end
-  has_not_played.delete(self)
-  has_not_played.sort!{|a,b| a.rank <=> b.rank}
-end
+
+  def has_not_played(teams)
+    has_not_played = []
+    teams.each do |team|
+      if self.has_played?(team) == false
+        has_not_played << team
+      end
+    end
+    has_not_played.delete(self)
+    has_not_played.sort!{|a,b| a.rank <=> b.rank}
+  end
 
 end
