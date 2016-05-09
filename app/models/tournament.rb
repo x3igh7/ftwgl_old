@@ -80,6 +80,23 @@ class Tournament < ActiveRecord::Base
     team_names
   end
 
+  def tournament_rankings
+    self.tournament_teams.sort do |a, b|
+      case
+      when a.points > b.points
+        1
+      when a.points < b.points
+        -1
+      else
+        if a.differential > b.differential
+          1
+        else
+          -1
+        end
+      end
+    end
+  end
+
   private
 
   def potential_teams_calc(already_scheduled, all_teams, team)

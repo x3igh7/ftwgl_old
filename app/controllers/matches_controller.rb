@@ -15,7 +15,7 @@ class MatchesController < ApplicationController
     @away_team = @match.away_team.team
 
     if user_signed_in?
-      if current_user.is_team_owner?(@home_team) || current_user.is_team_owner?(@away_team)
+      if current_user.has_team_permissions?(@home_team) || current_user.has_team_permissions?(@away_team)
         true
       else
         flash[:alert] = "You are not authorized to view this page."
@@ -30,17 +30,9 @@ class MatchesController < ApplicationController
   def update
     @tournament = Tournament.find(params[:tournament_id])
     @match = Match.find(params[:id])
-    @home_team = @match.home_team.team
-    @away_team = @match.away_team.team
+    @match.results_reported_by
 
-    if @match.update_attributes(params[:match]) && @match.update_tourny_teams_scores
-      if @match.home_score > @match.away_score
-        @match.winner_id = @home_team.id
-        @match.save
-      elsif @match.home_score < @match.away_score
-        @match.winner_id = @away_team.id
-        @match.save
-      end
+    if @match.update_match_results(params)
       flash[:notice] = "Match results updated."
       redirect_to tournament_match_path(@tournament.id, @match.id)
     else

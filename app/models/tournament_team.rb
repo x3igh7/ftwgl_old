@@ -1,6 +1,5 @@
 class TournamentTeam < ActiveRecord::Base
   attr_accessible :team, :tournament, :rank, :challonge_id
-  attr_protected :total_points, :total_diff, :wins, :losses
 
   validates_presence_of :team, :tournament, :total_points, :total_diff, :wins, :losses
   validates_uniqueness_of :team_id, scope: :tournament_id
@@ -16,6 +15,59 @@ class TournamentTeam < ActiveRecord::Base
     end
 
     tournament_team_memberships
+  end
+
+  def wins
+    away_wins = self.away_matches.where(is_draw: false).where(winner_id: self.id).find_each
+    home_wins = self.home_matches.where(is_draw: false).where(winner_id: self.id).find_each
+
+    return away_wins.count + home_wins.count
+  end
+
+  def losses
+    away_losses = self.away_matches.where("is_draw = ? AND winner_id IS NOT ?", false, self.id)
+    home_losses = self.home_matches.where("is_draw = ? AND winner_id IS NOT ?", false, self.id)
+
+    return away_losses + home_losses
+  end
+
+  def draws
+    away_draws = self.away_matches.where(is_draw: true)
+    home_draws = self.home_matches.where(is_draw: true)
+
+    return away_draws + home_draws
+  end
+
+  def differential
+    @differential = 0
+
+    away_matches.each do |m|
+      @differential += m.away_team_differential
+    end
+
+    home_matches.each do |m|
+      @differential += m.home_team_differential
+    end
+
+    return @differential
+  end
+
+  def points
+    @points = 0
+
+    away_matches.each do |m|
+      @points += m.away_points
+    end
+
+    home_matches.each do |m|
+      @points += m.home_points
+    end
+
+    return @points
+  end
+
+  def rank
+    tournament.tournament_rankings.find_index(self)
   end
 
   def available_roster
@@ -47,60 +99,6 @@ class TournamentTeam < ActiveRecord::Base
 
   def self.ranking
     order('total_points DESC', 'total_diff DESC')
-  end
-
-  def calcuate_results(match)
-    @team = self
-    @round_one = 0
-    @round_two = 0
-    @round_three = 0
-
-    if @team == match.home_team
-      @round_one = match.home_team_round_one - match.away_team_round_one
-      @round_two = match.home_team_round_two - match.away_team_round_two
-
-      unless match.home_team_round_three.nil?
-        @round_three = match.home_team_round_three - match.away_team_round_three
-      end
-    else
-      @round_one = match.away_team_round_one - match.home_team_round_one
-      @round_two = match.away_team_round_two - match.home_team_round_two
-
-      unless match.home_team_round_three.nil?
-        @round_three = match.home_team_round_three - match.away_team_round_three
-      end
-    end
-
-    if @round_one > 0 && @round_two > 0
-      @team.winner_points
-      match.winner_points(@team)
-    elsif @round_one < 0 && @round_two < 0
-      @team.loser_points
-      match.loser_points(@team)
-    elsif !match.home_team_round_three.nil? && @round_three > 0
-      @team.winner_points
-      match.winner_points(@team)
-    else
-      @team.draw_points
-      match.draw_points(@team)
-    end
-
-    @team.total_diff += @round_one + @round_two + @round_three
-  end
-
-  def winner_points
-    self.wins += 1
-    self.total_points += 4
-  end
-
-  def loser_points
-    self.losses += 1
-    self.total_points += 0
-  end
-
-  def draw_points
-    self.draws += 1
-    self.total_points += 2
   end
 
   def has_played?(tournament_team)
