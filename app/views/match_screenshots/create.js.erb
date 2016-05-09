@@ -1,5 +1,6 @@
 <% if @screenshot.new_record? %>
   alert("Failed to upload screenshot: <%= j @screenshot.errors.full_messages.join(', ').html_safe %>");
 <% else %>
-  $('#match-screenshots').append("<%= j link_to @screenshot.image_identifier, @screenshot.image.url.to_s %>");
+  $('#match-screenshots').append("<%= j link_to image_tag(@screenshot.image.thumb.url.to_s), @screenshot.image.url.to_s %>");
+  $('#new_match_screenshot').reset();
 <% end %>

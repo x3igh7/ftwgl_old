@@ -4,7 +4,7 @@
   <div id="match-screenshots">
     <% unless @match.match_screenshots.nil? %>
       <% @match.match_screenshots.each do |ss| %>
-        <%= link_to ss.image_identifier, ss.image.url.to_s %>
+        <%= link_to image_tag(ss.image.thumb.url.to_s), ss.image.url.to_s %>
       <% end %>
     <% end %>
   </div>
