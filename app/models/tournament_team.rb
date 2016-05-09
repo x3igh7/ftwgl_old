@@ -67,7 +67,7 @@ class TournamentTeam < ActiveRecord::Base
   end
 
   def rank
-    tournament.tournament_rankings.find_index(self)
+    tournament.tournament_rankings.find_index(self) + 1
   end
 
   def available_roster

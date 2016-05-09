@@ -12,8 +12,8 @@
     </tr>
     <% @matches.each_with_index do |match, x| %>
     <tr id=<%= "match#{x+1}" %>>
-      <td <%= match.home_score > match.away_score ? 'style="background:#556655;"'.html_safe : '' %>><%= link_to match.home_team.team.tag, team_path(match.home_team.team.id) %></td>
-      <td <%= match.away_score > match.home_score ? 'style="background:#556655;"'.html_safe : '' %>><%= link_to match.away_team.team.tag, team_path(match.away_team.team.id) %></td>
+      <td <%= match.winning_team == match.home_team ? 'style="background:#556655;"'.html_safe : '' %>><%= link_to match.home_team.team.tag, team_path(match.home_team.team.id) %></td>
+      <td <%= match.winning_team == match.away_team ? 'style="background:#556655;"'.html_safe : '' %>><%= link_to match.away_team.team.tag, team_path(match.away_team.team.id) %></td>
       <td><%= match.week_num %></td>
       <td><%= match.match_date.in_time_zone("EST").strftime("%a, %b %-d, %-r %Z") %></td>
       <td>

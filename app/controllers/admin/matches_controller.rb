@@ -37,13 +37,11 @@ class Admin::MatchesController < AdminController
     @match.match_date = params[:match][:match_date]
 
     if @match.update_attributes(params[:match])
-      #TODO revert the rankings then recalculate
-
       redirect_to admin_matches_path(:tournament_id => @match.tournament_id)
-      flash[:notice] = "Match Successfully Updated"
+      flash[:notice] = 'Match Successfully Updated'
     else
       redirect_to edit_admin_match_path(@match)
-      flash[:error] = "Failed to Update Match"
+      flash[:error] = 'Failed to Update Match'
     end
   end
 

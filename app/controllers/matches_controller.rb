@@ -1,5 +1,4 @@
 class MatchesController < ApplicationController
-
   def show
     @tournament = Tournament.find(params[:tournament_id])
     @match = Match.find(params[:id])
@@ -30,7 +29,7 @@ class MatchesController < ApplicationController
   def update
     @tournament = Tournament.find(params[:tournament_id])
     @match = Match.find(params[:id])
-    @match.results_reported_by
+    @match.reported_by = current_user
 
     if @match.update_match_results(params)
       flash[:notice] = "Match results updated."

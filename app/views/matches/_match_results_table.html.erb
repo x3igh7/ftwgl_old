@@ -1,22 +1,27 @@
 <table>
-  <tr>
-    <th>Home Teams</th>
-    <th>Home Score</th>
-    <th></th>
-    <th>Away Team</th>
-    <th>Away Score</th>
-  </tr>
-  <tr>
-    <td <%= @match.home_score > @match.away_score ? 'style="background:#556655;"'.html_safe : '' %>><%= link_to @match.home_team.team.tag, team_path(@match.home_team.team.id) %></td>
-    <td <%= @match.home_score > @match.away_score ? 'style="background:#556655;"'.html_safe : '' %>><%= @match.home_score %></td>
-    <% if user_signed_in? && current_user.has_team_permissions?(@home_team) || current_user.has_team_permissions?(@away_team) %>
-      <td><%= link_to "Enter Results", edit_tournament_match_path(@tournament.id, @match) %></td>
-    <% else %>
-    <td>vs.</td>
-    <% end %>
-    <td <%= @match.away_score > @match.home_score ? 'style="background:#556655;"'.html_safe : '' %>><%= link_to @match.away_team.team.tag, team_path(@match.away_team.team.id) %></td>
-    <td <%= @match.away_score > @match.home_score ? 'style="background:#556655;"'.html_safe : '' %>><%= @match.away_score %>
-    </td>
-
-  </tr>
+  <thead>
+    <tr>
+      <th>Home Teams</th>
+      <th>Home Points</th>
+      <th></th>
+      <th>Away Team</th>
+      <th>Away Points</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td <%= @match.winning_team == @match.home_team ? 'style="background:#556655;"'.html_safe : '' %>><%= link_to @match.home_team.team.tag, team_path(@match.home_team.team.id) %></td>
+      <td <%= @match.winning_team == @match.home_team ? 'style="background:#556655;"'.html_safe : '' %>><%= @match.home_points %></td>
+      <% if user_signed_in? && current_user.has_team_permissions?(@home_team) || current_user.has_team_permissions?(@away_team) %>
+        <% if @match.reported_by.nil?  %>
+          <td><%= link_to "Enter Results", edit_tournament_match_path(@tournament.id, @match) %></td>
+          <% else %>
+          <td>vs.</td>
+        <% end %>
+      <% end %>
+      <td <%= @match.winning_team > @match.away_team ? 'style="background:#556655;"'.html_safe : '' %>><%= link_to @match.away_team.team.tag, team_path(@match.away_team.team.id) %></td>
+      <td <%= @match.winning_team > @match.away_team ? 'style="background:#556655;"'.html_safe : '' %>><%= @match.away_points %>
+      </td>
+    </tr>
+  </tbody>
 </table>
