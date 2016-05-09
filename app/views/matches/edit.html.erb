@@ -1,9 +1,14 @@
 <h1>match results</h1>
+<div class="content-inner">
 <%= simple_form_for([@tournament, @match], :html => {:class => 'form-horizontal' } ) do |f| %>
   <%= f.error_notification %>
-  
+
   <%= f.input :home_score, label: "Home Team Score" %>
   <%= f.input :away_score, label: "Away Team Score" %>
-  
+
   <%= f.submit "Save Results" %>
 <% end %>
+</div>
+
+<%= link_to "Upload Screenshots", new_match_screenshot_path(match_id: @match.id) %>
+

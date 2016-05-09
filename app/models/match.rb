@@ -1,5 +1,5 @@
 class Match < ActiveRecord::Base
-  attr_accessible :match_date, :home_score, :away_score
+  attr_accessible :match_date, :home_score, :away_score, :screenshot, :demo
   attr_accessible :home_team_id, :away_team_id, :week_num, :home_team, :away_team
   attr_protected :winner_id
   validates_presence_of :home_team, :away_team, :week_num, :match_date
@@ -9,14 +9,14 @@ class Match < ActiveRecord::Base
 
   belongs_to :home_team, :class_name => "TournamentTeam"
   belongs_to :away_team, :class_name => "TournamentTeam"
-
   belongs_to :tournament
 
-	has_many :comments, :as => :commentable, :dependent => :destroy
+  has_many :match_screenshots
+  has_many :comments, :as => :commentable, :dependent => :destroy
 
-	#TODO: add after_destroy callback to rollback changes to tourny team scores
-	#OR I would suggest writing a compute points function for tournament model so
-	#all points can be calculated at once and will always remain consistent
+  #TODO: add after_destroy callback to rollback changes to tourny team scores
+  #OR I would suggest writing a compute points function for tournament model so
+  #all points can be calculated at once and will always remain consistent
 
   def update_tourny_teams_scores
     home_team = self.home_team
@@ -38,11 +38,11 @@ class Match < ActiveRecord::Base
     end
   end
 
-	def team_cannot_play_against_itself
-		if home_team_id == away_team_id
-			errors.add(:home_team_id, "is the same as away_team_id")
-		end
-	end
+  def team_cannot_play_against_itself
+    if home_team_id == away_team_id
+      errors.add(:home_team_id, 'is the same as away_team_id')
+    end
+  end
 
   def save_with_team_update
     Match.transaction do
@@ -50,10 +50,9 @@ class Match < ActiveRecord::Base
     end
   end
 
-
-	def standard_date
-		match_date.strftime("%a, %b %-d, %I:%M%p %Z")
-	end
+  def standard_date
+    match_date.strftime("%a, %b %-d, %I:%M%p %Z")
+  end
 
   def self.in_tournament(tournament)
     where(tournament_id: tournament.id)

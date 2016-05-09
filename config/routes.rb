@@ -15,8 +15,10 @@ Ftwgl::Application.routes.draw do
       resources :comments, only: [ :create ]
     end
   end
+  resources :match_screenshots, only: [:new, :create]
   resources :tournament_teams, only: [:show, :create]
   resources :tournament_team_memberships, only: [:new, :create, :update, :destroy]
+
   namespace :admin do
     root :to => 'cpanel#index'
     resources :users, :only => [:edit, :update, :destroy] do
@@ -37,10 +39,10 @@ Ftwgl::Application.routes.draw do
       get 'bracket_matches'
       post 'generate_bracket_matches'
       collection do
-        get "rankings"
-        put "update_rankings"
-        get "schedule"
-        post "create_schedule"
+        get 'rankings'
+        put 'update_rankings'
+        get 'schedule'
+        post 'create_schedule'
       end
     end
     resources :tournament_teams, :only => [:index, :new, :create, :edit, :update, :destroy]

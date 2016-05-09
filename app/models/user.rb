@@ -24,6 +24,7 @@ class User < ActiveRecord::Base
   has_many :tournament_admins, dependent: :destroy
   has_many :tournament_teams, through: :teams
   has_many :tournament_team_memberships, dependent: :destroy
+  has_many :match_screenshots
 
   roles_attribute :roles_mask
   roles :admin, :user, :banned

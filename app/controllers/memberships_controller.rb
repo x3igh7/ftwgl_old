@@ -2,7 +2,7 @@ class MembershipsController < ApplicationController
   before_filter :authenticate_user!
 
   def create
-    @membership = Membership.new()
+    @membership = Membership.new
     @join_password = params[:membership][:join_password]
     @team = Team.find(params[:team])
     @membership.user = current_user

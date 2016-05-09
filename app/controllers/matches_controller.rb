@@ -9,7 +9,6 @@ class MatchesController < ApplicationController
   end
 
   def edit
-
     @tournament = Tournament.find(params[:tournament_id])
     @match = Match.find(params[:id])
     @home_team = @match.home_team.team
@@ -55,4 +54,15 @@ class MatchesController < ApplicationController
     @matches = @tournament.matches
   end
 
+  def upload_screenshot
+    @match = Match.find(params[:id])
+
+    if(@match.update_attributes(params[:match]))
+      flash[:notice] = 'Match screenshots updated.'
+      redirect_to tournament_match_path(@tournament.id, @match.id)
+    else
+      flash[:alert] = 'Failed upload match screenshots.'
+      render 'matches/edit'
+    end
+  end
 end

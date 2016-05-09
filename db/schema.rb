@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160501170413) do
+ActiveRecord::Schema.define(:version => 20160509162253) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id",          :null => false
@@ -21,6 +21,14 @@ ActiveRecord::Schema.define(:version => 20160501170413) do
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
   end
+
+  create_table "match_screenshots", :force => true do |t|
+    t.integer "match_id", :null => false
+    t.integer "user_id",  :null => false
+    t.string  "image",    :null => false
+  end
+
+  add_index "match_screenshots", ["match_id", "image"], :name => "index_match_screenshots_on_match_id_and_image"
 
   create_table "matches", :force => true do |t|
     t.integer  "home_team_id",                         :null => false
