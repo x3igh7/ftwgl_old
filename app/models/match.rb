@@ -1,10 +1,15 @@
 class Match < ActiveRecord::Base
-  attr_accessible :match_date, :home_score, :away_score, :winning_team
-  attr_accessible :home_team_id, :away_team_id, :week_num, :home_team, :away_team
+  attr_accessible :match_date, :home_points, :away_points
+  attr_accessible :week_num, :home_team, :away_team, :winning_team, :map_name
+  attr_accessible :home_team_round_one, :home_team_round_two, :home_team_round_three
+  attr_accessible :away_team_round_one, :away_team_round_two, :away_team_round_three
   attr_protected :winner_id
   validates_presence_of :home_team, :away_team, :week_num, :match_date
-  validates_presence_of :tournament, :home_score, :away_score
-  validates_numericality_of :home_score, :away_score, :week_num
+  validates_presence_of :tournament
+  validates_numericality_of :home_points, :away_points, :week_num
+  validates_numericality_of :home_team_round_one, :home_team_round_two, :home_team_round_three
+  validates_numericality_of :away_team_round_one, :away_team_round_two, :away_team_round_three
+
   validate :team_cannot_play_against_itself
 
   belongs_to :home_team, :class_name => 'TournamentTeam'
@@ -19,6 +24,25 @@ class Match < ActiveRecord::Base
   #OR I would suggest writing a compute points function for tournament model so
   #all points can be calculated at once and will always remain consistent
 
+  def match_results_complete
+    if home_team_round_one && home_team_round_two && away_team_round_one && away_team_round_two
+      if home_team_round_three.nil? && away_team_round_three.nil?
+        return true
+      end
+
+      if !home_team_round_three.nil? && away_team_round_three.nil?
+        return false
+      end
+
+
+      if home_team_round_three.nil? && !away_team_round_three.nil?
+        return false
+      end
+
+      return true
+    end
+  end
+
   def update_tourny_teams_scores
     home_team = self.home_team
     away_team = self.away_team
@@ -28,9 +52,11 @@ class Match < ActiveRecord::Base
     if self.home_score > self.away_score
       home_team.winner_points
       away_team.loser_points
-    else
+    elsif self.home_score < self.away_score
       away_team.winner_points
       home_team.loser_points
+    else
+
     end
 
     if home_team.save && away_team.save
