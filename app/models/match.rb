@@ -1,15 +1,14 @@
 class Match < ActiveRecord::Base
   attr_accessible :match_date, :home_points, :away_points, :map_name, :week_num
-  attr_accessible :home_team, :away_team, :winning_team
+  attr_accessible :home_team, :away_team, :winning_team, :tournament_id, :home_team_id, :away_team_id, :winning_team_id
   attr_accessible :home_team_round_one, :home_team_round_two, :home_team_round_three
   attr_accessible :away_team_round_one, :away_team_round_two, :away_team_round_three
-  attr_protected :winner_id
   validates_presence_of :home_team, :away_team, :week_num, :match_date
   validates_presence_of :tournament, :home_team_round_one, :home_team_round_two, :home_points
   validates_presence_of :away_team_round_one, :away_team_round_two, :away_points
   validates_numericality_of :home_points, :away_points, :week_num
-  validates_numericality_of :home_team_round_one, :home_team_round_two, :home_team_round_three
-  validates_numericality_of :away_team_round_one, :away_team_round_two, :away_team_round_three
+  validates_numericality_of :home_team_round_one, :home_team_round_two
+  validates_numericality_of :away_team_round_one, :away_team_round_two
 
   validate :team_cannot_play_against_itself
 
@@ -25,6 +24,18 @@ class Match < ActiveRecord::Base
 
   def match_results_complete
     if home_team_round_one && home_team_round_two && away_team_round_one && away_team_round_two
+      if home_team_round_one == 0 && home_team_round_two == 0 && away_team_round_one == 0 && away_team_round_two == 0
+        return false
+      end
+
+      if home_team_round_one == away_team_round_one
+        return false
+      end
+
+      if home_team_round_two == away_team_round_two
+        return false
+      end
+
       if home_team_round_three.nil? && away_team_round_three.nil?
         return true
       end
@@ -33,9 +44,14 @@ class Match < ActiveRecord::Base
         return false
       end
 
-
       if home_team_round_three.nil? && !away_team_round_three.nil?
         return false
+      end
+
+      if !home_team_round_three.nil? && !away_team_round_three.nil?
+        if home_team_round_three == away_team_round_three
+          return false
+        end
       end
 
       return true
@@ -43,6 +59,10 @@ class Match < ActiveRecord::Base
   end
 
   def update_match_results
+    if !self.match_results_complete
+      return false
+    end
+
     @home_team = self.home_team
     @away_team = self.away_team
     @match = self
@@ -57,6 +77,8 @@ class Match < ActiveRecord::Base
     else
       @match.is_draw = true
     end
+
+    @match.save
   end
 
   def team_cannot_play_against_itself
@@ -65,24 +87,10 @@ class Match < ActiveRecord::Base
     end
   end
 
-  def save_with_team_update
-    if !self.match_results_complete
-      return false
-    end
-
-    Match.transaction do
-      save and self.update_tourny_teams_scores
-    end
-  end
-
   def save_and_update_match_results(params)
-    if !self.match_results_complete
-      return false
-    else
-      self.update_match_results
+    Match.transaction do
+      update_attributes(params[:match]) && self.update_match_results
     end
-
-    update_attributes(params[:match])
   end
 
   def winner_points(team)
@@ -90,6 +98,14 @@ class Match < ActiveRecord::Base
       self.home_points = 4
     else
       self.away_points = 4
+    end
+  end
+
+  def loser_points(team)
+    if team == home_team
+      self.home_points = 0
+    else
+      self.away_points = 0
     end
   end
 
@@ -117,38 +133,39 @@ class Match < ActiveRecord::Base
 
   def calcuate_results(team)
     @team = team
+    @match = self
     @round_one = 0
     @round_two = 0
     @round_three = 0
 
-    if @team == match.home_team
-      @round_one = match.home_team_round_one - match.away_team_round_one
-      @round_two = match.home_team_round_two - match.away_team_round_two
+    if @team == @match.home_team
+      @round_one = @match.home_team_round_one - @match.away_team_round_one
+      @round_two = @match.home_team_round_two - @match.away_team_round_two
 
-      unless match.home_team_round_three.nil?
-        @round_three = match.home_team_round_three - match.away_team_round_three
+      unless @match.home_team_round_three.nil?
+        @round_three = @match.home_team_round_three - @match.away_team_round_three
       end
 
-      match.home_team_differential += @round_one + @round_two + @round_three
+      @match.home_team_differential += @round_one + @round_two + @round_three
     else
-      @round_one = match.away_team_round_one - match.home_team_round_one
-      @round_two = match.away_team_round_two - match.home_team_round_two
+      @round_one = @match.away_team_round_one - @match.home_team_round_one
+      @round_two = @match.away_team_round_two - @match.home_team_round_two
 
-      unless match.home_team_round_three.nil?
-        @round_three = match.home_team_round_three - match.away_team_round_three
+      unless @match.home_team_round_three.nil?
+        @round_three = @match.home_team_round_three - @match.away_team_round_three
       end
 
-      match.away_team_differential += @round_one + @round_two + @round_three
+      @match.away_team_differential += @round_one + @round_two + @round_three
     end
 
     if @round_one > 0 && @round_two > 0
-      match.winner_points(@team)
+      @match.winner_points(@team)
     elsif @round_one < 0 && @round_two < 0
-      match.loser_points(@team)
-    elsif !match.home_team_round_three.nil? && @round_three > 0
-      match.winner_points(@team)
+      @match.loser_points(@team)
+    elsif !@match.home_team_round_three.nil? && @round_three > 0
+      @match.winner_points(@team)
     else
-      match.draw_points(@team)
+      @match.draw_points(@team)
     end
   end
 end

@@ -1,7 +1,7 @@
 class TournamentTeam < ActiveRecord::Base
-  attr_accessible :team, :tournament, :rank, :challonge_id
+  attr_accessible :team, :tournament, :challonge_id
 
-  validates_presence_of :team, :tournament, :total_points, :total_diff, :wins, :losses
+  validates_presence_of :team, :tournament
   validates_uniqueness_of :team_id, scope: :tournament_id
   belongs_to :team
   belongs_to :tournament
@@ -18,35 +18,73 @@ class TournamentTeam < ActiveRecord::Base
   end
 
   def wins
-    away_wins = self.away_matches.where(is_draw: false).where(winner_id: self.id).find_each
-    home_wins = self.home_matches.where(is_draw: false).where(winner_id: self.id).find_each
+    @wins = 0
 
-    return away_wins.count + home_wins.count
+    unless away_matches.nil? || home_matches.nil?
+      away_wins = self.away_matches.where(is_draw: false).where(winner_id: self.id).find_each
+      home_wins = self.home_matches.where(is_draw: false).where(winner_id: self.id).find_each
+
+      unless away_wins.nil?
+        @wins += away_wins.count
+      end
+
+      unless home_wins.nil?
+        @wins += home_wins.count
+      end
+    end
+
+    return @wins
   end
 
   def losses
-    away_losses = self.away_matches.where("is_draw = ? AND winner_id IS NOT ?", false, self.id)
-    home_losses = self.home_matches.where("is_draw = ? AND winner_id IS NOT ?", false, self.id)
+    @losses = 0
 
-    return away_losses + home_losses
+    unless away_matches.nil? || home_matches.nil?
+      away_losses = self.away_matches.where(is_draw: false).where("winner_id != ?", self.id)
+      home_losses = self.home_matches.where(is_draw: false).where("winner_id != ?", self.id)
+
+      unless away_losses.nil?
+        @losses += away_losses.count
+      end
+
+      unless home_losses.nil?
+        @losses += home_losses.count
+      end
+    end
+
+    return @losses
   end
 
   def draws
-    away_draws = self.away_matches.where(is_draw: true)
-    home_draws = self.home_matches.where(is_draw: true)
+    @draws = 0
 
-    return away_draws + home_draws
+    unless away_matches.nil? || home_matches.nil?
+      away_draws = self.away_matches.where(is_draw: true)
+      home_draws = self.home_matches.where(is_draw: true)
+
+      unless away_draws.nil?
+        @draws += away_draws.count
+      end
+
+      unless away_draws.nil?
+        @draws += away_draws.count
+      end
+    end
+
+    return @draws
   end
 
   def differential
     @differential = 0
 
-    away_matches.each do |m|
-      @differential += m.away_team_differential
-    end
+    unless away_matches.nil? || home_matches.nil?
+      away_matches.each do |m|
+        @differential += m.away_team_differential
+      end
 
-    home_matches.each do |m|
-      @differential += m.home_team_differential
+      home_matches.each do |m|
+        @differential += m.home_team_differential
+      end
     end
 
     return @differential
@@ -55,12 +93,14 @@ class TournamentTeam < ActiveRecord::Base
   def points
     @points = 0
 
-    away_matches.each do |m|
-      @points += m.away_points
-    end
+    unless away_matches.nil? || home_matches.nil?
+      away_matches.each do |m|
+        @points += m.away_points
+      end
 
-    home_matches.each do |m|
-      @points += m.home_points
+      home_matches.each do |m|
+        @points += m.home_points
+      end
     end
 
     return @points

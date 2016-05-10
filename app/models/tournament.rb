@@ -81,20 +81,7 @@ class Tournament < ActiveRecord::Base
   end
 
   def tournament_rankings
-    self.tournament_teams.sort do |a, b|
-      case
-      when a.points > b.points
-        1
-      when a.points < b.points
-        -1
-      else
-        if a.differential > b.differential
-          1
-        else
-          -1
-        end
-      end
-    end
+    self.tournament_teams.sort_by { |t| [t.points, t.differential] }
   end
 
   private

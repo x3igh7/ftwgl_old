@@ -9,7 +9,6 @@ class Membership < ActiveRecord::Base
   belongs_to :user
   belongs_to :team
 
-
   ROLES = %w[owner captain member]
 end
 

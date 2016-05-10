@@ -31,7 +31,7 @@ class MatchesController < ApplicationController
     @match = Match.find(params[:id])
     @match.reported_by = current_user
 
-    if @match.update_match_results(params)
+    if @match.save_and_update_match_results(params)
       flash[:notice] = "Match results updated."
       redirect_to tournament_match_path(@tournament.id, @match.id)
     else

@@ -15,7 +15,8 @@ class Admin::MatchesController < AdminController
 
   def create
     @tournament = Tournament.find(params[:match][:tournament_id])
-    @match = @tournament.matches.new(params[:match])
+    @match = Match.new(params[:match])
+    binding.pry
     if @match.save
       flash[:notice] = "Match created"
       redirect_to admin_matches_path(:tournament_id => @tournament.id)
@@ -32,7 +33,7 @@ class Admin::MatchesController < AdminController
   def update
     @match = Match.find(params[:id])
 
-    if @match.update_attributes(params[:match])
+    if @match.save_and_update_match_results(params[:match])
       redirect_to admin_matches_path(:tournament_id => @match.tournament_id)
       flash[:notice] = 'Match Successfully Updated'
     else
