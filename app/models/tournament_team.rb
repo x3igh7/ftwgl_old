@@ -21,8 +21,8 @@ class TournamentTeam < ActiveRecord::Base
     @wins = 0
 
     unless away_matches.nil? || home_matches.nil?
-      away_wins = self.away_matches.where(is_draw: false).where(winner_id: self.id).find_each
-      home_wins = self.home_matches.where(is_draw: false).where(winner_id: self.id).find_each
+      away_wins = self.away_matches.where(is_draw: false).where(winner_id: self.id)
+      home_wins = self.home_matches.where(is_draw: false).where(winner_id: self.id)
 
       unless away_wins.nil?
         @wins += away_wins.count
