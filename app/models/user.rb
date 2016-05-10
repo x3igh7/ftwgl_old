@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
   has_many :teams, through: :memberships
   has_many :tournaments, through: :teams
   has_many :news, through: :tournaments
-  has_many :matches, through: :tournaments
+  has_many :matches, through: :tournament_teams
   has_many :comments, dependent: :destroy
   has_many :tournament_admins, dependent: :destroy
   has_many :tournament_teams, through: :teams
