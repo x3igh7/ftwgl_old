@@ -20,7 +20,7 @@ class Tournament < ActiveRecord::Base
   has_many :tournament_admins, dependent: :destroy
 
   def scheduler
-    teams = TournamentTeam.where(tournament_id: self.id).order(:rank)
+    teams = self.tournament_rankings
     @match_counter = 1
     @matches = []
     @already_scheduled = []

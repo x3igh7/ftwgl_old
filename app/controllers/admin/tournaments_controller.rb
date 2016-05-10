@@ -135,12 +135,13 @@ class Admin::TournamentsController < AdminController
     @match = Match.new
     @tournament = Tournament.find(params[:tournament_id])
     enforce_tournament_admin_tournament(@tournament)
-    @teams = @tournament.tournament_rankings
+    @teams = @tournament.tournament_teams
     @team_names = @teams.map do |tourny_team|
       [tourny_team.team.name, tourny_team.id]
     end
 
     @matchups = @tournament.scheduler
+    binding.pry
   end
 
   def create_schedule
