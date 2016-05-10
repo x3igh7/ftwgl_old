@@ -16,6 +16,7 @@
 //= require jquery.cookie
 //= require jstz
 //= require browser_timezone_rails/set_time_zone
+//= require jquery-fileupload/basic
 //= require new_tournament
 //= require admin_cp
 //= require challonge
@@ -27,3 +28,4 @@
 //= require select2
 //= require edit_tournaments
 //= require user_profile_management
+//= require match_screenshot_upload

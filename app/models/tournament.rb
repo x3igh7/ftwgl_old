@@ -1,6 +1,6 @@
 class Tournament < ActiveRecord::Base
   attr_accessible :description, :name, :bracket_size, :rules, :current_week_num, :news, :elimination_type, :tournament_type, :bracket_type, :category
-  attr_accessible :challonge_url, :challonge_img, :challonge_id, :playoffs
+  attr_accessible :challonge_url, :challonge_img, :challonge_id, :playoffs, :can_join
   validates_presence_of :name, :tournament_type
 
   validates_inclusion_of :active, :in => [true, false]
@@ -20,7 +20,7 @@ class Tournament < ActiveRecord::Base
   has_many :tournament_admins, dependent: :destroy
 
   def scheduler
-    teams = TournamentTeam.where(tournament_id: self.id).order(:rank)
+    teams = self.tournament_rankings
     @match_counter = 1
     @matches = []
     @already_scheduled = []
@@ -74,10 +74,14 @@ class Tournament < ActiveRecord::Base
 
   def get_tournament_team_names_by_rank
     team_names = []
-    self.tournament_teams.ranking.each do |team|
+    self.tournament_teams.tournament_rankings.each do |team|
       team_names << team.team.name
     end
     team_names
+  end
+
+  def tournament_rankings
+    self.tournament_teams.sort_by { |t| [t.points, t.differential] }
   end
 
   private
@@ -87,7 +91,8 @@ class Tournament < ActiveRecord::Base
     if potential_teams == [] #all available teams have already been played
       potential_teams = all_teams #all teams are then available as opponents and previously played is ignored
     end
-    @already_scheduled.each do |a_team|
+
+    already_scheduled.each do |a_team|
       if potential_teams.include?(a_team)
         potential_teams.delete(a_team)
       end
@@ -95,6 +100,4 @@ class Tournament < ActiveRecord::Base
     end
     potential_teams
   end
-
-
 end

@@ -6,18 +6,20 @@
 				<th>Points</th>
 				<th>Wins</th>
 				<th>Losses</th>
+				<th>Draws</th>
 				<th>Differential</th>
 			</tr>
 			<% unless @teams.empty? %>
 				<% @teams.each_with_index do |team, x| %>
 					<% unless team.nil? || team.team.nil? %>
-						<tr id=<%= "rank#{x+1}" %>>
-							<td class="rank"><%= x+1 %></td>
+						<tr id=<%= team.rank %>>
+							<td class="rank"><%= team.rank %></td>
 							<td class="name"><%= link_to "#{team.team.name} #{team.team.tag}", team_path(team.team) %></td>
-							<td class="points"><%= team.total_points %></td>
+							<td class="points"><%= team.points %></td>
 							<td class="wins"><%= team.wins %></td>
 							<td class="losses"><%= team.losses %></td>
-							<td class="diff"><%= team.total_diff %></td>
+							<td class="draws"><%= team.draws %></td>
+							<td class="diff"><%= team.differential %></td>
 						</tr>
 					<% end %>
 				<% end %>

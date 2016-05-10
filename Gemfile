@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby "2.2.4"
+ruby '2.2.4'
 gem 'rails', '3.2.14'
 
 # Bundle edge Rails instead:
@@ -19,6 +19,10 @@ gem 'browser-timezone-rails'
 gem 'select2-rails', '~> 3.5.9.1'
 gem 'recaptcha', require: 'recaptcha/rails'
 gem 'test-unit'
+gem 'carrierwave', '~> 0.11.0'
+gem 'fog-aws'
+gem 'jquery-fileupload-rails'
+gem 'mini_magick'
 
 gem 'sass', '~> 3.2.19'
 # Gems used only for assets and not required

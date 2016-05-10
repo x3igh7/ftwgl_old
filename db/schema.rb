@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160501170413) do
+ActiveRecord::Schema.define(:version => 20160509203718) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id",          :null => false
@@ -22,19 +22,39 @@ ActiveRecord::Schema.define(:version => 20160501170413) do
     t.datetime "updated_at",       :null => false
   end
 
+  create_table "match_screenshots", :force => true do |t|
+    t.integer "match_id", :null => false
+    t.integer "user_id",  :null => false
+    t.string  "image",    :null => false
+  end
+
+  add_index "match_screenshots", ["match_id", "image"], :name => "index_match_screenshots_on_match_id_and_image"
+
   create_table "matches", :force => true do |t|
-    t.integer  "home_team_id",                         :null => false
-    t.integer  "away_team_id",                         :null => false
-    t.integer  "week_num",                             :null => false
-    t.datetime "match_date",                           :null => false
-    t.integer  "home_score",        :default => 0
-    t.integer  "away_score",        :default => 0
+    t.integer  "home_team_id",                              :null => false
+    t.integer  "away_team_id",                              :null => false
+    t.integer  "week_num",                                  :null => false
+    t.datetime "match_date",                                :null => false
+    t.integer  "home_points",            :default => 0
+    t.integer  "away_points",            :default => 0
     t.integer  "winner_id"
-    t.datetime "created_at",                           :null => false
-    t.datetime "updated_at",                           :null => false
-    t.integer  "tournament_id",                        :null => false
-    t.integer  "challonge_id",      :default => 0
-    t.boolean  "challonge_updated", :default => false
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
+    t.integer  "tournament_id",                             :null => false
+    t.integer  "challonge_id",           :default => 0
+    t.boolean  "challonge_updated",      :default => false
+    t.string   "map_name"
+    t.integer  "home_team_round_one",    :default => 0,     :null => false
+    t.integer  "home_team_round_two",    :default => 0,     :null => false
+    t.integer  "home_team_round_three"
+    t.integer  "away_team_round_one",    :default => 0,     :null => false
+    t.integer  "away_team_round_two",    :default => 0,     :null => false
+    t.integer  "away_team_round_three"
+    t.float    "home_team_differential", :default => 0.0,   :null => false
+    t.float    "away_team_differential", :default => 0.0,   :null => false
+    t.integer  "reported_by"
+    t.integer  "disputed_by"
+    t.boolean  "is_draw",                :default => false
   end
 
   add_index "matches", ["away_team_id"], :name => "index_matches_on_away_team_id"
@@ -106,15 +126,10 @@ ActiveRecord::Schema.define(:version => 20160501170413) do
   add_index "tournament_team_memberships", ["tournament_team_id"], :name => "index_tournament_team_memberships_on_tournament_team_id"
 
   create_table "tournament_teams", :force => true do |t|
-    t.integer  "team_id",                        :null => false
-    t.integer  "tournament_id",                  :null => false
-    t.integer  "wins",          :default => 0,   :null => false
-    t.integer  "losses",        :default => 0,   :null => false
-    t.integer  "total_points",  :default => 0,   :null => false
-    t.float    "total_diff",    :default => 0.0, :null => false
-    t.integer  "rank"
-    t.datetime "created_at",                     :null => false
-    t.datetime "updated_at",                     :null => false
+    t.integer  "team_id",                      :null => false
+    t.integer  "tournament_id",                :null => false
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
     t.integer  "challonge_id",  :default => 0
   end
 
@@ -140,6 +155,7 @@ ActiveRecord::Schema.define(:version => 20160501170413) do
     t.integer  "challonge_id",     :default => 0
     t.boolean  "playoffs",         :default => false
     t.string   "category",         :default => "none", :null => false
+    t.boolean  "can_join",         :default => true,   :null => false
   end
 
   create_table "users", :force => true do |t|

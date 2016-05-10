@@ -1,9 +1,31 @@
 <h1>match results</h1>
+<div class="content-inner">
+<%= link_to "Back to match", tournament_match_path(@match) %>
+<div>Week: <%= @match.week_num %></div>
+<div>Map: <%= @match.map_name %></div>
+
 <%= simple_form_for([@tournament, @match], :html => {:class => 'form-horizontal' } ) do |f| %>
   <%= f.error_notification %>
-  
-  <%= f.input :home_score, label: "Home Team Score" %>
-  <%= f.input :away_score, label: "Away Team Score" %>
-  
+
+  <%= f.input :home_team_round_one, label: "#{@match.home_team.team.name} Round One" %>
+  <%= f.input :home_team_round_two, label: "#{@match.home_team.team.name} Round Two" %>
+
+  <% if @tournament.playoffs == true %>
+    <%= f.input :home_team_round_three, label: "#{@match.home_team.team.name} Round Three" %>
+  <% end %>
+  <br/>
+  <br/>
+
+  <%= f.input :away_team_round_one, label: "#{@match.away_team.team.name} Round One" %>
+  <%= f.input :away_team_round_two, label: "#{@match.away_team.team.name} Round Two" %>
+
+  <% if @tournament.playoffs == true %>
+    <%= f.input :away_team_round_three, label: "#{@match.away_team.team.name} Round Three" %>
+  <% end %>
+
   <%= f.submit "Save Results" %>
 <% end %>
+</div>
+
+<%= link_to "Upload Screenshots", new_match_screenshot_path(match_id: @match.id) %>
+

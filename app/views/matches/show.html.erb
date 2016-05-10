@@ -4,13 +4,21 @@
 
 <div class="content-inner">
 
-<%= render 'match_results_table' %>
+  <%= render 'match_results_table' %>
 
-<%= render 'show_comments' %>
+  <div>
+    <% unless @match.match_screenshots.nil? %>
+      <% @match.match_screenshots.each do |ss| %>
+        <%= link_to image_tag(ss.image.thumb.url.to_s), ss.image.url.to_s %>
+      <% end %>
+    <% end %>
+  </div>
 
-<% if user_signed_in? %>
-  <%= render 'submit_match_comment' %>
-<% end %>
+  <%= render 'show_comments' %>
 
-</div>
+  <% if user_signed_in? %>
+    <%= render 'submit_match_comment' %>
+  <% end %>
+
+  </div>
 </div>

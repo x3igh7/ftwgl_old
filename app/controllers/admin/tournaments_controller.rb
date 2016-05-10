@@ -69,7 +69,7 @@ class Admin::TournamentsController < AdminController
     @create_admins = []
 
     if params.include? 'admins'
-    	@param_admins = params[:admins].map { |admin| admin.to_i }
+      @param_admins = params[:admins].map { |admin| admin.to_i }
       @new_admins = @param_admins - @admins
       @old_admins = @admins - @param_admins
 
@@ -80,37 +80,37 @@ class Admin::TournamentsController < AdminController
 
       if @old_admins.count > 0
         @old_admins.each do |admin|
-        	user = User.find(admin)
+          user = User.find(admin)
           TournamentAdmin.where(user_id: user, tournament_id: @tournament).destroy_all
         end
       end
 
       if TournamentAdmin.create(@create_admins)
-     		redirect_to admin_root_path
-     		flash[:notice] = "Tournament Admins Successfully Updated"
+        redirect_to admin_root_path
+        flash[:notice] = "Tournament Admins Successfully Updated"
       else
-      	# @success = true
+        # @success = true
         admin_edit_tournament_path(@tournament)
-				flash[:notice] = "Failed to Update Tournament Admins"
+        flash[:notice] = "Failed to Update Tournament Admins"
       end
 
     else
 
-			if @tournament.update_attributes(params[:tournament])
-	     	redirect_to admin_root_path
-	     	flash[:notice] = "Tournament Successfully Updated"
-	    else
-	      	redirect_to admin_edit_tournament_path(@tournament)
-	      	flash[:error] = "Failed to Update Tournament"
-	    end
+      if @tournament.update_attributes(params[:tournament])
+        redirect_to admin_root_path
+        flash[:notice] = "Tournament Successfully Updated"
+      else
+          redirect_to admin_edit_tournament_path(@tournament)
+          flash[:error] = "Failed to Update Tournament"
+      end
 
-	  end
+    end
   end
 
   def rankings
     @tournament = Tournament.find(params[:tournament_id])
     enforce_tournament_admin_tournament(@tournament)
-    @teams = TournamentTeam.in_tournament(@tournament).ranking
+    @teams = @tournament.tournament_rankings
     @ranks = []
 
     for i in 1..@teams.length
@@ -135,12 +135,13 @@ class Admin::TournamentsController < AdminController
     @match = Match.new
     @tournament = Tournament.find(params[:tournament_id])
     enforce_tournament_admin_tournament(@tournament)
-    @teams = TournamentTeam.in_tournament(@tournament).order(:rank)
+    @teams = @tournament.tournament_teams
     @team_names = @teams.map do |tourny_team|
       [tourny_team.team.name, tourny_team.id]
     end
 
     @matchups = @tournament.scheduler
+    binding.pry
   end
 
   def create_schedule
@@ -158,7 +159,6 @@ class Admin::TournamentsController < AdminController
       flash[:alert] = "failed to save schedule"
       redirect_to :back
     end
-
   end
 
   def deactivate
@@ -359,6 +359,7 @@ class Admin::TournamentsController < AdminController
           tournament_id: params[:tournament_id].to_i,
           week_num: params[:week].to_i,
           match_date: match_date,
+          map_name: params[:map_name].to_s,
           challonge_id: match["challonge_id"].to_i)
       end
     end

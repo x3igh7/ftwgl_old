@@ -44,7 +44,7 @@
   </thead>
   <tbody>
     <% unless resource.tournament_team_memberships.nil? %>
-    <% resource.tournament_memberships.each do |m| %>
+    <% resource.tournament_team_memberships.each do |m| %>
       <tr>
         <td><%= m.tournament.name %></td>
         <td><%= m.tournament.category %></td>
