@@ -15,7 +15,7 @@
       <td><%= @match.away_team.team.name + " " + @match.away_team.team.tag + " " + "(#{@match.away_team.id})" %></td>
       <td><%= @match.week_num %></td>
       <td><%= @match.standard_date %></td>
-      <td><%= @match.winning_team.team.name %></td>
+      <td><%= @match.winning_team.nil? ? '' : @match.winning_team.team.name %></td>
     </tr>
   </table>
   <div>
