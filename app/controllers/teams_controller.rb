@@ -28,9 +28,6 @@ class TeamsController < ApplicationController
     @new_membership = Membership.new
 
     @membership = @team.memberships
-    @total_wins = @team.total_wins
-    @total_losses = @team.total_losses
-    @winning_perc = @team.winning_perc
     @team_info = @team.team_info
   end
 
