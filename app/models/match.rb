@@ -1,8 +1,8 @@
 class Match < ActiveRecord::Base
-  attr_accessible :match_date, :home_points, :away_points, :map_name, :week_num
+  attr_accessible :match_date, :home_points, :away_points, :map_name, :week_num, :reported_by, :reported_by_id
   attr_accessible :home_team, :away_team, :winning_team, :tournament_id, :home_team_id, :away_team_id, :winning_team_id
-  attr_accessible :home_team_round_one, :home_team_round_two, :home_team_round_three
-  attr_accessible :away_team_round_one, :away_team_round_two, :away_team_round_three
+  attr_accessible :home_team_round_one, :home_team_round_two, :home_team_round_three, :home_team_differential
+  attr_accessible :away_team_round_one, :away_team_round_two, :away_team_round_three, :away_team_differential
   validates_presence_of :home_team, :away_team, :week_num, :match_date
   validates_presence_of :tournament, :home_team_round_one, :home_team_round_two, :home_points
   validates_presence_of :away_team_round_one, :away_team_round_two, :away_points
@@ -58,7 +58,11 @@ class Match < ActiveRecord::Base
     end
   end
 
-  def update_match_results
+  def update_match_results(user = nil)
+    unless(user.nil?)
+      self.reported_by = current_user
+    end
+
     if !self.match_results_complete
       return false
     end
@@ -87,9 +91,9 @@ class Match < ActiveRecord::Base
     end
   end
 
-  def save_and_update_match_results(params)
+  def save_and_update_match_results(user = nil)
     Match.transaction do
-      update_attributes(params[:match]) && self.update_match_results
+      update_attributes(params[:match]) && self.update_match_results(user)
     end
   end
 

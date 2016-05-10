@@ -33,7 +33,7 @@ class Admin::MatchesController < AdminController
   def update
     @match = Match.find(params[:id])
 
-    if @match.save_and_update_match_results(params[:match])
+    if @match.update_attributes(params[:match])
       redirect_to admin_matches_path(:tournament_id => @match.tournament_id)
       flash[:notice] = 'Match Successfully Updated'
     else
