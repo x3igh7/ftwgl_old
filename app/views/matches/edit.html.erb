@@ -4,7 +4,7 @@
 <div>Week: <%= @match.week_num %></div>
 <div>Map: <%= @match.map_name %></div>
 
-<% unless @match.reported_by.nil? %>
+<% if @match.reported_by.nil? %>
 <%= simple_form_for([@tournament, @match], :html => {:class => 'form-horizontal' } ) do |f| %>
   <%= f.error_notification %>
 
