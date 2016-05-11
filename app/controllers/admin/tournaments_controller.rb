@@ -141,7 +141,6 @@ class Admin::TournamentsController < AdminController
     end
 
     @matchups = @tournament.scheduler
-    binding.pry
   end
 
   def create_schedule

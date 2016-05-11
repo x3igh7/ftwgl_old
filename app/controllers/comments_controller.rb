@@ -14,7 +14,6 @@ class CommentsController < ApplicationController
     end
 
     unless params[:match_id].nil?
-      binding.pry
       @match = Match.find(params[:match_id])
       @home_team = @match.home_team.team
       @away_team = @match.away_team.team
