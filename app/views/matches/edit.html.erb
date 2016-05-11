@@ -4,6 +4,7 @@
 <div>Week: <%= @match.week_num %></div>
 <div>Map: <%= @match.map_name %></div>
 
+<% unless @match.reported_by.nil? %>
 <%= simple_form_for([@tournament, @match], :html => {:class => 'form-horizontal' } ) do |f| %>
   <%= f.error_notification %>
 
@@ -24,6 +25,19 @@
   <% end %>
 
   <%= f.submit "Save Results" %>
+<% end %>
+<% else %>
+  <div><%= "#{@match.home_team.team.name} Round One: #{@match.home_team_round_one}" %></div>
+  <div><%= "#{@match.home_team.team.name} Round Two: #{@match.home_team_round_one}" %></div>
+  <% if @tournament.playoffs == true && @match.home_team_round_three != nil %>
+    <div><%= "#{@match.home_team.team.name} Round Three: #{@match.home_team_round_three}" %></div>
+    <% end %>
+
+  <div><%= "#{@match.away_team.team.name} Round One: #{@match.away_team_round_one}" %></div>
+  <div><%= "#{@match.away_team.team.name} Round Two: #{@match.away_team_round_one}" %></div>
+  <% if @tournament.playoffs == true && @match.away_team_round_three != nil %>
+    <div><%= "#{@match.away_team.team.name} Round Three: #{@match.away_team_round_three}" %></div>
+    <% end %>
 <% end %>
 </div>
 
