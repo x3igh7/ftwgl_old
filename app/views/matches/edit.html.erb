@@ -30,7 +30,7 @@
   <br/>
 
   <div><%= "#{@match.home_team.team.name} Round One: #{@match.home_team_round_one}" %></div>
-  <div><%= "#{@match.home_team.team.name} Round Two: #{@match.home_team_round_one}" %></div>
+  <div><%= "#{@match.home_team.team.name} Round Two: #{@match.home_team_round_two}" %></div>
   <% if @tournament.playoffs == true && @match.home_team_round_three != nil %>
     <div><%= "#{@match.home_team.team.name} Round Three: #{@match.home_team_round_three}" %></div>
     <% end %>
@@ -39,7 +39,7 @@
   <br/>
 
   <div><%= "#{@match.away_team.team.name} Round One: #{@match.away_team_round_one}" %></div>
-  <div><%= "#{@match.away_team.team.name} Round Two: #{@match.away_team_round_one}" %></div>
+  <div><%= "#{@match.away_team.team.name} Round Two: #{@match.away_team_round_two}" %></div>
   <% if @tournament.playoffs == true && @match.away_team_round_three != nil %>
     <div><%= "#{@match.away_team.team.name} Round Three: #{@match.away_team_round_three}" %></div>
     <% end %>
