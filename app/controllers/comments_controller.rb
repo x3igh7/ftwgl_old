@@ -23,7 +23,7 @@ class CommentsController < ApplicationController
         redirect_to :back
       else
         flash[:alert] = @comment.errors.full_messages.first
-        redirect_to tournament_match_path(@match)
+        redirect_to tournament_match_path(@match.tournament, @match)
       end
     end
   end
