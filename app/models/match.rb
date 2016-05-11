@@ -1,6 +1,6 @@
 class Match < ActiveRecord::Base
-  attr_accessible :match_date, :home_points, :away_points, :map_name, :week_num, :reported_by, :reported_by_id
-  attr_accessible :home_team, :away_team, :winning_team, :tournament_id, :home_team_id, :away_team_id, :winning_team_id
+  attr_accessible :match_date, :home_points, :away_points, :map_name, :week_num, :reported_by, :reported_by_id, :is_draw
+  attr_accessible :home_team, :away_team, :winning_team, :tournament_id, :home_team_id, :away_team_id, :winner_id
   attr_accessible :home_team_round_one, :home_team_round_two, :home_team_round_three, :home_team_differential
   attr_accessible :away_team_round_one, :away_team_round_two, :away_team_round_three, :away_team_differential
   validates_presence_of :home_team, :away_team, :week_num, :match_date
@@ -16,8 +16,8 @@ class Match < ActiveRecord::Base
   belongs_to :away_team, :class_name => 'TournamentTeam'
   belongs_to :winning_team, :class_name => 'TournamentTeam', :foreign_key => 'winner_id'
   belongs_to :tournament
-  belongs_to :reported_by, :class_name => 'User', :foreign_key => 'reported_by_id'
-  belongs_to :disputed_by, :class_name => 'User', :foreign_key => 'disputed_by_id'
+  belongs_to :reported_by, :class_name => 'User', :foreign_key => 'reported_by'
+  belongs_to :disputed_by, :class_name => 'User', :foreign_key => 'disputed_by'
 
   has_many :match_screenshots
   has_many :comments, :as => :commentable, :dependent => :destroy
@@ -59,10 +59,6 @@ class Match < ActiveRecord::Base
   end
 
   def update_match_results(user = nil)
-    unless(user.nil?)
-      self.reported_by = current_user
-    end
-
     if !self.match_results_complete
       return false
     end
@@ -82,6 +78,10 @@ class Match < ActiveRecord::Base
       @match.is_draw = true
     end
 
+    unless(user.nil?)
+      @match.reported_by = user
+    end
+
     @match.save
   end
 
@@ -91,7 +91,7 @@ class Match < ActiveRecord::Base
     end
   end
 
-  def save_and_update_match_results(user = nil)
+  def save_and_update_match_results(params, user = nil)
     Match.transaction do
       update_attributes(params[:match]) && self.update_match_results(user)
     end

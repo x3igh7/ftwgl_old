@@ -6,7 +6,7 @@
 		<td><%= match.away_points %></td>
 		<td><%= match.standard_date %></td>
 		<% if user_signed_in? %>
-		<% if DateTime.now > match.match_date && match.reported_by == nil && current_user.has_team_permissions?(match.home_team.team) || current_user.has_team_permissions?(match.away_team.team) %>
+		<% if DateTime.now >= match.match_date && (current_user.has_team_permissions?(match.home_team.team) || current_user.has_team_permissions?(match.away_team.team)) %>
 		<td><%= link_to "Report Results", edit_tournament_match_path(match.tournament_id, match.id) %></td>
 		<% else %>
 		<td><%= link_to "View", tournament_match_path(match.tournament_id, match.id) %></td>
