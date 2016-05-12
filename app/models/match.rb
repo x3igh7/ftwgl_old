@@ -156,7 +156,7 @@ class Match < ActiveRecord::Base
       @round_two = @match.away_team_round_two - @match.home_team_round_two
 
       unless @match.home_team_round_three.nil?
-        @round_three = @match.home_team_round_three - @match.away_team_round_three
+        @round_three = @match.away_team_round_three - @match.home_team_round_three
       end
 
       @match.away_team_differential += @round_one + @round_two + @round_three

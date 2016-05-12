@@ -1,7 +1,7 @@
 <% @matches.each do |match| %>
 	<tr class="match" >
-		<td <%= match.home_points > match.away_points ? 'style="background:#556655;"'.html_safe : '' %>><%= link_to match.home_team.team.tag, tournament_match_path(match) %></td>
-		<td <%= match.home_points < match.away_points ? 'style="background:#556655;"'.html_safe : '' %>><%= link_to match.away_team.team.tag, tournament_match_path(match) %></td>
+		<td <%= match.home_points > match.away_points ? 'style="background:#556655;"'.html_safe : '' %>><%= link_to match.home_team.team.tag, tournament_match_path(match.tournament, match) %></td>
+		<td <%= match.home_points < match.away_points ? 'style="background:#556655;"'.html_safe : '' %>><%= link_to match.away_team.team.tag, tournament_match_path(match.tournament, match) %></td>
 		<td><%= match.home_points %></td>
 		<td><%= match.away_points %></td>
 		<td><%= match.standard_date %></td>

@@ -5,8 +5,8 @@ class TournamentTeam < ActiveRecord::Base
   validates_uniqueness_of :team_id, scope: :tournament_id
   belongs_to :team
   belongs_to :tournament
-  has_many :home_matches, foreign_key: 'away_team_id', class_name: 'Match'
-  has_many :away_matches, foreign_key: 'home_team_id', class_name: 'Match'
+  has_many :home_matches, foreign_key: 'home_team_id', class_name: 'Match'
+  has_many :away_matches, foreign_key: 'away_team_id', class_name: 'Match'
   has_many :tournament_team_memberships, dependent: :destroy
 
   def members
@@ -62,8 +62,8 @@ class TournamentTeam < ActiveRecord::Base
       away_draws = self.away_matches.where(is_draw: true)
       home_draws = self.home_matches.where(is_draw: true)
 
-      unless away_draws.nil?
-        @draws += away_draws.count
+      unless home_draws.nil?
+        @draws += home_draws.count
       end
 
       unless away_draws.nil?
