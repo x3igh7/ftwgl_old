@@ -81,7 +81,7 @@ class Tournament < ActiveRecord::Base
   end
 
   def tournament_rankings
-    self.tournament_teams.sort_by { |t| [t.points, t.differential] }
+    self.tournament_teams.sort_by { |t| [-t.points, -t.differential] }
   end
 
   private
