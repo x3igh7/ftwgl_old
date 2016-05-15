@@ -1,5 +1,4 @@
 class TournamentsController < ApplicationController
-
   def index
     @q = Tournament.search(params[:q])
     @tournaments = @q.result.order("name").where(active: true).page params[:page]
@@ -8,13 +7,15 @@ class TournamentsController < ApplicationController
 
   def show
     @user = current_user
-    @tournament = Tournament.find(params[:id])
+    @tournament = Tournament.includes(:tournament_teams, :matches).find(params[:id])
     @teams = @tournament.tournament_rankings
-    @active_tournament_team = nil
-    @tournament_team = TournamentTeam.new
-    @matches = Match.current_week_matches(@tournament)
+    @matches = @tournament.get_upcoming_matches
     @news = @tournament.news.order('created_at DESC').page params[:page]
     @current_user_teams = []
+
+    @tournament_team = TournamentTeam.new
+    @active_tournament_team = nil
+
     gon.challonge_url = ""
     if @tournament.tournament_type == "Bracket"
       gon.challonge_url = @tournament.challonge_url

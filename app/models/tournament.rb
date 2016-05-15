@@ -56,6 +56,10 @@ class Tournament < ActiveRecord::Base
     @matches
   end
 
+  def get_upcoming_matches
+    self.matches.where(week_num: self.current_week_num)
+  end
+
   def get_challonge_matches
     t = Challonge::Tournament.find(self.challonge_id)
     @matches = t.matches
