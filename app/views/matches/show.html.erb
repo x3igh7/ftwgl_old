@@ -1,6 +1,9 @@
 <h1><%= "#{@home_team.name} vs. #{@away_team.name}" %></h1>
 <a class="outer-heading" href="<%= tournament_path(@tournament) %>"><%= @tournament.name %></a><br />
-<%= "Week #{@match.week_num}" %><br /><span class="faded"><%= "#{@match.standard_date}"%></span><br />
+<%= "Week #{@match.week_num}" %><br />
+<%= "Map: #{@match.map_name} "%><br />
+<span class="faded"><%= "#{@match.standard_date}"%></span><br />
+
 
 <div class="content-inner">
 
