@@ -1,5 +1,4 @@
 class HomeController < ApplicationController
-
   def home
     if user_signed_in?
       @user = current_user
@@ -8,7 +7,7 @@ class HomeController < ApplicationController
       @tournaments = []
       @user.tournaments.each do |tournament|
         if tournament.active == true
-					@tournaments << tournament
+          @tournaments << tournament
         end
       end
     else

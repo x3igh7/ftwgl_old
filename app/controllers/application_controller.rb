@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
       @sidebar_user = current_user
       @sidebar_teams = @sidebar_user.teams
       @sidebar_tournaments = @sidebar_user.tournaments
-      @sidebar_matches = @sidebar_user.matches.where("winner_id IS NULL")
+      @sidebar_matches = @sidebar_user.matches.where('winner_id IS NULL AND is_draw = false')
     end
   end
 
@@ -16,10 +16,10 @@ class ApplicationController < ActionController::Base
     redirect_to root_url, :alert => exception.message
   end
 
-	def enforce_ban
-		if user_signed_in? and current_user.banned?
-			sign_out current_user
-			redirect_to root_path, :notice => "Your account has been suspended."
-		end
-	end
+  def enforce_ban
+    if user_signed_in? and current_user.banned?
+      sign_out current_user
+      redirect_to root_path, :notice => 'Your account has been suspended.'
+    end
+  end
 end

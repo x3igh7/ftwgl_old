@@ -131,35 +131,18 @@
 
 
 		<div class="content-outer">
-
 			  <% if user_signed_in? %>
-
 				<h1 class="text-center">your upcoming matches</h1>
 				<div class="content-inner">
-					<% if @sidebar_tournaments.count == 0 %>
-						You're not participating in any tournaments.
+					<% if @sidebar_matches.nil? %>
+						No upcoming matches
 					<% else %>
-
-						<% unless @sidebar_tournaments.nil? %>
-						<% @sidebar_tournaments.each do |tournament| %>
-							<div class="content-inner-inner">
-						  <h1><%= link_to tournament.name, tournament_path(tournament) %></h1>
-							<% if tournament.matches.nil? %>
-							  <p>No upcoming matches</p>
-							<% else %>
-								<% tournament.matches.each do |match| %>
-									<%= link_to "#{match.home_team.team.name} vs. #{match.away_team.team.name}", tournament_match_path(tournament.id, match.id) %>
-									<div class="faded" style="font-size:16px;"><%= match.standard_date %></div>
-								<% end %>
-							<% end %>
-							</div>
+						<% @sidebar_matches.each do |match| %>
+							<%= link_to "#{match.home_team.team.name} vs. #{match.away_team.team.name}", tournament_match_path(match.tournament.id, match.id) %>
+							<div class="faded" style="font-size:16px;"><%= match.standard_date %></div>
 						<% end %>
-						<% end %>
-
 					<% end %>
-
-					</div>
-
+				</div>
 			  <% else %>
 					<h1>sign in</h1>
 					<div class="content-inner">
