@@ -20,6 +20,7 @@ class Match < ActiveRecord::Base
   belongs_to :disputed_by, :class_name => 'User', :foreign_key => 'disputed_by'
 
   has_many :match_screenshots
+  has_many :match_demos
   has_many :comments, :as => :commentable, :dependent => :destroy
 
   def match_results_complete
