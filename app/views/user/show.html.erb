@@ -35,7 +35,11 @@
       <% if not @upcoming_matches.nil? %>
       <% @upcoming_matches.each do |match| %>
         <dt><%= match.tournament.name %></dt>
+        <% if !match.is_bye %>
         <dd><%= link_to match.home_team.team.name + " vs. " + match.away_team.team.name, tournament_match_path(:tournament_id => match.tournament.id, :id => match.id) %></dd>
+        <% else %>
+        <dd><%= match.home_team.team.name + " vs. BYE" %></dd>
+        <% end %>
       <% end %>
       <% end %>
     </dl>
@@ -45,7 +49,11 @@
       <% if not @prev_matches.nil? %>
       <% @prev_matches.each do |match| %>
       <dt><%= match.tournament.name %></dt>
+      <% if !match.is_bye %>
       <dd><%= link_to match.home_team.team.name + " vs. " + match.away_team.team.name, tournament_match_path(:tournament_id => match.tournament.id, :id => match.id) %></dd>
+      <% else %>
+        <dd><%= match.home_team.team.name + " vs. BYE" %></dd>
+      <% end %>
       <% end %>
       <% end %>
     </dl>
