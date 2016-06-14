@@ -61,7 +61,11 @@ class Tournament < ActiveRecord::Base
   end
 
   def get_upcoming_matches
-    self.matches.where(week_num: self.current_week_num)
+    self.matches.where(week_num: self.current_week_num, is_bye: false)
+  end
+
+  def get_upcoming_bye_matches
+    self.matches.where(week_num: self.current_week_num, is_bye: true)
   end
 
   def get_challonge_matches

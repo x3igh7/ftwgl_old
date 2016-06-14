@@ -18,3 +18,15 @@
 		<td><%= link_to "View", tournament_match_path(match.tournament_id, match.id) %></td>
 	</tr>
 <% end %>
+
+<% @bye_matches.each do |match| %>
+		<tr class="match" >
+		<td <%= match.home_points > match.away_points ? 'style="background:#556655;"'.html_safe : '' %>><%= match.home_team.team.tag %></td>
+		<td <%= match.home_points < match.away_points ? 'style="background:#556655;"'.html_safe : '' %>BYE</td>
+		<td><%= match.map_name %></td>
+		<td><%= match.home_points %></td>
+		<td><%= match.away_points %></td>
+		<td><%= match.standard_date %></td>
+		<td></td>
+	</tr>
+<% end %>
