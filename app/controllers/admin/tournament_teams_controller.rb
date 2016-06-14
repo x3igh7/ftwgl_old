@@ -38,7 +38,7 @@ class Admin::TournamentTeamsController < AdminController
     @team.is_inactive = params[:tournament_team][:is_inactive]
 
     if @team.save
-      redirect_to admin_tournament_teams_path(:tournament_id => @team.tournament_id)
+      redirect_to edit_admin_tournament_team_path(:tournament_id => @team.tournament_id)
       flash[:notice] = "Tournament Team Successfully Updated"
     else
       redirect_to edit_admin_tournament_team_path(@team.id)
