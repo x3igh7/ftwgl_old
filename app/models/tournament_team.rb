@@ -1,5 +1,5 @@
 class TournamentTeam < ActiveRecord::Base
-  attr_accessible :team, :tournament, :challonge_id
+  attr_accessible :team, :tournament, :challonge_id, :is_inactive
 
   validates_presence_of :team, :tournament
   validates_uniqueness_of :team_id, scope: :tournament_id

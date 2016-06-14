@@ -35,10 +35,7 @@ class Admin::TournamentTeamsController < AdminController
   def update
     @team = TournamentTeam.find(params[:id])
 
-    @team.wins = params[:tournament_team][:wins]
-    @team.losses = params[:tournament_team][:losses]
-    @team.total_points = params[:tournament_team][:total_points]
-    @team.total_diff = params[:tournament_team][:total_diff]
+    @team.is_inactive = params[:tournament_team][:is_inactive]
 
     if @team.save
       redirect_to admin_tournament_teams_path(:tournament_id => @team.tournament_id)
