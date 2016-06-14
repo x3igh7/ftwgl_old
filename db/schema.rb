@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160614203505) do
+ActiveRecord::Schema.define(:version => 20160614204711) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id",          :null => false
@@ -63,6 +63,7 @@ ActiveRecord::Schema.define(:version => 20160614203505) do
     t.integer  "reported_by"
     t.integer  "disputed_by"
     t.boolean  "is_draw",                :default => false
+    t.boolean  "is_bye",                 :default => false, :null => false
   end
 
   add_index "matches", ["away_team_id"], :name => "index_matches_on_away_team_id"

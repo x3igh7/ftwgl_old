@@ -25,7 +25,7 @@ class Tournament < ActiveRecord::Base
     @matches = []
     @already_scheduled = []
     teams.each do |team|
-      if @already_scheduled.include?(team)==false
+      if @already_scheduled.include?(team) == false
         potential_teams = potential_teams_calc(@already_scheduled, teams, team)
         if potential_teams == []
           potential_teams = team.has_not_played(teams)
@@ -36,17 +36,21 @@ class Tournament < ActiveRecord::Base
           @already_scheduled << potential_teams.last
           @match_counter = 1
           teams.each do |team|
-            if @already_scheduled.include?(team)==false
+            if @already_scheduled.include?(team) == false
               potential_teams = potential_teams_calc(@already_scheduled, teams, team)
-              @matches << {"match#{@match_counter}" => {"home" => team.id, "away" => potential_teams[0].id}}
-              @already_scheduled << team
-              @already_scheduled << potential_teams[0]
-              @match_counter += 1
+              if(potential_teams == [])
+                @matches << {"match#{@match_counter}" => {"home" => team.id, "away" => team.id, "is_bye" => true}}
+              else
+                @matches << {"match#{@match_counter}" => {"home" => team.id, "away" => potential_teams[0].id}, "is_bye" => false}
+                @already_scheduled << team
+                @already_scheduled << potential_teams[0]
+                @match_counter += 1
+              end
             end
             @matches
           end
         else
-          @matches << {"match#{@match_counter}" => {"home" => team.id, "away" => potential_teams[0].id}}
+          @matches << {"match#{@match_counter}" => {"home" => team.id, "away" => potential_teams[0].id, "is_bye" => false}}
           @already_scheduled << team
           @already_scheduled << potential_teams[0]
           @match_counter += 1
@@ -85,7 +89,7 @@ class Tournament < ActiveRecord::Base
   end
 
   def tournament_rankings
-    self.tournament_teams.sort_by { |t| [-t.points, -t.differential] }
+    self.tournament_teams.where(is_inactive: false).sort_by { |t| [-t.points, -t.differential] }
   end
 
   private
@@ -94,6 +98,7 @@ class Tournament < ActiveRecord::Base
     potential_teams = team.has_not_played(all_teams) #has_not_played is ordered by rank
     if potential_teams == [] #all available teams have already been played
       potential_teams = all_teams #all teams are then available as opponents and previously played is ignored
+      potential_teams.delete(team)
     end
 
     already_scheduled.each do |a_team|
