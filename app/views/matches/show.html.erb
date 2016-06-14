@@ -17,6 +17,14 @@
     <% end %>
   </div>
 
+  <ul>
+    <% unless @match.match_demos.nil? %>
+      <% @match.match_demos.each do |dm| %>
+        <li><%= link_to dm.demo_identifier, dm.demo.url.to_s %></li>
+      <% end %>
+    <% end %>
+  </ul>
+
   <%= render 'show_comments' %>
 
   <% if user_signed_in? %>

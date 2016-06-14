@@ -46,5 +46,10 @@
 <% end %>
 </div>
 
+<div>
 <%= link_to "Upload Screenshots", new_match_screenshot_path(match_id: @match.id) %>
+</div>
 
+<div>
+<%= link_to "Upload Demos", new_match_demo_path(match_id: @match.id) %>
+</div>

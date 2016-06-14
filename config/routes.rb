@@ -16,6 +16,7 @@ Ftwgl::Application.routes.draw do
     end
   end
   resources :match_screenshots, only: [:new, :create]
+  resources :match_demos, only: [:new, :create]
   resources :tournament_teams, only: [:show, :create]
   resources :tournament_team_memberships, only: [:new, :create, :update, :destroy]
 

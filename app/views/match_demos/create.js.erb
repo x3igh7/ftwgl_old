@@ -1,0 +1,6 @@
+<% if @demo.new_record? %>
+  alert("Failed to upload demo: <%= j @demo.errors.full_messages.join(', ').html_safe %>");
+<% else %>
+  $('#match-demos').append("<%= j link_to link_to @demo.demo_identifier, @demo.demo.url.to_s %>");
+  $('#new_match_demo').reset();
+<% end %>

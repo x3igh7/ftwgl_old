@@ -1,0 +1,19 @@
+<h1>match demos</h1>
+<div class="content-inner">
+  <div>
+    <%= link_to "Back", :back %>
+  </div>
+  <br/>
+  <div id="match-demos">
+    <% unless @match.match_demos.nil? %>
+      <% @match.match_demos.each do |dm| %>
+        <%= link_to dm.demo_identifier, ss.demo.url.to_s %>
+      <% end %>
+    <% end %>
+  </div>
+  <br/>
+
+  <%= form_for @demo, url: match_demos_path(@demo, match_id: @match.id), method: :post do |s| %>
+    <%= s.file_field :demo, multiple: true, name: "match_demo[demo]" %>
+  <% end %>
+</div>
