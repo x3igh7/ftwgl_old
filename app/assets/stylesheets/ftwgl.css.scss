@@ -487,12 +487,9 @@ td{
 // Tournament Teams
 
 // Matches
-#new_match_screenshot input {
+#new_match_screenshot input, #new_match_demo input {
 	background: none;
 	height: auto;
 	width: auto;
 	border: 0;
-}
-
-#match-screenshots {
 }

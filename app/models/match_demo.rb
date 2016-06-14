@@ -5,5 +5,5 @@ class MatchDemo < ActiveRecord::Base
   belongs_to :match
   belongs_to :user
 
-  mount_uploader :image, MatchDemoUploader
+  mount_uploader :demo, MatchDemoUploader
 end

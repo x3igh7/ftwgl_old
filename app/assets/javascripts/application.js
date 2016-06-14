@@ -29,3 +29,5 @@
 //= require edit_tournaments
 //= require user_profile_management
 //= require match_screenshot_upload
+//= require match_demo_upload
+
