@@ -148,9 +148,13 @@ class User < ActiveRecord::Base
 
   def get_upcoming_matches
     @upcoming_matches = []
-    tournaments.each do |t|
-      t.matches.where('winner_id IS NULL AND is_draw = false').limit(5).order(:created_at).each do |m|
-        @upcoming_matches.push(m)
+    unless tournament_teams.nil?
+      tournament_teams.each do |t|
+        t.matches.select{|m| m.winner_id == nil && m.is_draw == false}.sort_by{|m| m.created_at}.reverse.first(5).each do |m|
+          unless(@upcoming_matches.include?(m))
+            @upcoming_matches.push(m)
+          end
+        end
       end
     end
 
@@ -159,9 +163,13 @@ class User < ActiveRecord::Base
 
   def get_previous_matches
     @previous_matches = []
-    tournaments.each do |t|
-      t.matches.where('winner_id IS NOT NULL OR is_draw = true').limit(5).order('created_at desc').each do |m|
-        @previous_matches.push(m)
+    unless tournament_teams.nil?
+      tournament_teams.each do |t|
+        t.matches.select{|m| m.winner_id != nil || m.is_draw == true}.sort_by{|m| m.created_at}.reverse.first(5).each do |m|
+          unless(@previous_matches.include?(m))
+            @previous_matches.push(m)
+          end
+        end
       end
     end
 
