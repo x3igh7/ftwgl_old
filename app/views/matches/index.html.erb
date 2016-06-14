@@ -12,6 +12,7 @@
       <th>Results</th>
     </tr>
     <% @matches.each_with_index do |match, x| %>
+    <% if !match.is_bye %>
     <tr id=<%= "match#{x+1}" %>>
       <td <%= match.winning_team == match.home_team ? 'style="background:#556655;"'.html_safe : '' %>><%= link_to match.home_team.team.tag, team_path(match.home_team.team.id) %></td>
       <td <%= match.winning_team == match.away_team ? 'style="background:#556655;"'.html_safe : '' %>><%= link_to match.away_team.team.tag, team_path(match.away_team.team.id) %></td>
@@ -22,6 +23,16 @@
         <%= link_to "Results", tournament_match_path(:tournament_id => @tournament.id, :id => match.id) %>
       </td>
     </tr>
+    <% else %>
+    <tr id=<%= "match#{x+1}" %>>
+      <td <%= match.winning_team == match.home_team ? 'style="background:#556655;"'.html_safe : '' %>><%= match.home_team.team.tag %></td>
+      <td>BYE</td>
+      <td><%= match.week_num %></td>
+      <td><%= match.map_name %></td>
+      <td><%= match.match_date.in_time_zone("EST").strftime("%a, %b %-d, %-r %Z") %></td>
+      <td></td>
+    </tr>
+    <% end %>
     <% end %>
   </table>
 

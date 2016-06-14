@@ -1,5 +1,5 @@
 class Match < ActiveRecord::Base
-  attr_accessible :match_date, :home_points, :away_points, :map_name, :week_num, :reported_by, :reported_by_id, :is_draw
+  attr_accessible :match_date, :home_points, :away_points, :map_name, :week_num, :reported_by, :reported_by_id, :is_draw, :is_bye
   attr_accessible :home_team, :away_team, :winning_team, :tournament_id, :home_team_id, :away_team_id, :winner_id, :challonge_id
   attr_accessible :home_team_round_one, :home_team_round_two, :home_team_round_three, :home_team_differential
   attr_accessible :away_team_round_one, :away_team_round_two, :away_team_round_three, :away_team_differential
@@ -87,8 +87,10 @@ class Match < ActiveRecord::Base
   end
 
   def team_cannot_play_against_itself
-    if home_team_id == away_team_id
-      errors.add(:home_team_id, 'is the same as away_team_id')
+    unless is_bye
+      if home_team_id == away_team_id
+        errors.add(:home_team_id, 'is the same as away_team_id')
+      end
     end
   end
 

@@ -10,6 +10,7 @@ class TournamentsController < ApplicationController
     @tournament = Tournament.includes(:tournament_teams, :matches).find(params[:id])
     @teams = @tournament.tournament_rankings
     @matches = @tournament.get_upcoming_matches
+    @bye_matches = @tournament.get_upcoming_bye_matches
     @news = @tournament.news.order('created_at DESC').page params[:page]
     @current_user_teams = []
 

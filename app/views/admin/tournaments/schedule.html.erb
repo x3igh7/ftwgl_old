@@ -2,13 +2,14 @@
 <%= form_tag create_schedule_admin_tournaments_path, method: :post do %>
   <p>tournament: <%= @tournament.name %></p>
   <p>map name: <%= text_field_tag :map_name %></p>
-  <p>week: <%= select_tag :week, options_for_select(1..8) %></p>
+  <p>week: <%= number_field_tag :current_week_num, @next_week_num %></p>
   <p>date: <%= datetime_select :match_date, "date", default: DateTime.now %></p>
   <table>
     <tr>
       <th>Home Team</th>
       <th></th>
       <th>Away Team</th>
+      <th>Is Bye</th>
     </tr>
   <% @matchups.each do |matches| %>
     <% matches.each do |k, match| %>
@@ -17,6 +18,7 @@
         <td><%= f.select :home_team_id, options_for_select(@team_names, [@teams.where(id:match["home"]).name,match["home"]]), {},{:id => "#{match["home"]}"} %></td>
         <td>vs</td>
         <td><%= f.select :away_team_id, options_for_select(@team_names, [@teams.where(id:match["away"]).name,match["away"]]), {},{:id => "#{match["away"]}"}%></td>
+        <td><%= check_box_tag "matches[][is_bye]", match["is_bye"], match["is_bye"] %></td>
       </tr>
     <% end %>
     <% end %>

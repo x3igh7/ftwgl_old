@@ -1,5 +1,5 @@
 class TournamentTeam < ActiveRecord::Base
-  attr_accessible :team, :tournament, :challonge_id
+  attr_accessible :team, :tournament, :challonge_id, :is_inactive
 
   validates_presence_of :team, :tournament
   validates_uniqueness_of :team_id, scope: :tournament_id
@@ -40,8 +40,8 @@ class TournamentTeam < ActiveRecord::Base
     @losses = 0
 
     unless away_matches.nil? || home_matches.nil?
-      away_losses = self.away_matches.where(is_draw: false).where("winner_id != ?", self.id)
-      home_losses = self.home_matches.where(is_draw: false).where("winner_id != ?", self.id)
+      away_losses = self.away_matches.where(is_draw: false, is_bye: false).where("winner_id != ?", self.id)
+      home_losses = self.home_matches.where(is_draw: false, is_bye: false).where("winner_id != ?", self.id)
 
       unless away_losses.nil?
         @losses += away_losses.count
@@ -59,8 +59,8 @@ class TournamentTeam < ActiveRecord::Base
     @draws = 0
 
     unless away_matches.nil? || home_matches.nil?
-      away_draws = self.away_matches.where(is_draw: true)
-      home_draws = self.home_matches.where(is_draw: true)
+      away_draws = self.away_matches.where(is_draw: true, is_bye: false)
+      home_draws = self.home_matches.where(is_draw: true, is_bye: false)
 
       unless home_draws.nil?
         @draws += home_draws.count

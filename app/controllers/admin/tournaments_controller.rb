@@ -42,6 +42,7 @@ class Admin::TournamentsController < AdminController
         redirect_to :back
       end
     else
+      @tournament.current_week_num = 0
       if @tournament.save
         redirect_to tournament_path(@tournament)
         flash[:notice] = "Successfully created tournament"
@@ -134,6 +135,7 @@ class Admin::TournamentsController < AdminController
   def schedule
     @match = Match.new
     @tournament = Tournament.find(params[:tournament_id])
+    @next_week_num = @tournament.current_week_num + 1
     enforce_tournament_admin_tournament(@tournament)
     @teams = @tournament.tournament_teams
     @team_names = @teams.map do |tourny_team|
@@ -149,7 +151,7 @@ class Admin::TournamentsController < AdminController
     @matches = params[:matches]
     match_date = date_converter(params)
     if schedule_creater(@matches, params, match_date)
-      @tournament.current_week_num = params[:week].to_i
+      @tournament.current_week_num = params[:current_week_num].to_i
       if @tournament.save
         flash[:notice] = "matches successfully created!"
         redirect_to admin_root_path
@@ -353,10 +355,17 @@ class Admin::TournamentsController < AdminController
   def schedule_creater(matches, params, match_date)
     Match.transaction do
       matches.each do |match|
+        @home_points = match["is_bye"] ? 4 : 0
+        @winner_id = match["is_bye"] ? match["home_team_id"].to_i : nil
+        @is_bye = match["is_bye"] ? true : false
+
         Match.create(home_team_id: match["home_team_id"].to_i,
           away_team_id: match["away_team_id"].to_i,
+          is_bye: @is_bye,
+          home_points: @home_points,
+          winner_id:  @winner_id,
           tournament_id: params[:tournament_id].to_i,
-          week_num: params[:week].to_i,
+          week_num: params[:current_week_num].to_i,
           match_date: match_date,
           map_name: params[:map_name].to_s,
           challonge_id: match["challonge_id"].to_i)

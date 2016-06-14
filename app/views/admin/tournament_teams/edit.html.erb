@@ -1,16 +1,18 @@
 <h1>edit tournament teams</h1>
 <div class="content-inner">
-<p><%= "#{@team.team.name} #{@team.team.tag}" %></p>
+<p>Team: <%= "#{@team.team.name} #{@team.team.tag}" %></p>
 <%= link_to "Edit Roster", tournament_team_path(@team) %>
+<br/>
+<br/>
 
+<div class="content-inner-inner">
 <%= simple_form_for([:admin, @team]) do |f| %>
   <%= f.error_notification %>
 
-  <%= f.input :wins %>
-  <%= f.input :losses %>
-  <%= f.input :total_points %>
-  <%= f.input :total_diff %>
+  <%= f.input :is_inactive %>
+
   <%= f.submit "update tournament team" %>
 <% end %>
+</div>
 
 </div>

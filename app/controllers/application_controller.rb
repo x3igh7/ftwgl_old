@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
       @sidebar_user = current_user
       @sidebar_teams = @sidebar_user.teams
       @sidebar_tournaments = @sidebar_user.tournaments
-      @sidebar_matches = @sidebar_user.matches.where('winner_id IS NULL AND is_draw = false')
+      @sidebar_matches = @sidebar_user.get_upcoming_matches
     end
   end
 

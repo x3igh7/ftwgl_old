@@ -145,4 +145,26 @@ class User < ActiveRecord::Base
   def banned?
     self.has_role?(:banned)
   end
+
+  def get_upcoming_matches
+    @upcoming_matches = []
+    tournaments.each do |t|
+      t.matches.where('winner_id IS NULL AND is_draw = false').limit(5).order(:created_at).each do |m|
+        @upcoming_matches.push(m)
+      end
+    end
+
+    @upcoming_matches
+  end
+
+  def get_previous_matches
+    @previous_matches = []
+    tournaments.each do |t|
+      t.matches.where('winner_id IS NOT NULL OR is_draw = true').limit(5).order('created_at desc').each do |m|
+        @previous_matches.push(m)
+      end
+    end
+
+    @previous_matches.sort_by{|m| m.created_at}.reverse.first(5)
+  end
 end

@@ -31,6 +31,9 @@ class Admin::MatchesController < AdminController
 
   def update
     @match = Match.find(params[:id])
+    if params[:match][:winner_id]
+      @match.reported_by = current_user
+    end
 
     if @match.update_attributes(params[:match])
       redirect_to admin_matches_path(:tournament_id => @match.tournament_id)
