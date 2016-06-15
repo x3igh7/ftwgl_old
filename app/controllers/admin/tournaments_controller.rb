@@ -355,12 +355,12 @@ class Admin::TournamentsController < AdminController
   def schedule_creater(matches, params, match_date)
     Match.transaction do
       matches.each do |match|
-        @home_points = match["is_bye"] ? 4 : 0
-        @winner_id = match["is_bye"] ? match["home_team_id"].to_i : nil
-        @is_bye = match["is_bye"] ? true : false
+        @home_points = match[1]["is_bye"] ? 4 : 0
+        @winner_id = match[1]["is_bye"] ? match[1]["home_team_id"].to_i : nil
+        @is_bye = match[1]["is_bye"] ? true : false
 
-        Match.create(home_team_id: match["home_team_id"].to_i,
-          away_team_id: match["away_team_id"].to_i,
+        Match.create(home_team_id: match[1]["home_team_id"].to_i,
+          away_team_id: match[1]["away_team_id"].to_i,
           is_bye: @is_bye,
           home_points: @home_points,
           winner_id:  @winner_id,
@@ -368,7 +368,7 @@ class Admin::TournamentsController < AdminController
           week_num: params[:current_week_num].to_i,
           match_date: match_date,
           map_name: params[:map_name].to_s,
-          challonge_id: match["challonge_id"].to_i)
+          challonge_id: match[1]["challonge_id"].to_i)
       end
     end
   end
