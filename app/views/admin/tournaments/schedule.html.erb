@@ -18,7 +18,7 @@
         <td><%= f.select :home_team_id, options_for_select(@team_names, [@teams.where(id:match["home"]).name,match["home"]]), {},{:id => "#{match["home"]}"} %></td>
         <td>vs</td>
         <td><%= f.select :away_team_id, options_for_select(@team_names, [@teams.where(id:match["away"]).name,match["away"]]), {},{:id => "#{match["away"]}"}%></td>
-        <td><%= check_box_tag "matches[][is_bye]", match["is_bye"], match["is_bye"] %></td>
+        <td><%= check_box_tag "matches[][is_bye]", :is_bye, match["is_bye"] %></td>
       </tr>
     <% end %>
     <% end %>
