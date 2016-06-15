@@ -41,7 +41,7 @@ class Tournament < ActiveRecord::Base
               if(potential_teams == [])
                 @matches << {"match#{@match_counter}" => {"home" => team.id, "away" => team.id, "is_bye" => true}}
               else
-                @matches << {"match#{@match_counter}" => {"home" => team.id, "away" => potential_teams[0].id}, "is_bye" => false}}
+                @matches << {"match#{@match_counter}" => {"home" => team.id, "away" => potential_teams[0].id, "is_bye" => false}}
                 @already_scheduled << team
                 @already_scheduled << potential_teams[0]
                 @match_counter += 1
