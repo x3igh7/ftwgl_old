@@ -12,12 +12,16 @@
     <tr>
       <td <%= @match.home_points > @match.away_points ? 'style="background:#556655;"'.html_safe : '' %>><%= link_to @match.home_team.team.tag, team_path(@match.home_team.team.id) %></td>
       <td <%= @match.home_points > @match.away_points ? 'style="background:#556655;"'.html_safe : '' %>><%= @match.home_points %></td>
-      <% if user_signed_in? && current_user.has_team_permissions?(@home_team) || current_user.has_team_permissions?(@away_team) %>
-        <% if DateTime.now >= @match.match_date %>
-          <td><%= link_to "Enter Results", edit_tournament_match_path(@tournament.id, @match) %></td>
+      <% if user_signed_in? %>
+        <% if current_user.has_team_permissions?(@home_team) || current_user.has_team_permissions?(@away_team) %>
+          <% if DateTime.now >= @match.match_date && !@match.winner_id.nil? %>
+            <td><%= link_to "Enter Results", edit_tournament_match_path(@tournament.id, @match) %></td>
           <% else %>
-          <td>vs.</td>
+            <td>vs.</td>
+          <% end %>
         <% end %>
+      <% else %>
+        <td>vs.</td>
       <% end %>
       <td <%= @match.away_points > @match.home_points ? 'style="background:#556655;"'.html_safe : '' %>><%= link_to @match.away_team.team.tag, team_path(@match.away_team.team.id) %></td>
       <td <%= @match.away_points > @match.home_points ? 'style="background:#556655;"'.html_safe : '' %>><%= @match.away_points %>
