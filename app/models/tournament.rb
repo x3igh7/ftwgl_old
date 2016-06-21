@@ -86,7 +86,7 @@ class Tournament < ActiveRecord::Base
 
   def get_tournament_team_names_by_rank
     team_names = []
-    self.tournament_teams.tournament_rankings.each do |team|
+    tournament_rankings.each do |team|
       team_names << team.team.name
     end
     team_names

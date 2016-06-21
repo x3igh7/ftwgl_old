@@ -41,18 +41,6 @@ class MatchesController < ApplicationController
 
   def index
     @tournament = Tournament.find(params[:tournament_id])
-    @matches = @tournament.matches
-  end
-
-  def upload_screenshot
-    @match = Match.find(params[:id])
-
-    if(@match.update_attributes(params[:match]))
-      flash[:notice] = 'Match screenshots updated.'
-      redirect_to tournament_match_path(@tournament.id, @match.id)
-    else
-      flash[:alert] = 'Failed upload match screenshots.'
-      render 'matches/edit'
-    end
+    @matches = @tournament.matches.order("week_num")
   end
 end
