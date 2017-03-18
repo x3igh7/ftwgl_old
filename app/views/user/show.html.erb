@@ -59,20 +59,4 @@
     </dl>
 
   </div>
-
-  <div class="content-inner-inner comments">
-    <div class="comments-inner">
-    <h1>recent comments</h1>
-      <% if not @comments.nil? %>
-        <% @comments.each do |comment| %>
-          <% if comment.commentable_type == "News" %>
-            <%= link_to comment.commentable.headline, news_path(comment.commentable.id) %>
-          <% else %>
-            <%= link_to "view match", news_path(comment.commentable.id) %>
-          <% end %>
-          <%= render :partial => "comment", :locals => { :comment => comment } %>
-        <% end %>
-      <% end %>
-    </div>
-  </div>
 </div>
