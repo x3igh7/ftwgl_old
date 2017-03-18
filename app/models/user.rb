@@ -116,7 +116,7 @@ class User < ActiveRecord::Base
     tournaments = self.admin_tournaments
     teams = []
     tournaments.each { |t| teams << t.teams }
-    return teams.flatten
+    return teams.flatten.order("created_at DESC")
   end
 
   def admin_news
