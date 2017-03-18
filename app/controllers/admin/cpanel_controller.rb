@@ -11,7 +11,7 @@ class Admin::CpanelController < AdminController
       @admin_teams = @user.admin_teams
       @admin_news = @user.admin_news
     else
-      @active_tournaments = Tournament.where("active = true")
+      @active_tournaments = Tournament.where("active = true").order('created_at DESC')
     end
 
     @q_users = User.search(params[:q])

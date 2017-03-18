@@ -123,7 +123,7 @@ class User < ActiveRecord::Base
     tournament = self.admin_tournaments
     news = []
     news = tournaments.each { |t| news << t.news }
-    return news.flatten
+    return news.flatten.order("created_at DESC")
   end
 
   def is_team_owner?(team)
