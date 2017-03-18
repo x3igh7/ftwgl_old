@@ -50,7 +50,7 @@ class Admin::CpanelController < AdminController
 
       if(params[:q][:headline_cont] != nil)
         if @user.is_tournament_admin?
-          @news = @q_news.result.order("created_at")
+          @news = @q_news.result.order("created_at DESC")
 
           @news.each_with_index do |n, i|
             if !@admin_news.include?(n)
@@ -60,20 +60,20 @@ class Admin::CpanelController < AdminController
 
           @news = @news.page params[:page_3]
         else
-          @news = @q_news.result.order("created_at").page params[:page_3]
+          @news = @q_news.result.order("created_at DESC").page params[:page_3]
         end
       else
         if @user.is_tournament_admin?
           @news = @admin_news
         else
-          @news = News.order("created_at").page params[:page_3]
+          @news = News.order("created_at DESC").page params[:page_3]
         end
       end
 
     else
       @users = User.order("username").page params[:page_1]
       @teams = Team.order("name")
-      @news = News.order("created_at")
+      @news = News.order("created_at DESC")
 
       if @user.is_tournament_admin?
 
